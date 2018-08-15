@@ -1,0 +1,25 @@
+﻿<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+	<metadata>
+		<id>TypeRight</id>
+		<version>0.5.0</version>
+		<title>TypeRight</title>
+		<authors>Dave Whelan</authors>
+		<owners>Dave Whelan</owners>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<description>TypeRight</description>
+		<releaseNotes>Initial Release</releaseNotes>
+		<copyright>Copyright 2018</copyright>
+		<projectUrl>https://github.com/someguy20336/TypeRight</projectUrl>
+		<tags>TypeScript Generator</tags>
+	</metadata>
+	<files>
+		<file src=".\TypeRight.Attributes.dll" target="lib\net46" />
+		<file src=".\TypeRight.Attributes.xml" target="lib\net46" />
+		<file src=".\TypeRight.Attributes.dll" target="lib\net45" />
+		<file src=".\TypeRight.Attributes.xml" target="lib\net45" />
+		<file src=".\TypeRight.targets" target="build" />
+		<file src=".\*.dll" target="tools" />
+		<file src=".\*.pdb" target="tools" />
+	</files>
+</package>

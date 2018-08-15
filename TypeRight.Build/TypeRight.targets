@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<UsingTask AssemblyFile="..\tools\TypeRight.Build.dll" 
+						 Condition="Exists('..\tools\TypeRight.Build.dll')"
+						 TaskName="TypeRight.Workspaces.BuildTasks.ScriptCompileTask"/>
+	<UsingTask AssemblyFile=".\TypeRight.Build.dll"
+						 Condition="Exists('.\TypeRight.Build.dll')"
+						 TaskName="TypeRight.Workspaces.BuildTasks.ScriptCompileTask"/>
+
+	<!-- 
+		BuildingProject is a VisualStudio Variable executed only during the build command.  thus, if we are in VS, we should only execute this
+		when we build.  VS otherwise would execute this target on load
+	
+		https://blogs.msdn.microsoft.com/msbuild/2005/11/19/msbuild-in-visual-studio-part-12-compiling-inside-visual-studio/
+	-->
+
+	<Target Name="ScriptGenerationSkipped" BeforeTargets="CompileTypeScript" Condition="$(ScriptGenerationCompletedViaVsix) == true And $(BuildingProject) == true">
+		<Message Text="Skipping script generation - completed by extension"></Message>
+	</Target>
+
+	<Target
+		Name="ScriptGeneration"
+		BeforeTargets="CompileTypeScript"
+		Condition="$(ScriptGenerationCompletedViaVsix) != true And ($(BuildingInsideVisualStudio) != true Or $(BuildingProject) == true)">
+		
+		<Message Condition="$(BuildingInsideVisualStudio) == true" 
+						 Importance="normal" 
+						 Text="Warning! You are generating scripts using the MSBuild task inside Visual Studio. Consider installing the extension for a faster build."></Message>
+
+		<TypeRight.Workspaces.BuildTasks.ScriptCompileTask
+			ProjectPath="$(ProjectPath)"
+			TargetFrameworkDirectories="@(_ReferenceInstalledAssemblyDirectory)"
+			SearchPaths="$(AssemblySearchPaths)"
+			AllowedAssemblyExtensions="$(AllowedReferenceAssemblyFileExtensions)"
+			AllowedRelatedFileExtensions="$(AllowedReferenceRelatedFileExtensions)"
+			TargetProcessorArchitecture="$(ProcessorArchitecture)"
+			TargetFrameworkVersion="$(TargetFrameworkVersion)"
+			TargetFrameworkMoniker="$(TargetFrameworkMoniker)"
+			TargetedRuntimeVersion="$(TargetedRuntimeVersion)"
+			FullTargetFrameworkSubsetNames="$(FullReferenceAssemblyNames)"
+			FullFrameworkFolders="$(_FullFrameworkReferenceAssemblyPaths)"
+				/>
+	</Target>
+
+</Project>

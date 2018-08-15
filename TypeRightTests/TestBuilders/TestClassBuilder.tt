@@ -1,0 +1,63 @@
+﻿<#@ template language="C#" visibility="internal" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+
+using System;
+using System.Collections.Generic;
+
+namespace Test 
+{
+	///<summary>
+	///<#= _comments #>
+	///</summary>
+	public class <#= _className #><#= GetGenericParams() #> <#= GetBaseClass() #>
+	{	
+<# 
+foreach (var property in _properties) { 
+#>
+		///<summary>
+		///<#= property.Comments #>
+		///</summary>
+		public <#= property.Type #> <#= property.Name #> { get; set; }
+<#
+}
+#>
+
+<# 
+foreach (var method in Methods) { 
+#>
+		///<summary>
+		///<#= method.Comments #>
+		///</summary>
+<# 
+foreach (var oneParam in method.Parameters) { 
+#>
+		///<param name="<#= oneParam.Name #>"><#= oneParam.Comments #></param>
+<#
+}
+#>
+<#
+if (method.Attributes.Count > 0) { 
+#>
+		[<#= string.Join(", ", method.Attributes.Select(attr => attr.ToFormattedString())) #>]
+<#
+}
+#>
+		public <#= method.Type #> <#= method.Name #>(<#= string.Join(", ", method.Parameters.Select(p => $"{p.Type} {p.Name}")) #>)
+		{
+<# 
+foreach (var code in method.LinesOfCode) { 
+#>
+			<#= code #>
+<#
+}
+#>
+		}
+<#
+}
+#>
+	}
+
+}
