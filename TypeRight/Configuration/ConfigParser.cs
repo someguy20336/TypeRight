@@ -51,7 +51,7 @@ namespace TypeRight.Configuration
 		/// <param name="configPath">The path of the config file</param>
 		public static void Save(ConfigOptions config, string configPath)
 		{
-			File.WriteAllText(configPath, JsonConvert.SerializeObject(config));
+			File.WriteAllText(configPath, JsonConvert.SerializeObject(config, Formatting.Indented));
 		}
 
 		/// <summary>
