@@ -37,7 +37,7 @@ namespace TypeRightVsix
 	[ProvideAutoLoad(UIContextGuids80.SolutionExists)]
 	[SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "pkgdef, VS and vsixmanifest are valid VS terms")]
 	[ProvideMenuResource("Menus.ctmenu", 1)]
-	public sealed class TypeRightPackage : Package
+	public sealed class TypeRightPackage : Package  // TODO: maybe AsyncPackage?
 	{
 		/// <summary>
 		/// The name used by Nuget
