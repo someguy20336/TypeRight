@@ -30,12 +30,16 @@ In order to properly function, a config file must exist in the web csproj root d
 - **webMethodNamespace**
   - When using the namespace template, this is the namespace to use for controller actions (more about that below)
 - **serverObjectsResultFilepath**
-  - The relative path to which the classes, interfaces, and enums should be printed out to.  By default, "./Scripts/ServerObjects.ts"
+  - The relative path (from the perspective of the csproj root) to which the classes, interfaces, and enums should be printed out to.  By default, this value is "./Scripts/ServerObjects.ts"
 - **ajaxFunctionName**
-  - Allows you to define the function that makes Ajax calls.  More later
+  - Allows you to define the function that makes Ajax calls.  More later in the Extracting Controller Actions section
+- **ajaxFunctionModule**
+  - The module file location for the ajax function defined above.  Used only in the module template.  Similiar to the server object result filepath, it should be relative from the perspective of the csproj root.
 
 # Extracting classes, interfaces, and enums
-Extracting a class or interface is as simple as adding an the `ScriptObject` attribute to the class.  From there, all properties and documentation are automatically extracted to the script.  So, the following C# object:
+Extracting a class or interface is as simple as adding an the `ScriptObject` attribute to the class.  From there, all properties and documentation are automatically extracted to a TypeScript file.  This output file location is configured by the `serverObjectsResultFilepath` configuration option.
+
+As a example, the following C# object:
 
 ```C#
 
@@ -95,7 +99,7 @@ export enum MyEnum {
 }
 ```
 
-The `ScriptEnum` attribute has one property named `UseExtendedSyntax` that can be used to export the enum with some additional properties that are sometimes useful if your enum might have a display name or abbreviation.  Note, to add a display name or abbreviation, you can use any attribute that inherits from `IEnumDisplayNameProvider`.  A default implementation is provided as `DefaultEnumDisplayNameProvider`
+The `ScriptEnum` attribute has one property named `UseExtendedSyntax` that can be used to export the enum with some additional properties that are sometimes useful if your enum might have a display name or abbreviation.  Note, to add a display name or abbreviation, you can use any attribute that inherits from `IEnumDisplayNameProvider`.  A default implementation is provided in `DefaultEnumDisplayNameProvider`
 
 ```C#
 [ScriptEnum(UseExtendedSyntax = true)]
@@ -132,7 +136,51 @@ export let MyEnum = {
 ```
 
 # Extracting Controller Actions
-Coming soon....
+Since all of the `ScriptObject`s and `ScriptEnum`s will be objects that you are passing back and forth between web service calls, it would make sense to strongly type those web service, too.  Currently, TypeRight only works with MVC actions.  To create a script for MVC Actions, add the `ScriptAction` attribute to the method call.  Let's take a look at an example.  Say we have this controller:
+
+```C#
+
+public class MyDefaultController : Controller 
+{
+  public ActionResult Index() 
+  {
+    // Do things
+  }
+  
+  [ScriptAction]
+  public JsonResult GetSomeData(int param1, MyClass someOtherData)
+  {
+    // Do things
+    
+    return Json(new MySecondClass())
+  }
+}
+
+```
+
+Assuming `MyClass` and `MySecondClass` have been attributed with `ScriptObject`, the resulting TypeScript will be created (some template specific details have been omitted for clarity):
+
+```TypeScript
+
+export function GetSomeData(param1: number, 
+                            someOtherData: MyClass, 
+                            success?: (result: MySecondClass) => void, 
+                            fail?: () => void): void {
+      // Makes a POST webservce call to /MyDefault/GetSomeData      
+      // How this is done is configurable 
+}
+
+```
+
+Now here is where the configuration comes into play.  
+
+- By default, each controller action will call an auto generated method that uses $.ajax (yes... JQuery.  Maybe I will change this some day)
+- You can change this to your own custom function located somewhere in your project by using the **ajaxFunctionName** configuration setting.  The function must have the following signature: (url: string, data: any, success: (result: any) => void, fail: () => any): any
+  - The url you get will be in the form: "/Controller/Action"
+  - The data you get will be a dictionary of keys (parameter names) and values
+- If using the module template, note that you will need to specify the file that the module is located in the **ajaxFunctionModule** configuration setting
+
+Coming soon - I will talk about how it knows which types to use a little more
 
 # Templates
 Coming soon....
