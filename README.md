@@ -33,7 +33,7 @@ In order to properly function, a config file must exist in the web csproj root d
   - The relative path (from the perspective of the csproj root) to which the classes, interfaces, and enums should be printed out to.  By default, this value is "./Scripts/ServerObjects.ts"
 - **ajaxFunctionName**
   - Allows you to define the function that makes Ajax calls.  More later in the Extracting Controller Actions section
-- **ajaxFunctionModule**
+- **ajaxFunctionModulePath**
   - The module file location for the ajax function defined above.  Used only in the module template.  Similiar to the server object result filepath, it should be relative from the perspective of the csproj root.
 
 # Extracting classes, interfaces, and enums
@@ -178,7 +178,7 @@ Now here is where the configuration comes into play.
 - You can change this to your own custom function located somewhere in your project by using the **ajaxFunctionName** configuration setting.  The function must have the following signature: (url: string, data: any, success: (result: any) => void, fail: () => any): any
   - The url you get will be in the form: "/Controller/Action"
   - The data you get will be a dictionary of keys (parameter names) and values
-- If using the module template, note that you will need to specify the file that the module is located in the **ajaxFunctionModule** configuration setting
+- If using the module template, note that you will need to specify the file that the module is located in the **ajaxFunctionModulePath** configuration setting
 
 Coming soon - I will talk about how it knows which types to use a little more
 
