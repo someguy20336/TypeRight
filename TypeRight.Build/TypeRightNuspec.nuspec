@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
 	<metadata>
 		<id>TypeRight</id>
-		<version>0.5.0</version>
+		<version>0.5.1</version>
 		<title>TypeRight</title>
 		<authors>Dave Whelan</authors>
 		<owners>Dave Whelan</owners>
@@ -15,6 +15,7 @@
 		<releaseNotes>Initial Release</releaseNotes>
 		<copyright>Copyright 2018</copyright>
 		<projectUrl>https://github.com/someguy20336/TypeRight</projectUrl>
+    <iconUrl>https://github.com/someguy20336/TypeRight/blob/master/Icons/TypeRight64x64.png?raw=true</iconUrl>
 		<tags>TypeScript Generator MVC C# classes</tags>
 	</metadata>
 	<files>

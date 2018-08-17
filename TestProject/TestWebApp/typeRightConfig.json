@@ -4,5 +4,7 @@
   enumNamespace: "ServerEnums",
   webMethodNamespace: "WebMethods",
   serverObjectsResultFilepath: "./Scripts/ServerObjects.ts",
-  templateType: "module"
+  templateType: "module",
+  ajaxFunctionModulePath: "./Scripts/CallServiceStuff.ts",
+  ajaxFunctionName: "callService"
 }

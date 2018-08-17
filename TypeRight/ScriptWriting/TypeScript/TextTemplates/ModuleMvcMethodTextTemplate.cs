@@ -42,9 +42,37 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
             
             #line default
             #line hidden
-            this.Write("\"\r\n\r\n");
+            this.Write("\"\r\n");
+            
+            #line 9 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\TextTemplates\ModuleMvcMethodTextTemplate.tt"
+ if (_context.HasOwnAjaxFunction) { 
+            
+            #line default
+            #line hidden
+            this.Write("import { ");
             
             #line 10 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\TextTemplates\ModuleMvcMethodTextTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_context.AjaxFunctionName));
+            
+            #line default
+            #line hidden
+            this.Write(" } from \"");
+            
+            #line 10 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\TextTemplates\ModuleMvcMethodTextTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_ajaxImportPath));
+            
+            #line default
+            #line hidden
+            this.Write("\"\r\n");
+            
+            #line 11 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\TextTemplates\ModuleMvcMethodTextTemplate.tt"
+ } 
+            
+            #line default
+            #line hidden
+            this.Write("\r\n");
+            
+            #line 13 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\TextTemplates\ModuleMvcMethodTextTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_innerTemplate.TransformText()));
             
             #line default

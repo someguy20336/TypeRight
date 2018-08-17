@@ -53,10 +53,15 @@ namespace TypeRight.Configuration
 		/// </summary>
 		public string TemplateType { get; set; }
 
-		/// <summary>
-		/// Creates a new config file
-		/// </summary>
-		public ConfigOptions()
+        /// <summary>
+        /// Gets the relative path to the ajax function module (for module template)
+        /// </summary>
+        public string AjaxFunctionModulePath { get; set; } = "";
+
+        /// <summary>
+        /// Creates a new config file
+        /// </summary>
+        public ConfigOptions()
 		{
 			Enabled = true;
 			ClassNamespace = "ServerClasses";

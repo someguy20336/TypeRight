@@ -5,9 +5,9 @@ namespace TestWebApp.TestClasses
     [ScriptEnum]
     public enum ExampleEnum
     {
-        [DefaultEnumDisplayNameProvider(DisplayName = "UNO")]
+        [EnumDisplayName(DisplayName = "UNO")]
         One,
-        [DefaultEnumDisplayNameProvider(DisplayName = "Dos")]
+        [EnumDisplayName(DisplayName = "Dos")]
         Two,
         Three
     }

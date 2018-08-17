@@ -16,9 +16,7 @@ namespace TypeRightTests.Testers
 	class PackageTester
 	{
 		private ExtractedTypeCollection _typeCollection;
-
-		private ScriptWriteContext _context;
-
+        
 		private IScriptTemplate _scriptWriter;
 
 		private TypeFormatter _typeFormatter;
@@ -35,14 +33,8 @@ namespace TypeRightTests.Testers
 
 			// TODO not hardcode?
 			_scriptWriter = new NamespaceTemplate();
-			//_scriptWriter = new ModuleTemplate();
-			_context = new ScriptWriteContext()
-			{
-				AjaxFunctionName = "TestAjax",
-				WebMethodNamespace = "MethodNamespace",
-				ExtractedTypes = _typeCollection,
-				ServerObjectsResultFilepath = @"C:\FolderA\FolderB\FolderC\FolderD\ServerObjects.ts"
-			};
+			_scriptWriter = new ModuleTemplate();
+			
 
 			// TODO any way to define this?  Or maybe an option when getting type name
 			_typeFormatter = new TypeScriptTypeFormatter(_typeCollection);
@@ -76,7 +68,17 @@ namespace TypeRightTests.Testers
 		public PackageTester TestScriptControllerText(string controllerName)
 		{
 			Uri fakeOutputPath = new Uri(@"C:\FolderA\FolderB\FolderX\FolderY\SomeController.ts");
-			string scriptText = _scriptWriter.CreateControllerTextTemplate().GetText(
+
+            ControllerContext _context = new ControllerContext()
+            {
+                AjaxFunctionName = "TestAjax",
+                WebMethodNamespace = "MethodNamespace",
+                ExtractedTypes = _typeCollection,
+                ServerObjectsResultFilepath = new Uri(@"C:\FolderA\FolderB\FolderC\FolderD\ServerObjects.ts"),
+                AjaxFunctionModulePath = new Uri(@"C:\FolderA\FolderB\FolderM\FolderN\AjaxFunc.ts")
+            };
+
+            string scriptText = _scriptWriter.CreateControllerTextTemplate().GetText(
 				_typeCollection.GetMvcControllers().Where(c => c.Name == controllerName).First(),
 				_context,
 				fakeOutputPath

@@ -3,12 +3,6 @@
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
-<# if (!HasOwnAjaxFunction) { #>
-// NOTE: This assumed variable must be set to the website base URL, ending with a /
-// (i.e. http://testsite.com/)
-declare var webRoot: string;
-
-<# } #>
 <#
 foreach (var oneAction in GetActions()) {
 #>
@@ -58,7 +52,7 @@ function callService(url: string, data: any,
 	}
 	// Create settings
 	let ajaxSettings: JQueryAjaxSettings = {
-		url: webRoot + url,
+		url: url,
 		data: JSON.stringify(data),
 		type: "POST",
 		contentType: "application/json; charset=utf-8",

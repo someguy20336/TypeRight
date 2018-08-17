@@ -5,7 +5,7 @@ namespace TypeRight.Attributes
 	/// <summary>
 	/// Default implementation of IEnumDisplayNameProvider
 	/// </summary>
-	public class DefaultEnumDisplayNameProvider: Attribute, IEnumDisplayNameProvider
+	public class EnumDisplayNameAttribute: Attribute, IEnumDisplayNameProvider
     {
         /// <summary>
         /// Gets or sets the display name to use for this enum

@@ -18,7 +18,7 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
 
 		private MvcMethodTextTemplateBase _innerTemplate;
 
-		public string GetText(MvcControllerInfo controllerInfo, ScriptWriteContext context, Uri outputPath)
+		public string GetText(MvcControllerInfo controllerInfo, ControllerContext context, Uri outputPath)
 		{
 			_innerTemplate = new MvcMethodTextTemplateBase();
 			_innerTemplate.Initialize(controllerInfo, context, new TypeScriptTypeFormatter(context.ExtractedTypes));

@@ -1,16 +1,17 @@
-﻿using TypeRight.TypeProcessing;
+﻿using System;
+using TypeRight.TypeProcessing;
 
 namespace TypeRight.ScriptWriting
 {
 	/// <summary>
 	/// Options for writing scripts
 	/// </summary>
-	public class ScriptWriteContext
+	public class ControllerContext
 	{
 		/// <summary>
 		/// Gets or sets the result filepath for the server objects file
 		/// </summary>
-		public string ServerObjectsResultFilepath { get; set; }
+		public Uri ServerObjectsResultFilepath { get; set; }
 
 		/// <summary>
 		/// Gets or sets the function name to use for ajax calls (optional)
@@ -27,5 +28,15 @@ namespace TypeRight.ScriptWriting
 		/// </summary>
 		public ExtractedTypeCollection ExtractedTypes { get; set; }
 
-	}
+        /// <summary>
+        /// Gets or sets the file path to the module containing the ajax function
+        /// </summary>
+        public Uri AjaxFunctionModulePath { get; set; }
+
+        /// <summary>
+        /// Gets whether an ajax function was defined
+        /// </summary>
+        public bool HasOwnAjaxFunction => !string.IsNullOrEmpty(AjaxFunctionName);
+
+    }
 }

@@ -77,7 +77,7 @@ namespace TypeRight.ScriptGeneration
 				return new ScriptGenerationResult(false, "ResultFilePath is not specified in the configuration options.");
 			}
 
-			Uri slnUri = new Uri(ProjectPath);
+			Uri projUri = new Uri(ProjectPath);
 
 			Uri resultRelative;
 			try
@@ -89,7 +89,7 @@ namespace TypeRight.ScriptGeneration
 				return new ScriptGenerationResult(false, "ResultFilePath is not in a valid format.");
 			}
 
-			Uri resultAbsolute = resultRelative.IsAbsoluteUri ? resultRelative : new Uri(slnUri, resultRelative);
+			Uri resultAbsolute = resultRelative.IsAbsoluteUri ? resultRelative : new Uri(projUri, resultRelative);
 			FileInfo fi = new FileInfo(resultAbsolute.LocalPath);
 			if (!fi.Directory.Exists)
 			{
@@ -114,21 +114,21 @@ namespace TypeRight.ScriptGeneration
 			ExtractedTypeCollection typeCollection = new ExtractedTypeCollection(package, processorSettings);
 			IScriptTemplate scriptGen = ScriptTemplateFactory.GetTemplate(ConfigurationOptions.TemplateType);
 
-
-			ScriptWriteContext context = new ScriptWriteContext()
-			{
-				ServerObjectsResultFilepath = resultAbsolute.LocalPath, 
-				AjaxFunctionName = ConfigurationOptions.AjaxFunctionName,
-				WebMethodNamespace = ConfigurationOptions.WebMethodNamespace,
-				ExtractedTypes = typeCollection
-			};
-
 			// Write the object script text
 			string scriptText = scriptGen.CreateTypeTemplate().GetText(typeCollection);
 			File.WriteAllText(resultAbsolute.LocalPath, scriptText);
 
-			// Write MVC controllers
-			foreach (MvcControllerInfo controller in typeCollection.GetMvcControllers())
+            // Write MVC controllers
+            Uri ajaxModuleUri = string.IsNullOrEmpty(ConfigurationOptions.AjaxFunctionModulePath) ? null : new Uri(projUri, ConfigurationOptions.AjaxFunctionModulePath);
+            ControllerContext context = new ControllerContext()
+            {
+                ServerObjectsResultFilepath = new Uri(resultAbsolute.LocalPath),
+                AjaxFunctionName = ConfigurationOptions.AjaxFunctionName,
+                WebMethodNamespace = ConfigurationOptions.WebMethodNamespace,
+                ExtractedTypes = typeCollection,
+                AjaxFunctionModulePath = ajaxModuleUri
+            };
+            foreach (MvcControllerInfo controller in typeCollection.GetMvcControllers())
 			{
 				string outputPath = GetControllerResultPath(controller);				
 				string controllerScript = scriptGen.CreateControllerTextTemplate().GetText(controller, context, new Uri(outputPath));

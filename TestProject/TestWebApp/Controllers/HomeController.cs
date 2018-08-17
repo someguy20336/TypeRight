@@ -26,25 +26,25 @@ namespace TestWebApp.Controllers
 			return View();
 		}
         
-        [MvcAction]
+        [ScriptAction]
         public JsonResult TestJson()
         {
             return Json(true);
         }
 
-        [MvcAction]
+        [ScriptAction]
         public JsonResult Test_ObjectParam(ExampleClass example)
         {
             return Json(example.AnotherPropertyYea);
         }
 
-        [MvcAction]
+        [ScriptAction]
         public JsonResult Test_ObjectReturn(Dictionary<string, string> dict)
         {
             return Json(new ExampleClass());
         }
 
-        [MvcAction]
+        [ScriptAction]
         public JsonResult Test_Anonymous(Dictionary<string, string> dict)
         {
             return Json(new { intProp = 1, exampleProp = new ExampleClass(), stringProp = "Hey" });

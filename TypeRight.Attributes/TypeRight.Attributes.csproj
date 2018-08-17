@@ -51,8 +51,8 @@
     <Compile Include="ScriptEnumAttribute.cs" />
     <Compile Include="FunctionalTypeAttribute.cs" />
     <Compile Include="ScriptObjectAttribute.cs" />
-    <Compile Include="MvcActionAtttribute.cs" />
-    <Compile Include="DefaultEnumDisplayNameProvider.cs" />
+    <Compile Include="ScriptActionAtttribute.cs" />
+    <Compile Include="EnumDisplayNameAttribute.cs" />
     <Compile Include="ExternalTypeExtractAttribute.cs" />
     <Compile Include="IEnumDisplayNameProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

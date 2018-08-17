@@ -6,7 +6,7 @@ namespace TypeRight.Attributes
 	/// Marks an MVC controller action for extraction
 	/// </summary>
 	[AttributeUsage(AttributeTargets.Method)]
-	public class MvcActionAttribute : Attribute
+	public class ScriptActionAttribute : Attribute
 	{
 	}
 }

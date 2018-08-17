@@ -30,20 +30,6 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
         {
             
             #line 6 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
- if (!HasOwnAjaxFunction) { 
-            
-            #line default
-            #line hidden
-            this.Write("// NOTE: This assumed variable must be set to the website base URL, ending with a" +
-                    " /\r\n// (i.e. http://testsite.com/)\r\ndeclare var webRoot: string;\r\n\r\n");
-            
-            #line 11 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
- } 
-            
-            #line default
-            #line hidden
-            
-            #line 12 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
 
 foreach (var oneAction in GetActions()) {
 
@@ -52,14 +38,14 @@ foreach (var oneAction in GetActions()) {
             #line hidden
             this.Write("/**\r\n * ");
             
-            #line 16 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
+            #line 10 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(oneAction.SummaryComments));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 17 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
+            #line 11 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
 
 foreach (string paramName in oneAction.ParameterComments.Keys) {
 
@@ -68,21 +54,21 @@ foreach (string paramName in oneAction.ParameterComments.Keys) {
             #line hidden
             this.Write(" * @param ");
             
-            #line 20 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
+            #line 14 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(paramName));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 20 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
+            #line 14 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(oneAction.ParameterComments[paramName]));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 21 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
+            #line 15 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
 
 }
 
@@ -91,28 +77,28 @@ foreach (string paramName in oneAction.ParameterComments.Keys) {
             #line hidden
             this.Write(" */\r\nexport function ");
             
-            #line 25 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
+            #line 19 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(BuildActionSignature(oneAction)));
             
             #line default
             #line hidden
             this.Write(" {\r\n\t");
             
-            #line 26 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
+            #line 20 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(AjaxFunctionName));
             
             #line default
             #line hidden
             this.Write("(\"");
             
-            #line 26 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
+            #line 20 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(GetUrl(oneAction)));
             
             #line default
             #line hidden
             this.Write("\", { \r\n");
             
-            #line 27 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
+            #line 21 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
 
 foreach (var oneParam in oneAction.Parameters) {
 
@@ -121,21 +107,21 @@ foreach (var oneParam in oneAction.Parameters) {
             #line hidden
             this.Write("\t\t");
             
-            #line 30 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
+            #line 24 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(oneParam.Name));
             
             #line default
             #line hidden
             this.Write(": ");
             
-            #line 30 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
+            #line 24 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(oneParam.Name));
             
             #line default
             #line hidden
             this.Write(",\r\n");
             
-            #line 31 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
+            #line 25 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
 
 }
 
@@ -144,21 +130,21 @@ foreach (var oneParam in oneAction.Parameters) {
             #line hidden
             this.Write("\t}, ");
             
-            #line 34 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
+            #line 28 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(SuccessFuncName));
             
             #line default
             #line hidden
             this.Write(", ");
             
-            #line 34 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
+            #line 28 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(FailFuncName));
             
             #line default
             #line hidden
             this.Write(");\r\n}\r\n\r\n");
             
-            #line 37 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
+            #line 31 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
 
 }
 
@@ -167,7 +153,7 @@ foreach (var oneParam in oneAction.Parameters) {
             #line hidden
             this.Write("\r\n");
             
-            #line 41 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
+            #line 35 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
  if (!HasOwnAjaxFunction) { 
             
             #line default
@@ -181,20 +167,20 @@ foreach (var oneParam in oneAction.Parameters) {
                     "\r\n): JQueryPromise<any> {\r\n\tlet $deferred = $.Deferred<void>();\r\n\r\n\t//if you don" +
                     "\'t pass error function\r\n\tif (typeof error !== \"function\") {\r\n\t\terror = defaultEr" +
                     "ror;\r\n\t}\r\n\t// Create settings\r\n\tlet ajaxSettings: JQueryAjaxSettings = {\r\n\t\turl:" +
-                    " webRoot + url,\r\n\t\tdata: JSON.stringify(data),\r\n\t\ttype: \"POST\",\r\n\t\tcontentType: " +
-                    "\"application/json; charset=utf-8\",\r\n\t\tdataType: \"json\"\r\n\t};\r\n\r\n\t// make the call" +
-                    " to the server\t\t\t\r\n\t$.ajax(ajaxSettings).done((data, textStatus, jqXHR) => {\r\n\t\t" +
-                    "if (!!success) {\r\n\t\t\tsuccess(data, textStatus, jqXHR);\r\n\t\t}\r\n\t\treturn $deferred." +
-                    "resolve();\r\n\t}).fail((jqXHR, textStatus, errorThrown) => {\r\n\t\tif (!!error) {\r\n\t\t" +
-                    "\terror(jqXHR, textStatus, errorThrown);\r\n\t\t}\r\n\t\treturn $deferred.reject();\r\n\t});" +
-                    "\r\n\r\n\treturn $deferred.promise();\r\n}\r\n\r\n/**\r\n * A default error handler\r\n * @para" +
-                    "m {JQueryXHR} result The error result\r\n * @param {string} textStatus The text st" +
-                    "atus result\r\n * @param {string} err The text string of the error\r\n */\r\nfunction " +
-                    "defaultError(result: JQueryXHR, textStatus: string, err: string): void {\r\n\talert" +
-                    "(\"An unhandled error has occurred.  Please try again or contact the technical te" +
-                    "am.\");\r\n}\r\n");
+                    " url,\r\n\t\tdata: JSON.stringify(data),\r\n\t\ttype: \"POST\",\r\n\t\tcontentType: \"applicati" +
+                    "on/json; charset=utf-8\",\r\n\t\tdataType: \"json\"\r\n\t};\r\n\r\n\t// make the call to the se" +
+                    "rver\t\t\t\r\n\t$.ajax(ajaxSettings).done((data, textStatus, jqXHR) => {\r\n\t\tif (!!succ" +
+                    "ess) {\r\n\t\t\tsuccess(data, textStatus, jqXHR);\r\n\t\t}\r\n\t\treturn $deferred.resolve();" +
+                    "\r\n\t}).fail((jqXHR, textStatus, errorThrown) => {\r\n\t\tif (!!error) {\r\n\t\t\terror(jqX" +
+                    "HR, textStatus, errorThrown);\r\n\t\t}\r\n\t\treturn $deferred.reject();\r\n\t});\r\n\r\n\tretur" +
+                    "n $deferred.promise();\r\n}\r\n\r\n/**\r\n * A default error handler\r\n * @param {JQueryX" +
+                    "HR} result The error result\r\n * @param {string} textStatus The text status resul" +
+                    "t\r\n * @param {string} err The text string of the error\r\n */\r\nfunction defaultErr" +
+                    "or(result: JQueryXHR, textStatus: string, err: string): void {\r\n\talert(\"An unhan" +
+                    "dled error has occurred.  Please try again or contact the technical team.\");\r\n}\r" +
+                    "\n");
             
-            #line 93 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
+            #line 87 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
  } 
             
             #line default

@@ -21,7 +21,7 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
 
 		protected MvcControllerInfo ControllerInfo { get; private set; }
 
-		protected ScriptWriteContext Context { get; private set; }
+		protected ControllerContext Context { get; private set; }
 
 		/// <summary>
 		/// Gets the name of the controller, without the "Controller" part
@@ -45,13 +45,13 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
 
 		public TypeFormatter TypeFormatter { get; private set; }
 
-		public void Initialize(MvcControllerInfo controllerInfo, ScriptWriteContext context, TypeFormatter formatter)
+		public void Initialize(MvcControllerInfo controllerInfo, ControllerContext context, TypeFormatter formatter)
 		{
 			ControllerInfo = controllerInfo;
 			TypeFormatter = formatter;
 			Context = context;
 
-			if (!string.IsNullOrEmpty(context.AjaxFunctionName))
+			if (context.HasOwnAjaxFunction)
 			{
 				HasOwnAjaxFunction = true;
 				AjaxFunctionName = context.AjaxFunctionName;
@@ -84,12 +84,12 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
 			if (foundAreas)
 			{
 				// Area/ControllerName/Action
-				BaseActionUrl = $"{areaDir.Name}/{ControllerName}/";
+				BaseActionUrl = $"/{areaDir.Name}/{ControllerName}/";
 			}
 			else
 			{
 				// ControllerName/Action
-				BaseActionUrl = $"{ControllerName}/";
+				BaseActionUrl = $"/{ControllerName}/";
 			}
 
 		}

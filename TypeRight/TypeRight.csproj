@@ -129,7 +129,7 @@
     <Compile Include="ScriptGeneration\ScriptGenerationResult.cs" />
     <Compile Include="ScriptWriting\TypeFormatter.cs" />
     <Compile Include="ScriptWriting\TypeScript\TypeScriptTypeFormatter.cs" />
-    <Compile Include="ScriptWriting\ScriptWriteContext.cs" />
+    <Compile Include="ScriptWriting\ControllerContext.cs" />
     <Compile Include="ScriptWriting\TypeScript\TextTemplates\NamespaceTypeTextTemplate.cs">
       <DependentUpon>NamespaceTypeTextTemplate.tt</DependentUpon>
       <AutoGen>True</AutoGen>

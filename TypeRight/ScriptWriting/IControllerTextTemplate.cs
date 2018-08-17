@@ -15,6 +15,6 @@ namespace TypeRight.ScriptWriting
 		/// <param name="context">The script write context</param>
 		/// <param name="outputPath">The output path for the controller</param>
 		/// <returns>the script text</returns>
-		string GetText(MvcControllerInfo controllerInfo, ScriptWriteContext context, Uri outputPath);
+		string GetText(MvcControllerInfo controllerInfo, ControllerContext context, Uri outputPath);
 	}
 }

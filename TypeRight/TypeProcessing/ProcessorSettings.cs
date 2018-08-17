@@ -36,7 +36,7 @@ namespace TypeRight.TypeProcessing
 			TypeNamespace = "DefaultClass";
 			EnumNamespace = "DefaultEnums";
 			DisplayNameFilter = new HasInterfaceOfTypeFilter(typeof(IEnumDisplayNameProvider).FullName);
-			MvcActionFilter = new IsOfTypeFilter(typeof(MvcActionAttribute).FullName);
+			MvcActionFilter = new IsOfTypeFilter(typeof(ScriptActionAttribute).FullName);
 		}
 	}
 }
