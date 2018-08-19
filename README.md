@@ -136,7 +136,11 @@ export let MyEnum = {
 ```
 
 # Extracting Controller Actions
-Since all of the `ScriptObject`s and `ScriptEnum`s will be objects that you are passing back and forth between web service calls, it would make sense to strongly type those web service, too.  Currently, TypeRight only works with MVC actions.  To create a script for MVC Actions, add the `ScriptAction` attribute to the method call.  Let's take a look at an example.  Say we have this controller:
+Since all of the `ScriptObject`s and `ScriptEnum`s will be objects that you are passing back and forth between web service calls, it would make sense to strongly type those web service, too.  Currently, TypeRight only works with MVC actions.  To create a script for MVC Actions, add the `ScriptAction` attribute to the method call.  The output for these types of scripts will be:
+
+`<project Root>\Scripts\<Controller Name>\<Controller Name>Actions.ts`
+
+Let's take a look at an example.  Say we have this controller:
 
 ```C#
 
@@ -176,14 +180,38 @@ Now here is where the configuration comes into play.
 
 - By default, each controller action will call an auto generated method that uses $.ajax (yes... JQuery.  Maybe I will change this some day)
 - You can change this to your own custom function located somewhere in your project by using the **ajaxFunctionName** configuration setting.  The function must have the following signature: (url: string, data: any, success: (result: any) => void, fail: () => any): any
-  - The url you get will be in the form: "/Controller/Action"
+  - The url you get will be in the form: "/<Controller Name>/<Action Name>".  If you use Areas, it will be "/<Area Name>/<Controller Name>/<Action>"
   - The data you get will be a dictionary of keys (parameter names) and values
 - If using the module template, note that you will need to specify the file that the module is located in the **ajaxFunctionModulePath** configuration setting
 
-Coming soon - I will talk about how it knows which types to use a little more
+You will notice that the `success` function will automatically pull the return type of the webservice call.  It does this by:
+1. Finding the first return statement
+2. If the return statement is the function "Json(...)", it will pull the type from the first parameter
+3. Otherwise, it is whatever the return type of the method is
+
 
 # Templates
-Coming soon....
+There are two types of templates for no other reason than they are what I have used in the past.  If you are interested in some other type of template, let me know!  I think sometime in the future it would be cool to give users more flexibility on the template, but that is some ways off.
 
-# Translating types
-Coming soon....
+## Module Template
+This is likely the recommended template with todays standards and module loading.  For this template, the result files will just be a collection of classes/methods that can be imported into other files.
+
+## Namespace Template
+This template is probably not the recommended one to use anymore, but I used it in the past so maybe someone might find it useful.  For this template, all classes/service calls are wrapped in a "namespace".  For example:
+
+```TypeScript
+namespace MyNamespace.Classes {
+  export interface SomeType {
+      // ... things
+  }
+}
+```
+
+```TypeScript
+namespace MyNamespace.WebMethods {
+  export function getStuff(param:string, success, fail): void {
+    // Do stuff
+  }
+}
+```
+
