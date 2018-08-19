@@ -99,7 +99,7 @@ export enum MyEnum {
 }
 ```
 
-The `ScriptEnum` attribute has one property named `UseExtendedSyntax` that can be used to export the enum with some additional properties that are sometimes useful if your enum might have a display name or abbreviation.  Note, to add a display name or abbreviation, you can use any attribute that inherits from `IEnumDisplayNameProvider`.  A default implementation is provided in `DefaultEnumDisplayNameProvider`
+The `ScriptEnum` attribute has one property named `UseExtendedSyntax` that can be used to export the enum with some additional properties that are sometimes useful if your enum might have a display name or abbreviation.  Note, to add a display name or abbreviation, you can use any attribute that inherits from `IEnumDisplayNameProvider`.  A default implementation is provided in `EnumDisplayName`.  Due to the nature of parsing the code, **it is important that all properties be defined in the constructor as Named Arguments**.
 
 ```C#
 [ScriptEnum(UseExtendedSyntax = true)]
