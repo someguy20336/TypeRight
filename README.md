@@ -9,8 +9,8 @@ This tool solves those problems by autogenerating those TypeScript files every t
 
 # Quick Start
 
-1. Find "TypeRight" in Nuget and install it (generally to the web project, but it could be for any)
-2. (Optional) If you haven't already, install the VS Extension for a better experience.  This extension is not required for the whole thing to work, but it does add some benefits.
+1. Find ["TypeRight" in Nuget](https://www.nuget.org/packages/TypeRight) and install it (generally to the web project, but it could be for any)
+2. (Optional) If you haven't already, install the [VS Extension](https://marketplace.visualstudio.com/items?itemName=someguy20336.TypeRight) for a better experience.  This extension is not required for the whole thing to work, but it does add some benefits.
    - Better script generating performance since it integrates directly with the Visual Studio data model
    - Some helper commands to install the package, generate scripts on demand, and add the config file
    - Down the road, this extension may become more useful... but that is TBD
@@ -187,7 +187,7 @@ Now here is where the configuration comes into play.
 
 - By default, each controller action will call an auto generated method that uses $.ajax (yes... JQuery.  Maybe I will change this some day)
 - You can change this to your own custom function located somewhere in your project by using the **ajaxFunctionName** configuration setting.  The function must have the following signature: (url: string, data: any, success: (result: any) => void, fail: () => any): any
-  - The url you get will be in the form: "/<Controller Name>/<Action Name>".  If you use Areas, it will be "/<Area Name>/<Controller Name>/<Action>"
+  - The url you get will be in the form: `/<Controller Name>/<Action Name>`.  If you use Areas, it will be `/<Area Name>/<Controller Name>/<Action>`
   - The data you get will be a dictionary of keys (parameter names) and values
 - If using the module template, note that you will need to specify the file that the module is located in the **ajaxFunctionModulePath** configuration setting
 
