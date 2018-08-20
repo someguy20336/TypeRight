@@ -5,7 +5,7 @@ TypeRight is a simple tool that generates TypeScript files from your C# objects 
 2. If you wanted to strongly type a result from a web request, you would need to make the same C# object in TypeScript.  This led to maintenance nightmares trying to keep those in sync.
 3. Using enums on the server and client required keeping them in sync
 
-This tool solves both of those problems by autogenerating those TypeScript files every time you build your project.
+This tool solves those problems by autogenerating those TypeScript files every time you build your project.
 
 # Quick Start
 
