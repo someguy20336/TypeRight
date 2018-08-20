@@ -7,14 +7,21 @@ TypeRight is a simple tool that generates TypeScript files from your C# objects 
 
 This tool solves both of those problems by autogenerating those TypeScript files every time you build your project.
 
-# Getting started
-For the best experience, first install the TypeRight extension from the Visual Studio marketplace.  This extension is not required for the whole thing to work, but it does add some benefits:
+# Quick Start
 
-1. Better script generating performance since it integrates directly with the Visual Studio data model
-2. Some helper commands to install the package, generate scripts on demand, and add the config file
-3. Down the road, this extension may become more useful... but that is TBD
+1. Find "TypeRight" in Nuget and install it (generally to the web project, but it could be for any)
+2. (Optional) If you haven't already, install the VS Extension for a better experience.  This extension is not required for the whole thing to work, but it does add some benefits.
+   - Better script generating performance since it integrates directly with the Visual Studio data model
+   - Some helper commands to install the package, generate scripts on demand, and add the config file
+   - Down the road, this extension may become more useful... but that is TBD
+3. Add the typeRightConfig.json file (the extension makes this easier through a right click menu - though I should just include it in the package.  I'll get to that soon).  Config options are located below.
+4. Add the `ScriptObject` attribute to any classes or interfaces you want to extract to a TypeScript file
+5. Add the `ScriptEnum` attribute to any enums you want to extract to a TypeScript file
+6. Add the `ScriptAction` attribute to any Controller Actions (methods) that you want to extract to TypeScript files
+7. Build the project.  The following TypeScript files will now be created
+   - One containing all the classes, interfaces, and enums output to the location specified in the **serverObjectsResultFilepath** config option (default "./Scripts/ServerObjects.ts")
+   - One for each controller with extracted actions. The output path follows the pattern `<project Root>\Scripts\<Controller Name>\<Controller Name>Actions.ts`
 
-After you install the extension (or don't, it doesn't matter) install the TypeRight package from Nuget to any project you are interested in extracting objects from.  Generally, this is the web project at the very least.
 
 # Configuration
 In order to properly function, a config file must exist in the web csproj root directory named "typeRightConfig.json". The config file consists of the following options:
@@ -22,7 +29,7 @@ In order to properly function, a config file must exist in the web csproj root d
 - **enabled**
   - a boolean flag for whether script generation is enabled
 - **templateType**
-  - The type of template to use.  The options are "namespace" or "module".  More about these templates below.
+  - The type of template to use.  The options are "namespace" or "module".  More about these templates below, but "module" is recommended.
 - **classNamespace**
   - When using the namespace template, this is the namespace to use for class/interface types
 - **enumNamespace**
