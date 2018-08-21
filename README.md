@@ -14,7 +14,7 @@ This tool solves those problems by autogenerating those TypeScript files every t
    - Better script generating performance since it integrates directly with the Visual Studio data model
    - Some helper commands to install the package, generate scripts on demand, and add the config file
    - Down the road, this extension may become more useful... but that is TBD
-3. Add the typeRightConfig.json file (the extension makes this easier through a right click menu - though I should just include it in the package.  I'll get to that soon).  Config options are located below.
+3. Add or update the typeRightConfig.json file.  As of 0.5.2, a default config file is included in the nuget content.  You can also add the config file via a right click menu option on the project node if you have extension installed.  Config options are located below.
 4. Add the `ScriptObject` attribute to any classes or interfaces you want to extract to a TypeScript file
 5. Add the `ScriptEnum` attribute to any enums you want to extract to a TypeScript file
 6. Add the `ScriptAction` attribute to any Controller Actions (methods) that you want to extract to TypeScript files
