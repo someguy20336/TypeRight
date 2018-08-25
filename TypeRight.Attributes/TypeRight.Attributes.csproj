@@ -53,7 +53,7 @@
     <Compile Include="ScriptObjectAttribute.cs" />
     <Compile Include="ScriptActionAtttribute.cs" />
     <Compile Include="EnumDisplayNameAttribute.cs" />
-    <Compile Include="ExternalTypeExtractAttribute.cs" />
+    <Compile Include="ExternalScriptObjectAttribute.cs" />
     <Compile Include="IEnumDisplayNameProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

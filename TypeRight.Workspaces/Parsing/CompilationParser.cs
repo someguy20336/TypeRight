@@ -56,8 +56,8 @@ namespace TypeRight.Workspaces.Parsing
 		/// </summary>
 		private void FindExternalTypes()
 		{
-			ParseContext context = new ParseContext(Compilation, new ExternalReferenceDocumentationProvider(Compilation), _options);
-			INamedTypeSymbol exterTypeExtrAttr = Compilation.GetTypeByMetadataName(typeof(ExternalTypeExtractAttribute).FullName);
+			
+			INamedTypeSymbol exterTypeExtrAttr = Compilation.GetTypeByMetadataName(typeof(ExternalScriptObjectAttribute).FullName);
 			foreach (AttributeData attrData in Compilation.Assembly.GetAttributes())
 			{
 				if (attrData.AttributeClass.Equals(exterTypeExtrAttr))
@@ -68,12 +68,31 @@ namespace TypeRight.Workspaces.Parsing
 					{
 						INamedTypeSymbol type = oneTypeArg.Value as INamedTypeSymbol;
 
-						INamedType namedType = RoslynType.CreateNamedType(type, context); 
+                        ParseContext context = new ParseContext(Compilation, GetDocumentationProvider(type), _options);
+                        INamedType namedType = RoslynType.CreateNamedType(type, context); 
 						_visitor.VisitExternalType(namedType);
 					}
 				}
 			}
 		}
+
+        /// <summary>
+        /// Gets the appropriate documentation provider for the type symbol
+        /// </summary>
+        /// <param name="typeSymbol">the named type symbol</param>
+        /// <returns>TThe documentation provider</returns>
+        private DocumentationProvider GetDocumentationProvider(INamedTypeSymbol typeSymbol)
+        {
+            Location location = typeSymbol.Locations[0];
+            if (location.Kind == LocationKind.MetadataFile)
+            {
+                return new ExternalReferenceDocumentationProvider(Compilation);
+            }
+            else
+            {
+                return new SourceCommentsDocumentationProvider();
+            }
+        }
 				
 		/// <summary>
 		/// Visits an Interface declaration

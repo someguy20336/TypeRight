@@ -3,9 +3,9 @@
 // ===============================
 // Classes
 // ===============================
-/**  */
+/** Hey.  Here are some docs */
 export interface Class1 {
-	/**  */
+	/** This is a property */
 	ExtractDependent: number;
 }
 
@@ -29,6 +29,40 @@ export interface ExampleClass {
 export interface Extends extends ExampleClass {
 	/**  */
 	OneMoreProp: number;
+}
+
+/**  */
+export interface FileInfo {
+	/**  */
+	Name: string;
+	/**  */
+	Length: number;
+	/**  */
+	DirectoryName: string;
+	/**  */
+	Directory: any;
+	/**  */
+	IsReadOnly: boolean;
+	/**  */
+	Exists: boolean;
+	/**  */
+	FullName: string;
+	/**  */
+	Extension: string;
+	/**  */
+	CreationTime: string;
+	/**  */
+	CreationTimeUtc: string;
+	/**  */
+	LastAccessTime: string;
+	/**  */
+	LastAccessTimeUtc: string;
+	/**  */
+	LastWriteTime: string;
+	/**  */
+	LastWriteTimeUtc: string;
+	/**  */
+	Attributes: number;
 }
 
   

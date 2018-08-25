@@ -11,7 +11,7 @@ namespace TypeRight.Attributes
 	/// in the current assembly (or even solution).
 	/// </summary>
 	[AttributeUsage(AttributeTargets.Assembly)]
-	public class ExternalTypeExtractAttribute : Attribute
+	public class ExternalScriptObjectAttribute : Attribute
 	{
 		/// <summary>
 		/// Gets the external type to extract, though who cares about this prop
@@ -22,7 +22,7 @@ namespace TypeRight.Attributes
 		/// Creates a new External type extract attribute
 		/// </summary>
 		/// <param name="externalTypes">The external types to extract</param>
-		public ExternalTypeExtractAttribute(params Type[] externalTypes)
+		public ExternalScriptObjectAttribute(params Type[] externalTypes)
 		{
 			ExternalTypes = externalTypes;
 		}

@@ -3,6 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using DependentLibrary;
+using System.IO;
+
+[assembly: ExternalTypeExtract(typeof(Class1), typeof(FileInfo))]
 
 namespace TestWebApp.TestClasses
 {
