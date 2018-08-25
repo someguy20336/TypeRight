@@ -17,6 +17,7 @@ This tool solves those problems by autogenerating those TypeScript files every t
 3. Add or update the typeRightConfig.json file.  As of 0.5.2, a default config file is included in the nuget content.  You can also add the config file via a right click menu option on the project node if you have extension installed.  Config options are located below.
    - **NOTE**: if you install TypeRight in multiple projects for your solution, the config file will be pulled into each one.  You should disable it through the config option for all projects that aren't web projects (i.e. your core/business class library projects).  It was a battle between making it easy to include the config and incorrectly having config files for projects that shouldn't.  Maybe I'll fix it someday...
 4. Add the `ScriptObject` attribute to any classes or interfaces you want to extract to a TypeScript file
+   - If you aren't a fan of polluting your business classes with attributes, you can use the assembly attribute `ExternalScriptObjectAttribute` to provide a list of types to extract.  Example: `[assembly: ExternalScriptObject(typeof(Class1), typeof(Class2), ...)]`
 5. Add the `ScriptEnum` attribute to any enums you want to extract to a TypeScript file
 6. Add the `ScriptAction` attribute to any Controller Actions (methods) that you want to extract to TypeScript files
 7. Build the project.  The following TypeScript files will now be created
@@ -82,6 +83,12 @@ export interface MyClass {
   
   PropertyThree: string[];
 }
+```
+
+The other alternative for classes is to use `ExternalScriptObjectAttribute`.  For this assembly level attribute, you can specify types that are in another project or DLL.  You might use this if you don't want to install the nuget package in your core project or referenced code from another DLL.  Here is how you might use it:
+
+```C#
+[assembly: ExternalScriptObject(typeof(Class1), typeof(Class2), ...)]
 ```
 
 Enums are extracted by adding the `ScriptEnum` attribute.  This will create an enumeration type in TypeScript.  As another example:
