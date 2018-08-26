@@ -33,7 +33,14 @@ namespace TypeRight.TypeProcessing
 		{
 			if (_typeArg == null)
 			{
-				_typeArg = _typeTable.LookupType(_listType.TypeArguments[0]);
+				if (_listType.TypeArguments.Count > 0)
+				{
+					_typeArg = _typeTable.LookupType(_listType.TypeArguments[0]);
+				}
+				else
+				{
+					_typeArg = new UnknownTypeDescriptor();
+				}				
 			}
 			return _typeArg;
 		}

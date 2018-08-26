@@ -4,6 +4,7 @@ using Microsoft.CodeAnalysis;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Collections;
 
 namespace TypeRight.Workspaces.CodeModel
 {
@@ -48,6 +49,8 @@ namespace TypeRight.Workspaces.CodeModel
 		public IReadOnlyList<INamedType> Interfaces => _interfaces.Value;
 
 		public string FilePath { get; }
+
+		public TypeFlags Flags { get; }
 
 
 		public RoslynNamedType(INamedTypeSymbol namedTypeSymbol, ParseContext context)
@@ -143,8 +146,65 @@ namespace TypeRight.Workspaces.CodeModel
 				}
 				return interfaces;
 			});
+
+			Flags = new TypeFlags(
+				isEnum: namedTypeSymbol.TypeKind == TypeKind.Enum,
+				isNullable: IsNullableType(),
+				isArray: namedTypeSymbol.TypeKind == TypeKind.Array,
+				isList: IsListType(),
+				isDictionary: IsDictionaryType(),
+				isAnonymous: TypeSymbol.IsAnonymousType,
+				isInterface: TypeSymbol.TypeKind == TypeKind.Interface
+				);
 		}
-		
+
+
+		private bool IsNullableType()
+		{
+			INamedTypeSymbol nullableSymb = InCompilation.GetTypeByMetadataName(typeof(Nullable<>).FullName);
+			return nullableSymb.Equals(TypeSymbol.OriginalDefinition);
+		}
+
+
+		private bool IsListType()
+		{
+			if (IsDictionaryType())
+			{
+				return false;  // Dictionary types are IEnumerable, so we don't want to include that
+			}
+
+			// First check for list types
+			List<INamedTypeSymbol> isTypes = new List<INamedTypeSymbol>()
+			{
+				InCompilation.GetTypeByMetadataName(typeof(IEnumerable).FullName),
+				InCompilation.GetTypeByMetadataName(typeof(IEnumerable<>).FullName),
+				InCompilation.GetTypeByMetadataName(typeof(IReadOnlyList<>).FullName)
+			};
+
+			if (isTypes.Contains(NamedTypeSymbol.ConstructedFrom))
+			{
+				return true;
+			}
+
+			// Then fall back to checking interfaces
+			List<INamedTypeSymbol> listTypes = new List<INamedTypeSymbol>()
+			{
+				InCompilation.GetTypeByMetadataName(typeof(IList).FullName),
+				InCompilation.GetTypeByMetadataName(typeof(IList<>).FullName),
+			};
+			return TypeSymbol.Interfaces.Any(nt => listTypes.Contains(nt));
+		}
+
+		private bool IsDictionaryType()
+		{
+			List<INamedTypeSymbol> dictTypes = new List<INamedTypeSymbol>()
+				{
+					InCompilation.GetTypeByMetadataName(typeof(IDictionary).FullName),
+					InCompilation.GetTypeByMetadataName(typeof(IDictionary<,>).FullName)
+				};
+			return TypeSymbol.Interfaces.Any(nt => dictTypes.Contains(nt));
+		}
+
 
 		public override string ToString()
 		{

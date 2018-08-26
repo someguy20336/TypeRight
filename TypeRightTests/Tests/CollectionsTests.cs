@@ -34,6 +34,8 @@ namespace TypeRightTests.Tests
 				.CreateClassBuilder(ClassName)
 				.AddProperty(StringListProperty, "List<string>")
 				.AddProperty(StringIntDictionaryProperty, "Dictionary<string, int>")
+                .AddProperty("EnumerableString", "IEnumerable<string>")
+				.AddProperty("EnumerableObject", "System.Collections.IEnumerable")
 				.Commit();
 
 			wkspBuilder.ClassParseFilter = new AlwaysAcceptFilter();
@@ -62,6 +64,22 @@ namespace TypeRightTests.Tests
 				.TestPropertyWithName(StringIntDictionaryProperty)
 				.Exists()
 				.TypescriptNameIs(expectedName);
+		}
+
+        [TestMethod]
+        public void Collections_IEnumerable_1()
+        {
+            _packageTester.TestReferenceTypeWithName(ClassName)
+                .TestPropertyWithName("EnumerableString")
+                .TypescriptNameIs(TypeScriptHelper.StringTypeName + "[]");
+        }
+
+		[TestMethod]
+		public void Collections_IEnumerable()
+		{
+			_packageTester.TestReferenceTypeWithName(ClassName)
+				.TestPropertyWithName("EnumerableObject")
+				.TypescriptNameIs(TypeScriptHelper.AnyTypeName + "[]");
 		}
 	}
 }

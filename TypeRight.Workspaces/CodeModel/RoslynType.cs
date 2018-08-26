@@ -2,10 +2,6 @@
 using TypeRight.CodeModel;
 using TypeRight.Workspaces.Parsing;
 using Microsoft.CodeAnalysis;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace TypeRight.Workspaces.CodeModel
 {
@@ -17,24 +13,12 @@ namespace TypeRight.Workspaces.CodeModel
 		protected Compilation InCompilation => Context.Compilation;
 
 		public string Name { get; }
-
-		public TypeFlags Flags { get; }
-
+		
 		public RoslynType(ITypeSymbol typeSymbol, ParseContext context)
 		{
 			Context = context;
 			TypeSymbol = GetFunctionalType(typeSymbol);
 			Name = TypeSymbol.Name;
-
-			Flags = new TypeFlags(
-				isEnum: typeSymbol.TypeKind == TypeKind.Enum,
-				isNullable: IsNullableType(),
-				isArray: typeSymbol.TypeKind == TypeKind.Array,
-				isList: IsListType(),
-				isDictionary: IsDictionaryType(),
-				isAnonymous: TypeSymbol.IsAnonymousType,
-				isInterface: TypeSymbol.TypeKind == TypeKind.Interface
-				);
 
 		}
 
@@ -59,32 +43,7 @@ namespace TypeRight.Workspaces.CodeModel
 
 			return functionalType;
 		}
-
-		private bool IsNullableType()
-		{
-			INamedTypeSymbol nullableSymb = InCompilation.GetTypeByMetadataName(typeof(Nullable<>).FullName);
-			return nullableSymb.Equals(TypeSymbol.OriginalDefinition);
-		}
-
-		private bool IsListType()
-		{
-			List<INamedTypeSymbol> listTypes = new List<INamedTypeSymbol>()
-				{
-					InCompilation.GetTypeByMetadataName(typeof(IList).FullName),
-					InCompilation.GetTypeByMetadataName(typeof(IList<>).FullName)
-				};
-			return TypeSymbol.Interfaces.Any(nt => listTypes.Contains(nt));
-		}
-
-		private bool IsDictionaryType()
-		{
-			List<INamedTypeSymbol> dictTypes = new List<INamedTypeSymbol>()
-				{
-					InCompilation.GetTypeByMetadataName(typeof(IDictionary).FullName),
-					InCompilation.GetTypeByMetadataName(typeof(IDictionary<,>).FullName)
-				};
-			return TypeSymbol.Interfaces.Any(nt => dictTypes.Contains(nt));
-		}
+		
 
 		public static RoslynType CreateType(ITypeSymbol typeSymb, ParseContext context)
 		{

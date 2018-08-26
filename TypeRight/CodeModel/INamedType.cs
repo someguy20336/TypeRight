@@ -57,6 +57,11 @@ namespace TypeRight.CodeModel
 		/// </summary>
 		IReadOnlyList<IAttributeData> Attributes { get; }
 
+		/// <summary>
+		/// Gets the flags for this type
+		/// </summary>
+		TypeFlags Flags { get; }
+
 
 		/// <summary>
 		/// TODO: I DONT WANT THIS

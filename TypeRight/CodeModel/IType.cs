@@ -10,9 +10,5 @@
 		/// </summary>
 		string Name { get; }
 
-		/// <summary>
-		/// Gets the type flags for this type
-		/// </summary>
-		TypeFlags Flags { get; }
 	}
 }
