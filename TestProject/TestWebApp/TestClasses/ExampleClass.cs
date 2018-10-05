@@ -6,7 +6,7 @@ using System.Web;
 using DependentLibrary;
 using System.IO;
 
-[assembly: ExternalTypeExtract(typeof(Class1), typeof(FileInfo))]
+[assembly: ExternalScriptObject(typeof(Class1), typeof(FileInfo))]
 
 namespace TestWebApp.TestClasses
 {
