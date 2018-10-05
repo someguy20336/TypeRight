@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TypeRight.Attributes</name>
+    </assembly>
+    <members>
+        <member name="T:TypeRight.Attributes.EnumDisplayNameAttribute">
+            <summary>
+            Default implementation of IEnumDisplayNameProvider
+            </summary>
+        </member>
+        <member name="P:TypeRight.Attributes.EnumDisplayNameAttribute.DisplayName">
+            <summary>
+            Gets or sets the display name to use for this enum
+            </summary>
+        </member>
+        <member name="P:TypeRight.Attributes.EnumDisplayNameAttribute.Abbreviation">
+            <summary>
+            Gets or sets the abbreviation to use
+            </summary>
+        </member>
+        <member name="T:TypeRight.Attributes.ExternalScriptObjectAttribute">
+            <summary>
+            Use this attribute to force extract a type that is not
+            in the current assembly (or even solution).
+            </summary>
+        </member>
+        <member name="P:TypeRight.Attributes.ExternalScriptObjectAttribute.ExternalTypes">
+            <summary>
+            Gets the external type to extract, though who cares about this prop
+            </summary>
+        </member>
+        <member name="M:TypeRight.Attributes.ExternalScriptObjectAttribute.#ctor(System.Type[])">
+            <summary>
+            Creates a new External type extract attribute
+            </summary>
+            <param name="externalTypes">The external types to extract</param>
+        </member>
+        <member name="T:TypeRight.Attributes.FunctionalTypeAttribute">
+            <summary>
+            Defines a "functional" type for the given class.  In most cases, this isn't necessary.  However,
+            you may have a class that is functionally a string in javascript, but is converted to something
+            else on the server.
+            
+            For classes with this attribute, you generally do not want to mark it with <see cref="T:TypeRight.Attributes.ScriptObjectAttribute"/>.
+            </summary>
+        </member>
+        <member name="P:TypeRight.Attributes.FunctionalTypeAttribute.FunctionalType">
+            <summary>
+            Gets the functional type of the class
+            </summary>
+        </member>
+        <member name="M:TypeRight.Attributes.FunctionalTypeAttribute.#ctor(System.Type)">
+            <summary>
+            Creates a new functional type attribute
+            </summary>
+            <param name="functionalType">The functional type to use</param>
+        </member>
+        <member name="T:TypeRight.Attributes.IEnumDisplayNameProvider">
+            <summary>
+            Implemented by an attribute to provide a display name/abbreviation for an enum member. <br /><br />
+            
+            You attribute must implement this interface.  You can use it in one of several ways:<br />
+            	1. Use the DisplayName and Abbreviation properties as named parameters <br />
+            	2. Use a constructor with a single string input.  This will set both the display and abbrev <br />
+            	3. Use a constructor with two (or more) string inputs.  The first input will be the display name and the second will be the abbreviation <br />
+            </summary>
+        </member>
+        <member name="P:TypeRight.Attributes.IEnumDisplayNameProvider.DisplayName">
+            <summary>
+            Gets the display name of the enum
+            </summary>
+        </member>
+        <member name="P:TypeRight.Attributes.IEnumDisplayNameProvider.Abbreviation">
+            <summary>
+            Gets the abbreviation of the enum
+            </summary>
+        </member>
+        <member name="T:TypeRight.Attributes.ScriptActionAttribute">
+            <summary>
+            Marks an MVC controller action for extraction
+            </summary>
+        </member>
+        <member name="T:TypeRight.Attributes.ScriptEnumAttribute">
+            <summary>
+            Marks an Enum for extraction
+            </summary>
+        </member>
+        <member name="P:TypeRight.Attributes.ScriptEnumAttribute.UseExtendedSyntax">
+            <summary>
+            Gets or sets whether the extended enum syntax should be used.  This syntax
+            will allow you to use display names for enums if you intend to use them in code
+            </summary>
+        </member>
+        <member name="T:TypeRight.Attributes.ScriptObjectAttribute">
+            <summary>
+            Attribute used to mark an object for extraction.
+            </summary>
+        </member>
+    </members>
+</doc>

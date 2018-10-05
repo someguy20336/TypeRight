@@ -7,4 +7,12 @@
     <AssemblyOriginatorKeyFile>TypeRightAttributes.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>C:\Users\dwhel\source\repos\TypeRight\TypeRight.Attributes\TypeRight.Attributes.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>C:\Users\dwhel\source\repos\TypeRight\TypeRight.Attributes\TypeRight.Attributes.xml</DocumentationFile>
+  </PropertyGroup>
+
 </Project>
