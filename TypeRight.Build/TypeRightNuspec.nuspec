@@ -2,29 +2,27 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
 	<metadata>
 		<id>TypeRight</id>
-		<version>0.5.3</version>
+		<version>0.6.0</version>
 		<title>TypeRight</title>
 		<authors>Dave W</authors>
 		<owners>Dave W</owners>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<description>
-      A simple tool designed to make it easy to autogenerate TypeScript files from C# classes and MVC actions.  
-      This package adds a build task to create the scripts.  For the best experience, also use the VS extension
-      with the same name
-    </description>
-		<releaseNotes>External script object assembly attribute</releaseNotes>
+			A simple tool designed to make it easy to autogenerate TypeScript files from C# classes and MVC actions.
+			This package adds a build task to create the scripts.  For the best experience, also use the VS extension
+			with the same name
+		</description>
+		<releaseNotes>Switching to .NET standard.</releaseNotes>
 		<copyright>Copyright 2018</copyright>
 		<projectUrl>https://github.com/someguy20336/TypeRight</projectUrl>
-    <iconUrl>https://github.com/someguy20336/TypeRight/blob/master/Icons/TypeRight64x64.png?raw=true</iconUrl>
+		<iconUrl>https://github.com/someguy20336/TypeRight/blob/master/Icons/TypeRight64x64.png?raw=true</iconUrl>
 		<tags>TypeScript Generator MVC C# classes</tags>
 	</metadata>
 	<files>
-		<file src=".\TypeRight.Attributes.dll" target="lib\net46" />
-		<file src=".\TypeRight.Attributes.xml" target="lib\net46" />
-		<file src=".\TypeRight.Attributes.dll" target="lib\net45" />
-		<file src=".\TypeRight.Attributes.xml" target="lib\net45" />
+		<file src=".\TypeRight.Attributes.dll" target="lib\netstandard2.0" />
+		<file src=".\TypeRight.Attributes.xml" target="lib\netstandard2.0" />
 		<file src=".\TypeRight.targets" target="build" />
-    <file src=".\typeRightConfig.json" target="content"></file>
+		<file src=".\typeRightConfig.json" target="content"></file>
 		<file src=".\*.dll" target="tools" />
 		<file src=".\*.pdb" target="tools" />
 	</files>

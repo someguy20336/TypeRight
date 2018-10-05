@@ -100,6 +100,7 @@
     </Compile>
     <Compile Include="ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBaseCode.cs" />
     <Compile Include="ScriptWriting\TypeScript\TextTemplates\TextTemplateHelper.cs" />
+    <Compile Include="TypeFilters\IsOfAnyTypeFilter.cs" />
     <Compile Include="TypeProcessing\MvcActionInfo.cs" />
     <Compile Include="CodeModel\ITypeWithFullName.cs" />
     <Compile Include="TypeProcessing\MvcControllerInfo.cs" />

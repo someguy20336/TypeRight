@@ -31,7 +31,7 @@ namespace TypeRight.Packages
 		{
 			ClassFilter = new HasAttributeFilter(typeof(ScriptObjectAttribute).FullName);
 			EnumFilter = new HasAttributeFilter(typeof(ScriptEnumAttribute).FullName);
-			ControllerFilter = new IsOfTypeFilter("System.Web.Mvc.Controller");
+			ControllerFilter = new IsOfAnyTypeFilter("System.Web.Mvc.Controller", "Microsoft.AspNetCore.Mvc.Controller");
 		}
 	}
 }
