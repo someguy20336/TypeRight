@@ -176,7 +176,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TypeRight.Attributes\TypeRight.Attributes.csproj">
-      <Project>{F87074AD-ED17-4792-9981-22CF0F093098}</Project>
+      <Project>{f87074ad-ed17-4792-9981-22cf0f093098}</Project>
       <Name>TypeRight.Attributes</Name>
     </ProjectReference>
     <ProjectReference Include="..\TypeRight.Core\TypeRight.Core.csproj">

@@ -50,14 +50,15 @@ namespace TypeRight.Build
 			AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
 			try
 			{
+				
 				IScriptGenerationResult result;
 				// Generate the scripts for the given project
-				using (WorkspaceBuilder builder = new WorkspaceBuilder(ProjectPath, new ReferenceResolver(Parameters)))
-				{
-
-					ProjectId mainProjId = builder.Workspace.CurrentSolution.Projects
+				WorkspaceBuilder builder = WorkspaceBuilder.CreateBuilder(ProjectPath, Parameters);
+				using (Workspace workspace = builder.BuildWorkspace())
+				{					
+					ProjectId mainProjId = workspace.CurrentSolution.Projects
 						.Where(pr => pr.FilePath == ProjectPath).FirstOrDefault()?.Id;
-					ProjectParser parser = new ProjectParser(builder.Workspace, mainProjId);
+					ProjectParser parser = new ProjectParser(workspace, mainProjId);
 					ScriptGenEngine engine = new ScriptGenEngine(ProjectPath, parser);
 					result = engine.GenerateScripts();
 				}

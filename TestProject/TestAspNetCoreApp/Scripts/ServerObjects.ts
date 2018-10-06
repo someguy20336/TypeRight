@@ -11,6 +11,12 @@ export interface ErrorViewModel {
 	ShowRequestId: boolean;
 }
 
+/**  */
+export interface NetStandardClass {
+	/**  */
+	HelloThere: number;
+}
+
   
 
 // ===============================

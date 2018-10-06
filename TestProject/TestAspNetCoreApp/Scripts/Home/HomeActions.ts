@@ -6,8 +6,8 @@ import { callService } from "../CallServiceStuff"
 /**
  * 
  */
-export function Privacy(success?: (result: any) => void, fail?: (result: any) => void): void {
-	callService("/Home/Privacy", { 
+export function TestJson(success?: (result: ServerObjects.NetStandardClass) => void, fail?: (result: any) => void): void {
+	callService("/Home/TestJson", { 
 	}, success, fail);
 }
 

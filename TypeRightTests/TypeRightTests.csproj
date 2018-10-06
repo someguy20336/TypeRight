@@ -235,7 +235,6 @@
     <Compile Include="Tests\AnonymousTypeTests.cs" />
     <Compile Include="Tests\CollectionsTests.cs" />
     <Compile Include="Tests\ComplexPropertyTypeTests.cs" />
-    <Compile Include="HelperClasses\TestRefResolverParams.cs" />
     <Compile Include="Tests\ControllerTests.cs" />
     <Compile Include="Tests\EnumTests.cs" />
     <Compile Include="Tests\GenericsTests.cs" />

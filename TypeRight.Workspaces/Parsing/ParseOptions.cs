@@ -18,17 +18,27 @@ namespace TypeRight.Workspaces.Parsing
 		/// <returns>The default parse options</returns>
 		public static ParseOptions GetDefault()
 		{
-			MethodReturnTypeHandler jsonHandler = new ParseSyntaxForTypeMethodHandler(
+			ParseOptions options = new ParseOptions();
+			options.MethodReturnTypeHandlers.Add(new ParseSyntaxForTypeMethodHandler(
 				"System.Web.Mvc.JsonResult",
 				new InvocationReturnForwardFilter("Json", 0)
-				);
-			MethodReturnTypeHandler actionHandler = new ParseSyntaxForTypeMethodHandler(
+				));
+			options.MethodReturnTypeHandlers.Add(new ParseSyntaxForTypeMethodHandler(
 				"System.Web.Mvc.ActionResult",
 				new InvocationReturnForwardFilter("Json", 0)
-				);
-			ParseOptions options = new ParseOptions();
-			options.MethodReturnTypeHandlers.Add(jsonHandler);
-			options.MethodReturnTypeHandlers.Add(actionHandler);
+				));
+			options.MethodReturnTypeHandlers.Add(new ParseSyntaxForTypeMethodHandler(
+				"Microsoft.AspNetCore.Mvc.JsonResult",
+				new InvocationReturnForwardFilter("Json", 0)
+				));
+			options.MethodReturnTypeHandlers.Add(new ParseSyntaxForTypeMethodHandler(
+				"Microsoft.AspNetCore.Mvc.ActionResult",
+				new InvocationReturnForwardFilter("Json", 0)
+				));
+			options.MethodReturnTypeHandlers.Add(new ParseSyntaxForTypeMethodHandler(
+				"Microsoft.AspNetCore.Mvc.IActionResult",
+				new InvocationReturnForwardFilter("Json", 0)
+				));
 			return options;
 		}
 	}

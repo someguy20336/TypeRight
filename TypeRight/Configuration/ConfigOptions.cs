@@ -69,7 +69,7 @@ namespace TypeRight.Configuration
 			WebMethodNamespace = "WebMethods";
 			ServerObjectsResultFilepath = "./Scripts/ServerObjects.ts";
 			AjaxFunctionName = null;
-			TemplateType = "namespace";
+			TemplateType = "module";
 		}
 	}
 }

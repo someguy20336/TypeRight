@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using NetStandardLib;
 using TestAspNetCoreApp.Models;
 using TypeRight.Attributes;
 
@@ -30,10 +31,15 @@ namespace TestAspNetCoreApp.Controllers
 			return View();
 		}
 
-		//[ScriptAction]
 		public IActionResult Privacy()
 		{
 			return View();
+		}
+
+		[ScriptAction]
+		public JsonResult TestJson()
+		{
+			return Json(new NetStandardClass());
 		}
 
 		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

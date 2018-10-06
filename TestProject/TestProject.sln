@@ -7,7 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestWebApp", "TestWebApp\Te
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DependentLibrary", "DependentLibrary\DependentLibrary.csproj", "{5E12850F-E52E-4C19-AEA7-450385550B5F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestAspNetCoreApp", "TestAspNetCoreApp\TestAspNetCoreApp.csproj", "{A8927B22-EC3B-4692-BF73-8660CC4D3EB9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestAspNetCoreApp", "TestAspNetCoreApp\TestAspNetCoreApp.csproj", "{A8927B22-EC3B-4692-BF73-8660CC4D3EB9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetStandardLib", "NetStandardLib\NetStandardLib.csproj", "{2488CA5E-91BE-4008-8137-A655AD709018}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,6 +71,22 @@ Global
 		{A8927B22-EC3B-4692-BF73-8660CC4D3EB9}.Stage2|Any CPU.Build.0 = Debug|Any CPU
 		{A8927B22-EC3B-4692-BF73-8660CC4D3EB9}.Stage2|x86.ActiveCfg = Debug|Any CPU
 		{A8927B22-EC3B-4692-BF73-8660CC4D3EB9}.Stage2|x86.Build.0 = Debug|Any CPU
+		{2488CA5E-91BE-4008-8137-A655AD709018}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2488CA5E-91BE-4008-8137-A655AD709018}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2488CA5E-91BE-4008-8137-A655AD709018}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2488CA5E-91BE-4008-8137-A655AD709018}.Debug|x86.Build.0 = Debug|Any CPU
+		{2488CA5E-91BE-4008-8137-A655AD709018}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2488CA5E-91BE-4008-8137-A655AD709018}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2488CA5E-91BE-4008-8137-A655AD709018}.Release|x86.ActiveCfg = Release|Any CPU
+		{2488CA5E-91BE-4008-8137-A655AD709018}.Release|x86.Build.0 = Release|Any CPU
+		{2488CA5E-91BE-4008-8137-A655AD709018}.Stage1|Any CPU.ActiveCfg = Debug|Any CPU
+		{2488CA5E-91BE-4008-8137-A655AD709018}.Stage1|Any CPU.Build.0 = Debug|Any CPU
+		{2488CA5E-91BE-4008-8137-A655AD709018}.Stage1|x86.ActiveCfg = Debug|Any CPU
+		{2488CA5E-91BE-4008-8137-A655AD709018}.Stage1|x86.Build.0 = Debug|Any CPU
+		{2488CA5E-91BE-4008-8137-A655AD709018}.Stage2|Any CPU.ActiveCfg = Debug|Any CPU
+		{2488CA5E-91BE-4008-8137-A655AD709018}.Stage2|Any CPU.Build.0 = Debug|Any CPU
+		{2488CA5E-91BE-4008-8137-A655AD709018}.Stage2|x86.ActiveCfg = Debug|Any CPU
+		{2488CA5E-91BE-4008-8137-A655AD709018}.Stage2|x86.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
