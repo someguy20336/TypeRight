@@ -45,8 +45,9 @@ namespace TypeRight.Build
 				Success = true;
 				return;
 			}
-
+			
 			Log.LogMessage("Beginning script generation for project: " + ProjectPath);
+			BuildHelper.StartBuild(ProjectPath);
 			AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
 			try
 			{
@@ -75,6 +76,7 @@ namespace TypeRight.Build
 			}
 			finally
 			{
+				BuildHelper.EndBuild(ProjectPath);
 				AppDomain.CurrentDomain.AssemblyResolve -= CurrentDomain_AssemblyResolve;
 			}
 		}

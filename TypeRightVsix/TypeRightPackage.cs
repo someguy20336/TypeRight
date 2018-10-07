@@ -7,7 +7,6 @@ using Microsoft.CodeAnalysis;
 using EnvDTE;
 using TypeRightVsix.Commands;
 using TypeRightVsix.Shared;
-using Microsoft.Build.Evaluation;
 using System.Collections.Generic;
 using TypeRight;
 using TypeRightVsix.Imports;
@@ -97,16 +96,13 @@ namespace TypeRightVsix
 		/// <param name="Action">The build action</param>
 		private void BuildEvents_OnBuildBegin(vsBuildScope Scope, vsBuildAction Action)
 		{
-			// Set global MSBuild property
-			ProjectCollection collection = ProjectCollection.GlobalProjectCollection;
-
 			Workspace workspace = VsHelper.Current.GetCurrentWorkspace();
 			List<EnvDTE.Project> enabledProj = ConfigProcessing.GetEnabledProjectsForSolution();
 			if (enabledProj.Count > 0)
 			{
-				collection.SetGlobalProperty("ScriptGenerationCompletedViaVsix", "true");
 				foreach (EnvDTE.Project proj in enabledProj)
 				{
+					BuildHelper.StartBuild(proj.FullName);
 					IScriptGenEngineProvider<Workspace> provider = Imports.ScriptGenAssemblyCache.GetForProj(proj).EngineProvider;
 					IScriptGenEngine engine = provider.GetEngine(workspace, proj.FullName);
 					try
@@ -122,7 +118,7 @@ namespace TypeRightVsix
 							OLEMSGICON.OLEMSGICON_CRITICAL,
 							OLEMSGBUTTON.OLEMSGBUTTON_OK,
 							OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
-						RemoveGlobalProp();
+						BuildHelper.EndBuild(proj.FullName);
 					}
 				}
 			}
@@ -136,18 +132,13 @@ namespace TypeRightVsix
 		/// <param name="Action"></param>
 		private void BuildEvents_OnBuildDone(vsBuildScope Scope, vsBuildAction Action)
 		{
-			RemoveGlobalProp();
+			List<EnvDTE.Project> enabledProj = ConfigProcessing.GetEnabledProjectsForSolution();
+			foreach (EnvDTE.Project project in enabledProj)
+			{
+				BuildHelper.EndBuild(project.FullName);
+			}
 		}
-
-		/// <summary>
-		/// Removes the global property
-		/// </summary>
-		private void RemoveGlobalProp()
-		{
-			ProjectCollection collection = ProjectCollection.GlobalProjectCollection;
-			collection.RemoveGlobalProperty("ScriptGenerationCompletedViaVsix");
-		}
-
+		
 		#endregion
 	}
 }

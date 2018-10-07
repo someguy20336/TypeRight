@@ -112,11 +112,45 @@ namespace TypeRight.Workspaces.BuildTasks
 		}
 
 		/// <summary>
+		/// Gets or sets the legacy method of whether it was done by the extension
+		/// </summary>
+		public bool LegacyDoneByExtension { get; set; }
+
+		/// <summary>
+		/// Gets whether this task is building is visual studio
+		/// </summary>
+		public bool BuildingInVS { get; set; }
+
+		/// <summary>
+		/// Gets whether we are actually building the project
+		/// </summary>
+		public bool BuildingProject { get; set; }
+
+
+		/// <summary>
 		/// Executes the build task
 		/// </summary>
 		/// <returns>True if sucessful, false if not</returns>
 		public override bool Execute()
 		{
+			// https://blogs.msdn.microsoft.com/msbuild/2005/11/19/msbuild-in-visual-studio-part-12-compiling-inside-visual-studio/
+			if (!BuildingProject)
+			{
+				Log.LogMessage("BuildProject not set - skipping");
+				return true;
+			}
+
+			if (LegacyDoneByExtension || !BuildHelper.NeedsScriptGeneration(ProjectPath))
+			{
+				Log.LogMessage("Script generation skipped: done by extension");
+				return true;
+			}
+
+			if (BuildingInVS)
+			{
+				Log.LogMessage("Warning! You are generating scripts using the MSBuild task inside Visual Studio. Consider installing the extension for a faster build.");
+			}
+
 			/*
 			 * As you can see, I am creating a new app domain here.  this is because
 			 * I had so many problems keeping the Nuget packages up to date without
@@ -126,7 +160,7 @@ namespace TypeRight.Workspaces.BuildTasks
 			 * it tries to resolve those dependencies there and thus everything breaks.  This was still
 			 * an issue with using AppDomainIsolatedTask.
 			 */
-			 
+
 			AppDomainSetup setup = new AppDomainSetup
 			{
 				// Use the application base of this directory
