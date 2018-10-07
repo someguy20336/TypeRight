@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
 	<metadata>
 		<id>TypeRight</id>
-		<version>0.6.0</version>
+		<version>0.6.1</version>
 		<title>TypeRight</title>
 		<authors>Dave W</authors>
 		<owners>Dave W</owners>
@@ -12,7 +12,7 @@
 			This package adds a build task to create the scripts.  For the best experience, also use the VS extension
 			with the same name
 		</description>
-		<releaseNotes>Switching to .NET standard.</releaseNotes>
+		<releaseNotes>Better support for .Net Core projects</releaseNotes>
 		<copyright>Copyright 2018</copyright>
 		<projectUrl>https://github.com/someguy20336/TypeRight</projectUrl>
 		<iconUrl>https://github.com/someguy20336/TypeRight/blob/master/Icons/TypeRight64x64.png?raw=true</iconUrl>
