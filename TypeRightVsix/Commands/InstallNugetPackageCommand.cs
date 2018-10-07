@@ -35,7 +35,7 @@ namespace TypeRightVsix.Commands
 		/// <summary>
 		/// VS Package that provides this command, not null.
 		/// </summary>
-		private readonly Package package;
+		private readonly Package _package;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="InstallNugetPackageCommand"/> class.
@@ -44,12 +44,7 @@ namespace TypeRightVsix.Commands
 		/// <param name="package">Owner package, not null.</param>
 		private InstallNugetPackageCommand(Package package)
 		{
-			if (package == null)
-			{
-				throw new ArgumentNullException("package");
-			}
-
-			this.package = package;
+			this._package = package ?? throw new ArgumentNullException("package");
 
 			OleMenuCommandService commandService = this.ServiceProvider.GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
 			if (commandService != null)
@@ -102,7 +97,7 @@ namespace TypeRightVsix.Commands
 		{
 			get
 			{
-				return this.package;
+				return this._package;
 			}
 		}
 
