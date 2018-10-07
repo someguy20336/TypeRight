@@ -32,7 +32,7 @@ namespace TypeRightVsix.Commands
 		/// <summary>
 		/// VS Package that provides this command, not null.
 		/// </summary>
-		private readonly Package package;
+		private readonly Package _package;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="GenerateScriptsCommand"/> class.
@@ -41,7 +41,7 @@ namespace TypeRightVsix.Commands
 		/// <param name="package">Owner package, not null.</param>
 		private GenerateScriptsCommand(Package package)
 		{
-			this.package = package ?? throw new ArgumentNullException("package");
+			this._package = package ?? throw new ArgumentNullException("package");
 
 			if (this.ServiceProvider.GetService(typeof(IMenuCommandService)) is OleMenuCommandService commandService)
 			{
@@ -89,7 +89,7 @@ namespace TypeRightVsix.Commands
 		{
 			get
 			{
-				return this.package;
+				return this._package;
 			}
 		}
 
@@ -111,6 +111,7 @@ namespace TypeRightVsix.Commands
 		/// <param name="e">Event args.</param>
 		private void MenuItemCallback(object sender, EventArgs e)
 		{
+			ThreadHelper.ThrowIfNotOnUIThread();
 			Workspace currentWorkspace = VsHelper.Current.GetCurrentWorkspace();
 
 			foreach (EnvDTE.Project proj in VsHelper.GetSelectedItemsOfType<EnvDTE.Project>())

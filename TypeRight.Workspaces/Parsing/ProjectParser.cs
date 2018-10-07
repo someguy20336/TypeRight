@@ -21,9 +21,9 @@ namespace TypeRight.Workspaces.Parsing
 		/// <summary>
 		/// The path of the project currently being processed
 		/// </summary>
-		private ProjectId _projectId;
+		private readonly ProjectId _projectId;
 
-		private ParseOptions _options;
+		private readonly ParseOptions _options;
 
 		/// <summary>
 		/// Creates a new solution parser

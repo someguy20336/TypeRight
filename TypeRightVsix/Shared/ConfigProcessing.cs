@@ -4,9 +4,7 @@ using EnvDTE;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.VisualStudio.Shell;
 
 namespace TypeRightVsix.Shared
 {
@@ -22,6 +20,7 @@ namespace TypeRightVsix.Shared
 		/// <returns></returns>
 		public static List<Project> GetEnabledProjectsForSolution()
 		{
+			ThreadHelper.ThrowIfNotOnUIThread();
 			List<Project> enabledProj = new List<Project>();
 			foreach (Project proj in VsHelper.Current.Dte.Solution.Projects)
 			{
@@ -39,7 +38,8 @@ namespace TypeRightVsix.Shared
 		/// <param name="projPath">The path of the project</param>
 		/// <returns>True if enabled</returns>
 		public static bool IsGenEnabledForProject(Project proj)
-		{			
+		{
+			ThreadHelper.ThrowIfNotOnUIThread();
 			IConfigOptions opt = ScriptGenAssemblyCache.GetForProj(proj)?.ConfigManager.GetForProject(proj.FullName);
 			if (opt != null && opt.Enabled)
 			{
@@ -55,6 +55,7 @@ namespace TypeRightVsix.Shared
 		/// <returns>True if it exists and is added</returns>
 		public static bool ConfigExistsForProject(Project proj)
 		{
+			ThreadHelper.ThrowIfNotOnUIThread();
 			string configPath = ScriptGenAssemblyCache.GetForProj(proj)?.ConfigManager.GetConfigFilepath(proj.FullName);
 			if (string.IsNullOrEmpty(configPath))
 			{
@@ -71,6 +72,7 @@ namespace TypeRightVsix.Shared
 		/// </summary>
 		public static void CreateForProject(Project proj)
 		{
+			ThreadHelper.ThrowIfNotOnUIThread();
 			string configPath = ScriptGenAssemblyCache.GetForProj(proj)?.ConfigManager.GetConfigFilepath(proj.FullName);
 			if (!File.Exists(configPath))
 			{

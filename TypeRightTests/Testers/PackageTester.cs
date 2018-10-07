@@ -19,7 +19,7 @@ namespace TypeRightTests.Testers
         
 		private IScriptTemplate _scriptWriter;
 
-		private TypeFormatter _typeFormatter;
+		private readonly TypeFormatter _typeFormatter;
 
 		public PackageTester(ScriptPackage package, TypeFilter dispNameFilter, TypeFilter mvcActionFilter)
 		{

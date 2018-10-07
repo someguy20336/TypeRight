@@ -53,7 +53,8 @@ namespace TypeRightVsix.Imports
 			{
 				Directory.Delete(cachePath);
 			}
-			// TODO Don't hard code
+			// Use the test build
+			Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
 			string solnDir = new FileInfo(Shared.VsHelper.Current.Dte.Solution.FullName).Directory.FullName;
 			string relativeBuildDir = @"..\TypeRight.Build\bin\Debug";
 			AssemblyPath = Path.GetFullPath(Path.Combine(solnDir, relativeBuildDir));

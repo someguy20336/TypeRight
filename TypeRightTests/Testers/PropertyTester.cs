@@ -12,7 +12,7 @@ namespace TypeRightTests.Testers
 	{
 		private ExtractedProperty _property;
 
-		private TypeFormatter _typeFormatter;
+		private readonly TypeFormatter _typeFormatter;
 		
 		public PropertyTester(ExtractedProperty property, TypeFormatter typeFormatter)
 		{

@@ -74,6 +74,7 @@ namespace TypeRightVsix
 		/// </summary>
 		protected override void Initialize()
 		{
+			ThreadHelper.ThrowIfNotOnUIThread();
 			VsHelper.Initialize(this);
 			ScriptGenAssemblyCache.TryClearCache();
 
@@ -96,6 +97,7 @@ namespace TypeRightVsix
 		/// <param name="Action">The build action</param>
 		private void BuildEvents_OnBuildBegin(vsBuildScope Scope, vsBuildAction Action)
 		{
+			ThreadHelper.ThrowIfNotOnUIThread();
 			Workspace workspace = VsHelper.Current.GetCurrentWorkspace();
 			List<EnvDTE.Project> enabledProj = ConfigProcessing.GetEnabledProjectsForSolution();
 			if (enabledProj.Count > 0)
@@ -132,6 +134,7 @@ namespace TypeRightVsix
 		/// <param name="Action"></param>
 		private void BuildEvents_OnBuildDone(vsBuildScope Scope, vsBuildAction Action)
 		{
+			ThreadHelper.ThrowIfNotOnUIThread();
 			List<EnvDTE.Project> enabledProj = ConfigProcessing.GetEnabledProjectsForSolution();
 			foreach (EnvDTE.Project project in enabledProj)
 			{

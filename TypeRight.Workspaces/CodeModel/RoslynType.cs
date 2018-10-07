@@ -11,7 +11,9 @@ namespace TypeRight.Workspaces.CodeModel
 		protected ITypeSymbol TypeSymbol { get; set; }
 		protected DocumentationProvider DocProvider => Context.DocumentationProvider;
 		protected Compilation InCompilation => Context.Compilation;
-
+		/// <summary>
+		/// Gets the name of the type
+		/// </summary>
 		public string Name { get; }
 		
 		public RoslynType(ITypeSymbol typeSymbol, ParseContext context)

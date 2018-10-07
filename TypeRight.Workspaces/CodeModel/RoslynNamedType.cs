@@ -28,28 +28,65 @@ namespace TypeRight.Workspaces.CodeModel
 
 		private Lazy<IReadOnlyList<INamedType>> _interfaces;
 
+		/// <summary>
+		/// Gets the full name of the class, as known in code
+		/// </summary>
 		public string FullName { get; }
 
+		/// <summary>
+		/// Gets the type this type was constructed from (when this type is constructed from a generic)
+		/// </summary>
 		public INamedType ConstructedFromType => _constructedFrom.Value;
 
+		/// <summary>
+		/// Gets the base type of this type, if applicable
+		/// </summary>
 		public INamedType BaseType => _baseType.Value;
-		
+
+		/// <summary>
+		/// Gets the type arguments for this type
+		/// </summary>
 		public IReadOnlyList<IType> TypeArguments => _typeArguments.Value;
 
+		/// <summary>
+		/// Gets the comments for this type
+		/// </summary>
 		public string Comments { get; }
 
+		/// <summary>
+		/// Gets the properties for this type
+		/// </summary>
 		public IReadOnlyList<IProperty> Properties => _properties.Value;
 
+		/// <summary>
+		/// Gets the fields for this type
+		/// </summary>
 		public IReadOnlyList<IField> Fields => _fields.Value;
 
+		/// <summary>
+		/// Gets the methods for this type
+		/// </summary>
 		public IReadOnlyList<IMethod> Methods => _methods.Value;
 
+		/// <summary>
+		/// Gets the attributes for this type
+		/// </summary>
 		public IReadOnlyList<IAttributeData> Attributes => _attrs.Value;
 
+		/// <summary>
+		/// Gets the interfaces implemented by this type
+		/// </summary>
 		public IReadOnlyList<INamedType> Interfaces => _interfaces.Value;
 
+
+		/// <summary>
+		/// TODO: I DONT WANT THIS
+		/// </summary>
 		public string FilePath { get; }
 
+		/// <summary>
+		/// Gets the flags for this type
+		/// </summary>
 		public TypeFlags Flags { get; }
 
 

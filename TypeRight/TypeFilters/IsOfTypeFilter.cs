@@ -10,7 +10,7 @@ namespace TypeRight.TypeFilters
 		/// <summary>
 		/// The type to check
 		/// </summary>
-		private string _typeToCheck;
+		private readonly string _typeToCheck;
 
 		/// <summary>
 		/// Creates a new "Is Of Type" filter

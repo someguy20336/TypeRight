@@ -1,5 +1,6 @@
 ﻿using EnvDTE;
 using EnvDTE80;
+using Microsoft;
 using Microsoft.CodeAnalysis;
 using Microsoft.VisualStudio.ComponentModelHost;
 using Microsoft.VisualStudio.LanguageServices;
@@ -45,8 +46,10 @@ namespace TypeRightVsix.Shared
 		/// <param name="serviceProvider">The service provider to use</param>
 		private VsHelper(IServiceProvider serviceProvider)
 		{
+			ThreadHelper.ThrowIfNotOnUIThread();
 			_servProvider = serviceProvider;
 			Dte = _servProvider.GetService(typeof(DTE)) as DTE;
+			Assumes.Present(Dte);
 		}
 
 		/// <summary>
@@ -54,7 +57,7 @@ namespace TypeRightVsix.Shared
 		/// </summary>
 		/// <param name="serviceProvider">The service provider to use</param>
 		public static void Initialize(IServiceProvider serviceProvider)
-		{
+		{			
 			if (Current == null)
 			{
 				Current = new VsHelper(serviceProvider);
@@ -69,6 +72,7 @@ namespace TypeRightVsix.Shared
 		{
 			// https://joshvarty.wordpress.com/2014/09/12/learn-roslyn-now-part-6-working-with-workspaces/
 			IComponentModel componentModel = (IComponentModel)_servProvider.GetService(typeof(SComponentModel));
+			Assumes.Present(componentModel);
 			Workspace workspace = componentModel.GetService<VisualStudioWorkspace>();
 			return workspace;
 		}
@@ -80,6 +84,7 @@ namespace TypeRightVsix.Shared
 		/// <returns>True if it exists</returns>
 		public static bool SolutionItemExists(string filePath)
 		{
+			ThreadHelper.ThrowIfNotOnUIThread();
 			Solution2 solution = ((Solution2)Current.Dte.Solution);
 			ProjectItem item = solution.FindProjectItem(filePath);
 			return item != null;
@@ -92,14 +97,14 @@ namespace TypeRightVsix.Shared
 		/// <returns>An enumerable list of types</returns>
 		public static IEnumerable<TItemType> GetSelectedItemsOfType<TItemType>() where TItemType : class
 		{
+			ThreadHelper.ThrowIfNotOnUIThread();
 			Array items = (Array)(Current.Dte2).ToolWindows.SolutionExplorer.SelectedItems;
 
 			foreach (UIHierarchyItem selItem in items)
 			{
-				TItemType item = selItem.Object as TItemType;
-				if (item != null)
+				if (selItem.Object is TItemType itemAsType)
 				{
-					yield return item;
+					yield return itemAsType;
 				}
 			}
 		}
@@ -111,6 +116,7 @@ namespace TypeRightVsix.Shared
 		/// <returns>True if it is the solution items folder</returns>
 		public static bool IsSolutionItemsFolder(EnvDTE.Project proj)
 		{
+			ThreadHelper.ThrowIfNotOnUIThread();
 			return proj.Kind == "{66A26720-8FB5-11D2-AA7E-00C04F688DDE}";  // ... I think
 		}
 
