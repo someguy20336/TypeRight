@@ -17,15 +17,7 @@ foreach (string paramName in oneAction.ParameterComments.Keys) {
 #>
  */
 export function <#= BuildActionSignature(oneAction) #> {
-	<#= AjaxFunctionName #>("<#= GetUrl(oneAction) #>", { 
-<#
-foreach (var oneParam in oneAction.Parameters) {
-#>
-		<#= oneParam.Name #>: <#= oneParam.Name #>,
-<#
-}
-#>
-	}, <#= SuccessFuncName #>, <#= FailFuncName #>);
+	<#= AjaxFunctionName #>("<#= GetUrl(oneAction) #>", <#= BuildWebServiceParams(oneAction) #>, <#= SuccessFuncName #>, <#= FailFuncName #>);
 }
 
 <#

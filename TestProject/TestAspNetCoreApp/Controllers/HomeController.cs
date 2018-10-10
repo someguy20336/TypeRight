@@ -42,6 +42,12 @@ namespace TestAspNetCoreApp.Controllers
 			return Json(new NetStandardClass());
 		}
 
+		[ScriptAction]
+		public JsonResult FunctionWithModel([FromBody] ASimpleModel model)
+		{
+			return Json(model);
+		}
+
 		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
 		public IActionResult Error()
 		{

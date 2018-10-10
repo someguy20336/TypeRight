@@ -133,6 +133,25 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
 		}
 
 		/// <summary>
+		/// Builds the aja
+		/// </summary>
+		/// <param name="action"></param>
+		/// <returns></returns>
+		private string BuildWebServiceParams(MvcActionInfo action)
+		{
+			if (Context.ModelBinding == Configuration.ModelBindingType.SingleParam)
+			{
+				// If we are only using a single parameter model binding (i.e. asp.net core), then the object itself should be the body
+				return action.Parameters.Count > 0 ? action.Parameters[0].Name : "{ }";
+			} 
+			else
+			{
+				IEnumerable<string> multiParam = action.Parameters.Select(p => $"{p.Name}: {p.Name}");  // Transform to param1: param1
+				return $"{{ {string.Join(", ", multiParam)} }}";
+			}
+		}
+
+		/// <summary>
 		/// Gets the URL for an action
 		/// </summary>
 		/// <param name="action">The action</param>

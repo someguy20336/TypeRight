@@ -126,7 +126,8 @@ namespace TypeRight.ScriptGeneration
                 AjaxFunctionName = ConfigurationOptions.AjaxFunctionName,
                 WebMethodNamespace = ConfigurationOptions.WebMethodNamespace,
                 ExtractedTypes = typeCollection,
-                AjaxFunctionModulePath = ajaxModuleUri
+                AjaxFunctionModulePath = ajaxModuleUri,
+				ModelBinding = ConfigurationOptions.ModelBindingType
             };
             foreach (MvcControllerInfo controller in typeCollection.GetMvcControllers())
 			{

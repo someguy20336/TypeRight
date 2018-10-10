@@ -3,6 +3,14 @@
 // ===============================
 // Classes
 // ===============================
+/**  */
+export interface ASimpleModel {
+	/**  */
+	PropOne: number;
+	/**  */
+	PropTwo: string;
+}
+
 /** Test summ */
 export interface ErrorViewModel {
 	/**  */

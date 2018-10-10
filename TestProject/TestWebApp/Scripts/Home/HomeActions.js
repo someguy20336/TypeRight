@@ -7,9 +7,7 @@ var CallServiceStuff_1 = require("../CallServiceStuff");
  * @param dict
  */
 function Test_Anonymous(dict, success, fail) {
-    CallServiceStuff_1.callService("/Home/Test_Anonymous", {
-        dict: dict,
-    }, success, fail);
+    CallServiceStuff_1.callService("/Home/Test_Anonymous", { dict: dict }, success, fail);
 }
 exports.Test_Anonymous = Test_Anonymous;
 /**
@@ -17,9 +15,7 @@ exports.Test_Anonymous = Test_Anonymous;
  * @param example
  */
 function Test_ObjectParam(example, success, fail) {
-    CallServiceStuff_1.callService("/Home/Test_ObjectParam", {
-        example: example,
-    }, success, fail);
+    CallServiceStuff_1.callService("/Home/Test_ObjectParam", { example: example }, success, fail);
 }
 exports.Test_ObjectParam = Test_ObjectParam;
 /**
@@ -27,9 +23,7 @@ exports.Test_ObjectParam = Test_ObjectParam;
  * @param dict
  */
 function Test_ObjectReturn(dict, success, fail) {
-    CallServiceStuff_1.callService("/Home/Test_ObjectReturn", {
-        dict: dict,
-    }, success, fail);
+    CallServiceStuff_1.callService("/Home/Test_ObjectReturn", { dict: dict }, success, fail);
 }
 exports.Test_ObjectReturn = Test_ObjectReturn;
 /**

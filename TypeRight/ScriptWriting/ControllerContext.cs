@@ -1,4 +1,5 @@
 ﻿using System;
+using TypeRight.Configuration;
 using TypeRight.TypeProcessing;
 
 namespace TypeRight.ScriptWriting
@@ -38,5 +39,10 @@ namespace TypeRight.ScriptWriting
         /// </summary>
         public bool HasOwnAjaxFunction => !string.IsNullOrEmpty(AjaxFunctionName);
 
-    }
+		/// <summary>
+		/// Gets or sets the type of model binding to use
+		/// </summary>
+		public ModelBindingType ModelBinding { get; set; }
+
+	}
 }

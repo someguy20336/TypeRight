@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\ConfigEnums.cs" />
     <Compile Include="Configuration\ConfigManager.cs" />
     <Compile Include="Configuration\ConfigOptions.cs" />
     <Compile Include="Configuration\ConfigParser.cs" />

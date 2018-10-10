@@ -96,55 +96,30 @@ foreach (string paramName in oneAction.ParameterComments.Keys) {
             
             #line default
             #line hidden
-            this.Write("\", { \r\n");
+            this.Write("\", ");
             
-            #line 21 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
-
-foreach (var oneParam in oneAction.Parameters) {
-
+            #line 20 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(BuildWebServiceParams(oneAction)));
             
             #line default
             #line hidden
-            this.Write("\t\t");
+            this.Write(", ");
             
-            #line 24 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(oneParam.Name));
-            
-            #line default
-            #line hidden
-            this.Write(": ");
-            
-            #line 24 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(oneParam.Name));
-            
-            #line default
-            #line hidden
-            this.Write(",\r\n");
-            
-            #line 25 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
-
-}
-
-            
-            #line default
-            #line hidden
-            this.Write("\t}, ");
-            
-            #line 28 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
+            #line 20 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(SuccessFuncName));
             
             #line default
             #line hidden
             this.Write(", ");
             
-            #line 28 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
+            #line 20 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(FailFuncName));
             
             #line default
             #line hidden
             this.Write(");\r\n}\r\n\r\n");
             
-            #line 31 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
+            #line 23 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
 
 }
 
@@ -153,7 +128,7 @@ foreach (var oneParam in oneAction.Parameters) {
             #line hidden
             this.Write("\r\n");
             
-            #line 35 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
+            #line 27 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
  if (!HasOwnAjaxFunction) { 
             
             #line default
@@ -180,7 +155,7 @@ foreach (var oneParam in oneAction.Parameters) {
                     "dled error has occurred.  Please try again or contact the technical team.\");\r\n}\r" +
                     "\n");
             
-            #line 87 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
+            #line 79 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
  } 
             
             #line default

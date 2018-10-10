@@ -6,5 +6,6 @@
   serverObjectsResultFilepath: "./Scripts/ServerObjects.ts",
   templateType: "module",
   ajaxFunctionModulePath: "./Scripts/CallServiceStuff.ts",
-  ajaxFunctionName: "callService"
+  ajaxFunctionName: "callService",
+  modelBindingType: "singleParam"
 }
