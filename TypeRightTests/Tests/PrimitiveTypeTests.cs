@@ -10,7 +10,7 @@ namespace TypeRightTests.Tests
 	public class PrimitiveTypeTests
 	{
 
-		private PackageTester _packageTester;
+		private static PackageTester _packageTester;
 
 		private const string ClassName = "SimplePrimitiveClass";
 
@@ -25,8 +25,8 @@ namespace TypeRightTests.Tests
 		/// <summary>
 		/// Sets up a parse of this solution
 		/// </summary>
-		[TestInitialize]
-		public void SetupParse()
+		[ClassInitialize]
+		public static void SetupParse(TestContext context)
 		{
 			TestWorkspaceBuilder wkspBuilder = new TestWorkspaceBuilder();
 

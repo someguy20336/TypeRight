@@ -12,10 +12,10 @@ namespace TypeRightTests.Tests
 	public class SameNameTests
 	{
 
-		private PackageTester _packageTester;
+		private static PackageTester _packageTester;
 
-		[TestInitialize]
-		public void SetupParse()
+		[ClassInitialize]
+		public static void SetupParse(TestContext context)
 		{
 			TestWorkspaceBuilder wkspBuilder = new TestWorkspaceBuilder();
 

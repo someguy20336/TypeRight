@@ -8,7 +8,7 @@ namespace TypeRightTests.Tests
 	[TestClass]
 	public class InteritenceTests
 	{
-		private PackageTester _packageTester;
+		private static PackageTester _packageTester;
 
 		private const string SimpleBaseClassName = "SimpleBaseClassName";
 
@@ -20,8 +20,8 @@ namespace TypeRightTests.Tests
 		/// <summary>
 		/// Sets up a parse of this solution
 		/// </summary>
-		[TestInitialize]
-		public void SetupParse()
+		[ClassInitialize]
+		public static void SetupParse(TestContext context)
 		{
 			TestWorkspaceBuilder wkspBuilder = new TestWorkspaceBuilder();
 

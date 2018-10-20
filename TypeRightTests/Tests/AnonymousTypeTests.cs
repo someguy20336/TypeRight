@@ -16,13 +16,13 @@ namespace TypeRightTests.Tests
 	public class AnonymousTypeTests
 	{
 
-		private PackageTester _packageTester;
+		private static PackageTester _packageTester;
 
 		/// <summary>
 		/// Sets up a parse of this solution
 		/// </summary>
-		[TestInitialize]
-		public void SetupParse()
+		[ClassInitialize]
+		public static void SetupParse(TestContext context)
 		{
 
 			TestWorkspaceBuilder wkspBuilder = new TestWorkspaceBuilder();
