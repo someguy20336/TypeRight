@@ -10,6 +10,8 @@ using TypeRightVsix.Shared;
 using System.Collections.Generic;
 using TypeRight;
 using TypeRightVsix.Imports;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace TypeRightVsix
 {
@@ -30,13 +32,13 @@ namespace TypeRightVsix
 	/// To get loaded into VS, the package must be referred by &lt;Asset Type="Microsoft.VisualStudio.VsPackage" ...&gt; in .vsixmanifest file.
 	/// </para>
 	/// </remarks>
-	[PackageRegistration(UseManagedResourcesOnly = true)]
+	[PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
 	[InstalledProductRegistration("#110", "#112", "1.0", IconResourceID = 400)] // Info on this package for Help/About
 	[Guid(TypeRightPackage.PackageGuidString)]
-	[ProvideAutoLoad(UIContextGuids80.SolutionExists)]
+	[ProvideAutoLoad(UIContextGuids80.SolutionExists, PackageAutoLoadFlags.BackgroundLoad)]
 	[SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "pkgdef, VS and vsixmanifest are valid VS terms")]
 	[ProvideMenuResource("Menus.ctmenu", 1)]
-	public sealed class TypeRightPackage : Package  // TODO: maybe AsyncPackage?
+	public sealed class TypeRightPackage : AsyncPackage
 	{
 		/// <summary>
 		/// The name used by Nuget
@@ -67,17 +69,14 @@ namespace TypeRightVsix
 
 
 		#region Package Members
-
-		/// <summary>
-		/// Initialization of the package; this method is called right after the package is sited, so this is the place
-		/// where you can put all the initialization code that rely on services provided by VisualStudio.
-		/// </summary>
-		protected override void Initialize()
+		
+		protected async override System.Threading.Tasks.Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
 		{
-			ThreadHelper.ThrowIfNotOnUIThread();
-			VsHelper.Initialize(this);
 			ScriptGenAssemblyCache.TryClearCache();
 
+			await JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
+
+			VsHelper.Initialize(this);
 			_buildEvents = VsHelper.Current.Dte.Events.BuildEvents;
 			_buildEvents.OnBuildBegin += BuildEvents_OnBuildBegin;
 			_buildEvents.OnBuildDone += BuildEvents_OnBuildDone;
@@ -85,10 +84,9 @@ namespace TypeRightVsix
 			GenerateScriptsCommand.Initialize(this);
 			InstallNugetPackageCommand.Initialize(this);
 			ClearCacheCommand.Initialize(this);
-			base.Initialize();
+			await base.InitializeAsync(cancellationToken, progress);
 		}
 
-		
 
 		/// <summary>
 		/// Event handler for the build event, which will silently generate the typescript files

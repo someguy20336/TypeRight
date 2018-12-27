@@ -3,11 +3,11 @@
 // ===============================
 // Classes
 // ===============================
-/**  */
+/** Tst model */
 export interface ASimpleModel {
-	/**  */
+	/** Doc for prop 1 */
 	PropOne: number;
-	/**  */
+	/** Doc for prop 2 */
 	PropTwo: string;
 }
 
