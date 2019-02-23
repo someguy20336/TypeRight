@@ -19,10 +19,18 @@ export interface ErrorViewModel {
 	ShowRequestId: boolean;
 }
 
+/**  */
+export interface GenericModel<T> {
+}
+
 /** Start some doc here */
 export interface NetStandardClass {
 	/**  */
 	HelloThere: number;
+}
+
+/**  */
+export interface TestTwoTypeParams<T, T2> {
 }
 
   
