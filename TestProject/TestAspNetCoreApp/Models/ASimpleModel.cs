@@ -33,6 +33,13 @@ namespace TestAspNetCoreApp.Models
 	{
 		public ASimpleModel<T1> Reference { get; set; }
 
-		public int AhDoesThisWork { get; set; }
+		public ASimpleEnum AhDoesThisWork { get; set; }
+	}
+
+	public enum ASimpleEnum
+	{
+		A, 
+		B,
+		C
 	}
 }

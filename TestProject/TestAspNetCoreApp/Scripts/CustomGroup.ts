@@ -9,7 +9,7 @@ export interface ASimpleModel<T1, T2> {
 	/**  */
 	Reference: ServerObjects.ASimpleModel_1<T1>;
 	/**  */
-	AhDoesThisWork: number;
+	AhDoesThisWork: ASimpleEnum;
 }
 
 /**  */
@@ -39,4 +39,16 @@ export interface CustomGroupObject1 {
 // ===============================
 // Enums
 // ===============================
+
+/**  */
+export enum ASimpleEnum {
+	/**  */
+	A = 0,
+	/**  */
+	B = 1,
+	/**  */
+	C = 2,
+}
+ 
+
   

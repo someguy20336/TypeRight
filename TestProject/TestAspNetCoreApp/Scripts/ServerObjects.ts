@@ -35,6 +35,8 @@ export interface GenericModel<T> {
 export interface NetStandardClass {
 	/**  */
 	HelloThere: number;
+	/**  */
+	EnumType: NetStandardEnum;
 }
 
 /**  */
@@ -50,4 +52,16 @@ export interface TestTwoTypeParams<T, T2> {
 // ===============================
 // Enums
 // ===============================
+
+/**  */
+export enum NetStandardEnum {
+	/**  */
+	One = 0,
+	/**  */
+	Two = 1,
+	/**  */
+	Three = 2,
+}
+ 
+
   

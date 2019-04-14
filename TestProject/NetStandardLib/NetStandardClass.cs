@@ -8,5 +8,14 @@ namespace NetStandardLib
 	public class NetStandardClass
 	{
 		public int HelloThere { get; set; }
+
+		public NetStandardEnum EnumType { get; set; }
+	}
+
+	public enum NetStandardEnum
+	{
+		One,
+		Two,
+		Three
 	}
 }

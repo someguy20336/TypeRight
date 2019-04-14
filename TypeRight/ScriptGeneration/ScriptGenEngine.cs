@@ -107,7 +107,7 @@ namespace TypeRight.ScriptGeneration
 			IScriptTemplate scriptGen = ScriptTemplateFactory.GetTemplate(ConfigurationOptions.TemplateType);
 
 			// Write the object script text
-			foreach (var typeGroup in typeCollection.GetReferenceTypes().GroupBy(t => t.TargetPath))
+			foreach (var typeGroup in typeCollection.GroupBy(t => t.TargetPath))
 			{
 				TypeWriteContext scriptContext = new TypeWriteContext()
 				{

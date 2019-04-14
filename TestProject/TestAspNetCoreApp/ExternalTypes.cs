@@ -5,12 +5,14 @@ using TypeRight.Attributes;
 [assembly: ScriptObjects(
 	typeof(NetStandardClass),
 	typeof(GenericModel<>),
-	typeof(TestTwoTypeParams<,>)
+	typeof(TestTwoTypeParams<,>),
+	typeof(NetStandardEnum)
 	)]
 
 [assembly: ScriptObjects("./Scripts/CustomGroup.ts",
 	typeof(CustomGroupObject1),
 	typeof(CustomGroupObj2),
 	typeof(CustomGroupObj2<>),
-	typeof(ASimpleModel<,>)
+	typeof(ASimpleModel<,>),
+	typeof(ASimpleEnum)
 	)]

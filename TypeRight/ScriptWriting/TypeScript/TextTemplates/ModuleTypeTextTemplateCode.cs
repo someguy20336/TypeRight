@@ -21,8 +21,7 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
 		public string GetText(TypeWriteContext context)
 		{
 			_context = context;
-
-
+			
 			CompileImports();
 			_formatter = new TypeScriptTypeFormatter(context.TypeCollection, new ModuleTypePrefixResolver(_imports));  // Add no prefix to the types
 

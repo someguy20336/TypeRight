@@ -67,4 +67,18 @@ namespace ServerClasses {
 }
   
 
+namespace ServerEnums {
+	
+	/**  */
+	export enum ExampleEnum {
+		/**  */
+		One = 0,
+		/**  */
+		Two = 1,
+		/**  */
+		Three = 2,
+	}
+	 
+  
+}
   

@@ -7,7 +7,7 @@ namespace WebMethods.Home {
 	 * @param dict 
 	 */
 	export function Test_Anonymous(dict: { [key: string]: string }, success?: (result: { exampleProp: ServerClasses.ExampleClass, intProp: number, stringProp: string }) => void, fail?: (result: any) => void): void {
-		callService("/Home/Test_Anonymous", { dict: dict }, success, fail);
+		Comm.callService("/Home/Test_Anonymous", { dict: dict }, success, fail);
 	}
 	
 	/**
@@ -15,7 +15,7 @@ namespace WebMethods.Home {
 	 * @param example 
 	 */
 	export function Test_ObjectParam(example: ServerClasses.ExampleClass, success?: (result: number) => void, fail?: (result: any) => void): void {
-		callService("/Home/Test_ObjectParam", { example: example }, success, fail);
+		Comm.callService("/Home/Test_ObjectParam", { example: example }, success, fail);
 	}
 	
 	/**
@@ -23,14 +23,14 @@ namespace WebMethods.Home {
 	 * @param dict 
 	 */
 	export function Test_ObjectReturn(dict: { [key: string]: string }, success?: (result: ServerClasses.ExampleClass) => void, fail?: (result: any) => void): void {
-		callService("/Home/Test_ObjectReturn", { dict: dict }, success, fail);
+		Comm.callService("/Home/Test_ObjectReturn", { dict: dict }, success, fail);
 	}
 	
 	/**
 	 * 
 	 */
 	export function TestJson(success?: (result: boolean) => void, fail?: (result: any) => void): void {
-		callService("/Home/TestJson", {  }, success, fail);
+		Comm.callService("/Home/TestJson", {  }, success, fail);
 	}
 	
 	
