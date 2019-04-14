@@ -17,6 +17,7 @@
 		<projectUrl>https://github.com/someguy20336/TypeRight</projectUrl>
 		<iconUrl>https://github.com/someguy20336/TypeRight/blob/master/Icons/TypeRight64x64.png?raw=true</iconUrl>
 		<tags>TypeScript Generator MVC C# classes</tags>
+		<license type="expression">MIT</license>
 	</metadata>
 	<files>
 		<file src=".\TypeRight.Attributes.dll" target="lib\netstandard2.0" />
