@@ -234,11 +234,11 @@
       <Name>TypeRight.Attributes</Name>
     </ProjectReference>
     <ProjectReference Include="..\TypeRight.Core\TypeRight.Core.csproj">
-      <Project>{aee04bdf-2c63-4ff2-a3c7-a9fcafd7e538}</Project>
+      <Project>{d3f8a40d-be0b-48b9-b5ea-6032a4c5f4b1}</Project>
       <Name>TypeRight.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\TypeRight\TypeRight.csproj">
-      <Project>{bb764c1a-2067-48e4-8940-8fa035ef35c3}</Project>
+      <Project>{7574657d-76bd-4b4f-b566-a4d830aa9fcb}</Project>
       <Name>TypeRight</Name>
     </ProjectReference>
   </ItemGroup>

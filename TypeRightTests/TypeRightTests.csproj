@@ -261,16 +261,16 @@
       <Name>TypeRight.Build</Name>
     </ProjectReference>
     <ProjectReference Include="..\TypeRight.Core\TypeRight.Core.csproj">
-      <Project>{AEE04BDF-2C63-4FF2-A3C7-A9FCAFD7E538}</Project>
+      <Project>{d3f8a40d-be0b-48b9-b5ea-6032a4c5f4b1}</Project>
       <Name>TypeRight.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TypeRight\TypeRight.csproj">
-      <Project>{bb764c1a-2067-48e4-8940-8fa035ef35c3}</Project>
-      <Name>TypeRight</Name>
     </ProjectReference>
     <ProjectReference Include="..\TypeRight.Workspaces\TypeRight.Workspaces.csproj">
       <Project>{70cf5802-597d-44e7-acc8-421ee1d8e611}</Project>
       <Name>TypeRight.Workspaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TypeRight\TypeRight.csproj">
+      <Project>{7574657d-76bd-4b4f-b566-a4d830aa9fcb}</Project>
+      <Name>TypeRight</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

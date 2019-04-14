@@ -3,6 +3,7 @@
 // ===============================
 // Classes
 // ===============================
+
 /** Tst model */
 export interface ASimpleModel {
 	/** Doc for prop 1 */
@@ -10,6 +11,7 @@ export interface ASimpleModel {
 	/** Doc for prop 2 */
 	PropTwo: string;
 }
+
 
 /** Test summ */
 export interface ErrorViewModel {
@@ -19,15 +21,18 @@ export interface ErrorViewModel {
 	ShowRequestId: boolean;
 }
 
+
 /**  */
 export interface GenericModel<T> {
 }
+
 
 /** Start some doc here */
 export interface NetStandardClass {
 	/**  */
 	HelloThere: number;
 }
+
 
 /**  */
 export interface TestTwoTypeParams<T, T2> {

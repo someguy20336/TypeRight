@@ -4,18 +4,22 @@ import * as ServerObjects from "ServerObjects";
 // ===============================
 // Classes
 // ===============================
+
 /**  */
 export interface CustomGroupObj2 {
 	/**  */
 	Obj1: CustomGroupObject1;
 }
 
+
 /**  */
 export interface CustomGroupObject1 {
-	/**  */
+	/** Add doc */
 	Prop1: number;
 	/**  */
 	OtherClass: ServerObjects.NetStandardClass;
+	/** Just has a string list */
+	AnotherStringList: string[];
 }
 
   

@@ -1,235 +1,113 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{BB764C1A-2067-48E4-8940-8FA035EF35C3}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TypeRight</RootNamespace>
-    <AssemblyName>TypeRight</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\TypeRight.xml</DocumentationFile>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\TypeRight.xml</DocumentationFile>
-  </PropertyGroup>
-  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>TypeRight.snk</AssemblyOriginatorKeyFile>
+    <AssemblyVersion>1.2.0.0</AssemblyVersion>
+    <FileVersion>1.2.0.0</FileVersion>
+    <Version>1.2.0</Version>
   </PropertyGroup>
-  <PropertyGroup>
-    <AssemblyOriginatorKeyFile>TypeRightKey.snk</AssemblyOriginatorKeyFile>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.ComponentModel.Composition" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="PathUtils.cs" />
-    <Compile Include="Configuration\ConfigEnums.cs" />
-    <Compile Include="Configuration\ConfigManager.cs" />
-    <Compile Include="Configuration\ConfigOptions.cs" />
-    <Compile Include="Configuration\ConfigParser.cs" />
-    <Compile Include="ScriptWriting\IControllerTextTemplate.cs" />
-    <Compile Include="ScriptWriting\ScriptTemplateFactory.cs" />
-    <Compile Include="ScriptWriting\IPartialTypeTextTemplate.cs" />
-    <Compile Include="ScriptWriting\ITypeTextTemplate.cs" />
-    <Compile Include="ScriptWriting\ScriptWriteContext.cs" />
-    <Compile Include="ScriptWriting\TypeScript\ImportStatement.cs" />
-    <Compile Include="ScriptWriting\TypeScript\ModuleTemplate.cs" />
-    <Compile Include="ScriptWriting\TypeScript\PartialTextTemplates\EnumTextTemplate.cs">
-      <AutoGen>True</AutoGen>
+    <None Include="ScriptWriting\TypeScript\PartialTextTemplates\TypeScriptClassTextTemplate.cs">
       <DesignTime>True</DesignTime>
-      <DependentUpon>EnumTextTemplate.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ScriptWriting\TypeScript\PartialTextTemplates\EnumTextTemplateCode.cs" />
-    <Compile Include="ScriptWriting\TypeScript\PartialTextTemplates\TypeScriptClassTextTemplate.cs">
       <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>TypeScriptClassTextTemplate.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ScriptWriting\TypeScript\PartialTextTemplates\TypeScriptClassTextTemplateCode.cs" />
-    <Compile Include="ScriptWriting\TypeScript\PartialTextTemplates\TypeScriptInterfaceTextTemplate.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TypeScriptInterfaceTextTemplate.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ScriptWriting\TypeScript\PartialTextTemplates\TypeScriptInterfaceTextTemplateCode.cs" />
-    <Compile Include="ScriptWriting\TypeScript\ITypePrefixResolver.cs" />
-    <Compile Include="ScriptWriting\TypeScript\TextTemplates\ModuleMvcMethodTextTemplate.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModuleMvcMethodTextTemplate.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ScriptWriting\TypeScript\TextTemplates\ModuleMvcMethodTextTemplateCode.cs" />
-    <Compile Include="ScriptWriting\TypeScript\TextTemplates\ModuleTypeTextTemplate.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModuleTypeTextTemplate.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ScriptWriting\TypeScript\TextTemplates\ModuleTypeTextTemplateCode.cs" />
-    <Compile Include="ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MvcMethodTextTemplateBase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBaseCode.cs" />
-    <Compile Include="ScriptWriting\TypeScript\TextTemplates\TextTemplateHelper.cs" />
-    <Compile Include="TypeFilters\IsOfAnyTypeFilter.cs" />
-    <Compile Include="TypeProcessing\ExtractedTypeExtensions.cs" />
-    <Compile Include="TypeProcessing\MvcActionInfo.cs" />
-    <Compile Include="CodeModel\ITypeWithFullName.cs" />
-    <Compile Include="TypeProcessing\MvcControllerInfo.cs" />
-    <Compile Include="CodeModel\IMethodParameter.cs" />
-    <Compile Include="CodeModel\IArrayType.cs" />
-    <Compile Include="CodeModel\IAttributeData.cs" />
-    <Compile Include="CodeModel\IField.cs" />
-    <Compile Include="CodeModel\IMethod.cs" />
-    <Compile Include="CodeModel\ITypeParameter.cs" />
-    <Compile Include="TypeLocation\ITypeIterator.cs" />
-    <Compile Include="TypeFilters\HasAttributeFilter.cs" />
-    <Compile Include="TypeFilters\HasInterfaceOfTypeFilter.cs" />
-    <Compile Include="TypeFilters\IsOfTypeFilter.cs" />
-    <Compile Include="TypeFilters\TypeFilter.cs" />
-    <Compile Include="TypeLocation\ParseFilterSettings.cs" />
-    <Compile Include="CodeModel\INamedType.cs" />
-    <Compile Include="CodeModel\IProperty.cs" />
-    <Compile Include="CodeModel\IType.cs" />
-    <Compile Include="CodeModel\TypeFlags.cs" />
-    <Compile Include="CodeModel\XmlDocumentation.cs" />
-    <Compile Include="TypeLocation\TypeVisitor.cs" />
-    <Compile Include="ScriptGeneration\ScriptGenEngine.cs" />
-    <Compile Include="TypeProcessing\ExtractedTypes\EnumMemberInfo.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ScriptWriting\IScriptTemplate.cs" />
-    <Compile Include="ScriptGeneration\ScriptGenerationResult.cs" />
-    <Compile Include="ScriptWriting\TypeFormatter.cs" />
-    <Compile Include="ScriptWriting\TypeScript\TypeScriptTypeFormatter.cs" />
-    <Compile Include="ScriptWriting\ControllerContext.cs" />
-    <Compile Include="ScriptWriting\TypeScript\TextTemplates\NamespaceTypeTextTemplate.cs">
-      <DependentUpon>NamespaceTypeTextTemplate.tt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="ScriptWriting\TypeScript\TextTemplates\NamespaceTypeTextTemplateCode.cs" />
-    <Compile Include="ScriptWriting\TypeScript\TextTemplates\NamespaceMvcMethodTextTemplate.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>NamespaceMvcMethodTextTemplate.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ScriptWriting\TypeScript\TextTemplates\NamespaceMvcMethodTextTemplateCode.cs" />
-    <Compile Include="ScriptWriting\TypeScript\TypeScriptHelper.cs" />
-    <Compile Include="ScriptWriting\TypeScript\NamespaceTemplate.cs" />
-    <Compile Include="TypeProcessing\ProcessorSettings.cs" />
-    <Compile Include="TypeProcessing\TypeDescriptors\AnonymousTypeDescriptor.cs" />
-    <Compile Include="TypeProcessing\TypeDescriptors\ArrayTypeDescriptor.cs" />
-    <Compile Include="TypeProcessing\ExtractedTypes\ExtractedClassType.cs" />
-    <Compile Include="TypeProcessing\TypeDescriptors\ExtractedTypeDescriptor.cs" />
-    <Compile Include="TypeProcessing\TypeDescriptors\NamedReferenceTypeDescriptor.cs" />
-    <Compile Include="TypeProcessing\TypeDescriptors\DictionaryTypeDescriptor.cs" />
-    <Compile Include="TypeProcessing\ExtractedTypes\ExtractedEnumType.cs" />
-    <Compile Include="TypeProcessing\TypeDescriptors\ExtractedEnumTypeDescriptor.cs" />
-    <Compile Include="TypeProcessing\ExtractedTypes\ExtractedProperty.cs" />
-    <Compile Include="TypeProcessing\TypeDescriptors\NonExtractedEnumTypeDescriptor.cs" />
-    <Compile Include="TypeProcessing\TypeTable.cs" />
-    <Compile Include="TypeProcessing\ExtractedTypes\ExtractedInterfaceType.cs" />
-    <Compile Include="TypeProcessing\TypeDescriptors\ListTypeDescriptor.cs" />
-    <Compile Include="TypeProcessing\TypeDescriptors\NullableTypeDescriptor.cs" />
-    <Compile Include="TypeProcessing\PropertyRetrieveStrategy.cs" />
-    <Compile Include="TypeProcessing\TypeDescriptors\SystemValueTypeDescriptors.cs" />
-    <Compile Include="TypeProcessing\TypeDescriptor.cs" />
-    <Compile Include="TypeProcessing\TypeDescriptors\TypeParameterDescriptor.cs" />
-    <Compile Include="TypeProcessing\ExtractedTypeCollection.cs" />
-    <Compile Include="TypeProcessing\TypeDescriptors\UnknownTypeDescriptor.cs" />
-    <Compile Include="TypeProcessing\ExtractedType.cs" />
-    <Compile Include="TypeProcessing\ExtractedTypes\ExtractedReferenceType.cs" />
+    </None>
   </ItemGroup>
+
   <ItemGroup>
-    <None Include="packages.config" />
-    <None Include="TypeRightKey.snk" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+    <PackageReference Include="System.CodeDom" Version="4.5.0" />
+    <PackageReference Include="System.ComponentModel.Composition" Version="4.5.0" />
   </ItemGroup>
+
   <ItemGroup>
-    <ProjectReference Include="..\TypeRight.Attributes\TypeRight.Attributes.csproj">
-      <Project>{f87074ad-ed17-4792-9981-22cf0f093098}</Project>
-      <Name>TypeRight.Attributes</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TypeRight.Core\TypeRight.Core.csproj">
-      <Project>{aee04bdf-2c63-4ff2-a3c7-a9fcafd7e538}</Project>
-      <Name>TypeRight.Core</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\TypeRight.Attributes\TypeRight.Attributes.csproj" />
+    <ProjectReference Include="..\TypeRight.Core\TypeRight.Core.csproj" />
   </ItemGroup>
+
   <ItemGroup>
-    <Content Include="ScriptWriting\TypeScript\PartialTextTemplates\EnumTextTemplate.tt">
+    <None Update="ScriptWriting\TypeScript\PartialTextTemplates\EnumTextTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>EnumTextTemplate.cs</LastGenOutput>
-    </Content>
-    <Content Include="ScriptWriting\TypeScript\PartialTextTemplates\TypeScriptInterfaceTextTemplate.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>TypeScriptInterfaceTextTemplate.cs</LastGenOutput>
-    </Content>
-    <Content Include="ScriptWriting\TypeScript\TextTemplates\ModuleMvcMethodTextTemplate.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>ModuleMvcMethodTextTemplate.cs</LastGenOutput>
-    </Content>
-    <Content Include="ScriptWriting\TypeScript\TextTemplates\ModuleTypeTextTemplate.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>ModuleTypeTextTemplate.cs</LastGenOutput>
-    </Content>
-    <Content Include="ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>MvcMethodTextTemplateBase.cs</LastGenOutput>
-    </Content>
-    <Content Include="ScriptWriting\TypeScript\TextTemplates\NamespaceTypeTextTemplate.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>NamespaceTypeTextTemplate.cs</LastGenOutput>
-    </Content>
-    <Content Include="ScriptWriting\TypeScript\PartialTextTemplates\TypeScriptClassTextTemplate.tt">
+    </None>
+    <None Update="ScriptWriting\TypeScript\PartialTextTemplates\TypeScriptClassTextTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>TypeScriptClassTextTemplate.cs</LastGenOutput>
-    </Content>
-    <Content Include="ScriptWriting\TypeScript\TextTemplates\NamespaceMvcMethodTextTemplate.tt">
+    </None>
+    <None Update="ScriptWriting\TypeScript\PartialTextTemplates\TypeScriptInterfaceTextTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>TypeScriptInterfaceTextTemplate.cs</LastGenOutput>
+    </None>
+    <None Update="ScriptWriting\TypeScript\TextTemplates\ModuleMvcMethodTextTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>ModuleMvcMethodTextTemplate.cs</LastGenOutput>
+    </None>
+    <None Update="ScriptWriting\TypeScript\TextTemplates\ModuleTypeTextTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>ModuleTypeTextTemplate.cs</LastGenOutput>
+    </None>
+    <None Update="ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>MvcMethodTextTemplateBase.cs</LastGenOutput>
+    </None>
+    <None Update="ScriptWriting\TypeScript\TextTemplates\NamespaceMvcMethodTextTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>NamespaceMvcMethodTextTemplate.cs</LastGenOutput>
-    </Content>
+    </None>
+    <None Update="ScriptWriting\TypeScript\TextTemplates\NamespaceTypeTextTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>NamespaceTypeTextTemplate.cs</LastGenOutput>
+    </None>
   </ItemGroup>
+
   <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
   </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+
+  <ItemGroup>
+    <Compile Update="ScriptWriting\TypeScript\PartialTextTemplates\EnumTextTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>EnumTextTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Update="ScriptWriting\TypeScript\PartialTextTemplates\TypeScriptClassTextTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>TypeScriptClassTextTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Update="ScriptWriting\TypeScript\PartialTextTemplates\TypeScriptInterfaceTextTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>TypeScriptInterfaceTextTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Update="ScriptWriting\TypeScript\TextTemplates\ModuleMvcMethodTextTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ModuleMvcMethodTextTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Update="ScriptWriting\TypeScript\TextTemplates\ModuleTypeTextTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ModuleTypeTextTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Update="ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>MvcMethodTextTemplateBase.tt</DependentUpon>
+    </Compile>
+    <Compile Update="ScriptWriting\TypeScript\TextTemplates\NamespaceMvcMethodTextTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>NamespaceMvcMethodTextTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Update="ScriptWriting\TypeScript\TextTemplates\NamespaceTypeTextTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>NamespaceTypeTextTemplate.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
 </Project>

@@ -10,6 +10,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Scripts\CallServiceStuff.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="typeRightConfig.json" />
   </ItemGroup>
 
@@ -34,6 +38,10 @@
     <Reference Include="TypeRight.Attributes">
       <HintPath>..\..\TypeRight.Attributes\bin\Debug\netstandard2.0\TypeRight.Attributes.dll</HintPath>
     </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="Scripts\CallServiceStuff.ts" />
   </ItemGroup>
 
 	<Import Project="..\..\TypeRight.Build\bin\Debug\TypeRight.targets" />

@@ -126,8 +126,8 @@
     <Reference Include="MsBuildPipeLogger.Server, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MsBuildPipeLogger.Server.1.1.2\lib\netstandard1.5\MsBuildPipeLogger.Server.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="SQLitePCLRaw.batteries_green, Version=1.1.11.121, Culture=neutral, PublicKeyToken=a84b7dcfb1391f7f, processorArchitecture=MSIL">
       <HintPath>..\packages\SQLitePCLRaw.bundle_green.1.1.11\lib\net45\SQLitePCLRaw.batteries_green.dll</HintPath>
@@ -334,7 +334,7 @@
       <Name>TypeRight.Attributes</Name>
     </ProjectReference>
     <ProjectReference Include="..\TypeRight.Core\TypeRight.Core.csproj">
-      <Project>{aee04bdf-2c63-4ff2-a3c7-a9fcafd7e538}</Project>
+      <Project>{d3f8a40d-be0b-48b9-b5ea-6032a4c5f4b1}</Project>
       <Name>TypeRight.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\TypeRight.Workspaces\TypeRight.Workspaces.csproj">
@@ -342,7 +342,7 @@
       <Name>TypeRight.Workspaces</Name>
     </ProjectReference>
     <ProjectReference Include="..\TypeRight\TypeRight.csproj">
-      <Project>{bb764c1a-2067-48e4-8940-8fa035ef35c3}</Project>
+      <Project>{7574657d-76bd-4b4f-b566-a4d830aa9fcb}</Project>
       <Name>TypeRight</Name>
     </ProjectReference>
   </ItemGroup>
