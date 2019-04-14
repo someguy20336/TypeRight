@@ -3,10 +3,7 @@
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
-
-<#
-if (_enumType.UseExtendedSyntax) {
-#>
+<# if (_enumType.UseExtendedSyntax) { #>
 /** <#= _enumType.Comments #> */
 export var <#= _enumType.Name #> = {
 <# 
@@ -18,13 +15,9 @@ export var <#= _enumType.Name #> = {
 		name: "<#= eMember.DisplayName #>",
 		abbrev: "<#= eMember.Abbreviation #>",
 	},
-<#
-	} 
-#>
+<# 	}  #>
 };
-<# 
-} else {
-#>
+<# } else { #>
 /** <#= _enumType.Comments #> */
 export enum <#= _enumType.Name #> {
 <# 
@@ -32,10 +25,5 @@ export enum <#= _enumType.Name #> {
 #>
 	/** <#= eMember.Comments #> */
 	<#= eMember.Name #> = <#= eMember.Value #>,
-<#
-	} 
-#>
-}
-<# 
-} 
-#> 
+<# 	} #>
+}<# } #>

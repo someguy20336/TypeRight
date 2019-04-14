@@ -58,6 +58,11 @@ namespace TypeRightTests.Tests
 							.Commit()
 						.Commit()
 					.Commit()
+				.CreateEnumBuilder("SecondEnumType")
+					.AddMember("A", "1").Commit()
+					.AddMember("B", "2").Commit()
+					.AddMember("C", "3").Commit()
+					.Commit()
 
 				// Simple class
 				.CreateClassBuilder("SimpleClass")

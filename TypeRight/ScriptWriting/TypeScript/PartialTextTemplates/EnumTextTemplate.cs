@@ -28,32 +28,29 @@ namespace TypeRight.ScriptWriting.TypeScript.PartialTextTemplates
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("\r\n");
             
-            #line 7 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\PartialTextTemplates\EnumTextTemplate.tt"
-
-if (_enumType.UseExtendedSyntax) {
-
+            #line 6 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\PartialTextTemplates\EnumTextTemplate.tt"
+ if (_enumType.UseExtendedSyntax) { 
             
             #line default
             #line hidden
             this.Write("/** ");
             
-            #line 10 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\PartialTextTemplates\EnumTextTemplate.tt"
+            #line 7 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\PartialTextTemplates\EnumTextTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_enumType.Comments));
             
             #line default
             #line hidden
             this.Write(" */\r\nexport var ");
             
-            #line 11 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\PartialTextTemplates\EnumTextTemplate.tt"
+            #line 8 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\PartialTextTemplates\EnumTextTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_enumType.Name));
             
             #line default
             #line hidden
             this.Write(" = {\r\n");
             
-            #line 12 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\PartialTextTemplates\EnumTextTemplate.tt"
+            #line 9 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\PartialTextTemplates\EnumTextTemplate.tt"
  
 	foreach (var eMember in _enumType.Members) { 
 
@@ -62,74 +59,70 @@ if (_enumType.UseExtendedSyntax) {
             #line hidden
             this.Write("\t/** ");
             
-            #line 15 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\PartialTextTemplates\EnumTextTemplate.tt"
+            #line 12 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\PartialTextTemplates\EnumTextTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(eMember.Comments));
             
             #line default
             #line hidden
             this.Write(" */\r\n\t");
             
-            #line 16 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\PartialTextTemplates\EnumTextTemplate.tt"
+            #line 13 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\PartialTextTemplates\EnumTextTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(eMember.Name));
             
             #line default
             #line hidden
             this.Write(": {\r\n\t\tid: ");
             
-            #line 17 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\PartialTextTemplates\EnumTextTemplate.tt"
+            #line 14 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\PartialTextTemplates\EnumTextTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(eMember.Value));
             
             #line default
             #line hidden
             this.Write(",\r\n\t\tname: \"");
             
-            #line 18 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\PartialTextTemplates\EnumTextTemplate.tt"
+            #line 15 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\PartialTextTemplates\EnumTextTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(eMember.DisplayName));
             
             #line default
             #line hidden
             this.Write("\",\r\n\t\tabbrev: \"");
             
-            #line 19 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\PartialTextTemplates\EnumTextTemplate.tt"
+            #line 16 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\PartialTextTemplates\EnumTextTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(eMember.Abbreviation));
             
             #line default
             #line hidden
             this.Write("\",\r\n\t},\r\n");
             
-            #line 21 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\PartialTextTemplates\EnumTextTemplate.tt"
-
-	} 
-
+            #line 18 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\PartialTextTemplates\EnumTextTemplate.tt"
+ 	}  
             
             #line default
             #line hidden
             this.Write("};\r\n");
             
-            #line 25 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\PartialTextTemplates\EnumTextTemplate.tt"
- 
-} else {
-
+            #line 20 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\PartialTextTemplates\EnumTextTemplate.tt"
+ } else { 
             
             #line default
             #line hidden
             this.Write("/** ");
             
-            #line 28 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\PartialTextTemplates\EnumTextTemplate.tt"
+            #line 21 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\PartialTextTemplates\EnumTextTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_enumType.Comments));
             
             #line default
             #line hidden
             this.Write(" */\r\nexport enum ");
             
-            #line 29 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\PartialTextTemplates\EnumTextTemplate.tt"
+            #line 22 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\PartialTextTemplates\EnumTextTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_enumType.Name));
             
             #line default
             #line hidden
             this.Write(" {\r\n");
             
-            #line 30 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\PartialTextTemplates\EnumTextTemplate.tt"
+            #line 23 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\PartialTextTemplates\EnumTextTemplate.tt"
  
 	foreach (var eMember in _enumType.Members) { 
 
@@ -138,44 +131,39 @@ if (_enumType.UseExtendedSyntax) {
             #line hidden
             this.Write("\t/** ");
             
-            #line 33 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\PartialTextTemplates\EnumTextTemplate.tt"
+            #line 26 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\PartialTextTemplates\EnumTextTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(eMember.Comments));
             
             #line default
             #line hidden
             this.Write(" */\r\n\t");
             
-            #line 34 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\PartialTextTemplates\EnumTextTemplate.tt"
+            #line 27 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\PartialTextTemplates\EnumTextTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(eMember.Name));
             
             #line default
             #line hidden
             this.Write(" = ");
             
-            #line 34 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\PartialTextTemplates\EnumTextTemplate.tt"
+            #line 27 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\PartialTextTemplates\EnumTextTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(eMember.Value));
             
             #line default
             #line hidden
             this.Write(",\r\n");
             
-            #line 35 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\PartialTextTemplates\EnumTextTemplate.tt"
-
-	} 
-
+            #line 28 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\PartialTextTemplates\EnumTextTemplate.tt"
+ 	} 
             
             #line default
             #line hidden
-            this.Write("}\r\n");
+            this.Write("}");
             
-            #line 39 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\PartialTextTemplates\EnumTextTemplate.tt"
- 
-} 
-
+            #line 29 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\PartialTextTemplates\EnumTextTemplate.tt"
+ } 
             
             #line default
             #line hidden
-            this.Write(" ");
             return this.GenerationEnvironment.ToString();
         }
     }
