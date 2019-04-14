@@ -53,15 +53,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PathUtils.cs" />
     <Compile Include="Configuration\ConfigEnums.cs" />
     <Compile Include="Configuration\ConfigManager.cs" />
     <Compile Include="Configuration\ConfigOptions.cs" />
     <Compile Include="Configuration\ConfigParser.cs" />
-    <Compile Include="Packages\ScriptItemCollection.cs" />
     <Compile Include="ScriptWriting\IControllerTextTemplate.cs" />
     <Compile Include="ScriptWriting\ScriptTemplateFactory.cs" />
     <Compile Include="ScriptWriting\IPartialTypeTextTemplate.cs" />
     <Compile Include="ScriptWriting\ITypeTextTemplate.cs" />
+    <Compile Include="ScriptWriting\ScriptWriteContext.cs" />
+    <Compile Include="ScriptWriting\TypeScript\ImportStatement.cs" />
     <Compile Include="ScriptWriting\TypeScript\ModuleTemplate.cs" />
     <Compile Include="ScriptWriting\TypeScript\PartialTextTemplates\EnumTextTemplate.cs">
       <AutoGen>True</AutoGen>
@@ -81,7 +83,7 @@
       <DependentUpon>TypeScriptInterfaceTextTemplate.tt</DependentUpon>
     </Compile>
     <Compile Include="ScriptWriting\TypeScript\PartialTextTemplates\TypeScriptInterfaceTextTemplateCode.cs" />
-    <Compile Include="ScriptWriting\TypeScript\PrefixedTypeFormatter.cs" />
+    <Compile Include="ScriptWriting\TypeScript\ITypePrefixResolver.cs" />
     <Compile Include="ScriptWriting\TypeScript\TextTemplates\ModuleMvcMethodTextTemplate.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -102,6 +104,7 @@
     <Compile Include="ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBaseCode.cs" />
     <Compile Include="ScriptWriting\TypeScript\TextTemplates\TextTemplateHelper.cs" />
     <Compile Include="TypeFilters\IsOfAnyTypeFilter.cs" />
+    <Compile Include="TypeProcessing\ExtractedTypeExtensions.cs" />
     <Compile Include="TypeProcessing\MvcActionInfo.cs" />
     <Compile Include="CodeModel\ITypeWithFullName.cs" />
     <Compile Include="TypeProcessing\MvcControllerInfo.cs" />
@@ -111,22 +114,20 @@
     <Compile Include="CodeModel\IField.cs" />
     <Compile Include="CodeModel\IMethod.cs" />
     <Compile Include="CodeModel\ITypeParameter.cs" />
-    <Compile Include="Packages\ITypeIterator.cs" />
+    <Compile Include="TypeLocation\ITypeIterator.cs" />
     <Compile Include="TypeFilters\HasAttributeFilter.cs" />
     <Compile Include="TypeFilters\HasInterfaceOfTypeFilter.cs" />
     <Compile Include="TypeFilters\IsOfTypeFilter.cs" />
     <Compile Include="TypeFilters\TypeFilter.cs" />
-    <Compile Include="Packages\ParseFilterSettings.cs" />
+    <Compile Include="TypeLocation\ParseFilterSettings.cs" />
     <Compile Include="CodeModel\INamedType.cs" />
     <Compile Include="CodeModel\IProperty.cs" />
     <Compile Include="CodeModel\IType.cs" />
     <Compile Include="CodeModel\TypeFlags.cs" />
     <Compile Include="CodeModel\XmlDocumentation.cs" />
-    <Compile Include="Packages\TypeVisitor.cs" />
+    <Compile Include="TypeLocation\TypeVisitor.cs" />
     <Compile Include="ScriptGeneration\ScriptGenEngine.cs" />
-    <Compile Include="Packages\ScriptPackage.cs" />
     <Compile Include="TypeProcessing\ExtractedTypes\EnumMemberInfo.cs" />
-    <Compile Include="Packages\IPackageOptions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScriptWriting\IScriptTemplate.cs" />
     <Compile Include="ScriptGeneration\ScriptGenerationResult.cs" />

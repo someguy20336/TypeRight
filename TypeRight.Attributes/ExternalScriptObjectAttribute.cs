@@ -10,7 +10,7 @@ namespace TypeRight.Attributes
 	/// Use this attribute to force extract a type that is not
 	/// in the current assembly (or even solution).
 	/// </summary>
-	[AttributeUsage(AttributeTargets.Assembly)]
+	[AttributeUsage(AttributeTargets.Assembly, AllowMultiple = true)]
 	public class ExternalScriptObjectAttribute : Attribute
 	{
 		/// <summary>
@@ -23,6 +23,16 @@ namespace TypeRight.Attributes
 		/// </summary>
 		/// <param name="externalTypes">The external types to extract</param>
 		public ExternalScriptObjectAttribute(params Type[] externalTypes)
+		{
+			ExternalTypes = externalTypes;
+		}
+
+		/// <summary>
+		/// Creates a new External type extract attribute
+		/// </summary>
+		/// <param name="path">The path, relative to the root of the project, to save the result file to</param>
+		/// <param name="externalTypes">The external types to extract</param>
+		public ExternalScriptObjectAttribute(string path, params Type[] externalTypes)
 		{
 			ExternalTypes = externalTypes;
 		}

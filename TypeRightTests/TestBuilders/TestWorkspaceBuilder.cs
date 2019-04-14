@@ -1,17 +1,22 @@
 ﻿using TypeRight.Configuration;
-using TypeRight.Packages;
+using TypeRight.TypeLocation;
 using TypeRight.TypeFilters;
 using TypeRight.Workspaces.Parsing;
 using TypeRightTests.HelperClasses;
 using TypeRightTests.Testers;
 using Microsoft.CodeAnalysis;
 using System.Collections.Generic;
+using TypeRight.TypeProcessing;
 
 namespace TypeRightTests.TestBuilders
 {
 	class TestWorkspaceBuilder
 	{
-		
+		public const string TestProjectDir = @"C:\FolderA\FolderB";
+
+		public const string DefaultResultPath = @"C:\FolderA\FolderB\DefaultResult.ts";
+
+
 		public AdhocWorkspace Workspace { get; }
 
 		public TestProjectBuilder DefaultProject { get; private set; }
@@ -45,21 +50,29 @@ namespace TypeRightTests.TestBuilders
 		}
 		
 
-		public PackageTester GetPackageTester()
+		public TypeCollectionTester GetPackageTester()
 		{
 			return GetPackageTester(DefaultProject.ProjectID);
 		}
 
-		public PackageTester GetPackageTester(ProjectId projectId)
+		public TypeCollectionTester GetPackageTester(ProjectId projectId)
 		{
 			ProjectParser workspaceParser = new ProjectParser(Workspace, projectId, ParseOptions);
-			TypeVisitor vistor = new TypeVisitor();
-			vistor.FilterSettings.ClassFilter = ClassParseFilter;
-			vistor.FilterSettings.EnumFilter = EnumParseFilter;
-			vistor.FilterSettings.ControllerFilter = ControllerParseFilter;
+			TypeVisitor visitor = new TypeVisitor(new ProcessorSettings()
+			{
+				TypeNamespace = ReferenceTypeTester.TestNamespace,
+				EnumNamespace = EnumTester.TestNamespace,
+				DisplayNameFilter = DisplayNameFilter,
+				MvcActionFilter = MvcActionFilter,
+				ProjectPath = TestProjectDir,
+				DefaultResultPath = DefaultResultPath
+			});
+			visitor.FilterSettings.ClassFilter = ClassParseFilter;
+			visitor.FilterSettings.EnumFilter = EnumParseFilter;
+			visitor.FilterSettings.ControllerFilter = ControllerParseFilter;
 
-			ScriptPackage package = ScriptPackage.BuildPackage(workspaceParser, vistor);
-			return new PackageTester(package, DisplayNameFilter, MvcActionFilter);
+			workspaceParser.IterateTypes(visitor);
+			return new TypeCollectionTester(visitor.TypeCollection, DisplayNameFilter, MvcActionFilter);
 		}
 	}
 }

@@ -1,6 +1,6 @@
 ﻿using Microsoft.CodeAnalysis;
 using System.Collections.Generic;
-using TypeRight.Packages;
+using TypeRight.TypeLocation;
 using System;
 using System.Linq;
 

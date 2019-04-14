@@ -7,3 +7,8 @@ using TypeRight.Attributes;
 	typeof(GenericModel<>),
 	typeof(TestTwoTypeParams<,>)
 	)]
+
+[assembly: ExternalScriptObject("./Scripts/CustomGroup.ts",
+	typeof(CustomGroupObject1),
+	typeof(CustomGroupObj2)
+	)]

@@ -1,9 +1,9 @@
-﻿using TypeRight.Packages;
+﻿using TypeRight.TypeProcessing;
 
 namespace TypeRight.ScriptWriting
 {
 	/// <summary>
-	/// An object that can generate scripts from a <see cref="ScriptPackage"/>
+	/// An object that can generate scripts from a <see cref="ExtractedTypeCollection"/>
 	/// </summary>
 	public interface IScriptTemplate
 	{

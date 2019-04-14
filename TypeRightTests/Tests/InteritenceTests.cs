@@ -8,7 +8,7 @@ namespace TypeRightTests.Tests
 	[TestClass]
 	public class InteritenceTests
 	{
-		private static PackageTester _packageTester;
+		private static TypeCollectionTester _packageTester;
 
 		private const string SimpleBaseClassName = "SimpleBaseClassName";
 

@@ -28,14 +28,21 @@ namespace TypeRight.TypeProcessing
 		public string Name => NamedType.Name;
 
 		/// <summary>
+		/// Gets the the target path for this type
+		/// </summary>
+		public string TargetPath { get; }
+
+		/// <summary>
 		/// Creates a new extracted type
 		/// </summary>
 		/// <param name="namedType">The named type</param>
 		/// <param name="typeNamespace">The namespace for the script</param>
-		protected ExtractedType(INamedType namedType, string typeNamespace)
+		/// <param name="targetPath">The target result path for this type</param>
+		protected ExtractedType(INamedType namedType, string typeNamespace, string targetPath)
 		{
 			NamedType = namedType;
 			Namespace = typeNamespace;
+			TargetPath = targetPath;
 		}
 
 		/// <summary>
@@ -46,5 +53,6 @@ namespace TypeRight.TypeProcessing
 		{
 			return NamedType.ToString();
 		}
+
 	}
 }

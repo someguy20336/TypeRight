@@ -4,14 +4,4 @@ Object.defineProperty(exports, "__esModule", { value: true });
 // ===============================
 // Enums
 // ===============================
-/**  */
-var ExampleEnum;
-(function (ExampleEnum) {
-    /**  */
-    ExampleEnum[ExampleEnum["One"] = 0] = "One";
-    /**  */
-    ExampleEnum[ExampleEnum["Two"] = 1] = "Two";
-    /**  */
-    ExampleEnum[ExampleEnum["Three"] = 2] = "Three";
-})(ExampleEnum = exports.ExampleEnum || (exports.ExampleEnum = {}));
 //# sourceMappingURL=ServerObjects.js.map

@@ -10,6 +10,8 @@ namespace TypeRight.ScriptWriting.TypeScript
 	/// </summary>
 	public class TypeScriptTypeFormatter : TypeFormatter 
 	{
+		private ITypePrefixResolver _resolver;
+
 		/// <summary>
 		/// Index of names for the collection an how many times they show up
 		/// </summary>
@@ -19,11 +21,14 @@ namespace TypeRight.ScriptWriting.TypeScript
 		/// Creates a new type formatter for typescript
 		/// </summary>
 		/// <param name="typeCollection"></param>
-		public TypeScriptTypeFormatter(ExtractedTypeCollection typeCollection)
+		/// <param name="resolver">The type prefix resolver</param>
+		public TypeScriptTypeFormatter(ExtractedTypeCollection typeCollection, ITypePrefixResolver resolver)
 		{
 			// Cache an index of the count of each name.  
 			// This will help for cases when a type has the same name, but a different number of type params because typescript doesn't allow it
 			NameCountIndex = typeCollection.GetReferenceTypes().GroupBy(refType => GetIndexName(refType)).ToDictionary(grp => grp.Key, grp => grp.Count());
+
+			_resolver = resolver;
 		}
 
 		/// <summary>
@@ -156,7 +161,7 @@ namespace TypeRight.ScriptWriting.TypeScript
 		/// <returns>The namespace or prefix, or null if not applicable</returns>
 		protected virtual string GetTypeNamespace(ExtractedTypeDescriptor typeDescriptor)
 		{
-			return typeDescriptor.Namespace;
+			return _resolver.GetPrefix(typeDescriptor);
 		}
 
 		/// <summary>

@@ -1,11 +1,12 @@
 ﻿using TypeRight.Configuration;
-using TypeRight.Packages;
+using TypeRight.TypeLocation;
 using TypeRight.ScriptWriting;
 using TypeRight.ScriptWriting.TypeScript;
 using TypeRight.TypeFilters;
 using TypeRight.TypeProcessing;
 using System;
 using System.IO;
+using System.Linq;
 
 namespace TypeRight.ScriptGeneration
 {
@@ -49,17 +50,7 @@ namespace TypeRight.ScriptGeneration
 			_typeIterator = typeIterator;
 			ConfigurationOptions = options;
 		}
-
-		/// <summary>
-		/// Creates a package
-		/// </summary>
-		/// <returns>The <see cref="ScriptPackage"/></returns>
-		public ScriptPackage CreatePackage()
-		{
-			TypeVisitor visitor = new TypeVisitor();
-			return ScriptPackage.BuildPackage(_typeIterator, visitor);
-		}
-
+		
 		/// <summary>
 		/// Generates the scripts
 		/// </summary>
@@ -96,14 +87,12 @@ namespace TypeRight.ScriptGeneration
 				return new ScriptGenerationResult(false, $"The directory in ResultFilePath of the config file ({fi.Directory.FullName}) does not exist.");
 			}
 
-			// At this point we are good
-			ScriptPackage package = CreatePackage();
-
-
 			ProcessorSettings processorSettings = new ProcessorSettings()
 			{
 				TypeNamespace = ConfigurationOptions.ClassNamespace,
-				EnumNamespace = ConfigurationOptions.EnumNamespace
+				EnumNamespace = ConfigurationOptions.EnumNamespace,
+				DefaultResultPath = resultAbsolute.LocalPath,
+				ProjectPath = projUri.LocalPath
 			};
 
 			if (!string.IsNullOrEmpty(ConfigurationOptions.MvcActionAttributeName))
@@ -111,28 +100,45 @@ namespace TypeRight.ScriptGeneration
 				processorSettings.MvcActionFilter = new IsOfTypeFilter(ConfigurationOptions.MvcActionAttributeName);
 			}
 
-			ExtractedTypeCollection typeCollection = new ExtractedTypeCollection(package, processorSettings);
+
+			// At this point we are good
+			TypeVisitor visitor = new TypeVisitor(processorSettings);
+			_typeIterator.IterateTypes(visitor);		
+
+			ExtractedTypeCollection typeCollection = visitor.TypeCollection;
 			IScriptTemplate scriptGen = ScriptTemplateFactory.GetTemplate(ConfigurationOptions.TemplateType);
 
 			// Write the object script text
-			string scriptText = scriptGen.CreateTypeTemplate().GetText(typeCollection);
-			File.WriteAllText(resultAbsolute.LocalPath, scriptText);
+			foreach (var typeGroup in typeCollection.GetReferenceTypes().GroupBy(t => t.TargetPath))
+			{
+				ScriptWriteContext scriptContext = new ScriptWriteContext()
+				{
+					IncludedTypes = typeGroup,
+					OutputPath = typeGroup.Key,
+					TypeCollection = typeCollection
+				};
+				string scriptText = scriptGen.CreateTypeTemplate().GetText(scriptContext);
+				File.WriteAllText(typeGroup.Key, scriptText);
+			}
 
             // Write MVC controllers
-            Uri ajaxModuleUri = string.IsNullOrEmpty(ConfigurationOptions.AjaxFunctionModulePath) ? null : new Uri(projUri, ConfigurationOptions.AjaxFunctionModulePath);
-            ControllerContext context = new ControllerContext()
-            {
-                ServerObjectsResultFilepath = new Uri(resultAbsolute.LocalPath),
-                AjaxFunctionName = ConfigurationOptions.AjaxFunctionName,
-                WebMethodNamespace = ConfigurationOptions.WebMethodNamespace,
-                ExtractedTypes = typeCollection,
-                AjaxFunctionModulePath = ajaxModuleUri,
-				ModelBinding = ConfigurationOptions.ModelBindingType
-            };
+            string ajaxModulePath = string.IsNullOrEmpty(ConfigurationOptions.AjaxFunctionModulePath) ? null : new Uri(projUri, ConfigurationOptions.AjaxFunctionModulePath).AbsolutePath;
+            
             foreach (MvcControllerInfo controller in typeCollection.GetMvcControllers())
 			{
-				string outputPath = GetControllerResultPath(controller);				
-				string controllerScript = scriptGen.CreateControllerTextTemplate().GetText(controller, context, new Uri(outputPath));
+				string outputPath = GetControllerResultPath(controller);
+				ControllerContext context = new ControllerContext()
+				{
+					OutputPath = outputPath,
+					ServerObjectsResultFilepath = new Uri(resultAbsolute.LocalPath),
+					AjaxFunctionName = ConfigurationOptions.AjaxFunctionName,
+					WebMethodNamespace = ConfigurationOptions.WebMethodNamespace,
+					ExtractedTypes = typeCollection,
+					AjaxFunctionModulePath = ajaxModulePath,
+					ModelBinding = ConfigurationOptions.ModelBindingType
+				};
+
+				string controllerScript = scriptGen.CreateControllerTextTemplate().GetText(controller, context);
 				File.WriteAllText(outputPath, controllerScript);
 			}
 

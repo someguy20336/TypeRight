@@ -11,7 +11,7 @@ namespace TypeRightTests.Tests
 	public class ControllerTests
 	{
 		
-		private static PackageTester _packageTester;
+		private static TypeCollectionTester _packageTester;
 
 		/// <summary>
 		/// Sets up a parse of this solution

@@ -48,7 +48,7 @@ namespace TypeRightVsix
 		/// <summary>
 		/// <see cref="TypeRightPackage"/> GUID string.
 		/// </summary>
-		public const string PackageGuidString = "82df0d34-e923-47fc-a2eb-579c045a29db";
+		public const string PackageGuidString = "B70245DF-B372-4992-B566-FB8CF2D8B557";
 
 		/// <summary>
 		/// Reference to the build events object.  This needs to be a private variable

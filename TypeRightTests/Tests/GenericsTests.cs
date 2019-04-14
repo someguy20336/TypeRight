@@ -10,7 +10,7 @@ namespace TypeRightTests.Tests
 	[TestClass]
 	public class GenericsTests
 	{
-		private static PackageTester _packageTester;
+		private static TypeCollectionTester _packageTester;
 
 		private const string Class_SimpleGeneric = "GenericsClass";
 

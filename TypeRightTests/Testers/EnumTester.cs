@@ -1,4 +1,4 @@
-﻿using TypeRight.Packages;
+﻿using TypeRight.TypeLocation;
 using TypeRight.TypeProcessing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;

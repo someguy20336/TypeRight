@@ -12,7 +12,7 @@ namespace TypeRightTests.Tests
 	public class SameNameTests
 	{
 
-		private static PackageTester _packageTester;
+		private static TypeCollectionTester _packageTester;
 
 		[ClassInitialize]
 		public static void SetupParse(TestContext context)

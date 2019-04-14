@@ -12,17 +12,22 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
 	/// </summary>
 	internal partial class NamespaceTypeTextTemplate : ITypeTextTemplate
 	{
-
+		private IEnumerable<ExtractedType> _types;
 		private ExtractedTypeCollection _typeCollection;
 
 		private TypeFormatter _formatter;
-		
-		public string GetText(ExtractedTypeCollection typeCollection)
+		/// <summary>
+		/// Gets the script for the extracted types
+		/// </summary>
+		/// <param name="context">The context for writing the script</param>
+		/// <returns>The script text</returns>
+		public string GetText(ScriptWriteContext context)
 		{
-			_typeCollection = typeCollection;
-			_formatter = new TypeScriptTypeFormatter(typeCollection);
+			_types = context.IncludedTypes;
+			_typeCollection = context.TypeCollection;
+			_formatter = new TypeScriptTypeFormatter(_typeCollection, new NamespacedTypePrefixResolver());
 			return TransformText();
-		}
+		}  
 
 
 		/// <summary>
@@ -31,7 +36,7 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
 		/// <returns>An enumerable list of types by their namespace</returns>
 		public IEnumerable<IGrouping<string, ExtractedReferenceType>> GetTypesByNamespace()
 		{
-			return _typeCollection.GetReferenceTypes().GroupBy(type => type.Namespace);
+			return _types.GetReferenceTypes().GroupBy(type => type.Namespace);
 		}
 
 		private string GetClassDeclaration(ExtractedReferenceType refType) => refType.GetClassDeclaration(_formatter);
@@ -44,7 +49,7 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
 		/// <returns>An enumerable list of enums by their namespace</returns>
 		public IEnumerable<IGrouping<string, ExtractedEnumType>> GetEnumsByNamespace()
 		{
-			return _typeCollection.GetEnums().GroupBy(en => en.Namespace);
+			return _types.GetEnumTypes().GroupBy(en => en.Namespace);
 		}
 
 		private IPartialTypeTextTemplate GetPartialTextTemplate(ExtractedType type)

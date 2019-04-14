@@ -220,7 +220,7 @@
     <Compile Include="Testers\ControllerTester.cs" />
     <Compile Include="Testers\EnumTester.cs" />
     <Compile Include="Testers\MvcActionTester.cs" />
-    <Compile Include="Testers\PackageTester.cs" />
+    <Compile Include="Testers\TypeCollectionTester.cs" />
     <Compile Include="TestBuilders\TestClassBuilderCode.cs" />
     <Compile Include="TestBuilders\TestClassBuilder.cs">
       <AutoGen>True</AutoGen>
@@ -245,6 +245,7 @@
     <Compile Include="Tests\ExternalTypeTests.cs" />
     <Compile Include="Tests\FunctionalTypeTests.cs" />
     <Compile Include="Tests\SameNameTests.cs" />
+    <Compile Include="Tests\MiscHelperTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

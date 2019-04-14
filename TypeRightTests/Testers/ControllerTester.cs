@@ -1,4 +1,4 @@
-﻿using TypeRight.Packages;
+﻿using TypeRight.TypeLocation;
 using TypeRight.ScriptWriting;
 using TypeRight.TypeProcessing;
 using System;

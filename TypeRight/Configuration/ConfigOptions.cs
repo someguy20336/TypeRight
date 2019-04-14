@@ -1,11 +1,11 @@
-﻿using TypeRight.Packages;
+﻿using TypeRight.TypeLocation;
 
 namespace TypeRight.Configuration
 {
 	/// <summary>
 	/// Represents a configuration file for a solution
 	/// </summary>
-	public class ConfigOptions : IPackageOptions, IConfigOptions
+	public class ConfigOptions : IConfigOptions
 	{
 
 		/// <summary>

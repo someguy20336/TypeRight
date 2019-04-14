@@ -1,7 +1,7 @@
 ﻿using TypeRight.Attributes;
 using TypeRight.TypeFilters;
 
-namespace TypeRight.Packages
+namespace TypeRight.TypeLocation
 {
 	/// <summary>
 	/// Settings for the different parse filters

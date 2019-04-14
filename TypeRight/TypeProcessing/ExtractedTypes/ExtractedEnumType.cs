@@ -21,7 +21,7 @@ namespace TypeRight.TypeProcessing
 		/// </summary>
 		public IReadOnlyList<EnumMemberInfo> Members { get; }
 
-		internal ExtractedEnumType(INamedType namedType, string typeNamespace, TypeFilter dispNameFilter) : base(namedType, typeNamespace)
+		internal ExtractedEnumType(INamedType namedType, string typeNamespace, TypeFilter dispNameFilter, string targetPath) : base(namedType, typeNamespace, targetPath)
 		{
 			// Use extended
 			string attributeName = typeof(ScriptEnumAttribute).FullName;

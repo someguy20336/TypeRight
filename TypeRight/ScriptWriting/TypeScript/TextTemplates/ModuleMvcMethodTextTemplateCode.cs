@@ -9,32 +9,56 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
 {
 	partial class ModuleMvcMethodTextTemplate : IControllerTextTemplate
 	{
-		private const string s_importName = "ServerObjects";
+		private Dictionary<string, ImportStatement> _imports = new Dictionary<string, ImportStatement>();
 
-		private string _importPath;
-        private string _ajaxImportPath;
         private ControllerContext _context;
 
 		private MvcMethodTextTemplateBase _innerTemplate;
-		public string GetText(MvcControllerInfo controllerInfo, ControllerContext context, Uri outputPath)
+		public string GetText(MvcControllerInfo controllerInfo, ControllerContext context)
 		{
-			_innerTemplate = new MvcMethodTextTemplateBase();
-			_innerTemplate.Initialize(controllerInfo, context, new PrefixedTypeFormatter(context.ExtractedTypes, s_importName, s_importName));
             _context = context;
 
 			// Get relative import paths
-			Uri serverObjectsRelativePath = outputPath.MakeRelativeUri(context.ServerObjectsResultFilepath);
-
             if (context.HasOwnAjaxFunction)
             {
-                Uri ajaxPath = outputPath.MakeRelativeUri(context.AjaxFunctionModulePath);
-                _ajaxImportPath = ajaxPath.ToString();
-                _ajaxImportPath = _ajaxImportPath.Substring(0, _ajaxImportPath.Length - 3);
+				ImportStatement ajaxImport = new ImportStatement(context.OutputPath, context.AjaxFunctionModulePath, false);
+				ajaxImport.AddItem(context.AjaxFunctionName);
+				_imports.Add("ajax", ajaxImport);
             }
 
-			_importPath = serverObjectsRelativePath.ToString();
-			_importPath = _importPath.Substring(0, _importPath.Length - 3);  // remove .ts
+			CompileImports(controllerInfo);
+
+			_innerTemplate = new MvcMethodTextTemplateBase();
+			_innerTemplate.Initialize(controllerInfo, context, new TypeScriptTypeFormatter(context.ExtractedTypes, new ModuleTypePrefixResolver(_imports)));
+
 			return TransformText();
+		}
+
+
+		private IEnumerable<ImportStatement> GetImports() => _imports.Values;
+
+		private void CompileImports(MvcControllerInfo controllerInfo)
+		{
+			foreach (var action in controllerInfo.Actions)
+			{
+				TryAddImport(action.ReturnType);
+				foreach (var param in action.Parameters)
+				{
+					TryAddImport(param.Type);
+				}
+			}
+		}
+
+		private void TryAddImport(TypeDescriptor type)
+		{
+			if (type is ExtractedTypeDescriptor extractedType && extractedType.TargetPath != _context.OutputPath)
+			{
+				if (!_imports.ContainsKey(extractedType.TargetPath))
+				{
+					_imports.Add(extractedType.TargetPath, new ImportStatement(_context.OutputPath, extractedType.TargetPath, true));
+				}
+				_imports[extractedType.TargetPath].AddItem(extractedType.Name);
+			}
 		}
 	}
 }

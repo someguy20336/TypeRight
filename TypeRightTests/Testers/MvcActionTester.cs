@@ -1,5 +1,5 @@
 ﻿using TypeRight.CodeModel;
-using TypeRight.Packages;
+using TypeRight.TypeLocation;
 using TypeRight.ScriptWriting;
 using TypeRight.ScriptWriting.TypeScript;
 using TypeRight.TypeProcessing;

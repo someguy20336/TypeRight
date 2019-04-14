@@ -10,7 +10,7 @@ namespace TypeRightTests.Tests
 	public class PrimitiveTypeTests
 	{
 
-		private static PackageTester _packageTester;
+		private static TypeCollectionTester _packageTester;
 
 		private const string ClassName = "SimplePrimitiveClass";
 

@@ -14,7 +14,7 @@ namespace TypeRightTests.Tests
 	[TestClass]
 	public class ComplexPropertyTypeTests
 	{
-		private static PackageTester _packageTester;
+		private static TypeCollectionTester _packageTester;
 
 		private const string Class_Extracted = "ExtractedClassName";
 

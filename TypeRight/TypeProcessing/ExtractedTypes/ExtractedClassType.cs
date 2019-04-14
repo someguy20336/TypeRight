@@ -8,7 +8,8 @@ namespace TypeRight.TypeProcessing
 	public class ExtractedClassType : ExtractedReferenceType
 	{
 		
-		internal ExtractedClassType(INamedType namedType, string typeNamespace, TypeTable typeTable) : base(namedType, typeNamespace, typeTable)
+		internal ExtractedClassType(INamedType namedType, string typeNamespace, TypeTable typeTable, string targetPath) 
+			: base(namedType, typeNamespace, typeTable, targetPath)
 		{
 		}
 

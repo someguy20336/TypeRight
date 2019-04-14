@@ -109,7 +109,7 @@
 
 	<Symbols>
 		<!-- This is the package guid. -->
-		<GuidSymbol name="guidTypeRightPackage" value="{82df0d34-e923-47fc-a2eb-579c045a29db}" />
+		<GuidSymbol name="guidTypeRightPackage" value="{B70245DF-B372-4992-B566-FB8CF2D8B557}" />
 
 		<!-- This is the guid used to group the menu commands together -->
 		<GuidSymbol name="guidTypeRightPackageCmdSet" value="{778bde11-5269-4ac6-af3c-5134e6702a98}">

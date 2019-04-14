@@ -53,5 +53,11 @@ namespace TestAspNetCoreApp.Controllers
 		{
 			return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
 		}
+
+		[ScriptAction]
+		public JsonResult OtherFunctionWithModel([FromBody] CustomGroupObject1 model)
+		{
+			return Json(model);
+		}
 	}
 }

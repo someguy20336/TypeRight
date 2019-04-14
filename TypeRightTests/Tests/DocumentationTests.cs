@@ -10,7 +10,7 @@ namespace TypeRightTests.Tests
 	public class DocumentationTests
 	{
 
-		private static PackageTester _packageTester;
+		private static TypeCollectionTester _packageTester;
 
 		/// <summary>
 		/// Sets up a parse of this solution

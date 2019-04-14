@@ -36,7 +36,7 @@ namespace TypeRight.TypeProcessing
 		/// </summary>
 		public IEnumerable<NamedReferenceTypeDescriptor> Interfaces => GetOrCreateInterfaces();
 
-		internal ExtractedReferenceType(INamedType namedType, string typeNamespace, TypeTable typeTable) : base(namedType, typeNamespace)
+		internal ExtractedReferenceType(INamedType namedType, string typeNamespace, TypeTable typeTable, string targetPath) : base(namedType, typeNamespace, targetPath)
 		{
 			TypeTable = typeTable;
 		}

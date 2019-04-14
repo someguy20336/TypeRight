@@ -14,7 +14,7 @@ namespace TypeRightTests.Tests
 	[TestClass]
 	public class CollectionsTests
 	{
-		private static PackageTester _packageTester;
+		private static TypeCollectionTester _packageTester;
 
 		private const string ClassName = "CollectionsClass";
 

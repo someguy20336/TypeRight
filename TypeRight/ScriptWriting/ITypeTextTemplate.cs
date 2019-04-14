@@ -1,4 +1,5 @@
-﻿using TypeRight.TypeProcessing;
+﻿using System.Collections.Generic;
+using TypeRight.TypeProcessing;
 
 namespace TypeRight.ScriptWriting
 {
@@ -10,8 +11,8 @@ namespace TypeRight.ScriptWriting
 		/// <summary>
 		/// Gets the script for the extracted types
 		/// </summary>
-		/// <param name="extractedTypeCollection">The collection of extracted types</param>
+		/// <param name="context">The context for writing the script</param>
 		/// <returns>The script text</returns>
-		string GetText(ExtractedTypeCollection extractedTypeCollection);  
+		string GetText(ScriptWriteContext context);  
 	}
 }

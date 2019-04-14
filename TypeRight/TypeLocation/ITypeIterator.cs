@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TypeRight.Packages
+﻿namespace TypeRight.TypeLocation
 {
 	/// <summary>
 	/// An object that iterates types with the given visitor

@@ -29,6 +29,16 @@ namespace TypeRight.TypeProcessing
 		public TypeFilter MvcActionFilter { get; set; }
 
 		/// <summary>
+		/// Gets or sets the full path to the project file
+		/// </summary>
+		public string ProjectPath { get; set; }
+
+		/// <summary>
+		/// Gets or sets the default result path
+		/// </summary>
+		public string DefaultResultPath { get; set; }
+
+		/// <summary>
 		/// Creates the processor settings object with the default settings
 		/// </summary>
 		public ProcessorSettings()

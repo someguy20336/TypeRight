@@ -16,7 +16,7 @@ namespace TypeRightTests.Tests
 	public class AnonymousTypeTests
 	{
 
-		private static PackageTester _packageTester;
+		private static TypeCollectionTester s_packageTester;
 
 		/// <summary>
 		/// Sets up a parse of this solution
@@ -86,17 +86,19 @@ namespace TypeRightTests.Tests
 			parseOptions.MethodReturnTypeHandlers.Add(handler);
 			wkspBuilder.ParseOptions = parseOptions;
 
-			_packageTester = wkspBuilder.GetPackageTester();
+			s_packageTester = wkspBuilder.GetPackageTester();
 		}
 
 
 		[TestMethod]
 		public void AnonymousTypes_Simple()
 		{
-			Dictionary<string, string> expected = new Dictionary<string, string>();
-			expected.Add("stringProp", TypeScriptHelper.StringTypeName);
-			expected.Add("intProp", TypeScriptHelper.NumericTypeName);
-			_packageTester.TestControllerWithName("SimpleController")
+			Dictionary<string, string> expected = new Dictionary<string, string>
+			{
+				{ "stringProp", TypeScriptHelper.StringTypeName },
+				{ "intProp", TypeScriptHelper.NumericTypeName }
+			};
+			s_packageTester.TestControllerWithName("SimpleController")
 				.TestActionWithName("SimpleAnonymousType")
 				.ReturnTypeTypescriptNameIs(TypeScriptHelper.BuildAnonymousType(expected));
 
@@ -105,10 +107,12 @@ namespace TypeRightTests.Tests
 		[TestMethod]
 		public void AnonymousTypes_WithExtractedObject()
 		{
-			Dictionary<string, string> expected = new Dictionary<string, string>();
-			expected.Add("testClassProp", $"{ReferenceTypeTester.TestNamespace}.TestClass");
-			expected.Add("intProp", TypeScriptHelper.NumericTypeName);
-			_packageTester.TestControllerWithName("SimpleController")
+			Dictionary<string, string> expected = new Dictionary<string, string>
+			{
+				{ "testClassProp", $"{ReferenceTypeTester.TestNamespace}.TestClass" },
+				{ "intProp", TypeScriptHelper.NumericTypeName }
+			};
+			s_packageTester.TestControllerWithName("SimpleController")
 				.TestActionWithName("AnonymousTypeWithExtracted")
 				.ReturnTypeTypescriptNameIs(TypeScriptHelper.BuildAnonymousType(expected));
 
@@ -117,10 +121,12 @@ namespace TypeRightTests.Tests
 		[TestMethod]
 		public void AnonymousTypes_WithNonExtractedObject()
 		{
-			Dictionary<string, string> expected = new Dictionary<string, string>();
-			expected.Add("testClassProp", "any");
-			expected.Add("intProp", TypeScriptHelper.NumericTypeName);
-			_packageTester.TestControllerWithName("SimpleController")
+			Dictionary<string, string> expected = new Dictionary<string, string>
+			{
+				{ "testClassProp", "any" },
+				{ "intProp", TypeScriptHelper.NumericTypeName }
+			};
+			s_packageTester.TestControllerWithName("SimpleController")
 				.TestActionWithName("AnonymousTypeWithNonExtracted")
 				.ReturnTypeTypescriptNameIs(TypeScriptHelper.BuildAnonymousType(expected));
 

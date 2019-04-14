@@ -19,7 +19,8 @@ namespace TypeRight.TypeProcessing
 		/// <param name="type"></param>
 		/// <param name="typeNamespace"></param>
 		/// <param name="usingExtendedSyntax"></param>
-		internal ExtractedEnumTypeDescriptor(INamedType type, string typeNamespace, bool usingExtendedSyntax) : base(type, typeNamespace)
+		/// <param name="targetPath">The target path of the type</param>
+		internal ExtractedEnumTypeDescriptor(INamedType type, string typeNamespace, bool usingExtendedSyntax, string targetPath) : base(type, typeNamespace, targetPath)
 		{
 			UseExtendedSyntax = usingExtendedSyntax;
 		}

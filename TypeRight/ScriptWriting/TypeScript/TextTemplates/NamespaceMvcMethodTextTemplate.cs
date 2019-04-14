@@ -12,7 +12,7 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
     using System.Linq;
     using System.Text;
     using System.Collections.Generic;
-    using TypeRight.Packages;
+    using TypeRight.TypeLocation;
     using TypeRight.CodeModel;
     using System;
     

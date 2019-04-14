@@ -1,5 +1,5 @@
 ﻿using TypeRight.CodeModel;
-using TypeRight.Packages;
+using TypeRight.TypeLocation;
 using TypeRight.TypeProcessing;
 using System.Collections.Generic;
 using System.IO;
@@ -18,10 +18,16 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
 
 		private MvcMethodTextTemplateBase _innerTemplate;
 
-		public string GetText(MvcControllerInfo controllerInfo, ControllerContext context, Uri outputPath)
+		/// <summary>
+		/// Gets the controller template text
+		/// </summary>
+		/// <param name="controllerInfo">The controller info</param>
+		/// <param name="context">The script write context</param>
+		/// <returns>the script text</returns>
+		public string GetText(MvcControllerInfo controllerInfo, ControllerContext context)
 		{
 			_innerTemplate = new MvcMethodTextTemplateBase();
-			_innerTemplate.Initialize(controllerInfo, context, new TypeScriptTypeFormatter(context.ExtractedTypes));
+			_innerTemplate.Initialize(controllerInfo, context, new TypeScriptTypeFormatter(context.ExtractedTypes, new NamespacedTypePrefixResolver()));
 			_innerTemplate.PushIndent("\t");
 			WebMethodNamespace = context.WebMethodNamespace;
 			return TransformText();

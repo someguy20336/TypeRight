@@ -1,6 +1,6 @@
 ﻿using TypeRight.Attributes;
 using TypeRight.CodeModel;
-using TypeRight.Packages;
+using TypeRight.TypeLocation;
 using TypeRight.Workspaces.CodeModel;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
@@ -23,7 +23,7 @@ namespace TypeRight.Workspaces.Parsing
 		/// <summary>
 		/// The parse options
 		/// </summary>
-		private ParseOptions _options;
+		private readonly ParseOptions _options;
 
 		/// <summary>
 		/// Creates a new compilation parser
@@ -56,44 +56,55 @@ namespace TypeRight.Workspaces.Parsing
 		/// </summary>
 		private void FindExternalTypes()
 		{
-			
+
 			INamedTypeSymbol exterTypeExtrAttr = Compilation.GetTypeByMetadataName(typeof(ExternalScriptObjectAttribute).FullName);
 			foreach (AttributeData attrData in Compilation.Assembly.GetAttributes())
 			{
 				if (attrData.AttributeClass.Equals(exterTypeExtrAttr))
 				{
-					TypedConstant typeParamsArg = attrData.ConstructorArguments[0];
-
-					foreach (TypedConstant oneTypeArg in typeParamsArg.Values)
+					string targetPath = "";
+					for (int i = 0; i < attrData.ConstructorArguments.Length; i++)
 					{
-						INamedTypeSymbol type = oneTypeArg.Value as INamedTypeSymbol;
+						TypedConstant typedConstant = attrData.ConstructorArguments[i];
+						if (typedConstant.Kind == TypedConstantKind.Primitive)
+						{
+							targetPath = typedConstant.Value as string;
+						}
+						else
+						{
+							foreach (TypedConstant oneTypeArg in typedConstant.Values)
+							{
 
-                        ParseContext context = new ParseContext(Compilation, GetDocumentationProvider(type), _options);
-                        INamedType namedType = RoslynType.CreateNamedType(type, context); 
-						_visitor.VisitExternalType(namedType);
+								INamedTypeSymbol type = oneTypeArg.Value as INamedTypeSymbol;
+
+								ParseContext context = new ParseContext(Compilation, GetDocumentationProvider(type), _options);
+								INamedType namedType = RoslynType.CreateNamedType(type, context);
+								_visitor.VisitExternalType(namedType, targetPath);
+							}
+						}
 					}
 				}
 			}
 		}
 
-        /// <summary>
-        /// Gets the appropriate documentation provider for the type symbol
-        /// </summary>
-        /// <param name="typeSymbol">the named type symbol</param>
-        /// <returns>TThe documentation provider</returns>
-        private DocumentationProvider GetDocumentationProvider(INamedTypeSymbol typeSymbol)
-        {
-            Location location = typeSymbol.Locations[0];
-            if (location.Kind == LocationKind.MetadataFile)
-            {
-                return new ExternalReferenceDocumentationProvider(Compilation);
-            }
-            else
-            {
-                return new SourceCommentsDocumentationProvider();
-            }
-        }
-				
+		/// <summary>
+		/// Gets the appropriate documentation provider for the type symbol
+		/// </summary>
+		/// <param name="typeSymbol">the named type symbol</param>
+		/// <returns>TThe documentation provider</returns>
+		private DocumentationProvider GetDocumentationProvider(INamedTypeSymbol typeSymbol)
+		{
+			Location location = typeSymbol.Locations[0];
+			if (location.Kind == LocationKind.MetadataFile)
+			{
+				return new ExternalReferenceDocumentationProvider(Compilation);
+			}
+			else
+			{
+				return new SourceCommentsDocumentationProvider();
+			}
+		}
+
 		/// <summary>
 		/// Visits an Interface declaration
 		/// </summary>
@@ -122,7 +133,7 @@ namespace TypeRight.Workspaces.Parsing
 			INamedTypeSymbol namedType = Compilation.GetSemanticModel(node.SyntaxTree).GetDeclaredSymbol(node);
 
 			RoslynNamedType namedTypeResult = RoslynType.CreateNamedType(
-				namedType, 
+				namedType,
 				new ParseContext(Compilation, new SourceCommentsDocumentationProvider(), _options)
 				);
 			_visitor.Visit(namedTypeResult);
@@ -138,7 +149,7 @@ namespace TypeRight.Workspaces.Parsing
 		{
 			INamedTypeSymbol namedType = Compilation.GetSemanticModel(node.SyntaxTree).GetDeclaredSymbol(node);
 			RoslynNamedType namedTypeResult = RoslynType.CreateNamedType(
-				namedType, 
+				namedType,
 				new ParseContext(Compilation, new SourceCommentsDocumentationProvider(), _options)
 				);
 			_visitor.Visit(namedTypeResult);

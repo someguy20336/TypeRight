@@ -1,16 +1,14 @@
 ﻿using TypeRight.CodeModel;
-using TypeRight.Packages;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TypeRight.TypeProcessing
 {
-	internal class TypeTable
+	internal class TypeTable : IEnumerable<ExtractedType>
 	{
+		private ProcessorSettings _settings;
+
 		/// <summary>
 		/// Index of types that are string types in Typescript
 		/// </summary>
@@ -53,9 +51,9 @@ namespace TypeRight.TypeProcessing
 		private TypeDescriptor _booleanType;
 		private TypeDescriptor _dateTimeType;
 
-		public TypeTable(ScriptPackage package, ProcessorSettings settings)
+		public TypeTable(ProcessorSettings settings)
 		{
-			Compile(package, settings);
+			_settings = settings;
 		}
 
 		public bool ContainsNamedType(INamedType namedType)
@@ -84,11 +82,11 @@ namespace TypeRight.TypeProcessing
 					ExtractedType extractedType = _extractedTypes[metadataName];
 					if (extractedType is ExtractedEnumType enumType)
 					{
-						return new ExtractedEnumTypeDescriptor(namedType, extractedType.Namespace, enumType.UseExtendedSyntax);
+						return new ExtractedEnumTypeDescriptor(namedType, extractedType.Namespace, enumType.UseExtendedSyntax, extractedType.TargetPath);
 					}
 					else
 					{
-						return new NamedReferenceTypeDescriptor(namedType, extractedType.Namespace, this);
+						return new NamedReferenceTypeDescriptor(namedType, extractedType.Namespace, this, extractedType.TargetPath);
 					}
 				}
 
@@ -183,32 +181,44 @@ namespace TypeRight.TypeProcessing
 			return null;
 		}
 
-		private void Compile(ScriptPackage package, ProcessorSettings settings)
+
+		public void AddNamedType(INamedType type, string targetPath = null)
 		{
-			
-			foreach (INamedType type in package.NamedTypes)
+			if (string.IsNullOrEmpty(targetPath))
 			{
-				string metadataName = type.ConstructedFromType.FullName;
-				if (type.Flags.IsInterface)  // Interface
-				{
-					_extractedTypes.Add(metadataName, new ExtractedInterfaceType(type, settings.TypeNamespace, this));
-				}
-				else if (type.Flags.IsEnum)
-				{
-					_extractedTypes.Add(
-						metadataName,
-						new ExtractedEnumType(type, settings.EnumNamespace, settings.DisplayNameFilter)
-						);
-				}
-				else // class
-				{
-					_extractedTypes.Add(metadataName, new ExtractedClassType(type, settings.TypeNamespace, this));
-				}
+				targetPath = _settings.DefaultResultPath;
+			}
+			else
+			{
+				targetPath = PathUtils.ResolveRelativePath(_settings.ProjectPath, targetPath);
+			}
+
+			string metadataName = type.ConstructedFromType.FullName;
+			if (type.Flags.IsInterface)  // Interface
+			{
+				_extractedTypes.Add(metadataName, new ExtractedInterfaceType(type, _settings.TypeNamespace, this, targetPath));
+			}
+			else if (type.Flags.IsEnum)
+			{
+				_extractedTypes.Add(
+					metadataName,
+					new ExtractedEnumType(type, _settings.EnumNamespace, _settings.DisplayNameFilter, targetPath)
+					);
+			}
+			else // class
+			{
+				_extractedTypes.Add(metadataName, new ExtractedClassType(type, _settings.TypeNamespace, this, targetPath));
 			}
 		}
+		
+		public IEnumerator<ExtractedType> GetEnumerator()
+		{
+			return _extractedTypes.Values.GetEnumerator();
+		}
 
-		public IEnumerable<ExtractedReferenceType> GetReferenceTypes() => _extractedTypes.Values.Where(type => type is ExtractedReferenceType).Cast<ExtractedReferenceType>();
-
-		public IEnumerable<ExtractedEnumType> GetEnums() => _extractedTypes.Values.Where(type => type.NamedType.Flags.IsEnum).Cast<ExtractedEnumType>();
+		IEnumerator IEnumerable.GetEnumerator()
+		{
+			return GetEnumerator();
+		}
 	}
 }

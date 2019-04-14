@@ -1,7 +1,8 @@
 ﻿using TypeRight.CodeModel;
 using System.Collections.Generic;
+using TypeRight.TypeProcessing;
 
-namespace TypeRight.Packages
+namespace TypeRight.TypeLocation
 {
 	/// <summary>
 	/// An object that visits types to perform filtering and manipulation for a package
@@ -14,29 +15,34 @@ namespace TypeRight.Packages
 		public ParseFilterSettings FilterSettings { get; set; } = new ParseFilterSettings();
 
 		/// <summary>
-		/// Gets the list of class objects that were found
+		/// Gets the resulting type collection 
 		/// </summary>
-		public List<INamedType> FoundTypes { get; } = new List<INamedType>();
-		
+		public ExtractedTypeCollection TypeCollection { get; }
+
 		/// <summary>
-		/// Gets the list of controllers that were found
+		/// Creates a new type visitor with the given settings
 		/// </summary>
-		public List<INamedType> FoundControllers { get; } = new List<INamedType>();
-				
+		/// <param name="settings">The processing settings</param>
+		public TypeVisitor(ProcessorSettings settings)
+		{
+			TypeCollection = new ExtractedTypeCollection(settings);
+		}
+
 		/// <summary>
 		/// Performs a visit for the given named type
 		/// </summary>
 		/// <param name="namedType">The named type</param>
-		public void Visit(INamedType namedType)
+		/// <param name="targetPath">The target path for the type</param>
+		public void Visit(INamedType namedType, string targetPath = null)
 		{
 			if (FilterSettings.ClassFilter.Evaluate(namedType)
 				|| FilterSettings.EnumFilter.Evaluate(namedType))
 			{
-				FoundTypes.Add(namedType);
+				TypeCollection.RegisterType(namedType, targetPath);
 			}
 			else if (FilterSettings.ControllerFilter.Evaluate(namedType))
 			{
-				FoundControllers.Add(namedType);
+				TypeCollection.RegisterController(namedType);
 			}
 		}
 
@@ -44,9 +50,11 @@ namespace TypeRight.Packages
 		/// Visits an external type, which is always assumed to be a found class type
 		/// </summary>
 		/// <param name="namedType">The named type object</param>
-		public void VisitExternalType(INamedType namedType)
+		/// <param name="targetPath">The target path for the external type.  If not specified, the default will be used</param>
+		public void VisitExternalType(INamedType namedType, string targetPath = null)
 		{
-			FoundTypes.Add(namedType);
+			TypeCollection.RegisterType(namedType, targetPath);
 		}
+
 	}
 }

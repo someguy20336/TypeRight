@@ -36,6 +36,13 @@
             </summary>
             <param name="externalTypes">The external types to extract</param>
         </member>
+        <member name="M:TypeRight.Attributes.ExternalScriptObjectAttribute.#ctor(System.String,System.Type[])">
+            <summary>
+            Creates a new External type extract attribute
+            </summary>
+            <param name="path">The path, relative to the root of the project, to save the result file to</param>
+            <param name="externalTypes">The external types to extract</param>
+        </member>
         <member name="T:TypeRight.Attributes.FunctionalTypeAttribute">
             <summary>
             Defines a "functional" type for the given class.  In most cases, this isn't necessary.  However,
@@ -96,6 +103,17 @@
             <summary>
             Attribute used to mark an object for extraction.
             </summary>
+        </member>
+        <member name="M:TypeRight.Attributes.ScriptObjectAttribute.#ctor">
+            <summary>
+            Creates a script object that gets added to the default path
+            </summary>
+        </member>
+        <member name="M:TypeRight.Attributes.ScriptObjectAttribute.#ctor(System.String)">
+            <summary>
+            Creates a script object that gets added to the given target path
+            </summary>
+            <param name="targetPath">The path relative to the root of the project</param>
         </member>
     </members>
 </doc>
