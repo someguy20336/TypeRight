@@ -14,6 +14,13 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
         private ControllerContext _context;
 
 		private MvcMethodTextTemplateBase _innerTemplate;
+
+		/// <summary>
+		/// Gets the controller template text
+		/// </summary>
+		/// <param name="controllerInfo">The controller info</param>
+		/// <param name="context">The script write context</param>
+		/// <returns>the script text</returns>
 		public string GetText(MvcControllerInfo controllerInfo, ControllerContext context)
 		{
             _context = context;
@@ -29,7 +36,7 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
 			CompileImports(controllerInfo);
 
 			_innerTemplate = new MvcMethodTextTemplateBase();
-			_innerTemplate.Initialize(controllerInfo, context, new TypeScriptTypeFormatter(context.ExtractedTypes, new ModuleTypePrefixResolver(_imports)));
+			_innerTemplate.Initialize(controllerInfo, context, new TypeScriptTypeFormatter(context.TypeCollection, new ModuleTypePrefixResolver(_imports)));
 
 			return TransformText();
 		}

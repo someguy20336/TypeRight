@@ -13,6 +13,6 @@ namespace TypeRight.ScriptWriting
 		/// </summary>
 		/// <param name="context">The context for writing the script</param>
 		/// <returns>The script text</returns>
-		string GetText(ScriptWriteContext context);  
+		string GetText(TypeWriteContext context);  
 	}
 }

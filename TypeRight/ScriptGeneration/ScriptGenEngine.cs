@@ -89,8 +89,6 @@ namespace TypeRight.ScriptGeneration
 
 			ProcessorSettings processorSettings = new ProcessorSettings()
 			{
-				TypeNamespace = ConfigurationOptions.ClassNamespace,
-				EnumNamespace = ConfigurationOptions.EnumNamespace,
 				DefaultResultPath = resultAbsolute.LocalPath,
 				ProjectPath = projUri.LocalPath
 			};
@@ -111,11 +109,14 @@ namespace TypeRight.ScriptGeneration
 			// Write the object script text
 			foreach (var typeGroup in typeCollection.GetReferenceTypes().GroupBy(t => t.TargetPath))
 			{
-				ScriptWriteContext scriptContext = new ScriptWriteContext()
+				TypeWriteContext scriptContext = new TypeWriteContext()
 				{
 					IncludedTypes = typeGroup,
 					OutputPath = typeGroup.Key,
-					TypeCollection = typeCollection
+					TypeCollection = typeCollection,
+
+					TypeNamespace = ConfigurationOptions.ClassNamespace,
+					EnumNamespace = ConfigurationOptions.EnumNamespace,
 				};
 				string scriptText = scriptGen.CreateTypeTemplate().GetText(scriptContext);
 				File.WriteAllText(typeGroup.Key, scriptText);
@@ -133,9 +134,12 @@ namespace TypeRight.ScriptGeneration
 					ServerObjectsResultFilepath = new Uri(resultAbsolute.LocalPath),
 					AjaxFunctionName = ConfigurationOptions.AjaxFunctionName,
 					WebMethodNamespace = ConfigurationOptions.WebMethodNamespace,
-					ExtractedTypes = typeCollection,
+					TypeCollection = typeCollection,
 					AjaxFunctionModulePath = ajaxModulePath,
-					ModelBinding = ConfigurationOptions.ModelBindingType
+					ModelBinding = ConfigurationOptions.ModelBindingType,
+
+					TypeNamespace = ConfigurationOptions.ClassNamespace,
+					EnumNamespace = ConfigurationOptions.EnumNamespace,
 				};
 
 				string controllerScript = scriptGen.CreateControllerTextTemplate().GetText(controller, context);

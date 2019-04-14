@@ -1,10 +1,10 @@
 {
-  enabled: true,
+  enabled: false,
   classNamespace: "ServerClasses",
   enumNamespace: "ServerEnums",
   webMethodNamespace: "WebMethods",
   serverObjectsResultFilepath: "./Scripts/ServerObjects.ts",
-  templateType: "module",
+  templateType: "namespace",
   ajaxFunctionModulePath: "./Scripts/CallServiceStuff.ts",
   ajaxFunctionName: "callService"
 }

@@ -5,9 +5,23 @@ import * as ServerObjects from "ServerObjects";
 // Classes
 // ===============================
 /**  */
+export interface ASimpleModel<T1, T2> {
+	/**  */
+	Reference: ServerObjects.ASimpleModel_1<T1>;
+	/**  */
+	AhDoesThisWork: number;
+}
+
+/**  */
 export interface CustomGroupObj2 {
 	/**  */
 	Obj1: CustomGroupObject1;
+}
+
+/**  */
+export interface CustomGroupObj2_1<T> {
+	/**  */
+	Property: number;
 }
 
 /**  */

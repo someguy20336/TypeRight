@@ -8,15 +8,7 @@ namespace TypeRight.TypeProcessing
 	/// </summary>
 	public class ProcessorSettings
 	{
-		/// <summary>
-		/// Gets the namespace used by the reference types
-		/// </summary>
-		public string TypeNamespace { get; set; }
-
-		/// <summary>
-		/// Gest the namespace used by enums
-		/// </summary>
-		public string EnumNamespace { get; set; }
+		
 
 		/// <summary>
 		/// Gets or sets the filter to use for the display name attribute
@@ -43,8 +35,6 @@ namespace TypeRight.TypeProcessing
 		/// </summary>
 		public ProcessorSettings()
 		{
-			TypeNamespace = "DefaultClass";
-			EnumNamespace = "DefaultEnums";
 			DisplayNameFilter = new HasInterfaceOfTypeFilter(typeof(IEnumDisplayNameProvider).FullName);
 			MvcActionFilter = new IsOfTypeFilter(typeof(ScriptActionAttribute).FullName);
 		}

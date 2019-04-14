@@ -22,4 +22,17 @@ namespace TestAspNetCoreApp.Models
 		/// </summary>
 		public string PropTwo { get; set; }
 	}
+
+	[ScriptObject]
+	public class ASimpleModel<T>
+	{
+		public T GenericThing { get; set; }
+	}
+
+	public class ASimpleModel<T1, T2>
+	{
+		public ASimpleModel<T1> Reference { get; set; }
+
+		public int AhDoesThisWork { get; set; }
+	}
 }

@@ -24,4 +24,9 @@ namespace TestAspNetCoreApp.Models
 	{
 		public CustomGroupObject1 Obj1 { get; set; }
 	}
+
+	public class CustomGroupObj2<T>
+	{
+		public int Property { get; set; }
+	}
 }

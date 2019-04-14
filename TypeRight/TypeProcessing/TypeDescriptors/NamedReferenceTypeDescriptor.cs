@@ -23,10 +23,9 @@ namespace TypeRight.TypeProcessing
 		/// Creates the named reference type descriptor
 		/// </summary>
 		/// <param name="type"></param>
-		/// <param name="typeNamespace"></param>
 		/// <param name="table"></param>
 		/// <param name="targetPath">The target path of the type</param>
-		internal NamedReferenceTypeDescriptor(INamedType type, string typeNamespace, TypeTable table, string targetPath) : base(type, typeNamespace, targetPath)
+		internal NamedReferenceTypeDescriptor(INamedType type, TypeTable table, string targetPath) : base(type, targetPath)
 		{
 			_typeTable = table;
 		}

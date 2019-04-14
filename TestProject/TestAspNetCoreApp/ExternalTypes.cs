@@ -2,13 +2,15 @@
 using TestAspNetCoreApp.Models;
 using TypeRight.Attributes;
 
-[assembly: ExternalScriptObject(
+[assembly: ScriptObjects(
 	typeof(NetStandardClass),
 	typeof(GenericModel<>),
 	typeof(TestTwoTypeParams<,>)
 	)]
 
-[assembly: ExternalScriptObject("./Scripts/CustomGroup.ts",
+[assembly: ScriptObjects("./Scripts/CustomGroup.ts",
 	typeof(CustomGroupObject1),
-	typeof(CustomGroupObj2)
+	typeof(CustomGroupObj2),
+	typeof(CustomGroupObj2<>),
+	typeof(ASimpleModel<,>)
 	)]

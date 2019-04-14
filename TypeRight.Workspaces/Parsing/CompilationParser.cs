@@ -57,7 +57,7 @@ namespace TypeRight.Workspaces.Parsing
 		private void FindExternalTypes()
 		{
 
-			INamedTypeSymbol exterTypeExtrAttr = Compilation.GetTypeByMetadataName(typeof(ExternalScriptObjectAttribute).FullName);
+			INamedTypeSymbol exterTypeExtrAttr = Compilation.GetTypeByMetadataName(typeof(ScriptObjectsAttribute).FullName);
 			foreach (AttributeData attrData in Compilation.Assembly.GetAttributes())
 			{
 				if (attrData.AttributeClass.Equals(exterTypeExtrAttr))

@@ -7,12 +7,8 @@ namespace TypeRight.ScriptWriting
 	/// <summary>
 	/// Options for writing scripts
 	/// </summary>
-	public class ControllerContext
+	public class ControllerContext : ScriptWriteContext
 	{
-		/// <summary>
-		/// Gets or sets the output path for the controller
-		/// </summary>
-		public string OutputPath { get; set; }
 
 		/// <summary>
 		/// Gets or sets the result filepath for the server objects file
@@ -28,12 +24,7 @@ namespace TypeRight.ScriptWriting
 		/// Gets the default web method namespace
 		/// </summary>
 		public string WebMethodNamespace { get; set; }
-
-		/// <summary>
-		/// Gets the current collection of extracted types
-		/// </summary>
-		public ExtractedTypeCollection ExtractedTypes { get; set; }
-
+		
 		/// <summary>
 		/// Gets or sets the file path to the module containing the ajax function
 		/// </summary>

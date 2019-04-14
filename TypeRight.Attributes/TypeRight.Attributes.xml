@@ -19,30 +19,6 @@
             Gets or sets the abbreviation to use
             </summary>
         </member>
-        <member name="T:TypeRight.Attributes.ExternalScriptObjectAttribute">
-            <summary>
-            Use this attribute to force extract a type that is not
-            in the current assembly (or even solution).
-            </summary>
-        </member>
-        <member name="P:TypeRight.Attributes.ExternalScriptObjectAttribute.ExternalTypes">
-            <summary>
-            Gets the external type to extract, though who cares about this prop
-            </summary>
-        </member>
-        <member name="M:TypeRight.Attributes.ExternalScriptObjectAttribute.#ctor(System.Type[])">
-            <summary>
-            Creates a new External type extract attribute
-            </summary>
-            <param name="externalTypes">The external types to extract</param>
-        </member>
-        <member name="M:TypeRight.Attributes.ExternalScriptObjectAttribute.#ctor(System.String,System.Type[])">
-            <summary>
-            Creates a new External type extract attribute
-            </summary>
-            <param name="path">The path, relative to the root of the project, to save the result file to</param>
-            <param name="externalTypes">The external types to extract</param>
-        </member>
         <member name="T:TypeRight.Attributes.FunctionalTypeAttribute">
             <summary>
             Defines a "functional" type for the given class.  In most cases, this isn't necessary.  However,
@@ -109,11 +85,24 @@
             Creates a script object that gets added to the default path
             </summary>
         </member>
-        <member name="M:TypeRight.Attributes.ScriptObjectAttribute.#ctor(System.String)">
+        <member name="T:TypeRight.Attributes.ScriptObjectsAttribute">
             <summary>
-            Creates a script object that gets added to the given target path
+            Use this attribute to extract a type or list of types without adding the <see cref="T:TypeRight.Attributes.ScriptObjectAttribute"/> to the type.
+            This can be used to extract types that aren't in the current assembly
             </summary>
-            <param name="targetPath">The path relative to the root of the project</param>
+        </member>
+        <member name="M:TypeRight.Attributes.ScriptObjectsAttribute.#ctor(System.Type[])">
+            <summary>
+            Marks a list of types for extraction
+            </summary>
+            <param name="types">The types to extract</param>
+        </member>
+        <member name="M:TypeRight.Attributes.ScriptObjectsAttribute.#ctor(System.String,System.Type[])">
+            <summary>
+            Marks a list of types for extraction to the given relatively path
+            </summary>
+            <param name="path">The path, relative to the root of the project, to save the result file to</param>
+            <param name="types">The types to extract</param>
         </member>
     </members>
 </doc>

@@ -210,6 +210,7 @@
     <TypeScriptCompile Include="Scripts\CallServiceStuff.ts" />
     <TypeScriptCompile Include="Scripts\Home\HomeActions.ts" />
     <TypeScriptCompile Include="Scripts\ServerObjects.ts" />
+    <TypeScriptCompile Include="Scripts\TestSupport.ts" />
     <TypeScriptCompile Include="TypescriptFiles\TestFile.ts" />
   </ItemGroup>
   <ItemGroup>

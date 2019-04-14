@@ -82,11 +82,11 @@ namespace TypeRight.TypeProcessing
 					ExtractedType extractedType = _extractedTypes[metadataName];
 					if (extractedType is ExtractedEnumType enumType)
 					{
-						return new ExtractedEnumTypeDescriptor(namedType, extractedType.Namespace, enumType.UseExtendedSyntax, extractedType.TargetPath);
+						return new ExtractedEnumTypeDescriptor(namedType, enumType.UseExtendedSyntax, extractedType.TargetPath);
 					}
 					else
 					{
-						return new NamedReferenceTypeDescriptor(namedType, extractedType.Namespace, this, extractedType.TargetPath);
+						return new NamedReferenceTypeDescriptor(namedType, this, extractedType.TargetPath);
 					}
 				}
 
@@ -196,18 +196,18 @@ namespace TypeRight.TypeProcessing
 			string metadataName = type.ConstructedFromType.FullName;
 			if (type.Flags.IsInterface)  // Interface
 			{
-				_extractedTypes.Add(metadataName, new ExtractedInterfaceType(type, _settings.TypeNamespace, this, targetPath));
+				_extractedTypes.Add(metadataName, new ExtractedInterfaceType(type, this, targetPath));
 			}
 			else if (type.Flags.IsEnum)
 			{
 				_extractedTypes.Add(
 					metadataName,
-					new ExtractedEnumType(type, _settings.EnumNamespace, _settings.DisplayNameFilter, targetPath)
+					new ExtractedEnumType(type, _settings.DisplayNameFilter, targetPath)
 					);
 			}
 			else // class
 			{
-				_extractedTypes.Add(metadataName, new ExtractedClassType(type, _settings.TypeNamespace, this, targetPath));
+				_extractedTypes.Add(metadataName, new ExtractedClassType(type, this, targetPath));
 			}
 		}
 		

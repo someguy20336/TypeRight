@@ -126,7 +126,11 @@ namespace TypeRight.Workspaces.CodeModel
 			_properties = new Lazy<IReadOnlyList<IProperty>>(() =>
 			{
 				List<IProperty> props = new List<IProperty>();
-				foreach (IPropertySymbol propSymb in NamedTypeSymbol.GetMembers().OfType<IPropertySymbol>())
+				IEnumerable<IPropertySymbol> properties = NamedTypeSymbol.IsUnboundGenericType
+					? NamedTypeSymbol.ConstructedFrom.GetMembers().OfType<IPropertySymbol>()
+					: NamedTypeSymbol.GetMembers().OfType<IPropertySymbol>();
+
+				foreach (IPropertySymbol propSymb in properties)
 				{
 					if (propSymb.GetMethod.DeclaredAccessibility == Accessibility.Public)
 					{

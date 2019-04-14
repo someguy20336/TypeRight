@@ -60,8 +60,6 @@ namespace TypeRightTests.TestBuilders
 			ProjectParser workspaceParser = new ProjectParser(Workspace, projectId, ParseOptions);
 			TypeVisitor visitor = new TypeVisitor(new ProcessorSettings()
 			{
-				TypeNamespace = ReferenceTypeTester.TestNamespace,
-				EnumNamespace = EnumTester.TestNamespace,
 				DisplayNameFilter = DisplayNameFilter,
 				MvcActionFilter = MvcActionFilter,
 				ProjectPath = TestProjectDir,

@@ -13,10 +13,10 @@ namespace TypeRight.Attributes
 		/// </summary>
 		public ScriptObjectAttribute() { }
 
-		/// <summary>
-		/// Creates a script object that gets added to the given target path
-		/// </summary>
-		/// <param name="targetPath">The path relative to the root of the project</param>
-		public ScriptObjectAttribute(string targetPath) { }
+		///// <summary>
+		///// Creates a script object that gets added to the given target path
+		///// </summary>
+		///// <param name="targetPath">The path relative to the root of the project</param>
+		//public ScriptObjectAttribute(string targetPath) { }
     }
 }

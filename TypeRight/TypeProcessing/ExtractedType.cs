@@ -11,12 +11,7 @@ namespace TypeRight.TypeProcessing
 		/// Gets the named type for this extracted type
 		/// </summary>
 		public INamedType NamedType { get; }
-
-		/// <summary>
-		/// Gets the script namespace for this extracted type
-		/// </summary>
-		public string Namespace { get; private set; }
-
+		
 		/// <summary>
 		/// Gets the comments for the extracted type
 		/// </summary>
@@ -36,12 +31,10 @@ namespace TypeRight.TypeProcessing
 		/// Creates a new extracted type
 		/// </summary>
 		/// <param name="namedType">The named type</param>
-		/// <param name="typeNamespace">The namespace for the script</param>
 		/// <param name="targetPath">The target result path for this type</param>
-		protected ExtractedType(INamedType namedType, string typeNamespace, string targetPath)
+		protected ExtractedType(INamedType namedType, string targetPath)
 		{
 			NamedType = namedType;
-			Namespace = typeNamespace;
 			TargetPath = targetPath;
 		}
 

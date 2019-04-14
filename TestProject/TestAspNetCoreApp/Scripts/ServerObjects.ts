@@ -11,6 +11,12 @@ export interface ASimpleModel {
 	PropTwo: string;
 }
 
+/**  */
+export interface ASimpleModel_1<T> {
+	/**  */
+	GenericThing: T;
+}
+
 /** Test summ */
 export interface ErrorViewModel {
 	/**  */
@@ -21,6 +27,8 @@ export interface ErrorViewModel {
 
 /**  */
 export interface GenericModel<T> {
+	/**  */
+	Prop1: T;
 }
 
 /** Start some doc here */
@@ -31,6 +39,10 @@ export interface NetStandardClass {
 
 /**  */
 export interface TestTwoTypeParams<T, T2> {
+	/**  */
+	Prop1: T;
+	/**  */
+	Prop2: T2;
 }
 
   

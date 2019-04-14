@@ -1,12 +1,11 @@
-﻿using System.Collections.Generic;
-using TypeRight.TypeProcessing;
+﻿using TypeRight.TypeProcessing;
 
 namespace TypeRight.ScriptWriting
 {
 	/// <summary>
-	/// Context for writing scripts
+	/// Base class for writing scripts
 	/// </summary>
-	public class ScriptWriteContext
+	public abstract class ScriptWriteContext
 	{
 		/// <summary>
 		/// Gets or sets the output path
@@ -19,8 +18,13 @@ namespace TypeRight.ScriptWriting
 		public ExtractedTypeCollection TypeCollection { get; set; }
 
 		/// <summary>
-		/// Gets or sets the types included in this output
+		/// Gets the namespace used by the reference types for the namespaced method
 		/// </summary>
-		public IEnumerable<ExtractedType> IncludedTypes { get; set; }
+		public string TypeNamespace { get; set; }
+
+		/// <summary>
+		/// Gest the namespace used by enums for the namespaced method
+		/// </summary>
+		public string EnumNamespace { get; set; }
 	}
 }

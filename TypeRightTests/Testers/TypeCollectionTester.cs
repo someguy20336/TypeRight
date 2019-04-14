@@ -32,7 +32,7 @@ namespace TypeRightTests.Testers
 			
 
 			// TODO any way to define this?  Or maybe an option when getting type name
-			_typeFormatter = new TypeScriptTypeFormatter(_typeCollection, new NamespacedTypePrefixResolver());
+			_typeFormatter = new TypeScriptTypeFormatter(_typeCollection, new NamespacedTypePrefixResolver(EnumTester.TestNamespace, ReferenceTypeTester.TestNamespace));
 		}
 
 		public ReferenceTypeTester TestReferenceTypeWithName(string name, int? typeArgCnt = null)
@@ -55,11 +55,14 @@ namespace TypeRightTests.Testers
 
 		public TypeCollectionTester TestScriptText()
 		{
-			ScriptWriteContext context = new ScriptWriteContext()
+			TypeWriteContext context = new TypeWriteContext()
 			{
 				IncludedTypes = _typeCollection,
 				TypeCollection = _typeCollection,
-				OutputPath = TestWorkspaceBuilder.DefaultResultPath
+				OutputPath = TestWorkspaceBuilder.DefaultResultPath,
+
+				TypeNamespace = ReferenceTypeTester.TestNamespace,
+				EnumNamespace = EnumTester.TestNamespace,
 			};
 			string scriptText = _scriptWriter.CreateTypeTemplate().GetText(context);
 			Assert.IsFalse(string.IsNullOrEmpty(scriptText));
@@ -73,10 +76,13 @@ namespace TypeRightTests.Testers
             {
                 AjaxFunctionName = "TestAjax",
                 WebMethodNamespace = "MethodNamespace",
-                ExtractedTypes = _typeCollection,
+                TypeCollection = _typeCollection,
                 ServerObjectsResultFilepath = new Uri(@"C:\FolderA\FolderB\FolderC\FolderD\ServerObjects.ts"),
                 AjaxFunctionModulePath = @"C:\FolderA\FolderB\FolderM\FolderN\AjaxFunc.ts",
-				OutputPath = @"C:\FolderA\FolderB\FolderX\FolderY\SomeController.ts"
+				OutputPath = @"C:\FolderA\FolderB\FolderX\FolderY\SomeController.ts",
+
+				TypeNamespace = ReferenceTypeTester.TestNamespace,
+				EnumNamespace = EnumTester.TestNamespace,
 			};
 
             string scriptText = _scriptWriter.CreateControllerTextTemplate().GetText(

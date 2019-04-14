@@ -27,7 +27,7 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
 		public string GetText(MvcControllerInfo controllerInfo, ControllerContext context)
 		{
 			_innerTemplate = new MvcMethodTextTemplateBase();
-			_innerTemplate.Initialize(controllerInfo, context, new TypeScriptTypeFormatter(context.ExtractedTypes, new NamespacedTypePrefixResolver()));
+			_innerTemplate.Initialize(controllerInfo, context, new TypeScriptTypeFormatter(context.TypeCollection, new NamespacedTypePrefixResolver(context.EnumNamespace, context.TypeNamespace)));
 			_innerTemplate.PushIndent("\t");
 			WebMethodNamespace = context.WebMethodNamespace;
 			return TransformText();

@@ -8,7 +8,7 @@ namespace TypeRight.ScriptWriting.TypeScript
 	/// <summary>
 	/// Standard type formatter for typescript objects
 	/// </summary>
-	public class TypeScriptTypeFormatter : TypeFormatter 
+	public class TypeScriptTypeFormatter : TypeFormatter
 	{
 		private ITypePrefixResolver _resolver;
 
@@ -16,7 +16,7 @@ namespace TypeRight.ScriptWriting.TypeScript
 		/// Index of names for the collection an how many times they show up
 		/// </summary>
 		protected Dictionary<string, int> NameCountIndex { get; private set; }
-		
+
 		/// <summary>
 		/// Creates a new type formatter for typescript
 		/// </summary>
@@ -24,11 +24,12 @@ namespace TypeRight.ScriptWriting.TypeScript
 		/// <param name="resolver">The type prefix resolver</param>
 		public TypeScriptTypeFormatter(ExtractedTypeCollection typeCollection, ITypePrefixResolver resolver)
 		{
+			_resolver = resolver;
+
 			// Cache an index of the count of each name.  
 			// This will help for cases when a type has the same name, but a different number of type params because typescript doesn't allow it
 			NameCountIndex = typeCollection.GetReferenceTypes().GroupBy(refType => GetIndexName(refType)).ToDictionary(grp => grp.Key, grp => grp.Count());
 
-			_resolver = resolver;
 		}
 
 		/// <summary>
@@ -251,7 +252,14 @@ namespace TypeRight.ScriptWriting.TypeScript
 			return name;
 		}
 
-		private string GetIndexName(ExtractedReferenceType refType) => $"{refType.Namespace}.{refType.Name}";
-		private string GetIndexName(NamedReferenceTypeDescriptor refType) => $"{refType.Namespace}.{refType.Name}";
+		private string GetIndexName(ExtractedReferenceType refType)
+		{
+			return $"{_resolver.GetPrefix(refType)}.{refType.Name}";
+		}
+
+		private string GetIndexName(NamedReferenceTypeDescriptor refType)
+		{
+			return $"{_resolver.GetPrefix(refType)}.{refType.Name}";
+		}
 	}
 }

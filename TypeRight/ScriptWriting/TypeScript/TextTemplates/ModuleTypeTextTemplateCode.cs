@@ -12,13 +12,13 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
 		private Dictionary<string, ImportStatement> _imports = new Dictionary<string, ImportStatement>();
 		private TypeFormatter _formatter;
 
-		private ScriptWriteContext _context;
+		private TypeWriteContext _context;
 		/// <summary>
 		/// Gets the script for the extracted types
 		/// </summary>
 		/// <param name="context">The context for writing the script</param>
 		/// <returns>The script text</returns>
-		public string GetText(ScriptWriteContext context)
+		public string GetText(TypeWriteContext context)
 		{
 			_context = context;
 
