@@ -7,6 +7,8 @@ TypeRight is a simple tool that generates TypeScript files from your C# objects 
 
 This tool solves those problems by autogenerating those TypeScript files every time you build your project.
 
+**NOTE**: Version 0.7.0 has some small breaking changes, most notably with the attributes.  You may also need to update the VSIX to the newest version - I am not quite sure if there will be compatibility issues between the extension and pre-0.7.0 Nuget Package.
+
 # Quick Start
 
 1. Find ["TypeRight" in Nuget](https://www.nuget.org/packages/TypeRight) and install it (generally to the web project, but it could be for any)
@@ -17,7 +19,7 @@ This tool solves those problems by autogenerating those TypeScript files every t
 3. Add or update the typeRightConfig.json file.  As of 0.5.2, a default config file is included in the nuget content.  You can also add the config file via a right click menu option on the project node if you have extension installed.  Config options are located below.
    - **NOTE**: if you install TypeRight in multiple projects for your solution, the config file will be pulled into each one.  You should disable it through the config option for all projects that aren't web projects (i.e. your core/business class library projects).  It was a battle between making it easy to include the config and incorrectly having config files for projects that shouldn't.  Maybe I'll fix it someday...
 4. Add the `ScriptObject` attribute to any classes or interfaces you want to extract to a TypeScript file
-   - If you aren't a fan of polluting your business classes with attributes, you can use the assembly attribute `ExternalScriptObjectAttribute` to provide a list of types to extract.  Example: `[assembly: ExternalScriptObject(typeof(Class1), typeof(Class2), ...)]`
+   - If you aren't a fan of polluting your business classes with attributes, you can use the assembly attribute `ScriptObjectsAttribute` to provide a list of types to extract.  Example: `[assembly: ScriptObjects(typeof(Class1), typeof(Class2), ...)]`
 5. Add the `ScriptEnum` attribute to any enums you want to extract to a TypeScript file
 6. Add the `ScriptAction` attribute to any Controller Actions (methods) that you want to extract to TypeScript files
 7. Build the project.  The following TypeScript files will now be created
@@ -91,11 +93,14 @@ export interface MyClass {
 }
 ```
 
-The other alternative for classes is to use `ExternalScriptObjectAttribute`.  For this assembly level attribute, you can specify types that are in another project or DLL.  You might use this if you don't want to install the nuget package in your core project or referenced code from another DLL.  Here is how you might use it:
+The other alternative for classes is to use `ScriptObjectsAttribute`.  For this assembly level attribute, you can specify types that are in another project or DLL.  You might use this if you don't want to install the nuget package in your core project or referenced code from another DLL.  Here is how you might use it:
 
 ```C#
-[assembly: ExternalScriptObject(typeof(Class1), typeof(Class2), ...)]
+[assembly: ScriptObjects(typeof(Class1), typeof(Class2), ...)]
+[assembly: ScriptObjects("./Scripts/NonDefaultLocation.ts", typeof(Class3), typeof(Class3), ...)]
 ```
+
+As demonstrated above, you can optionally group objects and save them to a different typescript file by specifying a relative path from the project root as the first parameter of the attribute.  The above settings will add `Class1` and `Class2` to the default output and `Class3` and `Class4` to the "NonDefaultLocation.ts" file.
 
 Enums are extracted by adding the `ScriptEnum` attribute.  This will create an enumeration type in TypeScript.  As another example:
 
