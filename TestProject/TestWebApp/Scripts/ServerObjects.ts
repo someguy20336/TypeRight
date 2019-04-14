@@ -3,13 +3,11 @@
 // ===============================
 // Classes
 // ===============================
-
 /** Hey.  Here are some docs */
 export interface Class1 {
 	/** This is a property */
 	ExtractDependent: number;
 }
-
 
 /**  */
 export interface ExampleClass {
@@ -27,13 +25,11 @@ export interface ExampleClass {
 	AddedProp: number;
 }
 
-
 /**  */
 export interface Extends extends ExampleClass {
 	/**  */
 	OneMoreProp: number;
 }
-
 
 /**  */
 export interface FileInfo {

@@ -4,13 +4,11 @@ import * as ServerObjects from "ServerObjects";
 // ===============================
 // Classes
 // ===============================
-
 /**  */
 export interface CustomGroupObj2 {
 	/**  */
 	Obj1: CustomGroupObject1;
 }
-
 
 /**  */
 export interface CustomGroupObject1 {
