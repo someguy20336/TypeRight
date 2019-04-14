@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
 	<metadata>
 		<id>TypeRight</id>
-		<version>0.6.1.1</version>
+		<version>0.7.0</version>
 		<title>TypeRight</title>
 		<authors>Dave W</authors>
 		<owners>Dave W</owners>
@@ -10,7 +10,7 @@
 		<description>
 			A simple tool designed to make it easy to autogenerate TypeScript files from C# classes and MVC actions.
 			This package adds a build task to create the scripts.  For the best experience, also use the VS extension
-			with the same name
+			with the same name.
 		</description>
 		<releaseNotes>Better support for .Net Core projects</releaseNotes>
 		<copyright>Copyright 2018</copyright>
