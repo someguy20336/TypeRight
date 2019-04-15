@@ -26,7 +26,7 @@ namespace TypeRightVsix.Commands
 		/// <summary>
 		/// Command menu group (command set GUID).
 		/// </summary>
-		public static readonly Guid CommandSet = new Guid("778bde11-5269-4ac6-af3c-5134e6702a98");
+		public static readonly Guid CommandSet = new Guid("E49229F2-6882-421F-872E-90E1B1CC7534");
 
 		/// <summary>
 		/// VS Package that provides this command, not null.
