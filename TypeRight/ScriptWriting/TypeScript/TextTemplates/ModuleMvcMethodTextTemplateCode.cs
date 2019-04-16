@@ -58,14 +58,7 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
 
 		private void TryAddImport(TypeDescriptor type)
 		{
-			if (type is ExtractedTypeDescriptor extractedType && extractedType.TargetPath != _context.OutputPath)
-			{
-				if (!_imports.ContainsKey(extractedType.TargetPath))
-				{
-					_imports.Add(extractedType.TargetPath, new ImportStatement(_context.OutputPath, extractedType.TargetPath, true));
-				}
-				_imports[extractedType.TargetPath].AddItem(extractedType.Name);
-			}
+			TypeScriptHelper.TryAddToImports(_imports, type, _context.OutputPath);
 		}
 	}
 }

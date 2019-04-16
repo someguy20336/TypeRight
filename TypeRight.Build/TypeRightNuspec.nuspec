@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
 	<metadata>
 		<id>TypeRight</id>
-		<version>0.7.0.1</version>
+		<version>0.7.1</version>
 		<title>TypeRight</title>
 		<authors>Dave W</authors>
 		<owners>Dave W</owners>
@@ -13,7 +13,7 @@
 			with the same name.
 		</description>
 		<releaseNotes>Better support for .Net Core projects</releaseNotes>
-		<copyright>Copyright 2018</copyright>
+		<copyright>Copyright 2019</copyright>
 		<projectUrl>https://github.com/someguy20336/TypeRight</projectUrl>
 		<iconUrl>https://github.com/someguy20336/TypeRight/blob/master/Icons/TypeRight64x64.png?raw=true</iconUrl>
 		<tags>TypeScript Generator MVC C# classes</tags>

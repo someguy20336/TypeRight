@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DependentLibrary", "Depende
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestAspNetCoreApp", "TestAspNetCoreApp\TestAspNetCoreApp.csproj", "{A8927B22-EC3B-4692-BF73-8660CC4D3EB9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetStandardLib", "NetStandardLib\NetStandardLib.csproj", "{2488CA5E-91BE-4008-8137-A655AD709018}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetStandardLib", "NetStandardLib\NetStandardLib.csproj", "{2488CA5E-91BE-4008-8137-A655AD709018}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

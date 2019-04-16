@@ -47,8 +47,8 @@ namespace TypeRight.ScriptWriting.TypeScript
 			
 			FromRelativePath = fromUri.MakeRelativeUri(toUri).ToString();
 
-			// Make sure it has a ./ before anything in the same directory, but only if it is another folder
-			if (FromRelativePath.Contains("/") && !FromRelativePath.StartsWith("."))
+			// Make sure it has a ./ before anything in the same directory
+			if (!FromRelativePath.StartsWith("."))
 			{
 				FromRelativePath = "./" + FromRelativePath;
 			}

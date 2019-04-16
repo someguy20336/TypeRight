@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using TypeRight.TypeProcessing;
 
 namespace TypeRight.ScriptWriting.TypeScript
 {
@@ -49,6 +50,49 @@ namespace TypeRight.ScriptWriting.TypeScript
 		{
 			// format is { [key: keyType]: valueType }
 			return $"{{ [key: {keyTypeName}]: {valTypeName} }}";
+		}
+
+		internal static void TryAddToImports(Dictionary<string, ImportStatement> imports, TypeDescriptor descriptor, string outputPath)
+		{
+			if (descriptor is ExtractedTypeDescriptor extractedType && extractedType.TargetPath != outputPath)
+			{
+				if (!imports.ContainsKey(extractedType.TargetPath))
+				{
+					imports.Add(extractedType.TargetPath, new ImportStatement(outputPath, extractedType.TargetPath, true));
+				}
+				imports[extractedType.TargetPath].AddItem(extractedType.Name);
+
+				if (extractedType is NamedReferenceTypeDescriptor refType && refType.TypeArguments.Count > 0)
+				{
+					foreach (var arg in refType.TypeArguments)
+					{
+						TryAddToImports(imports, arg, outputPath);
+					}
+				}
+			}
+			else if (descriptor is ListTypeDescriptor listType)
+			{
+				TryAddToImports(imports, listType.TypeArg, outputPath);
+			}
+			else if (descriptor is ArrayTypeDescriptor arrayType)
+			{
+				TryAddToImports(imports, arrayType.ElementType, outputPath);
+			}
+			else if (descriptor is DictionaryTypeDescriptor dictType)
+			{
+				TryAddToImports(imports, dictType.Value, outputPath);
+			}
+			else if (descriptor is NullableTypeDescriptor nullable)
+			{
+				TryAddToImports(imports, nullable.TypeArgument, outputPath);
+			}
+			else if (descriptor is AnonymousTypeDescriptor anonymous)
+			{
+				foreach (ExtractedProperty property in anonymous.Properties)
+				{
+					TryAddToImports(imports, property.Type, outputPath);
+				}
+			}
 		}
 
 	}

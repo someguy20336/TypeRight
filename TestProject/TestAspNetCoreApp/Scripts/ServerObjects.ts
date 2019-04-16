@@ -52,7 +52,6 @@ export interface TestTwoTypeParams<T, T2> {
 // ===============================
 // Enums
 // ===============================
-
 /**  */
 export enum NetStandardEnum {
 	/**  */
@@ -62,6 +61,5 @@ export enum NetStandardEnum {
 	/**  */
 	Three = 2,
 }
- 
 
   

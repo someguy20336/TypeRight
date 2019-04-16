@@ -68,7 +68,6 @@ namespace ServerClasses {
   
 
 namespace ServerEnums {
-	
 	/**  */
 	export enum ExampleEnum {
 		/**  */
@@ -78,7 +77,6 @@ namespace ServerEnums {
 		/**  */
 		Three = 2,
 	}
-	 
   
 }
   

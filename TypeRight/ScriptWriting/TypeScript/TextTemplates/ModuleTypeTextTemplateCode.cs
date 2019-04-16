@@ -45,16 +45,11 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
 			{
 				foreach (var property in type.Properties)
 				{
-					if (property.Type is ExtractedTypeDescriptor extractedType && extractedType.TargetPath != _context.OutputPath)
-					{
-						if (!_imports.ContainsKey(extractedType.TargetPath))
-						{
-							_imports.Add(extractedType.TargetPath, new ImportStatement(_context.OutputPath, extractedType.TargetPath, true));
-						}
-						_imports[extractedType.TargetPath].AddItem(extractedType.Name);
-					}
+					TypeScriptHelper.TryAddToImports(_imports, property.Type, _context.OutputPath);
 				}
 			}
 		}
+
+	
 	}
 }

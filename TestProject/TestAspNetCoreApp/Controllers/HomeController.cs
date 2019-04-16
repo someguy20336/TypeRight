@@ -43,6 +43,16 @@ namespace TestAspNetCoreApp.Controllers
 		}
 
 		[ScriptAction]
+		public JsonResult AnonTypeWithDictionaryProperty(CustomGroupObj3 model)
+		{
+			return Json(new
+			{
+				listObj = new List<CustomGroupObject1>()
+			});
+		}
+
+
+		[ScriptAction]
 		public JsonResult FunctionWithModel([FromBody] ASimpleModel model)
 		{
 			return Json(model);

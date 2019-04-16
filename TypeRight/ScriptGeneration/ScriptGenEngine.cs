@@ -123,7 +123,7 @@ namespace TypeRight.ScriptGeneration
 			}
 
             // Write MVC controllers
-            string ajaxModulePath = string.IsNullOrEmpty(ConfigurationOptions.AjaxFunctionModulePath) ? null : new Uri(projUri, ConfigurationOptions.AjaxFunctionModulePath).AbsolutePath;
+            string ajaxModulePath = string.IsNullOrEmpty(ConfigurationOptions.AjaxFunctionModulePath) ? null : new Uri(projUri, ConfigurationOptions.AjaxFunctionModulePath).LocalPath;
             
             foreach (MvcControllerInfo controller in typeCollection.GetMvcControllers())
 			{

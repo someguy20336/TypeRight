@@ -16,3 +16,7 @@ using TypeRight.Attributes;
 	typeof(ASimpleModel<,>),
 	typeof(ASimpleEnum)
 	)]
+
+[assembly: ScriptObjects("./Scripts/Home/Models.ts",
+	typeof(CustomGroupObj3)
+	)]

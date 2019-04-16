@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NetStandardLib;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -34,6 +35,15 @@ namespace TestAspNetCoreApp.Models
 		public ASimpleModel<T1> Reference { get; set; }
 
 		public ASimpleEnum AhDoesThisWork { get; set; }
+
+		public ASimpleModel<T1>[] ReferenceArray { get; set; }
+
+
+		public List<ASimpleModel<T1>> ReferenceList { get; set; }
+
+		public Dictionary<int, NetStandardEnum> EnumDict { get; set; }
+
+		public NetStandardEnum? NullableEnum { get; set; }
 	}
 
 	public enum ASimpleEnum

@@ -2,7 +2,16 @@
 import { callService } from "../CallServiceStuff";
 import * as ServerObjects from "../ServerObjects";
 import * as CustomGroup from "../CustomGroup";
+import * as Models from "./Models";
 
+
+/**
+ * 
+ * @param model 
+ */
+export function AnonTypeWithDictionaryProperty(model: Models.CustomGroupObj3, success?: (result: { listObj: CustomGroup.CustomGroupObject1[] }) => void, fail?: (result: any) => void): void {
+	callService("/Home/AnonTypeWithDictionaryProperty", model, success, fail);
+}
 
 /**
  * 
