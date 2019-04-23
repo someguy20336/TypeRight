@@ -182,14 +182,15 @@ namespace TypeRight.Workspaces.BuildTasks
 			}
 			catch (Exception e)
 			{
-				Log.LogError($"Script Generation failed to execute: {e.Message}");
+				Log.LogWarningFromException(e, true);
 			}
 			finally
 			{
 				AppDomain.Unload(newDomain);
 			}
 
-			return success; 
+			
+			return true;	// Don't ever fail build
 		}
 
 	}

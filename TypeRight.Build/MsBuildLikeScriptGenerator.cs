@@ -69,9 +69,17 @@ namespace TypeRight.Build
 				}
 				Success = result.Sucess;
 			}
+			catch (AggregateException e)
+			{
+				// I don't know how aggregate exceptions are treated... soo.. i handle them here
+				foreach (var inner in e.InnerExceptions)
+				{
+					Log.LogWarningFromException(inner, true);
+				}
+			}
 			catch (Exception e)
 			{
-				Log.LogError($"Script generation failed: {e.Message}");
+				Log.LogWarningFromException(e, true);
 				Success = false;
 			}
 			finally
