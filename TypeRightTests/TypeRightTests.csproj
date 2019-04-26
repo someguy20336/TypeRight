@@ -246,6 +246,7 @@
     <Compile Include="Tests\FunctionalTypeTests.cs" />
     <Compile Include="Tests\SameNameTests.cs" />
     <Compile Include="Tests\MiscHelperTests.cs" />
+    <Compile Include="Tests\ScriptWriting.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

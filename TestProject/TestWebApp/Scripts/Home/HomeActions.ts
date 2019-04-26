@@ -6,33 +6,84 @@ namespace WebMethods.Home {
 	 * 
 	 * @param dict 
 	 */
-	export function Test_Anonymous(dict: { [key: string]: string }, success?: (result: { exampleProp: ServerClasses.ExampleClass, intProp: number, stringProp: string }) => void, fail?: (result: any) => void): void {
-		Comm.callService("/Home/Test_Anonymous", { dict: dict }, success, fail);
+	export function Test_Anonymous(dict: { [key: string]: string }): void {
+		callService("/Home/Test_Anonymous", { dict: dict });
 	}
 	
 	/**
 	 * 
 	 * @param example 
 	 */
-	export function Test_ObjectParam(example: ServerClasses.ExampleClass, success?: (result: number) => void, fail?: (result: any) => void): void {
-		Comm.callService("/Home/Test_ObjectParam", { example: example }, success, fail);
+	export function Test_ObjectParam(example: ServerClasses.ExampleClass): void {
+		callService("/Home/Test_ObjectParam", { example: example });
 	}
 	
 	/**
 	 * 
 	 * @param dict 
 	 */
-	export function Test_ObjectReturn(dict: { [key: string]: string }, success?: (result: ServerClasses.ExampleClass) => void, fail?: (result: any) => void): void {
-		Comm.callService("/Home/Test_ObjectReturn", { dict: dict }, success, fail);
+	export function Test_ObjectReturn(dict: { [key: string]: string }): void {
+		callService("/Home/Test_ObjectReturn", { dict: dict });
 	}
 	
 	/**
 	 * 
 	 */
-	export function TestJson(success?: (result: boolean) => void, fail?: (result: any) => void): void {
-		Comm.callService("/Home/TestJson", {  }, success, fail);
+	export function TestJson(): void {
+		callService("/Home/TestJson", {  });
 	}
 	
 	
+	/**
+	 * Call an async web service
+	 * @param {string} url the location of the webservice
+	 * @param {any} data the data to pass into the webservice (json object)
+	 * @param {Function} success the function to call on success
+	 * @param {Function} error the function to call on error
+	 */
+	function callService(url: string, data: any,
+		success?: (data: any, textStatus: string, jqXHR: JQueryXHR) => void,
+		error?: (jqXHR: JQueryXHR, textStatus: string, errorThrown: string) => void
+	): JQueryPromise<any> {
+		let $deferred = $.Deferred<void>();
+	
+		//if you don't pass error function
+		if (typeof error !== "function") {
+			error = defaultError;
+		}
+		// Create settings
+		let ajaxSettings: JQueryAjaxSettings = {
+			url: url,
+			data: JSON.stringify(data),
+			type: "POST",
+			contentType: "application/json; charset=utf-8",
+			dataType: "json"
+		};
+	
+		// make the call to the server			
+		$.ajax(ajaxSettings).done((data, textStatus, jqXHR) => {
+			if (!!success) {
+				success(data, textStatus, jqXHR);
+			}
+			return $deferred.resolve();
+		}).fail((jqXHR, textStatus, errorThrown) => {
+			if (!!error) {
+				error(jqXHR, textStatus, errorThrown);
+			}
+			return $deferred.reject();
+		});
+	
+		return $deferred.promise();
+	}
+	
+	/**
+	 * A default error handler
+	 * @param {JQueryXHR} result The error result
+	 * @param {string} textStatus The text status result
+	 * @param {string} err The text string of the error
+	 */
+	function defaultError(result: JQueryXHR, textStatus: string, err: string): void {
+		alert("An unhandled error has occurred.  Please try again or contact the technical team.");
+	}
 
 }

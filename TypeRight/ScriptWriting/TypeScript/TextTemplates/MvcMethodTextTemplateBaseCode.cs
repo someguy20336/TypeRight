@@ -36,7 +36,7 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
 		/// <summary>
 		/// Gets the name of the ajax function to use
 		/// </summary>
-		public string AjaxFunctionName { get; private set; }
+		public string FetchFunctionName { get; private set; }
 
 		/// <summary>
 		/// The base URL for all actions
@@ -54,11 +54,11 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
 			if (context.HasOwnAjaxFunction)
 			{
 				HasOwnAjaxFunction = true;
-				AjaxFunctionName = context.AjaxFunctionName;
+				FetchFunctionName = context.FetchFunctionName;
 			}
 			else
 			{
-				AjaxFunctionName = "callService";
+				FetchFunctionName = "callService";
 			}
 
 			ControllerName = ControllerInfo.Name.Substring(0, ControllerInfo.Name.Length - "Controller".Length);
@@ -109,6 +109,22 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
 		/// <returns>An enumerable list of actions</returns>
 		private IEnumerable<MvcActionInfo> GetActions() => ControllerInfo.Actions.OrderBy(act => act.Name);
 
+		/// <summary>
+		/// Builds the fetch function name, including the return keyword if necessary
+		/// </summary>
+		/// <param name="actionInfo"></param>
+		/// <returns></returns>
+		private string BuildFetchFunctionName(MvcActionInfo actionInfo)
+		{
+			if (Context.FetchReturnType == "void")
+			{
+				return FetchFunctionName;
+			}
+			else
+			{
+				return "return " + FetchFunctionName;
+			}
+		}
 
 		/// <summary>
 		/// Builds the action signature
@@ -126,10 +142,15 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
 				actionParams.Add(paramText);
 			}
 
-			// Add success and fail functions
-			actionParams.Add($"{SuccessFuncName}?: (result: {action.ReturnType.FormatType(TypeFormatter)}) => void");
-			actionParams.Add($"{FailFuncName}?: (result: any) => void");
-			return $"{action.Name}({string.Join(", ", actionParams)}): void";
+			// Add user defined params
+			foreach (var addlParam in Context.AdditionalParameters)
+			{
+				string retType = addlParam.Type.Replace("$returnType$", action.ReturnType.FormatType(TypeFormatter));
+				string paramText = $"{addlParam.Name}{ (addlParam.Optional ? "?" : "") }: { retType }";
+				actionParams.Add(paramText);
+			}
+			
+			return $"{action.Name}({string.Join(", ", actionParams)}): { ReplaceTokens(Context.FetchReturnType, action) }";
 		}
 
 		/// <summary>
@@ -152,6 +173,20 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
 		}
 
 		/// <summary>
+		/// Builds the additional parameters
+		/// </summary>
+		/// <param name="action"></param>
+		/// <returns></returns>
+		private string BuildAddlParameters(MvcActionInfo action)
+		{
+			if (Context.AdditionalParameters.Count == 0)
+			{
+				return "";
+			}
+			return $", {string.Join(", ", Context.AdditionalParameters.Select(p => ReplaceTokens(p.Name, action))) }";
+		}
+
+		/// <summary>
 		/// Gets the URL for an action
 		/// </summary>
 		/// <param name="action">The action</param>
@@ -161,5 +196,15 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
 			return $"{BaseActionUrl}{action.Name}";
 		}
 
+		/// <summary>
+		/// Replaces any tokens
+		/// </summary>
+		/// <param name="typeStr"></param>
+		/// <param name="action"></param>
+		/// <returns></returns>
+		private string ReplaceTokens(string typeStr, MvcActionInfo action)
+		{
+			return typeStr.Replace("$returnType$", action.ReturnType.FormatType(TypeFormatter));
+		}
 	}
 }

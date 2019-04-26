@@ -1,11 +1,24 @@
 {
-  enabled: true,
-  classNamespace: "",
-  enumNamespace: "",
-  webMethodNamespace: "WebMethods",
-  serverObjectsResultFilepath: "./Scripts/ServerObjects.ts",
-  templateType: "module",
-  ajaxFunctionModulePath: "./Scripts/CallServiceStuff.ts",
-  ajaxFunctionName: "callService",
-  modelBindingType: "singleParam"
+	"enabled": true,
+	"classNamespace": "",
+	"enumNamespace": "",
+	"webMethodNamespace": "WebMethods",
+	"serverObjectsResultFilepath": "./Scripts/ServerObjects.ts",
+	"templateType": "module",
+	"ajaxFunctionModulePath": "",
+	"ajaxFunctionName": "",
+	"modelBindingType": "singleParam",
+	"actionConfig": {
+		"fetchFunctionName": "callPost",
+		"fetchFilePath": "./Scripts/CallServiceStuff.ts",
+		"parameters": [
+			{
+				"name": "abort",
+				"type": "AbortSignal",
+				"optional": true
+			}
+		],
+		"returnType": "Promise<$returnType$>",
+		"imports": null
+	}
 }

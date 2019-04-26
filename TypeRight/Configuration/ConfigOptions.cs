@@ -65,18 +65,26 @@ namespace TypeRight.Configuration
 		/// </summary>
 		public ModelBindingType ModelBindingType { get; set; } = ModelBindingType.MultiParam;
 
-        /// <summary>
-        /// Creates a new config file
-        /// </summary>
-        public ConfigOptions()
+		/// <summary>
+		/// Gets or sets the configuration for action
+		/// </summary>
+		public ActionConfig ActionConfig { get; set; }
+
+		/// <summary>
+		/// Creates a new config file
+		/// </summary>
+		public ConfigOptions()
 		{
 			Enabled = true;
-			ClassNamespace = "ServerClasses";
-			EnumNamespace = "ServerEnums";
-			WebMethodNamespace = "WebMethods";
 			ServerObjectsResultFilepath = "./Scripts/ServerObjects.ts";
-			AjaxFunctionName = null;
+			
 			TemplateType = "module";
+			ActionConfig = new ActionConfig();
+
+			AjaxFunctionName = null;
+			ClassNamespace = "";
+			EnumNamespace = "";
+			WebMethodNamespace = "";
 		}
 	}
 }

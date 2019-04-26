@@ -7,6 +7,7 @@ using TypeRight.TypeProcessing;
 using System;
 using System.IO;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace TypeRight.ScriptGeneration
 {
@@ -50,7 +51,7 @@ namespace TypeRight.ScriptGeneration
 			_typeIterator = typeIterator;
 			ConfigurationOptions = options;
 		}
-		
+
 		/// <summary>
 		/// Generates the scripts
 		/// </summary>
@@ -101,7 +102,7 @@ namespace TypeRight.ScriptGeneration
 
 			// At this point we are good
 			TypeVisitor visitor = new TypeVisitor(processorSettings);
-			_typeIterator.IterateTypes(visitor);		
+			_typeIterator.IterateTypes(visitor);
 
 			ExtractedTypeCollection typeCollection = visitor.TypeCollection;
 			IScriptTemplate scriptGen = ScriptTemplateFactory.GetTemplate(ConfigurationOptions.TemplateType);
@@ -122,22 +123,58 @@ namespace TypeRight.ScriptGeneration
 				File.WriteAllText(typeGroup.Key, scriptText);
 			}
 
-            // Write MVC controllers
-            string ajaxModulePath = string.IsNullOrEmpty(ConfigurationOptions.AjaxFunctionModulePath) ? null : new Uri(projUri, ConfigurationOptions.AjaxFunctionModulePath).LocalPath;
-            
-            foreach (MvcControllerInfo controller in typeCollection.GetMvcControllers())
+			// Write MVC controllers
+			string fetchRelativePath;
+			string fetchFunctionName;
+			string fetchReturnType = "";
+			List<ActionParameter> addlParameters = null;
+			List<ImportDefinition> addlImports = new List<ImportDefinition>();
+			if (ConfigurationOptions.ActionConfig != null)
+			{
+				ActionConfig actionConfig = ConfigurationOptions.ActionConfig;
+				fetchRelativePath = actionConfig.FetchFilePath;
+				fetchFunctionName = actionConfig.FetchFunctionName;
+				fetchReturnType = actionConfig.ReturnType;
+				addlParameters = actionConfig.Parameters;
+				addlImports = actionConfig.Imports;
+			}
+			else
+			{
+				fetchRelativePath = ConfigurationOptions.AjaxFunctionModulePath;
+				fetchFunctionName = ConfigurationOptions.AjaxFunctionName;
+			}
+
+			// Default Addl Params
+			if (addlParameters == null)
+			{
+				addlParameters = new List<ActionParameter>()
+				{
+					new ActionParameter() {Name = "success", Type = "(result: $returnType$) => void", Optional = true},
+					new ActionParameter() {Name = "fail", Type = "(result: any) => void", Optional = true }
+				};
+			}
+
+			string fetchModulePath = string.IsNullOrEmpty(fetchRelativePath) ? null : new Uri(projUri, fetchRelativePath).LocalPath;
+
+			foreach (MvcControllerInfo controller in typeCollection.GetMvcControllers())
 			{
 				string outputPath = GetControllerResultPath(controller);
 				ControllerContext context = new ControllerContext()
 				{
 					OutputPath = outputPath,
 					ServerObjectsResultFilepath = new Uri(resultAbsolute.LocalPath),
-					AjaxFunctionName = ConfigurationOptions.AjaxFunctionName,
-					WebMethodNamespace = ConfigurationOptions.WebMethodNamespace,
 					TypeCollection = typeCollection,
-					AjaxFunctionModulePath = ajaxModulePath,
 					ModelBinding = ConfigurationOptions.ModelBindingType,
 
+					// Fetch Function
+					FetchFunctionModulePath = fetchModulePath,
+					FetchFunctionName = fetchFunctionName,
+					AdditionalParameters = addlParameters,
+					AdditionalImports = addlImports,
+					FetchReturnType = string.IsNullOrEmpty(fetchReturnType) ? "void" : fetchReturnType,
+
+					// Things I don't want to support anymore
+					WebMethodNamespace = ConfigurationOptions.WebMethodNamespace,
 					TypeNamespace = ConfigurationOptions.ClassNamespace,
 					EnumNamespace = ConfigurationOptions.EnumNamespace,
 				};

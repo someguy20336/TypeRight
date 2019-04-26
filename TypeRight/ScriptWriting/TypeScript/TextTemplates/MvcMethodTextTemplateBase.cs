@@ -85,7 +85,7 @@ foreach (string paramName in oneAction.ParameterComments.Keys) {
             this.Write(" {\r\n\t");
             
             #line 20 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(AjaxFunctionName));
+            this.Write(this.ToStringHelper.ToStringWithCulture(BuildFetchFunctionName(oneAction)));
             
             #line default
             #line hidden
@@ -103,17 +103,9 @@ foreach (string paramName in oneAction.ParameterComments.Keys) {
             
             #line default
             #line hidden
-            this.Write(", ");
             
             #line 20 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(SuccessFuncName));
-            
-            #line default
-            #line hidden
-            this.Write(", ");
-            
-            #line 20 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(FailFuncName));
+            this.Write(this.ToStringHelper.ToStringWithCulture(BuildAddlParameters(oneAction)));
             
             #line default
             #line hidden

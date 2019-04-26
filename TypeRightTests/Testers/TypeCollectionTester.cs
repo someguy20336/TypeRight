@@ -17,7 +17,7 @@ namespace TypeRightTests.Testers
 	class TypeCollectionTester
 	{
 		private ExtractedTypeCollection _typeCollection;
-        
+
 		private IScriptTemplate _scriptWriter;
 
 		private readonly TypeFormatter _typeFormatter;
@@ -29,7 +29,7 @@ namespace TypeRightTests.Testers
 			// TODO not hardcode?
 			_scriptWriter = new NamespaceTemplate();
 			_scriptWriter = new ModuleTemplate();
-			
+
 
 			// TODO any way to define this?  Or maybe an option when getting type name
 			_typeFormatter = new TypeScriptTypeFormatter(_typeCollection, new NamespacedTypePrefixResolver(EnumTester.TestNamespace, ReferenceTypeTester.TestNamespace));
@@ -69,27 +69,47 @@ namespace TypeRightTests.Testers
 			return this;
 		}
 
-		public TypeCollectionTester TestScriptControllerText(string controllerName)
+		public ControllerContext GetDefaultControllerContext()
 		{
-
-            ControllerContext _context = new ControllerContext()
-            {
-                AjaxFunctionName = "TestAjax",
-                WebMethodNamespace = "MethodNamespace",
-                TypeCollection = _typeCollection,
-                ServerObjectsResultFilepath = new Uri(@"C:\FolderA\FolderB\FolderC\FolderD\ServerObjects.ts"),
-                AjaxFunctionModulePath = @"C:\FolderA\FolderB\FolderM\FolderN\AjaxFunc.ts",
+			return new ControllerContext()
+			{
+				FetchFunctionName = "TestAjax",
+				WebMethodNamespace = "MethodNamespace",
+				TypeCollection = _typeCollection,
+				ServerObjectsResultFilepath = new Uri(@"C:\FolderA\FolderB\FolderC\FolderD\ServerObjects.ts"),
+				FetchFunctionModulePath = @"C:\FolderA\FolderB\FolderM\FolderN\AjaxFunc.ts",
 				OutputPath = @"C:\FolderA\FolderB\FolderX\FolderY\SomeController.ts",
+				AdditionalImports = new List<ImportDefinition>(),
+				AdditionalParameters = new List<ActionParameter>()
+				{
+					new ActionParameter() {Name = "success", Type = "(result: $returnType$) => void", Optional = true},
+					new ActionParameter() {Name = "fail", Type = "(result: any) => void", Optional = true }
+				},
+				FetchReturnType	= "void",
 
 				TypeNamespace = ReferenceTypeTester.TestNamespace,
 				EnumNamespace = EnumTester.TestNamespace,
 			};
+		}
 
-            string scriptText = _scriptWriter.CreateControllerTextTemplate().GetText(
+		public TypeCollectionTester AssertScriptText(string controllerName, string expectedText)
+		{
+
+			ControllerContext context = GetDefaultControllerContext();
+
+			return AssertScriptText(controllerName, context, expectedText);
+		}
+
+		public TypeCollectionTester AssertScriptText(string controllerName, ControllerContext context, string expectedText)
+		{
+
+			string scriptText = _scriptWriter.CreateControllerTextTemplate().GetText(
 				_typeCollection.GetMvcControllers().Where(c => c.Name == controllerName).First(),
-				_context
-				);
-			Assert.IsFalse(string.IsNullOrEmpty(scriptText));
+				context
+				).Trim();
+
+			expectedText = expectedText.Trim();
+			Assert.AreEqual(expectedText, scriptText);
 			return this;
 		}
 	}

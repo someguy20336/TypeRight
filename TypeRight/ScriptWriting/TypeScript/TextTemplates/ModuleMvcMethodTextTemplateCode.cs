@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TypeRight.Configuration;
 using TypeRight.TypeProcessing;
 
 namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
@@ -28,8 +29,8 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
 			// Get relative import paths
             if (context.HasOwnAjaxFunction)
             {
-				ImportStatement ajaxImport = new ImportStatement(context.OutputPath, context.AjaxFunctionModulePath, false);
-				ajaxImport.AddItem(context.AjaxFunctionName);
+				ImportStatement ajaxImport = new ImportStatement(context.OutputPath, context.FetchFunctionModulePath, false);
+				ajaxImport.AddItem(context.FetchFunctionName);
 				_imports.Add("ajax", ajaxImport);
             }
 
@@ -53,6 +54,25 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
 				{
 					TryAddImport(param.Type);
 				}
+			}
+
+			// Additional imports
+			for (int i = 0; i < _context.AdditionalImports?.Count; i++)
+			{
+				ImportDefinition def = _context.AdditionalImports[i];
+				string importPath = PathUtils.ResolveRelativePath(_context.OutputPath, def.Path);
+
+				ImportStatement statement = new ImportStatement(_context.OutputPath, importPath, def.UseAlias);
+
+				if (def.Items != null)
+				{
+					foreach (var item in def.Items)
+					{
+						statement.AddItem(item);
+					}
+				}				
+
+				_imports.Add("custom" + i, statement);
 			}
 		}
 

@@ -242,10 +242,6 @@ namespace TypeRightTests.Tests
 				.ReturnTypeTypescriptNameIs($"{ReferenceTypeTester.TestNamespace}.TestClass");
 		}
 
-		[TestMethod]
-		public void Controllers_TestControllerScriptText()
-		{
-			_packageTester.TestScriptControllerText("SimpleController");
-		}
+
 	}
 }

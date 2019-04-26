@@ -17,7 +17,7 @@ foreach (string paramName in oneAction.ParameterComments.Keys) {
 #>
  */
 export function <#= BuildActionSignature(oneAction) #> {
-	<#= AjaxFunctionName #>("<#= GetUrl(oneAction) #>", <#= BuildWebServiceParams(oneAction) #>, <#= SuccessFuncName #>, <#= FailFuncName #>);
+	<#= BuildFetchFunctionName(oneAction) #>("<#= GetUrl(oneAction) #>", <#= BuildWebServiceParams(oneAction) #><#= BuildAddlParameters(oneAction) #>);
 }
 
 <#
