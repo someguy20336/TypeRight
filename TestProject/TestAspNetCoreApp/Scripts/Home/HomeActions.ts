@@ -25,6 +25,21 @@ export function FunctionWithModel(model: ServerObjects.ASimpleModel, abort?: Abo
  * 
  * @param model 
  */
+export function MultipleFromStuff(model: ServerObjects.ASimpleModel, abort?: AbortSignal): Promise<ServerObjects.ASimpleModel> {
+	return callPost("/Home/MultipleFromStuff", model, abort);
+}
+
+/**
+ * 
+ */
+export function NoFromBodyParams(abort?: AbortSignal): Promise<ServerObjects.ASimpleModel> {
+	return callPost("/Home/NoFromBodyParams", { }, abort);
+}
+
+/**
+ * 
+ * @param model 
+ */
 export function OtherFunctionWithModel(model: CustomGroup.CustomGroupObject1, abort?: AbortSignal): Promise<CustomGroup.CustomGroupObject1> {
 	return callPost("/Home/OtherFunctionWithModel", model, abort);
 }

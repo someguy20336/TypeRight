@@ -1,4 +1,6 @@
-﻿namespace TypeRight.CodeModel
+﻿using System.Collections.Generic;
+
+namespace TypeRight.CodeModel
 {
 	/// <summary>
 	/// Represents a parameter for a method
@@ -19,5 +21,10 @@
 		/// Gets the type of the parameter
 		/// </summary>
 		IType ParameterType { get; }
+
+		/// <summary>
+		/// Gets the attribues for this parameter
+		/// </summary>
+		IEnumerable<IAttributeData> Attributes { get; }
 	}
 }

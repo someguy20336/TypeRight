@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TypeRightTests.TestBuilders;
+using TypeRightTests.HelperClasses;
 
 namespace TypeRightTests.Testers
 {
@@ -86,6 +87,9 @@ namespace TypeRightTests.Testers
 					new ActionParameter() {Name = "fail", Type = "(result: any) => void", Optional = true }
 				},
 				FetchReturnType	= "void",
+
+				ModelBinding = ModelBindingType.MultiParam,		// TODO because I already wrote tests for multi param, but would be nice to have tests for both
+				MvcParameterFilter = new AcceptAllParameters(),
 
 				TypeNamespace = ReferenceTypeTester.TestNamespace,
 				EnumNamespace = EnumTester.TestNamespace,

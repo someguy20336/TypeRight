@@ -43,7 +43,7 @@ namespace TestAspNetCoreApp.Controllers
 		}
 
 		[ScriptAction]
-		public JsonResult AnonTypeWithDictionaryProperty(CustomGroupObj3 model)
+		public JsonResult AnonTypeWithDictionaryProperty([FromBody] CustomGroupObj3 model, [FromServices] string service)
 		{
 			return Json(new
 			{
@@ -54,6 +54,18 @@ namespace TestAspNetCoreApp.Controllers
 
 		[ScriptAction]
 		public JsonResult FunctionWithModel([FromBody] ASimpleModel model)
+		{
+			return Json(model);
+		}
+
+		[ScriptAction]
+		public JsonResult MultipleFromStuff([FromRoute] string route, [FromServices] string service, [FromBody] ASimpleModel model)
+		{
+			return Json(model);
+		}
+
+		[ScriptAction]
+		public JsonResult NoFromBodyParams([FromRoute] string route, [FromServices] string service, [FromHeader] ASimpleModel model)
 		{
 			return Json(model);
 		}

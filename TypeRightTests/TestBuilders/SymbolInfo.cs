@@ -14,6 +14,7 @@ namespace TypeRightTests.TestBuilders
 
 		public string Comments { get; set; }
 
-		
+		public string Attributes { get; set; }
+
 	}
 }

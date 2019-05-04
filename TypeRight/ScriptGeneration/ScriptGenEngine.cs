@@ -165,6 +165,7 @@ namespace TypeRight.ScriptGeneration
 					ServerObjectsResultFilepath = new Uri(resultAbsolute.LocalPath),
 					TypeCollection = typeCollection,
 					ModelBinding = ConfigurationOptions.ModelBindingType,
+					MvcParameterFilter = new ParameterHasAttributeFilter(new IsOfTypeFilter("Microsoft.AspNetCore.Mvc.FromBodyAttribute")),
 
 					// Fetch Function
 					FetchFunctionModulePath = fetchModulePath,

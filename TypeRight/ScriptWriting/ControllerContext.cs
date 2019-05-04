@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using TypeRight.Configuration;
-using TypeRight.ScriptWriting.TypeScript;
-using TypeRight.TypeProcessing;
+using TypeRight.TypeFilters;
 
 namespace TypeRight.ScriptWriting
 {
@@ -20,8 +19,7 @@ namespace TypeRight.ScriptWriting
 		/// <summary>
 		/// Gets the default web method namespace
 		/// </summary>
-		public string WebMethodNamespace { get; set; }
-		
+		public string WebMethodNamespace { get; set; }		
 
 		/// <summary>
 		/// Gets whether an ajax function was defined
@@ -58,5 +56,9 @@ namespace TypeRight.ScriptWriting
 		/// </summary>
 		public string FetchReturnType { get; set; }
 
+		/// <summary>
+		/// Gets or sets the parameter filter to use when using <see cref="ModelBindingType.SingleParam"/>
+		/// </summary>
+		public ParameterFilter MvcParameterFilter { get; set; }
 	}
 }

@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TypeRight.Configuration;
 using TypeRight.TypeProcessing;
 
 namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
@@ -136,7 +137,7 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
 			List<string> actionParams = new List<string>();
 
 			// Build parameters
-			foreach (MvcActionParameter oneParam in action.Parameters)
+			foreach (MvcActionParameter oneParam in GetParameters(action))
 			{
 				string paramText = $"{oneParam.Name}: {oneParam.Type.FormatType(TypeFormatter)}";
 				actionParams.Add(paramText);
@@ -149,7 +150,7 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
 				string paramText = $"{addlParam.Name}{ (addlParam.Optional ? "?" : "") }: { retType }";
 				actionParams.Add(paramText);
 			}
-			
+
 			return $"{action.Name}({string.Join(", ", actionParams)}): { ReplaceTokens(Context.FetchReturnType, action) }";
 		}
 
@@ -160,11 +161,12 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
 		/// <returns></returns>
 		private string BuildWebServiceParams(MvcActionInfo action)
 		{
-			if (Context.ModelBinding == Configuration.ModelBindingType.SingleParam)
+			if (Context.ModelBinding == ModelBindingType.SingleParam)
 			{
 				// If we are only using a single parameter model binding (i.e. asp.net core), then the object itself should be the body
-				return action.Parameters.Count > 0 ? action.Parameters[0].Name : "{ }";
-			} 
+				MvcActionParameter firstFromBody = action.Parameters.FirstOrDefault(p => Context.MvcParameterFilter.Evaluate(p));
+				return firstFromBody?.Name ?? "{ }";
+			}
 			else
 			{
 				IEnumerable<string> multiParam = action.Parameters.Select(p => $"{p.Name}: {p.Name}");  // Transform to param1: param1
@@ -205,6 +207,32 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
 		private string ReplaceTokens(string typeStr, MvcActionInfo action)
 		{
 			return typeStr.Replace("$returnType$", action.ReturnType.FormatType(TypeFormatter));
+		}
+
+		/// <summary>
+		/// Gets the key value pairs of parameters and comments for this action
+		/// </summary>
+		/// <param name="action">The action</param>
+		/// <returns></returns>
+		private IEnumerable<KeyValuePair<string, string>> GetParameterComments(MvcActionInfo action)
+		{
+			// Get the params that should actually be written
+			HashSet<string> allParams = new HashSet<string>(GetParameters(action).Select(p => p.Name));
+
+			return action.ParameterComments.Where(kv => allParams.Contains(kv.Key));
+		}
+
+		/// <summary>
+		/// Gets the parameters that should actually be written to the script
+		/// </summary>
+		/// <param name="action">The action</param>
+		/// <returns>The enumerable list of parameters</returns>
+		private IEnumerable<MvcActionParameter> GetParameters(MvcActionInfo action)
+		{
+			return action.Parameters.Where(p =>
+				Context.ModelBinding == ModelBindingType.MultiParam		// Either we are in multiparam mode
+				|| Context.MvcParameterFilter.Evaluate(p)				// Or the parameter filter allows it
+				);
 		}
 	}
 }

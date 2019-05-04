@@ -45,7 +45,7 @@ if (method.Attributes.Count > 0) {
 <#
 }
 #>
-		public <#= method.Type #> <#= method.Name #>(<#= string.Join(", ", method.Parameters.Select(p => $"{p.Type} {p.Name}")) #>)
+		public <#= method.Type #> <#= method.Name #>(<#= string.Join(", ", method.Parameters.Select(p => $"{ p.Attributes } {p.Type} {p.Name}")) #>)
 		{
 <# 
 foreach (var code in method.LinesOfCode) { 

@@ -184,7 +184,7 @@ if (method.Attributes.Count > 0) {
             this.Write("(");
             
             #line 48 "C:\Users\dwhel\source\repos\TypeRight\TypeRightTests\TestBuilders\TestClassBuilder.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(string.Join(", ", method.Parameters.Select(p => $"{p.Type} {p.Name}"))));
+            this.Write(this.ToStringHelper.ToStringWithCulture(string.Join(", ", method.Parameters.Select(p => $"{ p.Attributes } {p.Type} {p.Name}"))));
             
             #line default
             #line hidden

@@ -2,6 +2,7 @@
 using TypeRight.TypeFilters;
 using System.Collections.Generic;
 using System.Linq;
+using TypeRight.TypeProcessing;
 
 namespace TypeRightTests.HelperClasses
 {
@@ -56,6 +57,14 @@ namespace TypeRightTests.HelperClasses
 		public override bool Evaluate(INamedType typeSymbol)
 		{
 			return false;
+		}
+	}
+
+	class AcceptAllParameters : ParameterFilter
+	{
+		public override bool Evaluate(MvcActionParameter actionParameter)
+		{
+			return true;
 		}
 	}
 }

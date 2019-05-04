@@ -1,20 +1,39 @@
-﻿using TypeRight.CodeModel;
+﻿using Microsoft.CodeAnalysis;
+using System.Collections.Generic;
+using TypeRight.CodeModel;
+using TypeRight.Workspaces.Parsing;
 
 namespace TypeRight.Workspaces.CodeModel
 {
 	class RoslynMethodParameter : IMethodParameter
 	{
+		/// <summary>
+		/// Gets the name of the parameter
+		/// </summary>
 		public string Name { get; }
 
+		/// <summary>
+		/// Gets the comments for this parameter
+		/// </summary>
 		public string Comments { get; }
 
+		/// <summary>
+		/// Gets the type of the parameter
+		/// </summary>
 		public IType ParameterType { get; }
 
-		public RoslynMethodParameter(string name, string comments, IType type)
+		/// <summary>
+		/// Gets the attribues for this parameter
+		/// </summary>
+		public IEnumerable<IAttributeData> Attributes { get; }
+
+		public RoslynMethodParameter(IParameterSymbol parameter, string comments, ParseContext context)
 		{
-			Name = name;
+			Name = parameter.Name;
 			Comments = comments;
-			ParameterType = type;
+			ParameterType = RoslynType.CreateType(parameter.Type, context);
+			Attributes = RoslynAttributeData.FromSymbol(parameter, context);
 		}
+
 	}
 }

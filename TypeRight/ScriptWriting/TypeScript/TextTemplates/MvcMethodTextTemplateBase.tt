@@ -9,9 +9,9 @@ foreach (var oneAction in GetActions()) {
 /**
  * <#= oneAction.SummaryComments #>
 <#
-foreach (string paramName in oneAction.ParameterComments.Keys) {
+foreach (var paramComment in GetParameterComments(oneAction)) {
 #>
- * @param <#= paramName #> <#= oneAction.ParameterComments[paramName] #>
+ * @param <#= paramComment.Key #> <#= paramComment.Value #>
 <#
 }
 #>

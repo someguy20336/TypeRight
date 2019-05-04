@@ -47,7 +47,7 @@ foreach (var oneAction in GetActions()) {
             
             #line 11 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
 
-foreach (string paramName in oneAction.ParameterComments.Keys) {
+foreach (var paramComment in GetParameterComments(oneAction)) {
 
             
             #line default
@@ -55,14 +55,14 @@ foreach (string paramName in oneAction.ParameterComments.Keys) {
             this.Write(" * @param ");
             
             #line 14 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(paramName));
+            this.Write(this.ToStringHelper.ToStringWithCulture(paramComment.Key));
             
             #line default
             #line hidden
             this.Write(" ");
             
             #line 14 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(oneAction.ParameterComments[paramName]));
+            this.Write(this.ToStringHelper.ToStringWithCulture(paramComment.Value));
             
             #line default
             #line hidden

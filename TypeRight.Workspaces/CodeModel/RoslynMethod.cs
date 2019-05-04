@@ -18,7 +18,7 @@ namespace TypeRight.Workspaces.CodeModel
 		public string Name { get; }
 
 		public string SummaryComments { get; }
-		
+
 		public string ReturnsComments { get; }
 
 		public IType ReturnType => _returnType.Value;
@@ -56,9 +56,11 @@ namespace TypeRight.Workspaces.CodeModel
 				{
 					comments = doc.Parameters[oneParam.Name];
 				}
-				RoslynMethodParameter csParam = new RoslynMethodParameter(oneParam.Name,
+				RoslynMethodParameter csParam = new RoslynMethodParameter(
+					oneParam,
 					comments,
-					 RoslynType.CreateType(oneParam.Type, context));
+					context);
+
 				_parameters.Add(csParam);
 			}
 		}

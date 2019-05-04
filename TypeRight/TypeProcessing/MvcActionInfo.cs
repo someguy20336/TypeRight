@@ -82,10 +82,16 @@ namespace TypeRight.TypeProcessing
 		/// </summary>
 		public TypeDescriptor Type { get; }
 
+		/// <summary>
+		/// Gets attributes for this action parameter
+		/// </summary>
+		public IEnumerable<IAttributeData> Attributes { get; }
+
 		internal MvcActionParameter(IMethodParameter methodParameter, TypeTable table)
 		{
 			Name = methodParameter.Name;
 			Type = table.LookupType(methodParameter.ParameterType);
+			Attributes = methodParameter.Attributes;
 		}
 	}
 }
