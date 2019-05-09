@@ -22,6 +22,7 @@ namespace TypeRight.TypeProcessing
 		/// </summary>
 		private static HashSet<string> s_numericTypes = new HashSet<string>()
 		{
+			typeof(short).FullName,
 			typeof(int).FullName,
 			typeof(long).FullName,
 			typeof(decimal).FullName,
