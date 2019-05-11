@@ -42,7 +42,7 @@ namespace TypeRight.Workspaces.CodeModel
 					break;
 				}
 			}
-
+			
 			return functionalType;
 		}
 		

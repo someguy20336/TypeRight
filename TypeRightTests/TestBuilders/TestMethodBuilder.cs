@@ -28,14 +28,14 @@ namespace TypeRightTests.TestBuilders
 			_returnType = returnType;
 		}
 
-		public TestMethodBuilder AddParameter(string paramName, string type, string comments = "", string attributes = "")
+		public TestMethodBuilder AddParameter(string paramName, string type, string comments = "", string attribute = "")
 		{
 			_parameters.Add(new SymbolInfo()
 			{
 				Name = paramName,
 				Type = type,
 				Comments = comments,
-				Attributes = attributes
+				Attributes = new List<AttributeInfo>() { new AttributeInfo() { AttributeTypeName = attribute } }
 			});
 			return this;
 		}

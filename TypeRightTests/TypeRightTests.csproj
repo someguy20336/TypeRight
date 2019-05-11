@@ -198,6 +198,7 @@
   <ItemGroup>
     <Compile Include="HelperClasses\MyEnumDescription.cs" />
     <Compile Include="TestBuilders\AttributeInfo.cs" />
+    <Compile Include="TestBuilders\AssemblyAttributeBuilder.cs" />
     <Compile Include="TestBuilders\IAttributable.cs" />
     <Compile Include="TestBuilders\InterfaceBuilder.cs">
       <AutoGen>True</AutoGen>

@@ -16,7 +16,11 @@ namespace TypeRightTests.HelperClasses
 		{
 			_excludeNames = names;
 		}
-
+		/// <summary>
+		/// Determines whether the named type meets the filter
+		/// </summary>
+		/// <param name="namedType">The named type to check</param>
+		/// <returns>True if it meets the filter</returns>
 		public override bool Evaluate(INamedType typeSymbol)
 		{
 			return !_excludeNames.Any(name => name == typeSymbol.Name);
@@ -37,7 +41,11 @@ namespace TypeRightTests.HelperClasses
 		{
 			_includeNames = names;
 		}
-
+		/// <summary>
+		/// Determines whether the named type meets the filter
+		/// </summary>
+		/// <param name="namedType">The named type to check</param>
+		/// <returns>True if it meets the filter</returns>
 		public override bool Evaluate(INamedType typeSymbol)
 		{
 			return _includeNames.Any(name => name == typeSymbol.Name);
@@ -46,6 +54,11 @@ namespace TypeRightTests.HelperClasses
 
 	class AlwaysAcceptFilter : TypeFilter
 	{
+		/// <summary>
+		/// Determines whether the named type meets the filter
+		/// </summary>
+		/// <param name="namedType">The named type to check</param>
+		/// <returns>True if it meets the filter</returns>
 		public override bool Evaluate(INamedType typeSymbol)
 		{
 			return true;
@@ -54,6 +67,11 @@ namespace TypeRightTests.HelperClasses
 
 	class AlwaysRejectFilter : TypeFilter
 	{
+		/// <summary>
+		/// Determines whether the named type meets the filter
+		/// </summary>
+		/// <param name="namedType">The named type to check</param>
+		/// <returns>True if it meets the filter</returns>
 		public override bool Evaluate(INamedType typeSymbol)
 		{
 			return false;
@@ -62,6 +80,11 @@ namespace TypeRightTests.HelperClasses
 
 	class AcceptAllParameters : ParameterFilter
 	{
+		/// <summary>
+		/// Evaluates the parameter for whether it should be included
+		/// </summary>
+		/// <param name="actionParameter">The parameter</param>
+		/// <returns>True if it should be inclued</returns>
 		public override bool Evaluate(MvcActionParameter actionParameter)
 		{
 			return true;

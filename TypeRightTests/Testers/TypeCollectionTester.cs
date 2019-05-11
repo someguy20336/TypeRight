@@ -70,6 +70,23 @@ namespace TypeRightTests.Testers
 			return this;
 		}
 
+		public TypeCollectionTester AssertScriptText(string expectedText)
+		{
+			TypeWriteContext context = new TypeWriteContext()
+			{
+				IncludedTypes = _typeCollection,
+				TypeCollection = _typeCollection,
+				OutputPath = TestWorkspaceBuilder.DefaultResultPath,
+
+				TypeNamespace = ReferenceTypeTester.TestNamespace,
+				EnumNamespace = EnumTester.TestNamespace,
+			};
+			string scriptText = _scriptWriter.CreateTypeTemplate().GetText(context).Trim();
+			expectedText = expectedText.Trim();
+			Assert.AreEqual(expectedText, scriptText);
+			return this;
+		}
+
 		public ControllerContext GetDefaultControllerContext()
 		{
 			return new ControllerContext()
@@ -96,15 +113,15 @@ namespace TypeRightTests.Testers
 			};
 		}
 
-		public TypeCollectionTester AssertScriptText(string controllerName, string expectedText)
+		public TypeCollectionTester AssertControllerScriptText(string controllerName, string expectedText)
 		{
 
 			ControllerContext context = GetDefaultControllerContext();
 
-			return AssertScriptText(controllerName, context, expectedText);
+			return AssertControllerScriptText(controllerName, context, expectedText);
 		}
 
-		public TypeCollectionTester AssertScriptText(string controllerName, ControllerContext context, string expectedText)
+		public TypeCollectionTester AssertControllerScriptText(string controllerName, ControllerContext context, string expectedText)
 		{
 
 			string scriptText = _scriptWriter.CreateControllerTextTemplate().GetText(

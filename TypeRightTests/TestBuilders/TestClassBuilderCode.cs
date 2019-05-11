@@ -82,5 +82,14 @@ namespace TypeRightTests.TestBuilders
 			return _genericParameters.Count == 0 ? "" : ($"<{string.Join(", ", _genericParameters)}>");
 		}
 
+		private string FormatParameter(SymbolInfo parameter)
+		{
+			string attrs = "";
+			if (parameter.Attributes.Count > 0)
+			{
+				attrs = $"[{ string.Join(", ", parameter.Attributes.Select(attr => attr.AttributeTypeName)) }]";
+			}
+			return $"{ attrs }{parameter.Type} {parameter.Name}";
+		}
 	}
 }

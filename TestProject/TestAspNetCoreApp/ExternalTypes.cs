@@ -6,7 +6,9 @@ using TypeRight.Attributes;
 	typeof(NetStandardClass),
 	typeof(GenericModel<>),
 	typeof(TestTwoTypeParams<,>),
-	typeof(NetStandardEnum)
+	typeof(NetStandardEnum),
+	typeof(CommandResult),
+	typeof(CommandResult<>)
 	)]
 
 [assembly: ScriptObjects("./Scripts/CustomGroup.ts",

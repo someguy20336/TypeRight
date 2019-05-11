@@ -17,6 +17,20 @@ export interface ASimpleModel_1<T> {
 	GenericThing: T;
 }
 
+/**  */
+export interface CommandResult {
+	/**  */
+	Success: boolean;
+	/**  */
+	ErrorMessage: string;
+}
+
+/**  */
+export interface CommandResult_1<T> extends CommandResult {
+	/**  */
+	Result: T;
+}
+
 /** Test summ */
 export interface ErrorViewModel {
 	/**  */

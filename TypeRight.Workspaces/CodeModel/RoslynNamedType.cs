@@ -10,14 +10,16 @@ namespace TypeRight.Workspaces.CodeModel
 {
 	class RoslynNamedType : RoslynType, INamedType
 	{
+
 		protected INamedTypeSymbol NamedTypeSymbol => TypeSymbol as INamedTypeSymbol;
 
 		private Lazy<INamedType> _constructedFrom;
 
 		private Lazy<IReadOnlyList<IType>> _typeArguments;
 
-		private Lazy<INamedType> _baseType;
-		
+		private INamedType _baseType;
+		private bool _baseTypeProcessed = false;
+
 		private Lazy<IReadOnlyList<IProperty>> _properties;
 
 		private Lazy<IReadOnlyList<IField>> _fields;
@@ -41,7 +43,7 @@ namespace TypeRight.Workspaces.CodeModel
 		/// <summary>
 		/// Gets the base type of this type, if applicable
 		/// </summary>
-		public INamedType BaseType => _baseType.Value;
+		public INamedType BaseType => GetBaseType();
 
 		/// <summary>
 		/// Gets the type arguments for this type
@@ -77,8 +79,7 @@ namespace TypeRight.Workspaces.CodeModel
 		/// Gets the interfaces implemented by this type
 		/// </summary>
 		public IReadOnlyList<INamedType> Interfaces => _interfaces.Value;
-
-
+		
 		/// <summary>
 		/// TODO: I DONT WANT THIS
 		/// </summary>
@@ -91,8 +92,13 @@ namespace TypeRight.Workspaces.CodeModel
 
 
 		public RoslynNamedType(INamedTypeSymbol namedTypeSymbol, ParseContext context)
-			: base(namedTypeSymbol, context)
+			: base(
+				  // For unbound generics, we need to use the type it is constructed from to actuall get information about it
+				  namedTypeSymbol.IsUnboundGenericType ? namedTypeSymbol.ConstructedFrom : namedTypeSymbol, 
+				  context
+				  )
 		{
+
 			Comments = context.DocumentationProvider.GetDocumentationForSymbol(NamedTypeSymbol).Summary;
 			FullName = NamedTypeSymbol.GetNormalizedMetadataName();  // TODO May need to rethink
 			FilePath = namedTypeSymbol.DeclaringSyntaxReferences.FirstOrDefault()?.SyntaxTree?.FilePath;  // TODO get rid of this
@@ -109,26 +115,12 @@ namespace TypeRight.Workspaces.CodeModel
 				return typeArgs;
 			});
 
-			_baseType = new Lazy<INamedType>(() =>
-			{
-				if (ParseHelper.ShouldParseBaseTypeOfType(NamedTypeSymbol))
-				{
-					INamedTypeSymbol baseTypeSymbol = NamedTypeSymbol.BaseType;
-					return new RoslynNamedType(baseTypeSymbol, context);
-				}
-				else
-				{
-					return null;
-				}
-			});
-			
+
 			// Properties
 			_properties = new Lazy<IReadOnlyList<IProperty>>(() =>
 			{
 				List<IProperty> props = new List<IProperty>();
-				IEnumerable<IPropertySymbol> properties = NamedTypeSymbol.IsUnboundGenericType
-					? NamedTypeSymbol.ConstructedFrom.GetMembers().OfType<IPropertySymbol>()
-					: NamedTypeSymbol.GetMembers().OfType<IPropertySymbol>();
+				IEnumerable<IPropertySymbol> properties = NamedTypeSymbol.GetMembers().OfType<IPropertySymbol>();
 
 				foreach (IPropertySymbol propSymb in properties)
 				{
@@ -174,7 +166,7 @@ namespace TypeRight.Workspaces.CodeModel
 			// Attributes
 			_attrs = new Lazy<IReadOnlyList<IAttributeData>>(() =>
 			{
-				return RoslynAttributeData.FromSymbol(namedTypeSymbol, context);
+				return RoslynAttributeData.FromSymbol(NamedTypeSymbol, context);
 			});
 
 			// Interfaces
@@ -244,6 +236,20 @@ namespace TypeRight.Workspaces.CodeModel
 					InCompilation.GetTypeByMetadataName(typeof(IDictionary<,>).FullName)
 				};
 			return TypeSymbol.Interfaces.Any(nt => dictTypes.Contains(nt));
+		}
+
+		private INamedType GetBaseType()
+		{
+			if (!_baseTypeProcessed)
+			{
+				if (ParseHelper.ShouldParseBaseTypeOfType(NamedTypeSymbol))
+				{
+					INamedTypeSymbol baseTypeSymbol = NamedTypeSymbol.BaseType;
+					_baseType = new RoslynNamedType(baseTypeSymbol, Context);
+				}
+				_baseTypeProcessed = true;
+			}
+			return _baseType;
 		}
 
 

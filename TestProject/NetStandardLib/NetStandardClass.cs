@@ -18,4 +18,16 @@ namespace NetStandardLib
 		Two,
 		Three
 	}
+
+	public class CommandResult
+	{
+		public bool Success { get; set; }
+
+		public string ErrorMessage { get; set; }
+	}
+
+	public class CommandResult<T> : CommandResult
+	{
+		public T Result { get; set; }
+	}
 }

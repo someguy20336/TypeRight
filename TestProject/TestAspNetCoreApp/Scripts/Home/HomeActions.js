@@ -18,6 +18,19 @@ export function FunctionWithModel(model, abort) {
  *
  * @param model
  */
+export function MultipleFromStuff(model, abort) {
+    return callPost("/Home/MultipleFromStuff", model, abort);
+}
+/**
+ *
+ */
+export function NoFromBodyParams(abort) {
+    return callPost("/Home/NoFromBodyParams", {}, abort);
+}
+/**
+ *
+ * @param model
+ */
 export function OtherFunctionWithModel(model, abort) {
     return callPost("/Home/OtherFunctionWithModel", model, abort);
 }

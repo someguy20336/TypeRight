@@ -12,6 +12,5 @@ namespace TypeRightTests.TestBuilders
 
 		public List<string> LinesOfCode { get; set; }
 
-		public List<AttributeInfo> Attributes { get; set; }
 	}
 }
