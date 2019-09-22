@@ -8,15 +8,17 @@ using System.Threading.Tasks;
 
 namespace TypeRightTests.TestBuilders
 {
-	partial class TestClassBuilder
+	partial class TestClassBuilder : IAttributable
 	{
 		private TestProjectBuilder _parentBuilder;
 
 		private string _className;
+		private string _namespace;
 
 		private string _comments = "";
 
 		private string _baseClass = "";
+
 
 		private List<string> _genericParameters = new List<string>();
 
@@ -24,10 +26,13 @@ namespace TypeRightTests.TestBuilders
 
 		public List<MethodInfo> Methods { get; set; } = new List<MethodInfo>();
 
-		public TestClassBuilder(TestProjectBuilder projBuilder, string className)
+		public List<AttributeInfo> Attributes { get; } = new List<AttributeInfo>();
+
+		public TestClassBuilder(TestProjectBuilder projBuilder, string className, string @namespace = "Test")
 		{
 			_parentBuilder = projBuilder;
 			_className = className;
+			_namespace = @namespace;
 		}
 
 		public TestClassBuilder SetDocumentationComments(string comments)
@@ -46,6 +51,11 @@ namespace TypeRightTests.TestBuilders
 		{
 			_baseClass = baseClassName;
 			return this;
+		}
+
+		public TestAttributeBuilder<TestClassBuilder> AddAttribute(string name)
+		{
+			return new TestAttributeBuilder<TestClassBuilder>(this, name);
 		}
 
 		public TestClassBuilder AddProperty(string name, string type, string comments = "")
@@ -80,6 +90,15 @@ namespace TypeRightTests.TestBuilders
 		private string GetGenericParams()
 		{
 			return _genericParameters.Count == 0 ? "" : ($"<{string.Join(", ", _genericParameters)}>");
+		}
+
+		private string GetAttributes()
+		{
+			if (Attributes.Count == 0)
+			{
+				return "";
+			}
+			return $"[{ string.Join(",", Attributes.Select(attr => attr.ToFormattedString())) }]";
 		}
 
 		private string FormatParameter(SymbolInfo parameter)

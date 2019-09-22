@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace TypeRightTests.Testers
 {
@@ -21,6 +22,12 @@ namespace TypeRightTests.Testers
 			_typeFormatter = typeFormatter;
 		}
 
+		public ControllerTester BaseUrlIs(string expected)
+		{
+			string baseUrl = _controllerInfo.GetBaseUrl();
+			Assert.AreEqual(expected, baseUrl);
+			return this;
+		}
 
 		public MvcActionTester TestActionWithName(string name)
 		{

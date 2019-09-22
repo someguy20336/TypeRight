@@ -31,7 +31,7 @@ namespace TypeRight.TypeLocation
 		{
 			ClassFilter = new HasAttributeFilter(typeof(ScriptObjectAttribute).FullName);
 			EnumFilter = new HasAttributeFilter(typeof(ScriptEnumAttribute).FullName);
-			ControllerFilter = new IsOfAnyTypeFilter("System.Web.Mvc.Controller", "Microsoft.AspNetCore.Mvc.Controller");
+			ControllerFilter = new IsOfAnyTypeFilter("System.Web.Mvc.ControllerBase", "Microsoft.AspNetCore.Mvc.ControllerBase");
 		}
 	}
 }

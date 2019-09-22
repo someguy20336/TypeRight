@@ -27,7 +27,7 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
 		/// <summary>
 		/// Gets the name of the controller, without the "Controller" part
 		/// </summary>
-		public string ControllerName { get; private set; }
+		public string ControllerName => ControllerInfo.ControllerName;
 
 		/// <summary>
 		/// Gets whether this package has its own Ajax function
@@ -61,38 +61,8 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
 			{
 				FetchFunctionName = "callService";
 			}
-
-			ControllerName = ControllerInfo.Name.Substring(0, ControllerInfo.Name.Length - "Controller".Length);
-
-			FileInfo fileInfo = new FileInfo(ControllerInfo.FilePath);
-			DirectoryInfo controllerDir = fileInfo.Directory;
-
-			// Check if this controller is in an "Area"
-			bool foundAreas = false;
-			DirectoryInfo dir = controllerDir;
-			DirectoryInfo areaDir = null;  // if areas is found, this is the specific area directory (like "Admin", or "Shared", etc)
-			while (dir != null)
-			{
-				if (dir.Name == "Areas")
-				{
-					foundAreas = true;
-					break;
-				}
-				areaDir = dir;
-				dir = dir.Parent;
-			}
-
-			if (foundAreas)
-			{
-				// Area/ControllerName/Action
-				BaseActionUrl = $"/{areaDir.Name}/{ControllerName}/";
-			}
-			else
-			{
-				// ControllerName/Action
-				BaseActionUrl = $"/{ControllerName}/";
-			}
-
+					   
+			BaseActionUrl = ControllerInfo.GetBaseUrl();
 		}
 
 		protected void AddBaseText(string indent)

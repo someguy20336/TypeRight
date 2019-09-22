@@ -4,6 +4,7 @@ using TypeRightTests.HelperClasses;
 using TypeRightTests.TestBuilders;
 using TypeRightTests.Testers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using TypeRight.TypeProcessing;
 
 namespace TypeRightTests.Tests
 {
@@ -23,6 +24,8 @@ namespace TypeRightTests.Tests
 			TestWorkspaceBuilder wkspBuilder = new TestWorkspaceBuilder();
 
 			wkspBuilder.DefaultProject
+				.AddMvc()
+
 				// Dummy MvcActionAttribute
 				.CreateClassBuilder("DummyAttribute")
 					.AddBaseClass("Attribute")
@@ -115,10 +118,32 @@ namespace TypeRightTests.Tests
 						.Commit()
 					.Commit()
 				
+				.CreateClassBuilder("WebApiController")
+					.AddAttribute($"{MvcControllerInfo.AspNetCoreMvcNamespace}.{MvcControllerInfo.RouteAttributeName}")
+						.AddConstructorArg("\"api/[controller]\"")
+						.Commit()
+					.AddMethod("GetStringList", "List<string>")
+						.AddAttribute("DummyAttribute").Commit()
+						.AddLineOfCode("return new List<string>();", 0)
+						.Commit()
+					.Commit()
+
+				.CreateClassBuilder("AspNetWebApiController")
+					.AddAttribute($"{MvcControllerInfo.AspNetMvcNamespace}.{MvcControllerInfo.RouteAttributeName}")
+						.AddConstructorArg("\"api/asp/[controller]\"")
+						.Commit()
+					.AddMethod("WhoCares", "FakeJsonResultLikeClass")
+						.AddAttribute("DummyAttribute").Commit()
+						.AddLineOfCode("return FakeJson(true);", 0)
+						.Commit()
+					.Commit()
 			;
 
 			
-			wkspBuilder.ClassParseFilter = new ExcludeWithAnyName("DummyAttribute", "SimpleController", "FakeJsonResultLikeClass", "NotExtracted");
+			wkspBuilder.ClassParseFilter = new ExcludeWithAnyName(
+				"DummyAttribute", 
+				"SimpleController", "FakeJsonResultLikeClass", "NotExtracted", 
+				"WebApiController", "AspNetWebApiController");
 			wkspBuilder.ControllerParseFilter = new AlwaysAcceptFilter();
 			wkspBuilder.MvcActionFilter = new AlwaysAcceptFilter();
 
@@ -242,6 +267,25 @@ namespace TypeRightTests.Tests
 				.ReturnTypeTypescriptNameIs($"{ReferenceTypeTester.TestNamespace}.TestClass");
 		}
 
+		[TestMethod]
+		public void RouteAttribute_UsedInBaseURL()
+		{
+			// Asp net core
+			_packageTester.TestControllerWithName("WebApiController")
+				.BaseUrlIs("/api/WebApi/");
+
+			// asp.net
+			_packageTester.TestControllerWithName("AspNetWebApiController")
+				.BaseUrlIs("/api/asp/AspNetWebApi/");
+		}
+
+		[TestMethod]
+		public void WebApi_ReturnObjectIsFound()
+		{
+			_packageTester.TestControllerWithName("WebApiController")
+				.TestActionWithName("GetStringList")
+				.ReturnTypeTypescriptNameIs("string[]");
+		}
 
 	}
 }

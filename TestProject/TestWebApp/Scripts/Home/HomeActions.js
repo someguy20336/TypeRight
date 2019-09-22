@@ -7,33 +7,77 @@ var WebMethods;
          *
          * @param dict
          */
-        function Test_Anonymous(dict, success, fail) {
-            Comm.callService("/Home/Test_Anonymous", { dict: dict }, success, fail);
+        function Test_Anonymous(dict) {
+            callService("/Home/Test_Anonymous", { dict: dict });
         }
         Home.Test_Anonymous = Test_Anonymous;
         /**
          *
          * @param example
          */
-        function Test_ObjectParam(example, success, fail) {
-            Comm.callService("/Home/Test_ObjectParam", { example: example }, success, fail);
+        function Test_ObjectParam(example) {
+            callService("/Home/Test_ObjectParam", { example: example });
         }
         Home.Test_ObjectParam = Test_ObjectParam;
         /**
          *
          * @param dict
          */
-        function Test_ObjectReturn(dict, success, fail) {
-            Comm.callService("/Home/Test_ObjectReturn", { dict: dict }, success, fail);
+        function Test_ObjectReturn(dict) {
+            callService("/Home/Test_ObjectReturn", { dict: dict });
         }
         Home.Test_ObjectReturn = Test_ObjectReturn;
         /**
          *
          */
-        function TestJson(success, fail) {
-            Comm.callService("/Home/TestJson", {}, success, fail);
+        function TestJson() {
+            callService("/Home/TestJson", {});
         }
         Home.TestJson = TestJson;
+        /**
+         * Call an async web service
+         * @param {string} url the location of the webservice
+         * @param {any} data the data to pass into the webservice (json object)
+         * @param {Function} success the function to call on success
+         * @param {Function} error the function to call on error
+         */
+        function callService(url, data, success, error) {
+            var $deferred = $.Deferred();
+            //if you don't pass error function
+            if (typeof error !== "function") {
+                error = defaultError;
+            }
+            // Create settings
+            var ajaxSettings = {
+                url: url,
+                data: JSON.stringify(data),
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json"
+            };
+            // make the call to the server			
+            $.ajax(ajaxSettings).done(function (data, textStatus, jqXHR) {
+                if (!!success) {
+                    success(data, textStatus, jqXHR);
+                }
+                return $deferred.resolve();
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                if (!!error) {
+                    error(jqXHR, textStatus, errorThrown);
+                }
+                return $deferred.reject();
+            });
+            return $deferred.promise();
+        }
+        /**
+         * A default error handler
+         * @param {JQueryXHR} result The error result
+         * @param {string} textStatus The text status result
+         * @param {string} err The text string of the error
+         */
+        function defaultError(result, textStatus, err) {
+            alert("An unhandled error has occurred.  Please try again or contact the technical team.");
+        }
     })(Home = WebMethods.Home || (WebMethods.Home = {}));
 })(WebMethods || (WebMethods = {}));
 //# sourceMappingURL=HomeActions.js.map

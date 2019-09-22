@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using MsBuild = Microsoft.Build.Evaluation;
 using CodeAnalysis = Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.Host.Mef;
 using System.IO;
 
 namespace TypeRight.Build.WorkspaceBuilders

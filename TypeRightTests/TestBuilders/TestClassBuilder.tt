@@ -7,11 +7,12 @@
 using System;
 using System.Collections.Generic;
 
-namespace Test 
+namespace <#= _namespace #> 
 {
 	///<summary>
 	///<#= _comments #>
 	///</summary>
+	<#= GetAttributes() #>
 	public class <#= _className #><#= GetGenericParams() #> <#= GetBaseClass() #>
 	{	
 <# 
