@@ -4,11 +4,22 @@ using System.Text;
 
 namespace TypeRight.Configuration
 {
+	public enum RequestMethod
+	{
+		Default,
+		Post,
+		Get
+	}
 	/// <summary>
 	/// Configuration for action methods
 	/// </summary>
 	public class ActionConfig
 	{
+		/// <summary>
+		/// Gets or sets the request method this configuration applies to
+		/// </summary>
+		public RequestMethod Method { get; set; }
+
 		/// <summary>
 		/// Gets or sets the name of the function to use for fetching data
 		/// </summary>

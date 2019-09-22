@@ -33,15 +33,7 @@ namespace TypeRight.Configuration
 		/// classes and enums
 		/// </summary>
 		public string ServerObjectsResultFilepath { get; set; }
-
-		/// <summary>
-		/// Gets or sets the ajax function to use for web method calls.  If null or empty, one will
-		/// be created for you for each actions file.
-		/// 
-		/// The parameters should be (url, data, success?, fail?)
-		/// </summary>
-		public string AjaxFunctionName { get; set; }
-
+		
 		/// <summary>
 		/// Gets or sets the name of the attribute that identifies actions.
 		/// If not specified, it will default to the implementation specific attribute
@@ -52,11 +44,6 @@ namespace TypeRight.Configuration
 		/// Gets or sets the template type
 		/// </summary>
 		public string TemplateType { get; set; }
-
-        /// <summary>
-        /// Gets the relative path to the ajax function module (for module template)
-        /// </summary>
-        public string AjaxFunctionModulePath { get; set; } = "";
 
 		/// <summary>
 		/// Gets the model binding style to use.  This affects how MVC actions are invoked. The options can be singleParam or multiParam
@@ -81,7 +68,6 @@ namespace TypeRight.Configuration
 			TemplateType = "module";
 			ActionConfig = new ActionConfig();
 
-			AjaxFunctionName = null;
 			ClassNamespace = "";
 			EnumNamespace = "";
 			WebMethodNamespace = "";

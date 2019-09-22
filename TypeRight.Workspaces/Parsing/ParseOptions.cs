@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using TypeRight.TypeProcessing;
 
 namespace TypeRight.Workspaces.Parsing
 {
@@ -20,23 +21,23 @@ namespace TypeRight.Workspaces.Parsing
 		{
 			ParseOptions options = new ParseOptions();
 			options.MethodReturnTypeHandlers.Add(new ParseSyntaxForTypeMethodHandler(
-				"System.Web.Mvc.JsonResult",
+				MvcConstants.ToAspNetFullName("JsonResult"),
 				new InvocationReturnForwardFilter("Json", 0)
 				));
 			options.MethodReturnTypeHandlers.Add(new ParseSyntaxForTypeMethodHandler(
-				"System.Web.Mvc.ActionResult",
+				MvcConstants.ToAspNetFullName("ActionResult"),
 				new InvocationReturnForwardFilter("Json", 0)
 				));
 			options.MethodReturnTypeHandlers.Add(new ParseSyntaxForTypeMethodHandler(
-				"Microsoft.AspNetCore.Mvc.JsonResult",
+				MvcConstants.ToAspNetCoreFullName("JsonResult"),
 				new InvocationReturnForwardFilter("Json", 0)
 				));
 			options.MethodReturnTypeHandlers.Add(new ParseSyntaxForTypeMethodHandler(
-				"Microsoft.AspNetCore.Mvc.ActionResult",
+				MvcConstants.ToAspNetCoreFullName("ActionResult"),
 				new InvocationReturnForwardFilter("Json", 0)
 				));
 			options.MethodReturnTypeHandlers.Add(new ParseSyntaxForTypeMethodHandler(
-				"Microsoft.AspNetCore.Mvc.IActionResult",
+				MvcConstants.ToAspNetCoreFullName("IActionResult"),
 				new InvocationReturnForwardFilter("Json", 0)
 				));
 			return options;

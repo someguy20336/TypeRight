@@ -1,5 +1,6 @@
 ﻿using TypeRight.Attributes;
 using TypeRight.TypeFilters;
+using TypeRight.TypeProcessing;
 
 namespace TypeRight.TypeLocation
 {
@@ -31,7 +32,7 @@ namespace TypeRight.TypeLocation
 		{
 			ClassFilter = new HasAttributeFilter(typeof(ScriptObjectAttribute).FullName);
 			EnumFilter = new HasAttributeFilter(typeof(ScriptEnumAttribute).FullName);
-			ControllerFilter = new IsOfAnyTypeFilter("System.Web.Mvc.ControllerBase", "Microsoft.AspNetCore.Mvc.ControllerBase");
+			ControllerFilter = new IsOfAnyTypeFilter(MvcConstants.ControllerBaseFullName_AspNet, MvcConstants.ControllerBaseFullName_AspNetCore);
 		}
 	}
 }

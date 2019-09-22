@@ -89,14 +89,14 @@ foreach (var paramComment in GetParameterComments(oneAction)) {
             
             #line default
             #line hidden
-            this.Write("(\"");
+            this.Write("(");
             
             #line 20 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(GetUrl(oneAction)));
             
             #line default
             #line hidden
-            this.Write("\", ");
+            this.Write(", ");
             
             #line 20 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(BuildWebServiceParams(oneAction)));
@@ -115,40 +115,6 @@ foreach (var paramComment in GetParameterComments(oneAction)) {
 
 }
 
-            
-            #line default
-            #line hidden
-            this.Write("\r\n");
-            
-            #line 27 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
- if (!HasOwnAjaxFunction) { 
-            
-            #line default
-            #line hidden
-            this.Write("/**\r\n * Call an async web service\r\n * @param {string} url the location of the web" +
-                    "service\r\n * @param {any} data the data to pass into the webservice (json object)" +
-                    "\r\n * @param {Function} success the function to call on success\r\n * @param {Funct" +
-                    "ion} error the function to call on error\r\n */\r\nfunction callService(url: string," +
-                    " data: any,\r\n\tsuccess?: (data: any, textStatus: string, jqXHR: JQueryXHR) => voi" +
-                    "d,\r\n\terror?: (jqXHR: JQueryXHR, textStatus: string, errorThrown: string) => void" +
-                    "\r\n): JQueryPromise<any> {\r\n\tlet $deferred = $.Deferred<void>();\r\n\r\n\t//if you don" +
-                    "\'t pass error function\r\n\tif (typeof error !== \"function\") {\r\n\t\terror = defaultEr" +
-                    "ror;\r\n\t}\r\n\t// Create settings\r\n\tlet ajaxSettings: JQueryAjaxSettings = {\r\n\t\turl:" +
-                    " url,\r\n\t\tdata: JSON.stringify(data),\r\n\t\ttype: \"POST\",\r\n\t\tcontentType: \"applicati" +
-                    "on/json; charset=utf-8\",\r\n\t\tdataType: \"json\"\r\n\t};\r\n\r\n\t// make the call to the se" +
-                    "rver\t\t\t\r\n\t$.ajax(ajaxSettings).done((data, textStatus, jqXHR) => {\r\n\t\tif (!!succ" +
-                    "ess) {\r\n\t\t\tsuccess(data, textStatus, jqXHR);\r\n\t\t}\r\n\t\treturn $deferred.resolve();" +
-                    "\r\n\t}).fail((jqXHR, textStatus, errorThrown) => {\r\n\t\tif (!!error) {\r\n\t\t\terror(jqX" +
-                    "HR, textStatus, errorThrown);\r\n\t\t}\r\n\t\treturn $deferred.reject();\r\n\t});\r\n\r\n\tretur" +
-                    "n $deferred.promise();\r\n}\r\n\r\n/**\r\n * A default error handler\r\n * @param {JQueryX" +
-                    "HR} result The error result\r\n * @param {string} textStatus The text status resul" +
-                    "t\r\n * @param {string} err The text string of the error\r\n */\r\nfunction defaultErr" +
-                    "or(result: JQueryXHR, textStatus: string, err: string): void {\r\n\talert(\"An unhan" +
-                    "dled error has occurred.  Please try again or contact the technical team.\");\r\n}\r" +
-                    "\n");
-            
-            #line 79 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
- } 
             
             #line default
             #line hidden

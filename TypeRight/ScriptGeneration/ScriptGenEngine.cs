@@ -124,37 +124,7 @@ namespace TypeRight.ScriptGeneration
 			}
 
 			// Write MVC controllers
-			string fetchRelativePath;
-			string fetchFunctionName;
-			string fetchReturnType = "";
-			List<ActionParameter> addlParameters = null;
-			List<ImportDefinition> addlImports = new List<ImportDefinition>();
-			if (ConfigurationOptions.ActionConfig != null)
-			{
-				ActionConfig actionConfig = ConfigurationOptions.ActionConfig;
-				fetchRelativePath = actionConfig.FetchFilePath;
-				fetchFunctionName = actionConfig.FetchFunctionName;
-				fetchReturnType = actionConfig.ReturnType;
-				addlParameters = actionConfig.Parameters;
-				addlImports = actionConfig.Imports;
-			}
-			else
-			{
-				fetchRelativePath = ConfigurationOptions.AjaxFunctionModulePath;
-				fetchFunctionName = ConfigurationOptions.AjaxFunctionName;
-			}
-
-			// Default Addl Params
-			if (addlParameters == null)
-			{
-				addlParameters = new List<ActionParameter>()
-				{
-					new ActionParameter() {Name = "success", Type = "(result: $returnType$) => void", Optional = true},
-					new ActionParameter() {Name = "fail", Type = "(result: any) => void", Optional = true }
-				};
-			}
-
-			string fetchModulePath = string.IsNullOrEmpty(fetchRelativePath) ? null : new Uri(projUri, fetchRelativePath).LocalPath;
+			FetchFunctionResolver fetchResolver = new FetchFunctionResolver(projUri, ConfigurationOptions.ActionConfig);
 
 			foreach (MvcControllerInfo controller in typeCollection.GetMvcControllers())
 			{
@@ -165,14 +135,9 @@ namespace TypeRight.ScriptGeneration
 					ServerObjectsResultFilepath = new Uri(resultAbsolute.LocalPath),
 					TypeCollection = typeCollection,
 					ModelBinding = ConfigurationOptions.ModelBindingType,
-					MvcParameterFilter = new ParameterHasAttributeFilter(new IsOfTypeFilter("Microsoft.AspNetCore.Mvc.FromBodyAttribute")),
 
 					// Fetch Function
-					FetchFunctionModulePath = fetchModulePath,
-					FetchFunctionName = fetchFunctionName,
-					AdditionalParameters = addlParameters,
-					AdditionalImports = addlImports,
-					FetchReturnType = string.IsNullOrEmpty(fetchReturnType) ? "void" : fetchReturnType,
+					FetchFunctionResolver = fetchResolver,
 
 					// Things I don't want to support anymore
 					WebMethodNamespace = ConfigurationOptions.WebMethodNamespace,

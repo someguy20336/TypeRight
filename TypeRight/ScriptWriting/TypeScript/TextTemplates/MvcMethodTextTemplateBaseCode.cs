@@ -20,49 +20,19 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
 		/// </summary>
 		private const string FailFuncName = "fail";
 
-		protected MvcControllerInfo ControllerInfo { get; private set; }
+		protected ControllerModel ControllerInfo { get; private set; }
 
 		protected ControllerContext Context { get; private set; }
 
 		/// <summary>
 		/// Gets the name of the controller, without the "Controller" part
 		/// </summary>
-		public string ControllerName => ControllerInfo.ControllerName;
+		public string ControllerName => ControllerInfo.Name;
 
-		/// <summary>
-		/// Gets whether this package has its own Ajax function
-		/// </summary>
-		public bool HasOwnAjaxFunction { get; private set; }
-
-		/// <summary>
-		/// Gets the name of the ajax function to use
-		/// </summary>
-		public string FetchFunctionName { get; private set; }
-
-		/// <summary>
-		/// The base URL for all actions
-		/// </summary>
-		public string BaseActionUrl { get; private set; }
-
-		public TypeFormatter TypeFormatter { get; private set; }
-
-		public void Initialize(MvcControllerInfo controllerInfo, ControllerContext context, TypeFormatter formatter)
+		public void Initialize(ControllerModel model, ControllerContext context)
 		{
-			ControllerInfo = controllerInfo;
-			TypeFormatter = formatter;
+			ControllerInfo = model;
 			Context = context;
-
-			if (context.HasOwnAjaxFunction)
-			{
-				HasOwnAjaxFunction = true;
-				FetchFunctionName = context.FetchFunctionName;
-			}
-			else
-			{
-				FetchFunctionName = "callService";
-			}
-					   
-			BaseActionUrl = ControllerInfo.GetBaseUrl();
 		}
 
 		protected void AddBaseText(string indent)
@@ -78,22 +48,22 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
 		/// Gets a list of all actions ordered by name
 		/// </summary>
 		/// <returns>An enumerable list of actions</returns>
-		private IEnumerable<MvcActionInfo> GetActions() => ControllerInfo.Actions.OrderBy(act => act.Name);
+		private IEnumerable<ControllerActionModel> GetActions() => ControllerInfo.Actions.OrderBy(act => act.Name);
 
 		/// <summary>
 		/// Builds the fetch function name, including the return keyword if necessary
 		/// </summary>
 		/// <param name="actionInfo"></param>
 		/// <returns></returns>
-		private string BuildFetchFunctionName(MvcActionInfo actionInfo)
+		private string BuildFetchFunctionName(ControllerActionModel actionInfo)
 		{
-			if (Context.FetchReturnType == "void")
+			if (actionInfo.ReturnType == "void")
 			{
-				return FetchFunctionName;
+				return actionInfo.FetchFunctionName;
 			}
 			else
 			{
-				return "return " + FetchFunctionName;
+				return "return " + actionInfo.FetchFunctionName;
 			}
 		}
 
@@ -102,26 +72,18 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
 		/// </summary>
 		/// <param name="action">The action to build the signature for</param>
 		/// <returns>The string signature</returns>
-		private string BuildActionSignature(MvcActionInfo action)
+		private string BuildActionSignature(ControllerActionModel action)
 		{
 			List<string> actionParams = new List<string>();
 
 			// Build parameters
-			foreach (MvcActionParameter oneParam in GetParameters(action))
+			foreach (ActionParameterModel oneParam in action.Parameters.Where(p => p.ActionParameterSourceType != ActionParameterSourceType.Ignored))
 			{
-				string paramText = $"{oneParam.Name}: {oneParam.Type.FormatType(TypeFormatter)}";
+				string paramText = $"{oneParam.Name}{ (oneParam.IsOptional ? "?" : "") }: {oneParam.ParameterType}";
 				actionParams.Add(paramText);
 			}
 
-			// Add user defined params
-			foreach (var addlParam in Context.AdditionalParameters)
-			{
-				string retType = addlParam.Type.Replace("$returnType$", action.ReturnType.FormatType(TypeFormatter));
-				string paramText = $"{addlParam.Name}{ (addlParam.Optional ? "?" : "") }: { retType }";
-				actionParams.Add(paramText);
-			}
-
-			return $"{action.Name}({string.Join(", ", actionParams)}): { ReplaceTokens(Context.FetchReturnType, action) }";
+			return $"{action.Name}({string.Join(", ", actionParams)}): { action.ReturnType }";
 		}
 
 		/// <summary>
@@ -129,17 +91,22 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
 		/// </summary>
 		/// <param name="action"></param>
 		/// <returns></returns>
-		private string BuildWebServiceParams(MvcActionInfo action)
+		private string BuildWebServiceParams(ControllerActionModel action)
 		{
-			if (Context.ModelBinding == ModelBindingType.SingleParam)
+			var bodyParams = action.Parameters.Where(p => p.ActionParameterSourceType == ActionParameterSourceType.Body).ToList();
+
+			if (bodyParams.Count == 0)
+			{
+				return "{}";
+			}
+			else if (bodyParams.Count == 1 && Context.ModelBinding == ModelBindingType.SingleParam)	// TODO: can i not?
 			{
 				// If we are only using a single parameter model binding (i.e. asp.net core), then the object itself should be the body
-				MvcActionParameter firstFromBody = action.Parameters.FirstOrDefault(p => Context.MvcParameterFilter.Evaluate(p));
-				return firstFromBody?.Name ?? "{ }";
+				return bodyParams[0].Name;
 			}
 			else
 			{
-				IEnumerable<string> multiParam = action.Parameters.Select(p => $"{p.Name}: {p.Name}");  // Transform to param1: param1
+				IEnumerable<string> multiParam = bodyParams.Select(p => $"{p.Name}: {p.Name}");  // Transform to param1: param1
 				return $"{{ {string.Join(", ", multiParam)} }}";
 			}
 		}
@@ -149,13 +116,14 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
 		/// </summary>
 		/// <param name="action"></param>
 		/// <returns></returns>
-		private string BuildAddlParameters(MvcActionInfo action)
+		private string BuildAddlParameters(ControllerActionModel action)
 		{
-			if (Context.AdditionalParameters.Count == 0)
+			var addlParams = action.Parameters.Where(p => p.ActionParameterSourceType == ActionParameterSourceType.Fetch).ToList();
+			if (addlParams.Count == 0)
 			{
 				return "";
 			}
-			return $", {string.Join(", ", Context.AdditionalParameters.Select(p => ReplaceTokens(p.Name, action))) }";
+			return $", {string.Join(", ", addlParams.Select(p => p.Name)) }";
 		}
 
 		/// <summary>
@@ -163,20 +131,17 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
 		/// </summary>
 		/// <param name="action">The action</param>
 		/// <returns>The URL</returns>
-		private string GetUrl(MvcActionInfo action)
+		private string GetUrl(ControllerActionModel action)
 		{
-			return $"{BaseActionUrl}{action.Name}";
-		}
+			var urlParams = action.Parameters.Where(p => p.ActionParameterSourceType == ActionParameterSourceType.Url).ToList();
 
-		/// <summary>
-		/// Replaces any tokens
-		/// </summary>
-		/// <param name="typeStr"></param>
-		/// <param name="action"></param>
-		/// <returns></returns>
-		private string ReplaceTokens(string typeStr, MvcActionInfo action)
-		{
-			return typeStr.Replace("$returnType$", action.ReturnType.FormatType(TypeFormatter));
+			string urlParamQuery = "";
+			if (urlParams.Count > 0)
+			{
+				// TODO: need to escape?
+				urlParamQuery = "?" + string.Join("&", urlParams.Select(p => $"{p.Name}=${{{ p.Name}}}"));
+			}
+			return $"`{action.BaseUrl}{urlParamQuery}`";
 		}
 
 		/// <summary>
@@ -184,25 +149,15 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
 		/// </summary>
 		/// <param name="action">The action</param>
 		/// <returns></returns>
-		private IEnumerable<KeyValuePair<string, string>> GetParameterComments(MvcActionInfo action)
+		private IEnumerable<KeyValuePair<string, string>> GetParameterComments(ControllerActionModel action)
 		{
 			// Get the params that should actually be written
-			HashSet<string> allParams = new HashSet<string>(GetParameters(action).Select(p => p.Name));
+			HashSet<string> allParams = new HashSet<string>(action.Parameters
+				.Where(p => p.ActionParameterSourceType != ActionParameterSourceType.Ignored)
+				.Select(p => p.Name)
+				);
 
 			return action.ParameterComments.Where(kv => allParams.Contains(kv.Key));
-		}
-
-		/// <summary>
-		/// Gets the parameters that should actually be written to the script
-		/// </summary>
-		/// <param name="action">The action</param>
-		/// <returns>The enumerable list of parameters</returns>
-		private IEnumerable<MvcActionParameter> GetParameters(MvcActionInfo action)
-		{
-			return action.Parameters.Where(p =>
-				Context.ModelBinding == ModelBindingType.MultiParam		// Either we are in multiparam mode
-				|| Context.MvcParameterFilter.Evaluate(p)				// Or the parameter filter allows it
-				);
 		}
 	}
 }

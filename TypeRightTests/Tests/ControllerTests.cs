@@ -24,7 +24,7 @@ namespace TypeRightTests.Tests
 			TestWorkspaceBuilder wkspBuilder = new TestWorkspaceBuilder();
 
 			wkspBuilder.DefaultProject
-				.AddMvc()
+				.AddFakeMvc()
 
 				// Dummy MvcActionAttribute
 				.CreateClassBuilder("DummyAttribute")
@@ -119,7 +119,7 @@ namespace TypeRightTests.Tests
 					.Commit()
 				
 				.CreateClassBuilder("WebApiController")
-					.AddAttribute($"{MvcControllerInfo.AspNetCoreMvcNamespace}.{MvcControllerInfo.RouteAttributeName}")
+					.AddAttribute(MvcConstants.RouteAttributeFullName_AspNetCore)
 						.AddConstructorArg("\"api/[controller]\"")
 						.Commit()
 					.AddMethod("GetStringList", "List<string>")
@@ -129,7 +129,7 @@ namespace TypeRightTests.Tests
 					.Commit()
 
 				.CreateClassBuilder("AspNetWebApiController")
-					.AddAttribute($"{MvcControllerInfo.AspNetMvcNamespace}.{MvcControllerInfo.RouteAttributeName}")
+					.AddAttribute(MvcConstants.RouteAttributeFullName_AspNet)
 						.AddConstructorArg("\"api/asp/[controller]\"")
 						.Commit()
 					.AddMethod("WhoCares", "FakeJsonResultLikeClass")

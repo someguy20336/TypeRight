@@ -40,22 +40,30 @@ namespace TypeRightTests.TestBuilders
 			return new AssemblyAttributeBuilder(this, name);
 		}
 
-		public TestProjectBuilder AddMvc()
+		public TestProjectBuilder AddFakeMvc()
 		{
 			// Basically going to just add a shim in there just to get things to work
 
-			CreateClassBuilder(MvcControllerInfo.RouteAttributeName, MvcControllerInfo.AspNetCoreMvcNamespace)
+			CreateClassBuilder(MvcConstants.RouteAttributeName, MvcConstants.AspNetCoreNamespace)
 				.AddBaseClass("System.Attribute")
 				.AddConstructor()
 					.AddParameter("template", "string")
 					.Commit()
 				.Commit();
 
-			CreateClassBuilder(MvcControllerInfo.RouteAttributeName, MvcControllerInfo.AspNetMvcNamespace)
+			CreateClassBuilder(MvcConstants.RouteAttributeName, MvcConstants.AspNetNamespace)
 				.AddBaseClass("System.Attribute")
 				.AddConstructor()
 					.AddParameter("template", "string")
 					.Commit()
+				.Commit();
+
+			CreateClassBuilder(MvcConstants.FromBodyAttributeName, MvcConstants.AspNetCoreNamespace)
+				.AddBaseClass("System.Attribute")
+				.Commit();
+
+			CreateClassBuilder(MvcConstants.FromServicesAttributeName, MvcConstants.AspNetCoreNamespace)
+				.AddBaseClass("System.Attribute")
 				.Commit();
 
 			return this;

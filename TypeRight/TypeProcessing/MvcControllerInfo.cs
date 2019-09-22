@@ -11,9 +11,6 @@ namespace TypeRight.TypeProcessing
 	/// </summary>
 	public class MvcControllerInfo : ITypeWithFullName
 	{
-		public const string AspNetCoreMvcNamespace = "Microsoft.AspNetCore.Mvc";
-		public const string AspNetMvcNamespace = "System.Web.Mvc";
-		public const string RouteAttributeName = "RouteAttribute";
 
 
 		private List<MvcActionInfo> _actions = new List<MvcActionInfo>();

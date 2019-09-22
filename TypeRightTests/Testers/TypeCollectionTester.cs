@@ -87,29 +87,38 @@ namespace TypeRightTests.Testers
 			return this;
 		}
 
-		public ControllerContext GetDefaultControllerContext()
+		public ControllerContext GetDefaultControllerContext(ActionConfig actionConfig = null)
 		{
+			FetchFunctionResolver resolver = new FetchFunctionResolver(new Uri(@"C:\FolderA\FolderB\Project.csproj"), actionConfig ?? GetDefaultActionConfig());
 			return new ControllerContext()
 			{
-				FetchFunctionName = "TestAjax",
 				WebMethodNamespace = "MethodNamespace",
 				TypeCollection = _typeCollection,
 				ServerObjectsResultFilepath = new Uri(@"C:\FolderA\FolderB\FolderC\FolderD\ServerObjects.ts"),
-				FetchFunctionModulePath = @"C:\FolderA\FolderB\FolderM\FolderN\AjaxFunc.ts",
 				OutputPath = @"C:\FolderA\FolderB\FolderX\FolderY\SomeController.ts",
-				AdditionalImports = new List<ImportDefinition>(),
-				AdditionalParameters = new List<ActionParameter>()
+
+				FetchFunctionResolver = resolver,
+				ModelBinding = ModelBindingType.MultiParam,	// TODO stop this
+
+				TypeNamespace = ReferenceTypeTester.TestNamespace,
+				EnumNamespace = EnumTester.TestNamespace,
+			};
+		}
+
+		public ActionConfig GetDefaultActionConfig()
+		{
+			return new ActionConfig()
+			{
+				FetchFilePath = @".\FolderM\FolderN\AjaxFunc.ts",
+				FetchFunctionName = "TestAjax",
+				Imports = new List<ImportDefinition>(),
+				Method = RequestMethod.Default,
+				Parameters = new List<ActionParameter>()
 				{
 					new ActionParameter() {Name = "success", Type = "(result: $returnType$) => void", Optional = true},
 					new ActionParameter() {Name = "fail", Type = "(result: any) => void", Optional = true }
 				},
-				FetchReturnType	= "void",
-
-				ModelBinding = ModelBindingType.MultiParam,		// TODO because I already wrote tests for multi param, but would be nice to have tests for both
-				MvcParameterFilter = new AcceptAllParameters(),
-
-				TypeNamespace = ReferenceTypeTester.TestNamespace,
-				EnumNamespace = EnumTester.TestNamespace,
+				ReturnType = "void"
 			};
 		}
 
