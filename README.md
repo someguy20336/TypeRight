@@ -174,7 +174,28 @@ Since all of the `ScriptObject`s and `ScriptEnum`s will be objects that you are 
 
 `<project Root>\Scripts\<Controller Name>\<Controller Name>Actions.ts`
 
-Let's take a look at an example.  Say we have this controller:
+Let's take a look at an example.  First, say I have this configuration for "actionConfig"
+
+```JSON
+...
+"actionConfig": {
+	"fetchFunctionName": "callPost",
+	"fetchFilePath": "./Scripts/CallServiceStuff.ts",
+	"parameters": [
+		{
+			"name": "abort",
+			"type": "AbortSignal",
+			"optional": true
+		}
+	],
+	"returnType": "Promise<$returnType$>",
+	"imports": null
+}
+...
+```
+
+
+And say we have this controller:
 
 ```C#
 
@@ -196,29 +217,26 @@ public class MyDefaultController : Controller
 
 ```
 
-Assuming `MyClass` and `MySecondClass` have been attributed with `ScriptObject`, the resulting TypeScript will be created (some template specific details have been omitted for clarity):
+Assuming `MyClass` and `MySecondClass` have been attributed with `ScriptObject`, the resulting TypeScript will look something like this:
 
 ```TypeScript
 
-export function GetSomeData(param1: number, 
-                            someOtherData: MyClass, 
-                            success?: (result: MySecondClass) => void, 
-                            fail?: () => void): void {
-      // Makes a POST webservce call to /MyDefault/GetSomeData      
-      // How this is done is configurable 
+export function GetSomeData(param1: number, someOtherData: MyClass, abort?: AbortSignal): Promise<MySecondClass> {
+      return callPost("/MyDefault/GetSomeData", { param1: param1, someOtherData: someOtherData }, abort);
 }
 
 ```
 
 Now here is where the configuration comes into play.  
 
-- By default, each controller action will call an auto generated method that uses $.ajax (yes... JQuery.  Maybe I will change this some day)
-- You can change this to your own custom function located somewhere in your project by using the **ajaxFunctionName** configuration setting.  The function must have the following signature: (url: string, data: any, success: (result: any) => void, fail: () => any): any
+- The parameters of the method are configurable.  Here, I added the AbortSignal parameter.  At a minimum, your ```fetchFunctionName``` must begin with  (url: string, data: any, ...)
   - The url you get will be in the form: `/<Controller Name>/<Action Name>`.  If you use Areas, it will be `/<Area Name>/<Controller Name>/<Action>`
   - The data you get will be a dictionary of keys (parameter names) and values
-- If using the module template, note that you will need to specify the file that the module is located in the **ajaxFunctionModulePath** configuration setting
+- The return type is configurable.  Here, my ```callPost``` method returns a promise object for the result object.
+- By default, if no fetch function is defined (not recommended and I may not support this in the future) each controller action will call an auto generated method that uses JQuery ```$.ajax``` method
+- If using the module template, note that you will need to specify the file that the module is located in the **fetchFilePath** configuration setting
 
-You will notice that the `success` function will automatically pull the return type of the webservice call.  It does this by:
+You will notice that the return type of the function will automatically pull the return type of the webservice call in C# code.  It does this by:
 1. Finding the first return statement
 2. If the return statement is the function "Json(...)", it will pull the type from the first parameter
 3. Otherwise, it is whatever the return type of the method is
@@ -231,7 +249,9 @@ There are two types of templates for no other reason than they are what I have u
 This is likely the recommended template with todays standards and module loading.  For this template, the result files will just be a collection of classes/methods that can be imported into other files.
 
 ## Namespace Template
-This template is probably not the recommended one to use anymore, but I used it in the past so maybe someone might find it useful.  For this template, all classes/service calls are wrapped in a "namespace".  For example:
+This template is probably not the recommended one to use anymore, but I used it in the past so maybe someone might find it useful.  Note: I may, an probably will, remove support for this in a future version!
+
+For this template, all classes/service calls are wrapped in a "namespace".  For example:
 
 ```TypeScript
 namespace MyNamespace.Classes {
