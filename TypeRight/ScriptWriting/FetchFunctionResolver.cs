@@ -39,7 +39,7 @@ namespace TypeRight.ScriptWriting
 
 			return new FetchFunctionDescriptor()
 			{
-				AdditionalImports = actionConfig.Imports,
+				AdditionalImports = actionConfig.Imports ?? new List<ImportDefinition>(),
 				AdditionalParameters = addlParameters,
 				FetchModulePath = fetchModulePath,
 				FunctionName = actionConfig.FetchFunctionName,

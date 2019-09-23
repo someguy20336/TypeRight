@@ -23,6 +23,8 @@ namespace TypeRight.TypeProcessing
 		public const string FromServicesAttributeName = "FromServicesAttribute";
 		public static string FromServicesAttributeFullName_AspNetCore => ToAspNetCoreFullName(FromServicesAttributeName);
 
+		public const string FromQueryAttributeName = "FromQueryAttribute";
+		public static string FromQueryAttributeFullName_AspNetCore => ToAspNetCoreFullName(FromQueryAttributeName);
 
 		public static string ToAspNetCoreFullName(string className) => $"{AspNetCoreNamespace}.{className}";
 		public static string ToAspNetFullName(string className) => $"{AspNetNamespace}.{className}";

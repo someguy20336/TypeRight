@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TypeRight.TypeProcessing;
+using TypeRight.TypeLocation;
 
 namespace TypeRightTests.Tests
 {
@@ -28,13 +30,12 @@ namespace TypeRightTests.Tests
 			TestWorkspaceBuilder wkspBuilder = new TestWorkspaceBuilder();
 
 			wkspBuilder.DefaultProject
-				// Dummy MvcActionAttribute
-				.CreateClassBuilder("DummyAttribute")
-					.AddBaseClass("Attribute")
-					.Commit()
+				.AddFakeMvc()
+				.AddFakeTypeRight()
 
 				// Test class to use as return/param
 				.CreateClassBuilder("TestClass")
+					.WithScriptObjectAttribute()
 					.AddProperty("DontCare", "int")
 					.Commit()
 
@@ -50,22 +51,24 @@ namespace TypeRightTests.Tests
 
 				// Display name attribute
 				.CreateClassBuilder("SimpleController")
+					.WithControllerBaseClass()
+
 					// Fake Json Method - not extracted
 					.AddMethod("FakeJson", "FakeJsonResultLikeClass")
 						.AddParameter("data", "object")
 						.AddLineOfCode("return null;", 0)
 						.Commit()
 					.AddMethod("SimpleAnonymousType", "FakeJsonResultLikeClass")
-						.AddAttribute("DummyAttribute").Commit()
+						.AddScriptActionAttribute()
 						.AddLineOfCode("return FakeJson(new { stringProp = \"Hi\", intProp = 1 });", 0)
 						.Commit()
 					.AddMethod("AnonymousTypeWithExtracted", "FakeJsonResultLikeClass")
-						.AddAttribute("DummyAttribute").Commit()
+						.AddScriptActionAttribute()
 						.AddLineOfCode("TestClass test = new TestClass();", 0)
 						.AddLineOfCode("return FakeJson(new { testClassProp = test, intProp = 1 });", 0)
 						.Commit()
 					.AddMethod("AnonymousTypeWithNonExtracted", "FakeJsonResultLikeClass")
-						.AddAttribute("DummyAttribute").Commit()
+						.AddScriptActionAttribute()
 						.AddLineOfCode("NotExtracted test = new NotExtracted();", 0)
 						.AddLineOfCode("return FakeJson(new { testClassProp = test, intProp = 1 });", 0)
 						.Commit()
@@ -73,10 +76,7 @@ namespace TypeRightTests.Tests
 
 			;
 
-
-			wkspBuilder.ClassParseFilter = new ExcludeWithAnyName("DummyAttribute", "SimpleController", "FakeJsonResultLikeClass", "NotExtracted");
-			wkspBuilder.ControllerParseFilter = new AlwaysAcceptFilter();
-			wkspBuilder.MvcActionFilter = new AlwaysAcceptFilter();
+			wkspBuilder.FilterSettings = new ParseFilterSettings();
 
 			MethodReturnTypeHandler handler = new ParseSyntaxForTypeMethodHandler(
 				"Test.FakeJsonResultLikeClass",

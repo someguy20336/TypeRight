@@ -5,8 +5,6 @@
 	"webMethodNamespace": "WebMethods",
 	"serverObjectsResultFilepath": "./Scripts/ServerObjects.ts",
 	"templateType": "module",
-	"ajaxFunctionModulePath": "",
-	"ajaxFunctionName": "",
 	"modelBindingType": "singleParam",
 	"actionConfig": {
 		"fetchFunctionName": "callPost",

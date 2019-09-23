@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TypeRight.Attributes;
 using TypeRight.TypeProcessing;
 
 namespace TypeRightTests.TestBuilders
@@ -40,6 +41,19 @@ namespace TypeRightTests.TestBuilders
 			return new AssemblyAttributeBuilder(this, name);
 		}
 
+		public TestProjectBuilder AddFakeTypeRight()
+		{
+			CreateClassBuilder(typeof(ScriptActionAttribute).Name, "TypeRight.Attributes")
+				.AddBaseClass("System.Attribute")
+				.Commit();
+
+			CreateClassBuilder(typeof(ScriptObjectAttribute).Name, "TypeRight.Attributes")
+				.AddBaseClass("System.Attribute")
+				.Commit();
+
+			return this;
+		}
+
 		public TestProjectBuilder AddFakeMvc()
 		{
 			// Basically going to just add a shim in there just to get things to work
@@ -63,6 +77,10 @@ namespace TypeRightTests.TestBuilders
 				.Commit();
 
 			CreateClassBuilder(MvcConstants.FromServicesAttributeName, MvcConstants.AspNetCoreNamespace)
+				.AddBaseClass("System.Attribute")
+				.Commit();
+
+			CreateClassBuilder(MvcConstants.FromQueryAttributeName, MvcConstants.AspNetCoreNamespace)
 				.AddBaseClass("System.Attribute")
 				.Commit();
 

@@ -21,16 +21,38 @@ namespace TypeRightTests.TestBuilders
 
 		public TestProjectBuilder DefaultProject { get; private set; }
 
-		public TypeFilter ClassParseFilter { get; set; } = new AlwaysRejectFilter();
+		public ParseFilterSettings FilterSettings { get; set; } = new ParseFilterSettings()
+		{
+			ClassFilter = new AlwaysRejectFilter(),
+			ControllerFilter = new AlwaysRejectFilter(),
+			EnumFilter = new AlwaysRejectFilter()
+		};
 
-		public TypeFilter EnumParseFilter { get; set; } = new AlwaysRejectFilter();
+		public TypeFilter ClassParseFilter
+		{
+			get => FilterSettings.ClassFilter;
+			set => FilterSettings.ClassFilter = value;
+		}
 
-		public TypeFilter DisplayNameFilter { get; set; } = new AlwaysRejectFilter();
+		public TypeFilter EnumParseFilter
+		{
+			get => FilterSettings.EnumFilter;
+			set => FilterSettings.EnumFilter = value;
+		}
 
-		public TypeFilter ControllerParseFilter { get; set; } = new AlwaysRejectFilter();
-
-		public TypeFilter MvcActionFilter { get; set; } = new AlwaysRejectFilter();
-
+		public ProcessorSettings ProcessorSettings { get; set; } = new ProcessorSettings()
+		{
+			DisplayNameFilter = new AlwaysRejectFilter(),
+			ProjectPath = TestProjectDir,
+			DefaultResultPath = DefaultResultPath
+		};
+	
+		public TypeFilter DisplayNameFilter
+		{
+			get => ProcessorSettings.DisplayNameFilter;
+			set => ProcessorSettings.DisplayNameFilter = value;
+		}
+		
 		public TypeRight.Workspaces.Parsing.ParseOptions ParseOptions { get; set; } = TypeRight.Workspaces.Parsing.ParseOptions.GetDefault();
 
 		public TestWorkspaceBuilder()
@@ -58,19 +80,13 @@ namespace TypeRightTests.TestBuilders
 		public TypeCollectionTester GetPackageTester(ProjectId projectId)
 		{
 			ProjectParser workspaceParser = new ProjectParser(Workspace, projectId, ParseOptions);
-			TypeVisitor visitor = new TypeVisitor(new ProcessorSettings()
+			TypeVisitor visitor = new TypeVisitor(ProcessorSettings)
 			{
-				DisplayNameFilter = DisplayNameFilter,
-				MvcActionFilter = MvcActionFilter,
-				ProjectPath = TestProjectDir,
-				DefaultResultPath = DefaultResultPath
-			});
-			visitor.FilterSettings.ClassFilter = ClassParseFilter;
-			visitor.FilterSettings.EnumFilter = EnumParseFilter;
-			visitor.FilterSettings.ControllerFilter = ControllerParseFilter;
+				FilterSettings = FilterSettings
+			};
 
 			workspaceParser.IterateTypes(visitor);
-			return new TypeCollectionTester(visitor.TypeCollection, DisplayNameFilter, MvcActionFilter);
+			return new TypeCollectionTester(visitor.TypeCollection, DisplayNameFilter);
 		}
 	}
 }

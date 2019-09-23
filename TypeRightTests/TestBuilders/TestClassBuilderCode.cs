@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TypeRight.Attributes;
+using TypeRight.TypeProcessing;
 
 namespace TypeRightTests.TestBuilders
 {
@@ -50,6 +52,18 @@ namespace TypeRightTests.TestBuilders
 		public TestClassBuilder AddBaseClass(string baseClassName)
 		{
 			_baseClass = baseClassName;
+			return this;
+		}
+
+		public TestClassBuilder WithControllerBaseClass(bool aspNetCore = true)
+		{
+			_baseClass = aspNetCore ? MvcConstants.ControllerBaseFullName_AspNetCore : MvcConstants.ControllerBaseFullName_AspNet;
+			return this;
+		}
+
+		public TestClassBuilder WithScriptObjectAttribute()
+		{
+			AddAttribute(typeof(ScriptObjectAttribute).FullName).Commit();
 			return this;
 		}
 

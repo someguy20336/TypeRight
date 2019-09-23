@@ -248,6 +248,7 @@
     <Compile Include="Tests\SameNameTests.cs" />
     <Compile Include="Tests\MiscHelperTests.cs" />
     <Compile Include="Tests\ScriptWriting.cs" />
+    <Compile Include="Tests\ControllerModelTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

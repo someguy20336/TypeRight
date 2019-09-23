@@ -23,7 +23,7 @@ namespace TypeRightTests.Testers
 
 		private readonly TypeFormatter _typeFormatter;
 
-		public TypeCollectionTester(ExtractedTypeCollection typeCollection, TypeFilter dispNameFilter, TypeFilter mvcActionFilter)
+		public TypeCollectionTester(ExtractedTypeCollection typeCollection, TypeFilter dispNameFilter)
 		{
 			_typeCollection = typeCollection;
 
@@ -49,9 +49,10 @@ namespace TypeRightTests.Testers
 			return new EnumTester(_typeCollection.GetEnumTypes().Where(en => en.Name == name).FirstOrDefault());
 		}
 
-		public ControllerTester TestControllerWithName(string name)
+		public ControllerTester TestControllerWithName(string name, ControllerContext context = null)
 		{
-			return new ControllerTester(_typeCollection.GetMvcControllers().Where(c => c.Name == name).FirstOrDefault(), _typeFormatter);
+			context = context ?? GetDefaultControllerContext();
+			return new ControllerTester(_typeCollection.GetMvcControllers().Where(c => c.Name == name).FirstOrDefault(), _typeFormatter, context);
 		}
 
 		public TypeCollectionTester TestScriptText()

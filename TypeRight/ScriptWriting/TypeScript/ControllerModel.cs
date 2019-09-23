@@ -6,7 +6,7 @@ namespace TypeRight.ScriptWriting.TypeScript
 {
 	public enum ActionParameterSourceType
 	{
-		Url,
+		Query,
 		Body,
 		Fetch,
 		Ignored

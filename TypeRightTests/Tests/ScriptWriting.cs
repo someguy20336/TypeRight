@@ -4,6 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TypeRight.Configuration;
 using TypeRight.ScriptWriting;
 using TypeRight.TypeFilters;
+using TypeRight.TypeLocation;
 using TypeRight.TypeProcessing;
 using TypeRight.Workspaces.Parsing;
 using TypeRightTests.HelperClasses;
@@ -28,20 +29,18 @@ namespace TypeRightTests.Tests
 			TestWorkspaceBuilder wkspBuilder = new TestWorkspaceBuilder();
 
 			wkspBuilder.DefaultProject
+				.AddFakeTypeRight()
 				.AddFakeMvc()
-
-				// Dummy MvcActionAttribute
-				.CreateClassBuilder("DummyAttribute")
-					.AddBaseClass("Attribute")
-					.Commit()
 
 				// Test class to use as return/param
 				.CreateClassBuilder("TestClass")
+					.WithScriptObjectAttribute()
 					.AddProperty("DontCare", "int")
 					.Commit()
 
 				// Test generic class to use as return/param
 				.CreateClassBuilder("TestGenericClass")
+					.WithScriptObjectAttribute()
 					.AddGenericParameter("T")
 					.AddProperty("GenericProp", "T")
 					.Commit()
@@ -53,56 +52,58 @@ namespace TypeRightTests.Tests
 
 				// Display name attribute
 				.CreateClassBuilder("SimpleController")
+					.WithControllerBaseClass()
 					.AddMethod("FakeJson", "FakeJsonResultLikeClass")
 						.AddParameter("data", "object")
 						.AddLineOfCode("return null;", 0)
 						.Commit()
 
 					.AddMethod("StringResult", "string")
-						.AddAttribute("DummyAttribute").Commit()
+						.AddScriptActionAttribute()
 						.AddLineOfCode("return \"Hi\";", 0)
 						.Commit()
 					.AddMethod("SimpleParameter_Json", "FakeJsonResultLikeClass")
-						.AddAttribute("DummyAttribute").Commit()
+						.AddScriptActionAttribute()
 						.AddParameter("testParam", "TestClass")
 						.AddLineOfCode("return FakeJson(testParam);", 0)
 						.Commit()
 					.AddMethod("GenericPropReturn_Json", "FakeJsonResultLikeClass")
-						.AddAttribute("DummyAttribute").Commit()
+						.AddScriptActionAttribute()
 						.AddLineOfCode("TestGenericClass<TestClass> gen = new TestGenericClass<TestClass>();", 0)
 						.AddLineOfCode("return FakeJson(gen.GenericProp);", 0)
 						.Commit()
 					.Commit()
 
 				.CreateClassBuilder("TestParamAttributesController")
+					.WithControllerBaseClass()
 					.AddMethod("TestingParamFilter", "FakeJsonResultLikeClass")
-						.AddAttribute("DummyAttribute").Commit()
+						.AddScriptActionAttribute()
 						.AddParameter("fromBody", "string", attribute: MvcConstants.FromBodyAttributeFullName_AspNetCore)
 						.AddParameter("fromServices", "TestClass", attribute: MvcConstants.FromServicesAttributeFullName_AspNetCore)
 						.AddLineOfCode("return FakeJson(0);", 0)
 						.Commit()
 					.AddMethod("IsNotFirstParameter", "FakeJsonResultLikeClass")
-						.AddAttribute("DummyAttribute").Commit()
+						.AddScriptActionAttribute()
 						.AddParameter("fromServices", "TestClass", attribute: MvcConstants.FromServicesAttributeFullName_AspNetCore)
 						.AddParameter("fromBody", "string", attribute: MvcConstants.FromBodyAttributeFullName_AspNetCore)
 						.AddLineOfCode("return FakeJson(0);", 0)
 						.Commit()
 					.AddMethod("NoFromBodyParams", "FakeJsonResultLikeClass")
-						.AddAttribute("DummyAttribute").Commit()
+						.AddScriptActionAttribute()
 						.AddParameter("fromServices", "TestClass", attribute: MvcConstants.FromServicesAttributeFullName_AspNetCore)
 						.AddParameter("fromServices2", "string", attribute: MvcConstants.FromServicesAttributeFullName_AspNetCore)
 						.AddParameter("fromServices3", "string", attribute: MvcConstants.FromServicesAttributeFullName_AspNetCore)
 						.AddLineOfCode("return FakeJson(0);", 0)
 						.Commit()
+					.AddMethod("QueryParameterWithBody", "FakeJsonResultLikeClass")
+						.AddScriptActionAttribute()
+						.AddParameter("fromQuery", "string", attribute: MvcConstants.FromQueryAttributeFullName_AspNetCore)
+						.AddParameter("fromBody", "TestClass", attribute: MvcConstants.FromBodyAttributeFullName_AspNetCore)
+						.Commit()
 					.Commit()
 			;
 
-
-			wkspBuilder.ClassParseFilter = new ExcludeWithAnyName("DummyAttribute", 
-				"SimpleController", "FakeJsonResultLikeClass",MvcConstants.FromServicesAttributeName, MvcConstants.FromBodyAttributeName,
-				"TestParamAttributesController");
-			wkspBuilder.ControllerParseFilter = new AlwaysAcceptFilter();
-			wkspBuilder.MvcActionFilter = new AlwaysAcceptFilter();
+			wkspBuilder.FilterSettings = new ParseFilterSettings();
 
 			MethodReturnTypeHandler handler = new ParseSyntaxForTypeMethodHandler(
 				"Test.FakeJsonResultLikeClass",
@@ -354,11 +355,21 @@ export function NoFromBodyParams(): void {
 
 /**
  * 
+ * @param fromQuery 
+ * @param fromBody 
+ */
+export function QueryParameterWithBody(fromQuery: string, fromBody: DefaultResult.TestClass): void {
+	TestAjax(`/TestParamAttributes/QueryParameterWithBody?fromQuery=${fromQuery}`, fromBody);
+}
+
+/**
+ * 
  * @param fromBody 
  */
 export function TestingParamFilter(fromBody: string): void {
 	TestAjax(`/TestParamAttributes/TestingParamFilter`, fromBody);
 }
+
 
 "
 			#endregion

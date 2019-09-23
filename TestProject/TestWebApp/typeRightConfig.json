@@ -5,6 +5,11 @@
   webMethodNamespace: "WebMethods",
   serverObjectsResultFilepath: "./Scripts/ServerObjects.ts",
   templateType: "namespace",
-  ajaxFunctionModulePath: "./Scripts/CallServiceStuff.ts",
-  ajaxFunctionName: "Comm.callService"
+	"actionConfig": {
+		"fetchFunctionName": "Comm.callService",
+		"fetchFilePath": "./Scripts/CallServiceStuff.ts",
+		"parameters": [],
+		"returnType": "void",
+		"imports": null
+	}
 }

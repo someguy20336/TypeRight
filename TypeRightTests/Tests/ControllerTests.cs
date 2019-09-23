@@ -1,10 +1,10 @@
 ﻿using TypeRight.ScriptWriting.TypeScript;
 using TypeRight.Workspaces.Parsing;
-using TypeRightTests.HelperClasses;
 using TypeRightTests.TestBuilders;
 using TypeRightTests.Testers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TypeRight.TypeProcessing;
+using TypeRight.TypeLocation;
 
 namespace TypeRightTests.Tests
 {
@@ -22,22 +22,20 @@ namespace TypeRightTests.Tests
 		{
 
 			TestWorkspaceBuilder wkspBuilder = new TestWorkspaceBuilder();
-
+			
 			wkspBuilder.DefaultProject
+				.AddFakeTypeRight()
 				.AddFakeMvc()
-
-				// Dummy MvcActionAttribute
-				.CreateClassBuilder("DummyAttribute")
-					.AddBaseClass("Attribute")
-					.Commit()
-
+				
 				// Test class to use as return/param
 				.CreateClassBuilder("TestClass")
+					.WithScriptObjectAttribute()
 					.AddProperty("DontCare", "int")
 					.Commit()
 
 				// Test generic class to use as return/param
 				.CreateClassBuilder("TestGenericClass")
+					.WithScriptObjectAttribute()
 					.AddGenericParameter("T")
 					.AddProperty("GenericProp", "T")
 					.Commit()
@@ -54,6 +52,8 @@ namespace TypeRightTests.Tests
 
 				// Display name attribute
 				.CreateClassBuilder("SimpleController")
+					.WithControllerBaseClass()
+
 					// Fake Json Method - not extracted
 					.AddMethod("FakeJson", "FakeJsonResultLikeClass")
 						.AddParameter("data", "object")
@@ -65,46 +65,46 @@ namespace TypeRightTests.Tests
 
 
 					.AddMethod("StringResult", "string")
-						.AddAttribute("DummyAttribute").Commit()
+						.AddScriptActionAttribute()
 						.AddLineOfCode("return \"Hi\";", 0)
 						.Commit()
 					.AddMethod("NewObjectResult", "TestClass")
-						.AddAttribute("DummyAttribute").Commit()
+						.AddScriptActionAttribute()
 						.AddLineOfCode("return new TestClass();", 0)
 						.Commit()
 					.AddMethod("NewObjectResult_Json", "FakeJsonResultLikeClass")
-						.AddAttribute("DummyAttribute").Commit()
+						.AddScriptActionAttribute()
 						.AddLineOfCode("return FakeJson(new TestClass());", 0)
 						.Commit()
 					.AddMethod("VariableResult", "bool")
-						.AddAttribute("DummyAttribute").Commit()
+						.AddScriptActionAttribute()
 						.AddLineOfCode("bool testVar = true;", 0)
 						.AddLineOfCode("return testVar;", 0)
 						.Commit()
 					.AddMethod("VariableResult_Json", "FakeJsonResultLikeClass")
-						.AddAttribute("DummyAttribute").Commit()
+						.AddScriptActionAttribute()
 						.AddLineOfCode("bool testVar = true;", 0)
 						.AddLineOfCode("return FakeJson(testVar);", 0)
 						.Commit()
 					.AddMethod("StringConcatResult", "string")
-						.AddAttribute("DummyAttribute").Commit()
+						.AddScriptActionAttribute()
 						.AddLineOfCode("return \"Hello\" + \"World\";", 0)
 						.Commit()
 					.AddMethod("MethodResult", "TestClass")
-						.AddAttribute("DummyAttribute").Commit()
+						.AddScriptActionAttribute()
 						.AddLineOfCode("return ARandomMethod();", 0)
 						.Commit()
 					.AddMethod("SimpleParameter_Json", "FakeJsonResultLikeClass")
-						.AddAttribute("DummyAttribute").Commit()
+						.AddScriptActionAttribute()
 						.AddParameter("testParam", "TestClass")
 						.AddLineOfCode("return FakeJson(testParam);", 0)
 						.Commit()
 					.AddMethod("NotExtracted_Json", "FakeJsonResultLikeClass")
-						.AddAttribute("DummyAttribute").Commit()
+						.AddScriptActionAttribute()
 						.AddLineOfCode("return FakeJson(new NotExtracted());", 0)
 						.Commit()
 					.AddMethod("ComplexMethod", "FakeJsonResultLikeClass")
-						.AddAttribute("DummyAttribute").Commit()
+						.AddScriptActionAttribute()
 						.AddParameter("dateStringDict", "Dictionary<DateTime, string>")
 						.AddParameter("intStringDict", "Dictionary<int, string>")
 						.AddParameter("stringStringDict", "Dictionary<string, string>")
@@ -112,40 +112,36 @@ namespace TypeRightTests.Tests
 						.AddLineOfCode("return FakeJson(gen);", 0)
 						.Commit()
 					.AddMethod("GenericPropReturn_Json", "FakeJsonResultLikeClass")
-						.AddAttribute("DummyAttribute").Commit()
+						.AddScriptActionAttribute()
 						.AddLineOfCode("TestGenericClass<TestClass> gen = new TestGenericClass<TestClass>();", 0)
 						.AddLineOfCode("return FakeJson(gen.GenericProp);", 0)
 						.Commit()
 					.Commit()
 				
 				.CreateClassBuilder("WebApiController")
+					.WithControllerBaseClass()
 					.AddAttribute(MvcConstants.RouteAttributeFullName_AspNetCore)
 						.AddConstructorArg("\"api/[controller]\"")
 						.Commit()
 					.AddMethod("GetStringList", "List<string>")
-						.AddAttribute("DummyAttribute").Commit()
+						.AddScriptActionAttribute()
 						.AddLineOfCode("return new List<string>();", 0)
 						.Commit()
 					.Commit()
 
 				.CreateClassBuilder("AspNetWebApiController")
+					.WithControllerBaseClass()
 					.AddAttribute(MvcConstants.RouteAttributeFullName_AspNet)
 						.AddConstructorArg("\"api/asp/[controller]\"")
 						.Commit()
 					.AddMethod("WhoCares", "FakeJsonResultLikeClass")
-						.AddAttribute("DummyAttribute").Commit()
+						.AddScriptActionAttribute()
 						.AddLineOfCode("return FakeJson(true);", 0)
 						.Commit()
 					.Commit()
 			;
 
-			
-			wkspBuilder.ClassParseFilter = new ExcludeWithAnyName(
-				"DummyAttribute", 
-				"SimpleController", "FakeJsonResultLikeClass", "NotExtracted", 
-				"WebApiController", "AspNetWebApiController");
-			wkspBuilder.ControllerParseFilter = new AlwaysAcceptFilter();
-			wkspBuilder.MvcActionFilter = new AlwaysAcceptFilter();
+			wkspBuilder.FilterSettings = new ParseFilterSettings();
 
 			MethodReturnTypeHandler handler = new ParseSyntaxForTypeMethodHandler(
 				"Test.FakeJsonResultLikeClass",

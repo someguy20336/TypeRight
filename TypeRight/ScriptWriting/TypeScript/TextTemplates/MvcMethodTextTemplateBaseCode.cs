@@ -83,7 +83,7 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
 				actionParams.Add(paramText);
 			}
 
-			return $"{action.Name}({string.Join(", ", actionParams)}): { action.ReturnType }";
+			return $"{action.Name}({string.Join(", ", actionParams)}): { action.	ReturnType }";
 		}
 
 		/// <summary>
@@ -133,7 +133,7 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
 		/// <returns>The URL</returns>
 		private string GetUrl(ControllerActionModel action)
 		{
-			var urlParams = action.Parameters.Where(p => p.ActionParameterSourceType == ActionParameterSourceType.Url).ToList();
+			var urlParams = action.Parameters.Where(p => p.ActionParameterSourceType == ActionParameterSourceType.Query).ToList();
 
 			string urlParamQuery = "";
 			if (urlParams.Count > 0)

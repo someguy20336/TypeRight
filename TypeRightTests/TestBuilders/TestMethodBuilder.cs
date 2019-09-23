@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TypeRight.Attributes;
 
 namespace TypeRightTests.TestBuilders
 {
@@ -43,6 +44,12 @@ namespace TypeRightTests.TestBuilders
 		public TestAttributeBuilder<TestMethodBuilder> AddAttribute(string attributeType)
 		{
 			return new TestAttributeBuilder<TestMethodBuilder>(this, attributeType);
+		}
+
+		public TestMethodBuilder AddScriptActionAttribute()
+		{
+			AddAttribute(typeof(ScriptActionAttribute).FullName).Commit();
+			return this;
 		}
 
 		public TestMethodBuilder AddLineOfCode(string code, int indent)

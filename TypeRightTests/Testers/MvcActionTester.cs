@@ -38,4 +38,37 @@ namespace TypeRightTests.Testers
 			return this;
 		}
 	}
+
+
+
+	class MvcActionModelTester
+	{
+		private ControllerActionModel _actionModel;
+
+
+		public MvcActionModelTester(ControllerActionModel actionModel)
+		{
+			_actionModel = actionModel;
+		}
+
+		public MvcActionModelTester ParameterTypeIs(string paramName, string typescriptName)
+		{
+			ActionParameterModel parameter = _actionModel.Parameters.Where(p => p.Name == paramName).First();
+			Assert.AreEqual(typescriptName, parameter.ParameterType);
+			return this;
+		}
+
+		public MvcActionModelTester ReturnTypeTypescriptNameIs(string typescriptName)
+		{
+			Assert.AreEqual(typescriptName, _actionModel.ReturnType);
+			return this;
+		}
+
+		public MvcActionModelTester ParameterSourceTypeIs(string paramName, ActionParameterSourceType expectedType)
+		{
+			ActionParameterModel parameter = _actionModel.Parameters.Where(p => p.Name == paramName).First();
+			Assert.AreEqual(expectedType, parameter.ActionParameterSourceType);
+			return this;
+		}
+	}
 }

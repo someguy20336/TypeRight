@@ -24,5 +24,11 @@ namespace TestAspNetCoreApp.Controllers
 		{
 			return new CustomGroupObject1();
 		}
+
+		[ScriptAction]
+		public CustomGroupObject1 WithFromQuery([FromQuery] string id, [FromBody] CustomGroupObj3 body, [FromServices] string service)
+		{
+			return new CustomGroupObject1();
+		}
 	}
 }

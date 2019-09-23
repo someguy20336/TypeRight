@@ -8,7 +8,7 @@ using TypeRight.TypeProcessing;
 
 namespace TypeRight.ScriptWriting.TypeScript
 {
-	class ControllerProcessor
+	public class ControllerProcessor
 	{
 		private TypeFormatter _typeFormatter;
 		private ControllerContext _context;
@@ -66,12 +66,16 @@ namespace TypeRight.ScriptWriting.TypeScript
 			if (_context.ModelBinding == ModelBindingType.SingleParam)
 			{
 				var bodyFilter = new ParameterHasAttributeFilter(new IsOfTypeFilter(MvcConstants.FromBodyAttributeFullName_AspNetCore));
+				var queryFilter = new ParameterHasAttributeFilter(new IsOfTypeFilter(MvcConstants.FromQueryAttributeFullName_AspNetCore));
 
 				if (bodyFilter.Evaluate(actionParameter))
 				{
 					sourceType = ActionParameterSourceType.Body;
 				}
-				// TODO: URL
+				else if (queryFilter.Evaluate(actionParameter))
+				{
+					sourceType = ActionParameterSourceType.Query;
+				}
 				else
 				{
 					sourceType = ActionParameterSourceType.Ignored;
