@@ -179,7 +179,7 @@ Let's take a look at an example.  First, say I have this configuration for "acti
 
 ```JSON
 ...
-"actionConfig": {
+"actionConfig": [{
 	"fetchFunctionName": "callPost",
 	"fetchFilePath": "./Scripts/CallServiceStuff.ts",
 	"parameters": [
@@ -190,8 +190,9 @@ Let's take a look at an example.  First, say I have this configuration for "acti
 		}
 	],
 	"returnType": "Promise<$returnType$>",
-	"imports": null
-}
+	"imports": null,
+        "method": "default"
+}]
 ...
 ```
 
@@ -231,11 +232,9 @@ export function GetSomeData(param1: number, someOtherData: MyClass, abort?: Abor
 Now here is where the configuration comes into play.  
 
 - The parameters of the method are configurable.  Here, I added the AbortSignal parameter.  At a minimum, your ```fetchFunctionName``` must begin with  (url: string, data: any, ...)
-  - The url you get will be in the form: `/<Controller Name>/<Action Name>`.  If you use Areas, it will be `/<Area Name>/<Controller Name>/<Action>`
+  - The url you get will be in the form: `/<Controller Name>/<Action Name>`.  If you use Areas, it will be `/<Area Name>/<Controller Name>/<Action>`. If you use use the `RouteAttribute`, it will use the route template specified (see below). These routes will have query parameters when applicable.
   - The data you get will be a dictionary of keys (parameter names) and values
 - The return type is configurable.  Here, my ```callPost``` method returns a promise object for the result object.
-- By default, if no fetch function is defined (not recommended and I may not support this in the future) each controller action will call an auto generated method that uses JQuery ```$.ajax``` method
-- If using the module template, note that you will need to specify the file that the module is located in the **fetchFilePath** configuration setting
 
 You will notice that the return type of the function will automatically pull the return type of the webservice call in C# code.  It does this by:
 1. Finding the first return statement
