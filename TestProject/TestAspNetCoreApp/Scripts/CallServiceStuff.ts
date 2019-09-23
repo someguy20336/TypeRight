@@ -1,7 +1,4 @@
-﻿
-export function callService(path: string, p1: any, p2: any, p3: any) { }
-
-/**
+﻿/**
  * Calls a post action
  * @param url The URL to call
  * @param data the data to pass
@@ -26,6 +23,24 @@ export function callPost<T>(url: string, data: any, abortSignal?: AbortSignal): 
 			});
 		}).catch((reason) => {
 
+			reject(reason);
+		});
+	});
+}
+
+export function callGet<T>(url: string, abortSignal?: AbortSignal): Promise<T> {
+
+	return new Promise<T>((resolve, reject) => {
+		fetch(url, {
+			method: "GET",
+			signal: abortSignal
+		}).then((resp) => {
+			resp.json().then(val => {
+				resolve(val);
+			}).catch((reason) => {
+				console.log("Caught error: " + reason);
+			});
+		}).catch((reason) => {
 			reject(reason);
 		});
 	});

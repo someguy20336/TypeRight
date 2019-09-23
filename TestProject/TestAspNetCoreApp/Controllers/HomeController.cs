@@ -70,12 +70,6 @@ namespace TestAspNetCoreApp.Controllers
 			return Json(model);
 		}
 
-		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-		public IActionResult Error()
-		{
-			return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-		}
-
 		[ScriptAction]
 		public JsonResult OtherFunctionWithModel([FromBody] CustomGroupObject1 model)
 		{

@@ -5,39 +5,39 @@ import { callPost } from "../CallServiceStuff";
  * @param model
  */
 export function AnonTypeWithDictionaryProperty(model, abort) {
-    return callPost("/Home/AnonTypeWithDictionaryProperty", model, abort);
+    return callPost(`/Home/AnonTypeWithDictionaryProperty`, model, abort);
 }
 /**
  *
  * @param model
  */
 export function FunctionWithModel(model, abort) {
-    return callPost("/Home/FunctionWithModel", model, abort);
+    return callPost(`/Home/FunctionWithModel`, model, abort);
 }
 /**
  *
  * @param model
  */
 export function MultipleFromStuff(model, abort) {
-    return callPost("/Home/MultipleFromStuff", model, abort);
+    return callPost(`/Home/MultipleFromStuff`, model, abort);
 }
 /**
  *
  */
 export function NoFromBodyParams(abort) {
-    return callPost("/Home/NoFromBodyParams", {}, abort);
+    return callPost(`/Home/NoFromBodyParams`, {}, abort);
 }
 /**
  *
  * @param model
  */
 export function OtherFunctionWithModel(model, abort) {
-    return callPost("/Home/OtherFunctionWithModel", model, abort);
+    return callPost(`/Home/OtherFunctionWithModel`, model, abort);
 }
 /**
  *
  */
 export function TestJson(abort) {
-    return callPost("/Home/TestJson", {}, abort);
+    return callPost(`/Home/TestJson`, {}, abort);
 }
 //# sourceMappingURL=HomeActions.js.map

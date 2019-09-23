@@ -26,6 +26,14 @@ namespace TypeRight.TypeProcessing
 		public const string FromQueryAttributeName = "FromQueryAttribute";
 		public static string FromQueryAttributeFullName_AspNetCore => ToAspNetCoreFullName(FromQueryAttributeName);
 
+		public const string HttpPostAttributeName = "HttpPostAttribute";
+		public static string HttpPostAttributeFullName_AspNetCore => ToAspNetCoreFullName(HttpPostAttributeName);
+		public static string HttpPostAttributeFullName_AspNet => ToAspNetFullName(HttpPostAttributeName);
+
+		public const string HttpGetAttributeName = "HttpGetAttribute";
+		public static string HttpGetAttributeFullName_AspNetCore => ToAspNetCoreFullName(HttpGetAttributeName);
+		public static string HttpGetAttributeFullName_AspNet => ToAspNetFullName(HttpGetAttributeName);
+
 		public static string ToAspNetCoreFullName(string className) => $"{AspNetCoreNamespace}.{className}";
 		public static string ToAspNetFullName(string className) => $"{AspNetNamespace}.{className}";
 	}

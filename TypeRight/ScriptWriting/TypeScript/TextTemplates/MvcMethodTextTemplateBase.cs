@@ -96,7 +96,6 @@ foreach (var paramComment in GetParameterComments(oneAction)) {
             
             #line default
             #line hidden
-            this.Write(", ");
             
             #line 20 "C:\Users\dwhel\source\repos\TypeRight\TypeRight\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(BuildWebServiceParams(oneAction)));

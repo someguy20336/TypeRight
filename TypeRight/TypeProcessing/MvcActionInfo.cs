@@ -1,6 +1,8 @@
 ﻿using TypeRight.CodeModel;
 using System.Collections.Generic;
 using System.Linq;
+using TypeRight.TypeFilters;
+using TypeRight.Configuration;
 
 namespace TypeRight.TypeProcessing
 {
@@ -9,6 +11,14 @@ namespace TypeRight.TypeProcessing
 	/// </summary>
 	public class MvcActionInfo
 	{
+		private static ActionFilter s_postFilter = new ActionHasAttributeFilter(
+			new IsOfAnyTypeFilter(MvcConstants.HttpPostAttributeFullName_AspNet, MvcConstants.HttpPostAttributeFullName_AspNetCore)
+			);
+
+		private static ActionFilter s_getFilter = new ActionHasAttributeFilter(
+			new IsOfAnyTypeFilter(MvcConstants.HttpGetAttributeFullName_AspNet, MvcConstants.HttpGetAttributeFullName_AspNetCore)
+			);
+
 		/// <summary>
 		/// Gets the method behind this action info
 		/// </summary>
@@ -43,6 +53,31 @@ namespace TypeRight.TypeProcessing
 		/// Gets the list of MVC action parameters
 		/// </summary>
 		public IReadOnlyList<MvcActionParameter> Parameters { get; }
+
+		/// <summary>
+		/// Gets attributes for this action parameter
+		/// </summary>
+		public IEnumerable<IAttributeData> Attributes => Method.Attributes;
+
+		public RequestMethod RequestMethod {
+			get
+			{
+				if (s_getFilter.Evaluate(this))
+				{
+					return RequestMethod.Get;
+				}
+				else if (s_postFilter.Evaluate(this))
+				{
+					return RequestMethod.Post;
+				}
+				else 
+				{
+					return RequestMethod.Default;
+				}
+			}
+			
+		}
+
 
 		/// <summary>
 		/// Creates a new action info from the given method

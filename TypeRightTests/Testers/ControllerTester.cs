@@ -16,7 +16,7 @@ namespace TypeRightTests.Testers
 		private MvcControllerInfo _controllerInfo;
 		private ControllerModel _controllerModel;
 
-		private TypeFormatter _typeFormatter;
+		private readonly TypeFormatter _typeFormatter;
 
 		public ControllerTester(MvcControllerInfo controller, TypeFormatter typeFormatter, ControllerContext context)
 		{
@@ -40,6 +40,12 @@ namespace TypeRightTests.Testers
 		public MvcActionModelTester TestActionModelWithName(string name)
 		{
 			return new MvcActionModelTester(_controllerModel.Actions.Where(m => m.Name == name).First());
+		}
+
+		public ControllerTester HasImportForFile(string relPath)
+		{
+			Assert.IsTrue(_controllerModel.Imports.Any(imp => imp.FromRelativePath == relPath));
+			return this;
 		}
 	}
 }

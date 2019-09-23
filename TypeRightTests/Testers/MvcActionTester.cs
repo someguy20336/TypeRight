@@ -17,7 +17,7 @@ namespace TypeRightTests.Testers
 	{
 		private MvcActionInfo _method;
 
-		private TypeFormatter _typeFormatter;
+		private readonly TypeFormatter _typeFormatter;
 
 		public MvcActionTester(MvcActionInfo method, TypeFormatter typeFormatter)
 		{
@@ -49,6 +49,12 @@ namespace TypeRightTests.Testers
 		public MvcActionModelTester(ControllerActionModel actionModel)
 		{
 			_actionModel = actionModel;
+		}
+
+		public MvcActionModelTester FetchFunctionIs(string func)
+		{
+			Assert.AreEqual(func, _actionModel.FetchFunctionName);
+			return this;
 		}
 
 		public MvcActionModelTester ParameterTypeIs(string paramName, string typescriptName)

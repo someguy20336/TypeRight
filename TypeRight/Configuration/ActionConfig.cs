@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using TypeRight.TypeProcessing;
 
 namespace TypeRight.Configuration
 {
-	public enum RequestMethod
-	{
-		Default,
-		Post,
-		Get
-	}
+	
 	/// <summary>
 	/// Configuration for action methods
 	/// </summary>

@@ -1,4 +1,3 @@
-export function callService(path, p1, p2, p3) { }
 /**
  * Calls a post action
  * @param url The URL to call
@@ -14,6 +13,22 @@ export function callPost(url, data, abortSignal) {
                 "Content-Type": "application/json; charset=utf-8",
             },
             body: JSON.stringify(data),
+            signal: abortSignal
+        }).then((resp) => {
+            resp.json().then(val => {
+                resolve(val);
+            }).catch((reason) => {
+                console.log("Caught error: " + reason);
+            });
+        }).catch((reason) => {
+            reject(reason);
+        });
+    });
+}
+export function callGet(url, abortSignal) {
+    return new Promise((resolve, reject) => {
+        fetch(url, {
+            method: "GET",
             signal: abortSignal
         }).then((resp) => {
             resp.json().then(val => {

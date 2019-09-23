@@ -1,25 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using TypeRight.Configuration;
+using TypeRight.TypeFilters;
 using TypeRight.TypeProcessing;
 
 namespace TypeRight.ScriptWriting
 {
 	public class FetchFunctionResolver
 	{
-		private ActionConfig _options;
-		private Uri _projUri;
-
-		public FetchFunctionResolver(Uri projUri, ActionConfig configOptions)
+		private IEnumerable<ActionConfig> _actionConfigs;
+		private readonly Uri _projUri;
+			   
+		public FetchFunctionResolver(Uri projUri, IEnumerable<ActionConfig> configOptions)
 		{
-			_options = configOptions;
+			_actionConfigs = configOptions;
 			_projUri = projUri;
 		}
 
-		public FetchFunctionDescriptor Resolve()
+		public FetchFunctionDescriptor Resolve(MvcActionInfo actionInfo)
 		{
-			return ActionConfigToDescriptor(_options);
+			ActionConfig selected = null;
+			selected = _actionConfigs.FirstOrDefault(ac => ac.Method == actionInfo.RequestMethod);
+			selected = selected ?? _actionConfigs.First(ac => ac.Method == RequestMethod.Default);
+
+			return ActionConfigToDescriptor(selected);
 		}
 
 		private FetchFunctionDescriptor ActionConfigToDescriptor(ActionConfig actionConfig)

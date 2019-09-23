@@ -124,7 +124,7 @@ namespace TypeRight.ScriptGeneration
 			}
 
 			// Write MVC controllers
-			FetchFunctionResolver fetchResolver = new FetchFunctionResolver(projUri, ConfigurationOptions.ActionConfig);
+			FetchFunctionResolver fetchResolver = new FetchFunctionResolver(projUri, ConfigurationOptions.ActionConfigurations);
 
 			foreach (MvcControllerInfo controller in typeCollection.GetMvcControllers())
 			{

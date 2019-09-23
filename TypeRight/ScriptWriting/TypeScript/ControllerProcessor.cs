@@ -35,7 +35,7 @@ namespace TypeRight.ScriptWriting.TypeScript
 
 		private ControllerActionModel CreateActionModel(MvcActionInfo actionInfo)
 		{
-			FetchFunctionDescriptor fetchDescriptor = _context.FetchFunctionResolver.Resolve();
+			FetchFunctionDescriptor fetchDescriptor = _context.FetchFunctionResolver.Resolve(actionInfo);
 			
 			var fetchParameters = fetchDescriptor.AdditionalParameters.Select(p => new ActionParameterModel()
 			{
@@ -55,7 +55,8 @@ namespace TypeRight.ScriptWriting.TypeScript
 				FetchFunctionName = fetchDescriptor.FunctionName,
 				Parameters = parameters,
 				Name = actionInfo.Name,
-				ReturnType = ReplaceTokens(fetchDescriptor.ReturnType, actionInfo)
+				ReturnType = ReplaceTokens(fetchDescriptor.ReturnType, actionInfo),
+				RequestMethod = actionInfo.RequestMethod
 			};
 		}
 
@@ -101,15 +102,15 @@ namespace TypeRight.ScriptWriting.TypeScript
 
 		private void CompileActionImport(MvcActionInfo actionInfo)
 		{
-			FetchFunctionDescriptor fetchDescriptor = _context.FetchFunctionResolver.Resolve();
+			FetchFunctionDescriptor fetchDescriptor = _context.FetchFunctionResolver.Resolve(actionInfo);
 
-			string funcKey = "fetch-" + fetchDescriptor.FunctionName;
+			string funcKey = "fetch-" + fetchDescriptor.FetchModulePath;
 			if (!Imports.ContainsKey(funcKey))
-			{
-				ImportStatement ajaxImport = new ImportStatement(_context.OutputPath, fetchDescriptor.FetchModulePath, false);
-				ajaxImport.AddItem(fetchDescriptor.FunctionName);
-				Imports.Add(funcKey, ajaxImport);
+			{				
+				Imports.Add(funcKey, new ImportStatement(_context.OutputPath, fetchDescriptor.FetchModulePath, false));
 			}
+			ImportStatement ajaxImport = Imports[funcKey];
+			ajaxImport.AddItem(fetchDescriptor.FunctionName);
 
 			AddActionImports(actionInfo, fetchDescriptor.AdditionalImports);
 		}

@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
+using TypeRight.TypeProcessing;
 
 namespace TypeRight.ScriptWriting.TypeScript
 {
@@ -40,6 +39,8 @@ namespace TypeRight.ScriptWriting.TypeScript
 		public string ReturnType { get; set; }
 
 		public string FetchFunctionName { get; set; }
+
+		public RequestMethod RequestMethod { get; set; }
 	}
 
 	public class ActionParameterModel

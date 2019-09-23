@@ -56,8 +56,8 @@ namespace TypeRightTests.TestBuilders
 
 		public TestProjectBuilder AddFakeMvc()
 		{
-			// Basically going to just add a shim in there just to get things to work
-
+			
+			// Route attribute
 			CreateClassBuilder(MvcConstants.RouteAttributeName, MvcConstants.AspNetCoreNamespace)
 				.AddBaseClass("System.Attribute")
 				.AddConstructor()
@@ -72,14 +72,35 @@ namespace TypeRightTests.TestBuilders
 					.Commit()
 				.Commit();
 
+			// HTTP GET
+			CreateClassBuilder(MvcConstants.HttpGetAttributeName, MvcConstants.AspNetCoreNamespace)
+				.AddBaseClass("System.Attribute")
+				.Commit();
+
+			CreateClassBuilder(MvcConstants.HttpGetAttributeName, MvcConstants.AspNetNamespace)
+				.AddBaseClass("System.Attribute")
+				.Commit();
+
+			// HTTP Post
+			CreateClassBuilder(MvcConstants.HttpPostAttributeName, MvcConstants.AspNetCoreNamespace)
+			.AddBaseClass("System.Attribute")
+			.Commit();
+
+			CreateClassBuilder(MvcConstants.HttpPostAttributeName, MvcConstants.AspNetNamespace)
+				.AddBaseClass("System.Attribute")
+				.Commit();
+
+			// From body
 			CreateClassBuilder(MvcConstants.FromBodyAttributeName, MvcConstants.AspNetCoreNamespace)
 				.AddBaseClass("System.Attribute")
 				.Commit();
 
+			// From services
 			CreateClassBuilder(MvcConstants.FromServicesAttributeName, MvcConstants.AspNetCoreNamespace)
 				.AddBaseClass("System.Attribute")
 				.Commit();
 
+			// From query
 			CreateClassBuilder(MvcConstants.FromQueryAttributeName, MvcConstants.AspNetCoreNamespace)
 				.AddBaseClass("System.Attribute")
 				.Commit();

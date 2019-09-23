@@ -25,10 +25,16 @@ namespace TestAspNetCoreApp.Controllers
 			return new CustomGroupObject1();
 		}
 
-		[ScriptAction]
+		[HttpPost, ScriptAction]
 		public CustomGroupObject1 WithFromQuery([FromQuery] string id, [FromBody] CustomGroupObj3 body, [FromServices] string service)
 		{
 			return new CustomGroupObject1();
+		}
+
+		[HttpGet, ScriptAction]
+		public string TestGetMethod([FromQuery] string id)
+		{
+			return "";
 		}
 	}
 }

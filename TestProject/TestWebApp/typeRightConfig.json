@@ -1,15 +1,17 @@
 {
-  enabled: true,
-  classNamespace: "ServerClasses",
-  enumNamespace: "ServerEnums",
-  webMethodNamespace: "WebMethods",
-  serverObjectsResultFilepath: "./Scripts/ServerObjects.ts",
-  templateType: "namespace",
-	"actionConfig": {
-		"fetchFunctionName": "Comm.callService",
-		"fetchFilePath": "./Scripts/CallServiceStuff.ts",
-		"parameters": [],
-		"returnType": "void",
-		"imports": null
-	}
+	enabled: true,
+	classNamespace: "ServerClasses",
+	enumNamespace: "ServerEnums",
+	webMethodNamespace: "WebMethods",
+	serverObjectsResultFilepath: "./Scripts/ServerObjects.ts",
+	templateType: "namespace",
+	"actionConfigurations": [
+		{
+			"fetchFunctionName": "Comm.callService",
+			"fetchFilePath": "./Scripts/CallServiceStuff.ts",
+			"parameters": [],
+			"returnType": "void",
+			"imports": null
+		}
+	]
 }

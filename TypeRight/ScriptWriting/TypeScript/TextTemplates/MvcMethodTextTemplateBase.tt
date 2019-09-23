@@ -17,7 +17,7 @@ foreach (var paramComment in GetParameterComments(oneAction)) {
 #>
  */
 export function <#= BuildActionSignature(oneAction) #> {
-	<#= BuildFetchFunctionName(oneAction) #>(<#= GetUrl(oneAction) #>, <#= BuildWebServiceParams(oneAction) #><#= BuildAddlParameters(oneAction) #>);
+	<#= BuildFetchFunctionName(oneAction) #>(<#= GetUrl(oneAction) #><#= BuildWebServiceParams(oneAction) #><#= BuildAddlParameters(oneAction) #>);
 }
 
 <#

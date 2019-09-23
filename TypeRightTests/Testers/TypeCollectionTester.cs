@@ -88,7 +88,7 @@ namespace TypeRightTests.Testers
 			return this;
 		}
 
-		public ControllerContext GetDefaultControllerContext(ActionConfig actionConfig = null)
+		public ControllerContext GetDefaultControllerContext(List<ActionConfig> actionConfig = null)
 		{
 			FetchFunctionResolver resolver = new FetchFunctionResolver(new Uri(@"C:\FolderA\FolderB\Project.csproj"), actionConfig ?? GetDefaultActionConfig());
 			return new ControllerContext()
@@ -99,27 +99,30 @@ namespace TypeRightTests.Testers
 				OutputPath = @"C:\FolderA\FolderB\FolderX\FolderY\SomeController.ts",
 
 				FetchFunctionResolver = resolver,
-				ModelBinding = ModelBindingType.MultiParam,	// TODO stop this
+				ModelBinding = ModelBindingType.MultiParam, // TODO stop this
 
 				TypeNamespace = ReferenceTypeTester.TestNamespace,
 				EnumNamespace = EnumTester.TestNamespace,
 			};
 		}
 
-		public ActionConfig GetDefaultActionConfig()
+		public List<ActionConfig> GetDefaultActionConfig()
 		{
-			return new ActionConfig()
+			return new List<ActionConfig>()
 			{
-				FetchFilePath = @".\FolderM\FolderN\AjaxFunc.ts",
-				FetchFunctionName = "TestAjax",
-				Imports = new List<ImportDefinition>(),
-				Method = RequestMethod.Default,
-				Parameters = new List<ActionParameter>()
+				new ActionConfig()
 				{
-					new ActionParameter() {Name = "success", Type = "(result: $returnType$) => void", Optional = true},
-					new ActionParameter() {Name = "fail", Type = "(result: any) => void", Optional = true }
-				},
-				ReturnType = "void"
+					FetchFilePath = @".\FolderM\FolderN\AjaxFunc.ts",
+					FetchFunctionName = "TestAjax",
+					Imports = new List<ImportDefinition>(),
+					Method = RequestMethod.Default,
+					Parameters = new List<ActionParameter>()
+					{
+						new ActionParameter() {Name = "success", Type = "(result: $returnType$) => void", Optional = true},
+						new ActionParameter() {Name = "fail", Type = "(result: any) => void", Optional = true }
+					},
+					ReturnType = "void"
+				}
 			};
 		}
 

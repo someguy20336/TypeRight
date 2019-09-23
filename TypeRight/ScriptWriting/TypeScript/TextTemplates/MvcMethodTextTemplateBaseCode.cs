@@ -93,21 +93,25 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
 		/// <returns></returns>
 		private string BuildWebServiceParams(ControllerActionModel action)
 		{
+			if (action.RequestMethod == RequestMethod.Get)
+			{
+				return "";
+			}
 			var bodyParams = action.Parameters.Where(p => p.ActionParameterSourceType == ActionParameterSourceType.Body).ToList();
 
 			if (bodyParams.Count == 0)
 			{
-				return "{}";
+				return ", {}";
 			}
 			else if (bodyParams.Count == 1 && Context.ModelBinding == ModelBindingType.SingleParam)	// TODO: can i not?
 			{
 				// If we are only using a single parameter model binding (i.e. asp.net core), then the object itself should be the body
-				return bodyParams[0].Name;
+				return ", " + bodyParams[0].Name;
 			}
 			else
 			{
 				IEnumerable<string> multiParam = bodyParams.Select(p => $"{p.Name}: {p.Name}");  // Transform to param1: param1
-				return $"{{ {string.Join(", ", multiParam)} }}";
+				return $", {{ {string.Join(", ", multiParam)} }}";
 			}
 		}
 

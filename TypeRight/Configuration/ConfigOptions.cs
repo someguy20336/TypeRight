@@ -1,4 +1,5 @@
-﻿using TypeRight.TypeLocation;
+﻿using System.Collections.Generic;
+using TypeRight.TypeLocation;
 
 namespace TypeRight.Configuration
 {
@@ -53,9 +54,9 @@ namespace TypeRight.Configuration
 		public ModelBindingType ModelBindingType { get; set; } = ModelBindingType.MultiParam;
 
 		/// <summary>
-		/// Gets or sets the configuration for action
+		/// Gets or sets the action configurations to use
 		/// </summary>
-		public ActionConfig ActionConfig { get; set; }
+		public List<ActionConfig> ActionConfigurations { get; set; }
 
 		/// <summary>
 		/// Creates a new config file
@@ -66,7 +67,7 @@ namespace TypeRight.Configuration
 			ServerObjectsResultFilepath = "./Scripts/ServerObjects.ts";
 			
 			TemplateType = "module";
-			ActionConfig = new ActionConfig();
+			ActionConfigurations = new List<ActionConfig>();
 
 			ClassNamespace = "";
 			EnumNamespace = "";
