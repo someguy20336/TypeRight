@@ -2,6 +2,7 @@
 using TypeRightTests.TestBuilders;
 using TypeRightTests.Testers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using TypeRight.Attributes;
 
 namespace TypeRightTests.Tests
 {
@@ -23,7 +24,7 @@ namespace TypeRightTests.Tests
 
 				// Display name attribute
 				.CreateClassBuilder("DisplayNameAttribute")
-					.AddScriptEnumAttribute()
+					.AddInterface(typeof(IEnumDisplayNameProvider).FullName)
 					.AddBaseClass("Attribute")
 					.AddProperty("DisplayName", "string")
 					.AddProperty("Abbreviation", "string")
@@ -77,9 +78,7 @@ namespace TypeRightTests.Tests
 					.Commit()
 				
 				;
-
-			wkspBuilder.DisplayNameFilter = new AcceptWithName("DisplayNameAttribute");
-
+			
 			_packageTester = wkspBuilder.GetPackageTester();
 		}
 

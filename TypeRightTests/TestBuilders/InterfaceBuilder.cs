@@ -28,8 +28,14 @@ namespace TypeRightTests.TestBuilders
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("\r\nusing System;\r\nusing System.Collections.Generic;\r\n\r\nnamespace Test \r\n{\r\n\t///<su" +
-                    "mmary>\r\n\t///");
+            this.Write("\r\nusing System;\r\nusing System.Collections.Generic;\r\n\r\nnamespace ");
+            
+            #line 10 "C:\Users\dwhel\source\repos\TypeRight\TypeRightTests\TestBuilders\InterfaceBuilder.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_namespace));
+            
+            #line default
+            #line hidden
+            this.Write("\r\n{\r\n\t///<summary>\r\n\t///");
             
             #line 13 "C:\Users\dwhel\source\repos\TypeRight\TypeRightTests\TestBuilders\InterfaceBuilder.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_comments));

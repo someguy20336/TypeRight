@@ -22,19 +22,12 @@ namespace TypeRightTests.TestBuilders
 		public TestProjectBuilder DefaultProject { get; private set; }
 				
 
-		public ProcessorSettings ProcessorSettings { get; set; } = new ProcessorSettings()
+		public ProcessorSettings ProcessorSettings { get; private set; } = new ProcessorSettings()
 		{
-			DisplayNameFilter = new AlwaysRejectFilter(),
 			ProjectPath = TestProjectDir,
 			DefaultResultPath = DefaultResultPath
 		};
-	
-		public TypeFilter DisplayNameFilter
-		{
-			get => ProcessorSettings.DisplayNameFilter;
-			set => ProcessorSettings.DisplayNameFilter = value;
-		}
-		
+			
 		public TypeRight.Workspaces.Parsing.ParseOptions ParseOptions { get; set; } = TypeRight.Workspaces.Parsing.ParseOptions.GetDefault();
 
 		public TestWorkspaceBuilder()
@@ -65,7 +58,7 @@ namespace TypeRightTests.TestBuilders
 			TypeVisitor visitor = new TypeVisitor(ProcessorSettings);
 
 			workspaceParser.IterateTypes(visitor);
-			return new TypeCollectionTester(visitor.TypeCollection, DisplayNameFilter);
+			return new TypeCollectionTester(visitor.TypeCollection);
 		}
 	}
 }

@@ -11,6 +11,8 @@ namespace TypeRightTests.TestBuilders
 {
 	class TestProjectBuilder
 	{
+		public const string DefaultNamespace = "Test";
+
 		public AdhocWorkspace Workspace { get; set; }
 
 		public ProjectId ProjectID { get; private set; }
@@ -21,14 +23,14 @@ namespace TypeRightTests.TestBuilders
 			ProjectID = projId;
 		}
 
-		public TestClassBuilder CreateClassBuilder(string name, string @namespace = "Test")
+		public TestClassBuilder CreateClassBuilder(string name, string @namespace = DefaultNamespace)
 		{
 			return new TestClassBuilder(this, name, @namespace);
 		}
 
-		public InterfaceBuilder CreateInterfaceBuilder(string name)
+		public InterfaceBuilder CreateInterfaceBuilder(string name, string @namespace = DefaultNamespace)
 		{
-			return new InterfaceBuilder(this, name);
+			return new InterfaceBuilder(this, name, DefaultNamespace);
 		}
 
 		public TestEnumBuilder CreateEnumBuilder(string name)
@@ -43,16 +45,22 @@ namespace TypeRightTests.TestBuilders
 
 		public TestProjectBuilder AddFakeTypeRight()
 		{
-			CreateClassBuilder(typeof(ScriptActionAttribute).Name, "TypeRight.Attributes")
+			string typeRightNamespace = "TypeRight.Attributes";
+			CreateClassBuilder(typeof(ScriptActionAttribute).Name, typeRightNamespace)
 				.AddBaseClass("System.Attribute")
 				.Commit();
 
-			CreateClassBuilder(typeof(ScriptObjectAttribute).Name, "TypeRight.Attributes")
+			CreateClassBuilder(typeof(ScriptObjectAttribute).Name, typeRightNamespace)
 				.AddBaseClass("System.Attribute")
 				.Commit();
 
-			CreateClassBuilder(typeof(ScriptEnumAttribute).Name, "TypeRight.Attributes")
+			CreateClassBuilder(typeof(ScriptEnumAttribute).Name, typeRightNamespace)
 				.AddBaseClass("System.Attribute")
+				.Commit();
+
+			CreateInterfaceBuilder(typeof(IEnumDisplayNameProvider).Name, typeRightNamespace)
+				.AddProperty(nameof(IEnumDisplayNameProvider.DisplayName), "string")
+				.AddProperty(nameof(IEnumDisplayNameProvider.Abbreviation), "string")
 				.Commit();
 
 			return this;

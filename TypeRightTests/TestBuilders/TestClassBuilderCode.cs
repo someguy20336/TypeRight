@@ -20,6 +20,7 @@ namespace TypeRightTests.TestBuilders
 		private string _comments = "";
 
 		private string _baseClass = "";
+		private string _interface = "";
 
 
 		private List<string> _genericParameters = new List<string>();
@@ -55,6 +56,12 @@ namespace TypeRightTests.TestBuilders
 			return this;
 		}
 
+		public TestClassBuilder AddInterface(string interfaceName)
+		{
+			_interface = interfaceName;
+			return this;
+		}
+
 		public TestClassBuilder WithControllerBaseClass(bool aspNetCore = true)
 		{
 			_baseClass = aspNetCore ? MvcConstants.ControllerBaseFullName_AspNetCore : MvcConstants.ControllerBaseFullName_AspNet;
@@ -81,7 +88,13 @@ namespace TypeRightTests.TestBuilders
 
 		private	string GetBaseClass()
 		{
-			return string.IsNullOrEmpty(_baseClass) ? "" : $": {_baseClass} ";
+			List<string> baseClassesAndInterfaces = new List<string>()
+			{
+				_baseClass,
+				_interface
+			};
+			baseClassesAndInterfaces = baseClassesAndInterfaces.Where(val => !string.IsNullOrEmpty(val)).ToList();
+			return baseClassesAndInterfaces.Count == 0 ? "" : $": {string.Join(", ", baseClassesAndInterfaces)} ";
 		}
 
 		private string GetGenericParams()

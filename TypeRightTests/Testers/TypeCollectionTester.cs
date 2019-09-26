@@ -23,7 +23,7 @@ namespace TypeRightTests.Testers
 
 		private readonly TypeFormatter _typeFormatter;
 
-		public TypeCollectionTester(ExtractedTypeCollection typeCollection, TypeFilter dispNameFilter)
+		public TypeCollectionTester(ExtractedTypeCollection typeCollection)
 		{
 			_typeCollection = typeCollection;
 

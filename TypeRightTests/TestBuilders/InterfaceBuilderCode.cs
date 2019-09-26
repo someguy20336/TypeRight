@@ -10,6 +10,7 @@ namespace TypeRightTests.TestBuilders
 	partial class InterfaceBuilder : IAttributable, ITypeWithProperties
 	{
 		private string _interfaceName;
+		private string _namespace;
 
 		private List<string> _baseInterfaces = new List<string>();
 
@@ -25,10 +26,11 @@ namespace TypeRightTests.TestBuilders
 
 		public List<AttributeInfo> Attributes { get; } = new List<AttributeInfo>();
 
-		public InterfaceBuilder(TestProjectBuilder projBuilder, string interfaceName)
+		public InterfaceBuilder(TestProjectBuilder projBuilder, string interfaceName, string @namespace)
 		{
 			_parentBuilder = projBuilder;
 			_interfaceName = interfaceName;
+			_namespace = @namespace;
 		}
 
 		public InterfaceBuilder AddGenericParameter(string name)
