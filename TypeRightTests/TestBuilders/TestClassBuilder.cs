@@ -73,7 +73,7 @@ namespace TypeRightTests.TestBuilders
             
             #line 18 "C:\Users\dwhel\source\repos\TypeRight\TypeRightTests\TestBuilders\TestClassBuilder.tt"
  
-foreach (var property in _properties) { 
+foreach (var property in Properties) { 
 
             
             #line default

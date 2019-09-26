@@ -51,6 +51,10 @@ namespace TypeRightTests.TestBuilders
 				.AddBaseClass("System.Attribute")
 				.Commit();
 
+			CreateClassBuilder(typeof(ScriptEnumAttribute).Name, "TypeRight.Attributes")
+				.AddBaseClass("System.Attribute")
+				.Commit();
+
 			return this;
 		}
 

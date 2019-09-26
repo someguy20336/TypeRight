@@ -21,16 +21,16 @@ namespace TypeRightTests.Tests
 			TestWorkspaceBuilder wkspBuilder = new TestWorkspaceBuilder();
 
 			wkspBuilder.DefaultProject
+				.AddFakeTypeRight()
 
 				// Simple Generic Class with Type Param
 				.CreateClassBuilder("SimpleClass")
+					.AddScriptObjectAttribute()
 					.SetDocumentationComments("These are comments")
 					.AddProperty("SimpleProp", "int", "Property Comments Here")
 					.Commit()				
 				;
-
-			wkspBuilder.ClassParseFilter = new AlwaysAcceptFilter();
-
+			
 			_packageTester = wkspBuilder.GetPackageTester();
 		}
 

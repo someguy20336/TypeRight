@@ -2,6 +2,7 @@
 using TypeRightTests.TestBuilders;
 using TypeRightTests.Testers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using TypeRight.TypeLocation;
 
 namespace TypeRightTests.Tests
 {
@@ -20,29 +21,31 @@ namespace TypeRightTests.Tests
 			TestWorkspaceBuilder wkspBuilder = new TestWorkspaceBuilder();
 
 			wkspBuilder.DefaultProject
+				.AddFakeTypeRight()
 
 				// Test.TestClass
 				.CreateClassBuilder("TestClass")
+					.AddScriptObjectAttribute()
 					.AddProperty("DontCare", "List<string>")
 					.Commit()
 				
 				// Test.TestClass<T1>
 				.CreateClassBuilder("TestClass")
+					.AddScriptObjectAttribute()
 					.AddGenericParameter("T1")
 					.AddProperty("AlsoDontCare", "int")
 					.Commit()
 
 				// Test.TestClass<T1, T2>
 				.CreateClassBuilder("TestClass")
+					.AddScriptObjectAttribute()
 					.AddGenericParameter("T1")
 					.AddGenericParameter("T2")
 					.AddProperty("TestClass_1_Prop", "TestClass<int>")
 					.AddProperty("TestClass_Prop", "TestClass")
 					.Commit()
 				;
-
-			wkspBuilder.ClassParseFilter = new AlwaysAcceptFilter();
-
+			
 			_packageTester = wkspBuilder.GetPackageTester();
 		}
 

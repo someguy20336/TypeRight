@@ -12,10 +12,11 @@ namespace Test
 	///<summary>
 	///<#= _comments #>
 	///</summary>
+	<#= GetAttributes() #>
 	public interface <#= _interfaceName #><#= GetGenericParams() #> <#= GetBaseInterface() #>
 	{	
 <# 
-foreach (var property in _properties) { 
+foreach (var property in Properties) { 
 #>
 		///<summary>
 		///<#= property.Comments #>

@@ -36,59 +36,66 @@ namespace TypeRightTests.TestBuilders
             
             #line default
             #line hidden
-            this.Write("\r\n\t///</summary>\r\n\tpublic interface ");
+            this.Write("\r\n\t///</summary>\r\n\t");
             
             #line 15 "C:\Users\dwhel\source\repos\TypeRight\TypeRightTests\TestBuilders\InterfaceBuilder.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(GetAttributes()));
+            
+            #line default
+            #line hidden
+            this.Write("\r\n\tpublic interface ");
+            
+            #line 16 "C:\Users\dwhel\source\repos\TypeRight\TypeRightTests\TestBuilders\InterfaceBuilder.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_interfaceName));
             
             #line default
             #line hidden
             
-            #line 15 "C:\Users\dwhel\source\repos\TypeRight\TypeRightTests\TestBuilders\InterfaceBuilder.tt"
+            #line 16 "C:\Users\dwhel\source\repos\TypeRight\TypeRightTests\TestBuilders\InterfaceBuilder.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(GetGenericParams()));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 15 "C:\Users\dwhel\source\repos\TypeRight\TypeRightTests\TestBuilders\InterfaceBuilder.tt"
+            #line 16 "C:\Users\dwhel\source\repos\TypeRight\TypeRightTests\TestBuilders\InterfaceBuilder.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(GetBaseInterface()));
             
             #line default
             #line hidden
             this.Write("\r\n\t{\t\r\n");
             
-            #line 17 "C:\Users\dwhel\source\repos\TypeRight\TypeRightTests\TestBuilders\InterfaceBuilder.tt"
+            #line 18 "C:\Users\dwhel\source\repos\TypeRight\TypeRightTests\TestBuilders\InterfaceBuilder.tt"
  
-foreach (var property in _properties) { 
+foreach (var property in Properties) { 
 
             
             #line default
             #line hidden
             this.Write("\t\t///<summary>\r\n\t\t///");
             
-            #line 21 "C:\Users\dwhel\source\repos\TypeRight\TypeRightTests\TestBuilders\InterfaceBuilder.tt"
+            #line 22 "C:\Users\dwhel\source\repos\TypeRight\TypeRightTests\TestBuilders\InterfaceBuilder.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(property.Comments));
             
             #line default
             #line hidden
             this.Write("\r\n\t\t///</summary>\r\n\t\t");
             
-            #line 23 "C:\Users\dwhel\source\repos\TypeRight\TypeRightTests\TestBuilders\InterfaceBuilder.tt"
+            #line 24 "C:\Users\dwhel\source\repos\TypeRight\TypeRightTests\TestBuilders\InterfaceBuilder.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(property.Type));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 23 "C:\Users\dwhel\source\repos\TypeRight\TypeRightTests\TestBuilders\InterfaceBuilder.tt"
+            #line 24 "C:\Users\dwhel\source\repos\TypeRight\TypeRightTests\TestBuilders\InterfaceBuilder.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(property.Name));
             
             #line default
             #line hidden
             this.Write(" { get; set; }\r\n");
             
-            #line 24 "C:\Users\dwhel\source\repos\TypeRight\TypeRightTests\TestBuilders\InterfaceBuilder.tt"
+            #line 25 "C:\Users\dwhel\source\repos\TypeRight\TypeRightTests\TestBuilders\InterfaceBuilder.tt"
 
 }
 
@@ -97,7 +104,7 @@ foreach (var property in _properties) {
             #line hidden
             this.Write("\r\n");
             
-            #line 28 "C:\Users\dwhel\source\repos\TypeRight\TypeRightTests\TestBuilders\InterfaceBuilder.tt"
+            #line 29 "C:\Users\dwhel\source\repos\TypeRight\TypeRightTests\TestBuilders\InterfaceBuilder.tt"
  
 foreach (var method in Methods) { 
 
@@ -106,14 +113,14 @@ foreach (var method in Methods) {
             #line hidden
             this.Write("\t\t///<summary>\r\n\t\t///");
             
-            #line 32 "C:\Users\dwhel\source\repos\TypeRight\TypeRightTests\TestBuilders\InterfaceBuilder.tt"
+            #line 33 "C:\Users\dwhel\source\repos\TypeRight\TypeRightTests\TestBuilders\InterfaceBuilder.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(method.Comments));
             
             #line default
             #line hidden
             this.Write("\r\n\t\t///</summary>\r\n");
             
-            #line 34 "C:\Users\dwhel\source\repos\TypeRight\TypeRightTests\TestBuilders\InterfaceBuilder.tt"
+            #line 35 "C:\Users\dwhel\source\repos\TypeRight\TypeRightTests\TestBuilders\InterfaceBuilder.tt"
  
 foreach (var oneParam in method.Parameters) { 
 
@@ -122,21 +129,21 @@ foreach (var oneParam in method.Parameters) {
             #line hidden
             this.Write("\t\t///<param name=\"");
             
-            #line 37 "C:\Users\dwhel\source\repos\TypeRight\TypeRightTests\TestBuilders\InterfaceBuilder.tt"
+            #line 38 "C:\Users\dwhel\source\repos\TypeRight\TypeRightTests\TestBuilders\InterfaceBuilder.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(oneParam.Name));
             
             #line default
             #line hidden
             this.Write("\">");
             
-            #line 37 "C:\Users\dwhel\source\repos\TypeRight\TypeRightTests\TestBuilders\InterfaceBuilder.tt"
+            #line 38 "C:\Users\dwhel\source\repos\TypeRight\TypeRightTests\TestBuilders\InterfaceBuilder.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(oneParam.Comments));
             
             #line default
             #line hidden
             this.Write("</param>\r\n");
             
-            #line 38 "C:\Users\dwhel\source\repos\TypeRight\TypeRightTests\TestBuilders\InterfaceBuilder.tt"
+            #line 39 "C:\Users\dwhel\source\repos\TypeRight\TypeRightTests\TestBuilders\InterfaceBuilder.tt"
 
 }
 
@@ -144,7 +151,7 @@ foreach (var oneParam in method.Parameters) {
             #line default
             #line hidden
             
-            #line 41 "C:\Users\dwhel\source\repos\TypeRight\TypeRightTests\TestBuilders\InterfaceBuilder.tt"
+            #line 42 "C:\Users\dwhel\source\repos\TypeRight\TypeRightTests\TestBuilders\InterfaceBuilder.tt"
 
 if (method.Attributes.Count > 0) { 
 
@@ -153,14 +160,14 @@ if (method.Attributes.Count > 0) {
             #line hidden
             this.Write("\t\t[");
             
-            #line 44 "C:\Users\dwhel\source\repos\TypeRight\TypeRightTests\TestBuilders\InterfaceBuilder.tt"
+            #line 45 "C:\Users\dwhel\source\repos\TypeRight\TypeRightTests\TestBuilders\InterfaceBuilder.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(string.Join(", ", method.Attributes.Select(attr => attr.ToFormattedString()))));
             
             #line default
             #line hidden
             this.Write("]\r\n");
             
-            #line 45 "C:\Users\dwhel\source\repos\TypeRight\TypeRightTests\TestBuilders\InterfaceBuilder.tt"
+            #line 46 "C:\Users\dwhel\source\repos\TypeRight\TypeRightTests\TestBuilders\InterfaceBuilder.tt"
 
 }
 
@@ -169,28 +176,28 @@ if (method.Attributes.Count > 0) {
             #line hidden
             this.Write("\t\t");
             
-            #line 48 "C:\Users\dwhel\source\repos\TypeRight\TypeRightTests\TestBuilders\InterfaceBuilder.tt"
+            #line 49 "C:\Users\dwhel\source\repos\TypeRight\TypeRightTests\TestBuilders\InterfaceBuilder.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(method.Type));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 48 "C:\Users\dwhel\source\repos\TypeRight\TypeRightTests\TestBuilders\InterfaceBuilder.tt"
+            #line 49 "C:\Users\dwhel\source\repos\TypeRight\TypeRightTests\TestBuilders\InterfaceBuilder.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(method.Name));
             
             #line default
             #line hidden
             this.Write("(");
             
-            #line 48 "C:\Users\dwhel\source\repos\TypeRight\TypeRightTests\TestBuilders\InterfaceBuilder.tt"
+            #line 49 "C:\Users\dwhel\source\repos\TypeRight\TypeRightTests\TestBuilders\InterfaceBuilder.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(string.Join(", ", method.Parameters.Select(p => $"{p.Type} {p.Name}"))));
             
             #line default
             #line hidden
             this.Write(");\r\n");
             
-            #line 49 "C:\Users\dwhel\source\repos\TypeRight\TypeRightTests\TestBuilders\InterfaceBuilder.tt"
+            #line 50 "C:\Users\dwhel\source\repos\TypeRight\TypeRightTests\TestBuilders\InterfaceBuilder.tt"
 
 }
 

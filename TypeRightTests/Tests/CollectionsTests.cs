@@ -31,15 +31,15 @@ namespace TypeRightTests.Tests
 			TestWorkspaceBuilder wkspBuilder = new TestWorkspaceBuilder();
 
 			wkspBuilder.DefaultProject
+				.AddFakeTypeRight()
 				.CreateClassBuilder(ClassName)
+				.AddScriptObjectAttribute()
 				.AddProperty(StringListProperty, "List<string>")
 				.AddProperty(StringIntDictionaryProperty, "Dictionary<string, int>")
                 .AddProperty("EnumerableString", "IEnumerable<string>")
 				.AddProperty("EnumerableObject", "System.Collections.IEnumerable")
 				.Commit();
-
-			wkspBuilder.ClassParseFilter = new AlwaysAcceptFilter();
-
+			
 			_packageTester = wkspBuilder.GetPackageTester();
 		}
 

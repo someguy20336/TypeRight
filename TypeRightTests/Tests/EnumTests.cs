@@ -19,8 +19,11 @@ namespace TypeRightTests.Tests
 			TestWorkspaceBuilder wkspBuilder = new TestWorkspaceBuilder();
 
 			wkspBuilder.DefaultProject
+				.AddFakeTypeRight()
+
 				// Display name attribute
 				.CreateClassBuilder("DisplayNameAttribute")
+					.AddScriptEnumAttribute()
 					.AddBaseClass("Attribute")
 					.AddProperty("DisplayName", "string")
 					.AddProperty("Abbreviation", "string")
@@ -37,6 +40,7 @@ namespace TypeRightTests.Tests
 
 				// Simple enum
 				.CreateEnumBuilder("SimpleEnum")
+					.AddScriptEnumAttribute()
 					.AddMember("One", "1").Commit()
 					.AddMember("Two", "2")
 						.AddAttribute("DisplayNameAttribute")
@@ -58,7 +62,9 @@ namespace TypeRightTests.Tests
 							.Commit()
 						.Commit()
 					.Commit()
+
 				.CreateEnumBuilder("SecondEnumType")
+					.AddScriptEnumAttribute()
 					.AddMember("A", "1").Commit()
 					.AddMember("B", "2").Commit()
 					.AddMember("C", "3").Commit()
@@ -66,13 +72,12 @@ namespace TypeRightTests.Tests
 
 				// Simple class
 				.CreateClassBuilder("SimpleClass")
+					.AddScriptObjectAttribute()
 					.AddProperty("EnumProp", "SimpleEnum")
 					.Commit()
 				
 				;
-					
 
-			wkspBuilder.EnumParseFilter = new AlwaysAcceptFilter();
 			wkspBuilder.DisplayNameFilter = new AcceptWithName("DisplayNameAttribute");
 
 			_packageTester = wkspBuilder.GetPackageTester();

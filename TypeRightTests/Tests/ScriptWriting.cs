@@ -34,13 +34,13 @@ namespace TypeRightTests.Tests
 
 				// Test class to use as return/param
 				.CreateClassBuilder("TestClass")
-					.WithScriptObjectAttribute()
+					.AddScriptObjectAttribute()
 					.AddProperty("DontCare", "int")
 					.Commit()
 
 				// Test generic class to use as return/param
 				.CreateClassBuilder("TestGenericClass")
-					.WithScriptObjectAttribute()
+					.AddScriptObjectAttribute()
 					.AddGenericParameter("T")
 					.AddProperty("GenericProp", "T")
 					.Commit()
@@ -103,7 +103,6 @@ namespace TypeRightTests.Tests
 					.Commit()
 			;
 
-			wkspBuilder.FilterSettings = new ParseFilterSettings();
 
 			MethodReturnTypeHandler handler = new ParseSyntaxForTypeMethodHandler(
 				"Test.FakeJsonResultLikeClass",
@@ -380,16 +379,16 @@ export function TestingParamFilter(fromBody: string): void {
 		[TestMethod]
 		public void Scripts_ExtendsBaseType_WithSameName_DiffTypeParams()
 		{
-			TestWorkspaceBuilder builder = new TestWorkspaceBuilder
-			{
-				ClassParseFilter = new AlwaysAcceptFilter()
-			};
+			TestWorkspaceBuilder builder = new TestWorkspaceBuilder();
 
 			builder.DefaultProject
+				.AddFakeTypeRight()
 				.CreateClassBuilder("MyType")
+					.AddScriptObjectAttribute()
 					.AddProperty("BaseProperty", "string")
 					.Commit()
 				.CreateClassBuilder("MyType")
+					.AddScriptObjectAttribute()
 					.AddGenericParameter("T")
 					.AddBaseClass("MyType")
 					.AddProperty("GenericProp", "T")

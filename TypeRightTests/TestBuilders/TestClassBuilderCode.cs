@@ -10,7 +10,7 @@ using TypeRight.TypeProcessing;
 
 namespace TypeRightTests.TestBuilders
 {
-	partial class TestClassBuilder : IAttributable
+	partial class TestClassBuilder : IAttributable, ITypeWithProperties
 	{
 		private TestProjectBuilder _parentBuilder;
 
@@ -24,7 +24,7 @@ namespace TypeRightTests.TestBuilders
 
 		private List<string> _genericParameters = new List<string>();
 
-		private List<SymbolInfo> _properties = new List<SymbolInfo>();
+		public List<SymbolInfo> Properties { get; } = new List<SymbolInfo>();
 
 		public List<MethodInfo> Methods { get; set; } = new List<MethodInfo>();
 
@@ -61,23 +61,6 @@ namespace TypeRightTests.TestBuilders
 			return this;
 		}
 
-		public TestClassBuilder WithScriptObjectAttribute()
-		{
-			AddAttribute(typeof(ScriptObjectAttribute).FullName).Commit();
-			return this;
-		}
-
-		public TestAttributeBuilder<TestClassBuilder> AddAttribute(string name)
-		{
-			return new TestAttributeBuilder<TestClassBuilder>(this, name);
-		}
-
-		public TestClassBuilder AddProperty(string name, string type, string comments = "")
-		{
-			_properties.Add(new SymbolInfo() { Name = name, Type = type, Comments = comments });
-			return this;
-		}
-
 		public TestMethodBuilder AddConstructor()
 		{
 			return AddMethod(_className, "");
@@ -108,11 +91,7 @@ namespace TypeRightTests.TestBuilders
 
 		private string GetAttributes()
 		{
-			if (Attributes.Count == 0)
-			{
-				return "";
-			}
-			return $"[{ string.Join(",", Attributes.Select(attr => attr.ToFormattedString())) }]";
+			return this.GetAttributeText();
 		}
 
 		private string FormatParameter(SymbolInfo parameter)

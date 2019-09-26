@@ -16,7 +16,7 @@ namespace <#= _namespace #>
 	public class <#= _className #><#= GetGenericParams() #> <#= GetBaseClass() #>
 	{	
 <# 
-foreach (var property in _properties) { 
+foreach (var property in Properties) { 
 #>
 		///<summary>
 		///<#= property.Comments #>

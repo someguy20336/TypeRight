@@ -35,7 +35,7 @@ namespace TypeRightTests.Tests
 
 				// Test class to use as return/param
 				.CreateClassBuilder("TestClass")
-					.WithScriptObjectAttribute()
+					.AddScriptObjectAttribute()
 					.AddProperty("DontCare", "int")
 					.Commit()
 
@@ -75,8 +75,6 @@ namespace TypeRightTests.Tests
 					.Commit()
 
 			;
-
-			wkspBuilder.FilterSettings = new ParseFilterSettings();
 
 			MethodReturnTypeHandler handler = new ParseSyntaxForTypeMethodHandler(
 				"Test.FakeJsonResultLikeClass",

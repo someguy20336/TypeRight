@@ -36,16 +36,23 @@ namespace TypeRightTests.TestBuilders
             
             #line default
             #line hidden
-            this.Write("\r\n\t///</summary>\r\n\tpublic enum ");
+            this.Write("\r\n\t///</summary>\r\n\t");
             
             #line 15 "C:\Users\dwhel\source\repos\TypeRight\TypeRightTests\TestBuilders\TestEnumBuilder.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(this.GetAttributeText()));
+            
+            #line default
+            #line hidden
+            this.Write("\r\n\tpublic enum ");
+            
+            #line 16 "C:\Users\dwhel\source\repos\TypeRight\TypeRightTests\TestBuilders\TestEnumBuilder.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_enumName));
             
             #line default
             #line hidden
             this.Write("\r\n\t{\t\r\n");
             
-            #line 17 "C:\Users\dwhel\source\repos\TypeRight\TypeRightTests\TestBuilders\TestEnumBuilder.tt"
+            #line 18 "C:\Users\dwhel\source\repos\TypeRight\TypeRightTests\TestBuilders\TestEnumBuilder.tt"
  
 foreach (var field in Members) { 
 
@@ -54,14 +61,14 @@ foreach (var field in Members) {
             #line hidden
             this.Write("\t\t///<summary>\r\n\t\t///");
             
-            #line 21 "C:\Users\dwhel\source\repos\TypeRight\TypeRightTests\TestBuilders\TestEnumBuilder.tt"
+            #line 22 "C:\Users\dwhel\source\repos\TypeRight\TypeRightTests\TestBuilders\TestEnumBuilder.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(field.Comments));
             
             #line default
             #line hidden
             this.Write("\r\n\t\t///</summary>\r\n");
             
-            #line 23 "C:\Users\dwhel\source\repos\TypeRight\TypeRightTests\TestBuilders\TestEnumBuilder.tt"
+            #line 24 "C:\Users\dwhel\source\repos\TypeRight\TypeRightTests\TestBuilders\TestEnumBuilder.tt"
  
 if (field.Attributes.Count > 0) { 
 
@@ -70,14 +77,14 @@ if (field.Attributes.Count > 0) {
             #line hidden
             this.Write("\t\t[");
             
-            #line 26 "C:\Users\dwhel\source\repos\TypeRight\TypeRightTests\TestBuilders\TestEnumBuilder.tt"
+            #line 27 "C:\Users\dwhel\source\repos\TypeRight\TypeRightTests\TestBuilders\TestEnumBuilder.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(string.Join(", ", field.Attributes.Select(attr => attr.ToFormattedString()))));
             
             #line default
             #line hidden
             this.Write("]\r\n");
             
-            #line 27 "C:\Users\dwhel\source\repos\TypeRight\TypeRightTests\TestBuilders\TestEnumBuilder.tt"
+            #line 28 "C:\Users\dwhel\source\repos\TypeRight\TypeRightTests\TestBuilders\TestEnumBuilder.tt"
 
 }
 
@@ -86,21 +93,21 @@ if (field.Attributes.Count > 0) {
             #line hidden
             this.Write("\t\t");
             
-            #line 30 "C:\Users\dwhel\source\repos\TypeRight\TypeRightTests\TestBuilders\TestEnumBuilder.tt"
+            #line 31 "C:\Users\dwhel\source\repos\TypeRight\TypeRightTests\TestBuilders\TestEnumBuilder.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(field.Name));
             
             #line default
             #line hidden
             this.Write(" = ");
             
-            #line 30 "C:\Users\dwhel\source\repos\TypeRight\TypeRightTests\TestBuilders\TestEnumBuilder.tt"
+            #line 31 "C:\Users\dwhel\source\repos\TypeRight\TypeRightTests\TestBuilders\TestEnumBuilder.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(field.Value));
             
             #line default
             #line hidden
             this.Write(",\r\n");
             
-            #line 31 "C:\Users\dwhel\source\repos\TypeRight\TypeRightTests\TestBuilders\TestEnumBuilder.tt"
+            #line 32 "C:\Users\dwhel\source\repos\TypeRight\TypeRightTests\TestBuilders\TestEnumBuilder.tt"
 
 }
 

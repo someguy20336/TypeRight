@@ -26,13 +26,17 @@ namespace TypeRightTests.Tests
 			TestWorkspaceBuilder wkspBuilder = new TestWorkspaceBuilder();
 
 			wkspBuilder.DefaultProject
+				.AddFakeTypeRight()
+
 				// Simple Base class, extracted
 				.CreateClassBuilder(SimpleBaseClassName)
+					.AddScriptObjectAttribute()
 					.AddProperty(BaseClassIntProperty, "int")
 					.Commit()
 
 				// Simple derived class, extracted
 				.CreateClassBuilder(SimpleDerivedClassName)
+					.AddScriptObjectAttribute()
 					.AddBaseClass(SimpleBaseClassName)
 					.AddProperty(DerivedClassStringProperty, "string")
 					.Commit()
@@ -44,6 +48,7 @@ namespace TypeRightTests.Tests
 
 				// Extracted derived class of non extracted
 				.CreateClassBuilder("ExtendsNotExtracted")
+					.AddScriptObjectAttribute()
 					.AddBaseClass("NotExtracted")
 					.AddProperty("ExtendsNotExtProperty", "int")
 					.Commit()
@@ -56,20 +61,24 @@ namespace TypeRightTests.Tests
 
 				// Extracted with non-extracted base
 				.CreateClassBuilder("ExtractedWithNonExtractedBase")
+					.AddScriptObjectAttribute()
 					.AddBaseClass("NotExtractedWithBase")
 					.AddProperty("MyExtractedOProp", "string")
 					.Commit()
 
 				.CreateInterfaceBuilder("IBaseInterface")
+					.AddScriptObjectAttribute()
 					.AddProperty("BaseProperty", "string")
 					.Commit()
 
 				.CreateInterfaceBuilder("IDerivedInterface")
+					.AddScriptObjectAttribute()
 					.AddBaseInterface("IBaseInterface")
 					.AddProperty("DerivedProp", "int")
 					.Commit()
 
 				.CreateInterfaceBuilder("IComplexDerivedInterface")
+					.AddScriptObjectAttribute()
 					.AddBaseInterface("IBaseInterface")
 					.AddBaseInterface("IDerivedInterface")
 					.AddBaseInterface("INotExtractedInterface")
@@ -81,13 +90,13 @@ namespace TypeRightTests.Tests
 					.Commit()
 
 				.CreateInterfaceBuilder("IGenericDerivedInterface")
+					.AddScriptObjectAttribute()
 					.AddBaseInterface("IBaseInterface")
 					.AddGenericParameter("T")
 					.AddProperty("GenericProp", "T")
 					.Commit()
 					;
 
-			wkspBuilder.ClassParseFilter = new ExcludeWithAnyName("NotExtracted", "NotExtractedWithBase", "INotExtractedInterface");
 
 			_packageTester = wkspBuilder.GetPackageTester();
 		}

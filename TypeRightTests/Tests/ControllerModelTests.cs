@@ -65,7 +65,6 @@ namespace TypeRightTests.Tests
 						.Commit()
 					.Commit();
 			
-			wkspBuilder.FilterSettings = new ParseFilterSettings();
 
 			s_packageTester = wkspBuilder.GetPackageTester();
 		}

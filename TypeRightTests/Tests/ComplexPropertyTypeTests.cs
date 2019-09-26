@@ -37,26 +37,27 @@ namespace TypeRightTests.Tests
 			TestWorkspaceBuilder wkspBuilder = new TestWorkspaceBuilder();
 
 			wkspBuilder.DefaultProject
+				.AddFakeTypeRight()
+
 				// create a class that isn't extracted
 				.CreateClassBuilder(Class_NotExtracted)
-				.AddProperty("WhoCares", "int")
-				.Commit()
+					.AddProperty("WhoCares", "int")
+					.Commit()
 
 				// Create another class that is extracted
 				.CreateClassBuilder(Class_OtherExtracted)
-				.AddProperty("AlsoWhoCares", "string")
-				.Commit()
+					.AddScriptObjectAttribute()
+					.AddProperty("AlsoWhoCares", "string")
+					.Commit()
 
 				// And create an extracted class that get all
 				.CreateClassBuilder(Class_Extracted)
-				.AddProperty(Prop_NotExtracted, Class_NotExtracted)
-				.AddProperty(Prop_OtherExtracted, Class_OtherExtracted)
-				.AddProperty(Prop_ExtractedRecursive, Class_Extracted)
-				.Commit();
-
-			// Exclude the non extracted
-			wkspBuilder.ClassParseFilter = new ExcludeWithAnyName(Class_NotExtracted);
-
+					.AddScriptObjectAttribute()
+					.AddProperty(Prop_NotExtracted, Class_NotExtracted)
+					.AddProperty(Prop_OtherExtracted, Class_OtherExtracted)
+					.AddProperty(Prop_ExtractedRecursive, Class_Extracted)
+					.Commit();
+			
 			_packageTester = wkspBuilder.GetPackageTester();
 		}
 

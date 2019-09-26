@@ -31,14 +31,15 @@ namespace TypeRightTests.Tests
 			TestWorkspaceBuilder wkspBuilder = new TestWorkspaceBuilder();
 
 			wkspBuilder.DefaultProject
+				.AddFakeTypeRight()
 				.CreateClassBuilder(ClassName)
-				.AddProperty(IntegerPropName, "int")
-				.AddProperty(StringPropName, "string")
-				.AddProperty(NullableIntPropName, "int?")
-				.AddProperty(IntegerArrayPropName, "int[]")
-				.Commit();
+					.AddScriptObjectAttribute()
+					.AddProperty(IntegerPropName, "int")
+					.AddProperty(StringPropName, "string")
+					.AddProperty(NullableIntPropName, "int?")
+					.AddProperty(IntegerArrayPropName, "int[]")
+					.Commit();
 
-			wkspBuilder.ClassParseFilter = new AlwaysAcceptFilter();
 
 			_packageTester = wkspBuilder.GetPackageTester();
 		}

@@ -12,6 +12,7 @@ namespace Test
 	///<summary>
 	///<#= _comments #>
 	///</summary>
+	<#= this.GetAttributeText() #>
 	public enum <#= _enumName #>
 	{	
 <# 

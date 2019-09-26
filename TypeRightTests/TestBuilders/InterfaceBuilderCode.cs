@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TypeRightTests.TestBuilders
 {
-	partial class InterfaceBuilder 
+	partial class InterfaceBuilder : IAttributable, ITypeWithProperties
 	{
 		private string _interfaceName;
 
@@ -17,11 +17,13 @@ namespace TypeRightTests.TestBuilders
 
 		private List<string> _genericParameters = new List<string>();
 
-		private List<SymbolInfo> _properties = new List<SymbolInfo>();
-
 		private TestProjectBuilder _parentBuilder;
 
+		public List<SymbolInfo> Properties { get; } = new List<SymbolInfo>();
+
 		public List<MethodInfo> Methods { get; set; } = new List<MethodInfo>();
+
+		public List<AttributeInfo> Attributes { get; } = new List<AttributeInfo>();
 
 		public InterfaceBuilder(TestProjectBuilder projBuilder, string interfaceName)
 		{
@@ -40,14 +42,7 @@ namespace TypeRightTests.TestBuilders
 			_baseInterfaces.Add(baseInterfaceName);
 			return this;
 		}
-
-
-		public InterfaceBuilder AddProperty(string name, string type, string comments = "")
-		{
-			_properties.Add(new SymbolInfo() { Name = name, Type = type, Comments = comments });
-			return this;
-		}
-
+			   		
 		public TestProjectBuilder Commit()
 		{
 			string text = TransformText();
@@ -64,6 +59,11 @@ namespace TypeRightTests.TestBuilders
 		private string GetGenericParams()
 		{
 			return _genericParameters.Count == 0 ? "" : ($"<{string.Join(", ", _genericParameters)}>");
+		}
+
+		private string GetAttributes()
+		{
+			return this.GetAttributeText();
 		}
 	}
 }

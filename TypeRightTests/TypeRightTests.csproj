@@ -199,6 +199,7 @@
     <Compile Include="HelperClasses\MyEnumDescription.cs" />
     <Compile Include="TestBuilders\AttributeInfo.cs" />
     <Compile Include="TestBuilders\AssemblyAttributeBuilder.cs" />
+    <Compile Include="TestBuilders\BuilderExtensions.cs" />
     <Compile Include="TestBuilders\IAttributable.cs" />
     <Compile Include="TestBuilders\InterfaceBuilder.cs">
       <AutoGen>True</AutoGen>
@@ -206,6 +207,7 @@
       <DependentUpon>InterfaceBuilder.tt</DependentUpon>
     </Compile>
     <Compile Include="TestBuilders\InterfaceBuilderCode.cs" />
+    <Compile Include="TestBuilders\ITypeWithProperties.cs" />
     <Compile Include="TestBuilders\MethodInfo.cs" />
     <Compile Include="TestBuilders\SymbolInfo.cs" />
     <Compile Include="TestBuilders\TestAttributeBuilder.cs" />

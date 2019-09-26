@@ -31,48 +31,53 @@ namespace TypeRightTests.Tests
 			TestWorkspaceBuilder wkspBuilder = new TestWorkspaceBuilder();
 
 			wkspBuilder.DefaultProject
+				.AddFakeTypeRight()
 
 				// Simple Generic Class with Type Param
 				.CreateClassBuilder(Class_SimpleGeneric)
-				.AddGenericParameter(GenericParameterName)
-				.AddProperty(GenericPropertyName, GenericParameterName)
-				.Commit()
+					.AddScriptObjectAttribute()
+					.AddGenericParameter(GenericParameterName)
+					.AddProperty(GenericPropertyName, GenericParameterName)
+					.Commit()
 				
 				// Generic that inherits from the simple generic
 				.CreateClassBuilder("ExtendedGeneric")
-				.AddGenericParameter("T")
-				.AddBaseClass(Class_SimpleGeneric + "<T>")
-				.AddProperty(Property_ExtendedGenericProp, "T")
-				.Commit()
+					.AddScriptObjectAttribute()
+					.AddGenericParameter("T")
+					.AddBaseClass(Class_SimpleGeneric + "<T>")
+					.AddProperty(Property_ExtendedGenericProp, "T")
+					.Commit()
 
 				// NonExtracted Base Generic
 				.CreateClassBuilder("NonExtractedGeneric")
-				.AddGenericParameter("TType")
-				.AddProperty("IsStillExtracted", "TType")
-				.Commit()
+					.AddGenericParameter("TType")
+					.AddProperty("IsStillExtracted", "TType")
+					.Commit()
 
 				// Extract derived from non extracted base
 				.CreateClassBuilder("ExtendedGenericWithBaseNonExtracted")
-				.AddBaseClass("NonExtractedGeneric<T>")
-				.AddGenericParameter("T")
-				.AddProperty("ExtractedYay", "T")
-				.AddProperty("ExtractedGeneric", $"{Class_SimpleGeneric}<int>")
-				.Commit()
+					.AddScriptObjectAttribute()
+					.AddBaseClass("NonExtractedGeneric<T>")
+					.AddGenericParameter("T")
+					.AddProperty("ExtractedYay", "T")
+					.AddProperty("ExtractedGeneric", $"{Class_SimpleGeneric}<int>")
+					.Commit()
 
 				// Derived class with resolved TypeParam
 				.CreateClassBuilder("ExtendsGenericWithResolved")
-				.AddBaseClass(Class_SimpleGeneric + "<bool>")
-				.AddProperty("DontCareProperty", "int")
-				.Commit()
+					.AddScriptObjectAttribute()
+					.AddBaseClass(Class_SimpleGeneric + "<bool>")
+					.AddProperty("DontCareProperty", "int")
+					.Commit()
 
 				// Derived class with resolved TypeParam
 				.CreateClassBuilder("ExtendsNonExtractedGenericWithResolved")
-				.AddBaseClass("NonExtractedGeneric<string>")
-				.AddProperty("AlsoDontCareProperty", "int")
-				.Commit()
+					.AddScriptObjectAttribute()
+					.AddBaseClass("NonExtractedGeneric<string>")
+					.AddProperty("AlsoDontCareProperty", "int")
+					.Commit()
 				;
 
-			wkspBuilder.ClassParseFilter = new ExcludeWithAnyName("NonExtractedGeneric");
 
 			_packageTester = wkspBuilder.GetPackageTester();
 		}

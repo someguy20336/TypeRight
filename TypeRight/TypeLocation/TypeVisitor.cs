@@ -12,7 +12,7 @@ namespace TypeRight.TypeLocation
 		/// <summary>
 		/// Gets or sets the filter settings for the visitor
 		/// </summary>
-		public ParseFilterSettings FilterSettings { get; set; } = new ParseFilterSettings();
+		public ParseFilterSettings FilterSettings { get; } = new ParseFilterSettings();
 
 		/// <summary>
 		/// Gets the resulting type collection 

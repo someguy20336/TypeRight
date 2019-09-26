@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TypeRightTests.TestBuilders
 {
-	partial class TestEnumBuilder
+	partial class TestEnumBuilder : IAttributable
 	{
 
 		private TestProjectBuilder _parentBuilder;
@@ -16,7 +16,9 @@ namespace TypeRightTests.TestBuilders
 		private string _comments = "";
 
 		public List<EnumMemberInfo> Members { get; set; } = new List<EnumMemberInfo>();
-		
+
+		public List<AttributeInfo> Attributes { get; } = new List<AttributeInfo>();
+
 		public TestEnumBuilder(TestProjectBuilder projBuilder, string enumName)
 		{
 			_parentBuilder = projBuilder;

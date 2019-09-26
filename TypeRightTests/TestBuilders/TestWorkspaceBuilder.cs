@@ -20,25 +20,7 @@ namespace TypeRightTests.TestBuilders
 		public AdhocWorkspace Workspace { get; }
 
 		public TestProjectBuilder DefaultProject { get; private set; }
-
-		public ParseFilterSettings FilterSettings { get; set; } = new ParseFilterSettings()
-		{
-			ClassFilter = new AlwaysRejectFilter(),
-			ControllerFilter = new AlwaysRejectFilter(),
-			EnumFilter = new AlwaysRejectFilter()
-		};
-
-		public TypeFilter ClassParseFilter
-		{
-			get => FilterSettings.ClassFilter;
-			set => FilterSettings.ClassFilter = value;
-		}
-
-		public TypeFilter EnumParseFilter
-		{
-			get => FilterSettings.EnumFilter;
-			set => FilterSettings.EnumFilter = value;
-		}
+				
 
 		public ProcessorSettings ProcessorSettings { get; set; } = new ProcessorSettings()
 		{
@@ -80,10 +62,7 @@ namespace TypeRightTests.TestBuilders
 		public TypeCollectionTester GetPackageTester(ProjectId projectId)
 		{
 			ProjectParser workspaceParser = new ProjectParser(Workspace, projectId, ParseOptions);
-			TypeVisitor visitor = new TypeVisitor(ProcessorSettings)
-			{
-				FilterSettings = FilterSettings
-			};
+			TypeVisitor visitor = new TypeVisitor(ProcessorSettings);
 
 			workspaceParser.IterateTypes(visitor);
 			return new TypeCollectionTester(visitor.TypeCollection, DisplayNameFilter);

@@ -29,13 +29,13 @@ namespace TypeRightTests.Tests
 				
 				// Test class to use as return/param
 				.CreateClassBuilder("TestClass")
-					.WithScriptObjectAttribute()
+					.AddScriptObjectAttribute()
 					.AddProperty("DontCare", "int")
 					.Commit()
 
 				// Test generic class to use as return/param
 				.CreateClassBuilder("TestGenericClass")
-					.WithScriptObjectAttribute()
+					.AddScriptObjectAttribute()
 					.AddGenericParameter("T")
 					.AddProperty("GenericProp", "T")
 					.Commit()
@@ -140,9 +140,7 @@ namespace TypeRightTests.Tests
 						.Commit()
 					.Commit()
 			;
-
-			wkspBuilder.FilterSettings = new ParseFilterSettings();
-
+			
 			MethodReturnTypeHandler handler = new ParseSyntaxForTypeMethodHandler(
 				"Test.FakeJsonResultLikeClass",
 				new InvocationReturnForwardFilter("FakeJson", 0)
