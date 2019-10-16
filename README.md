@@ -53,7 +53,7 @@ Action Configuration
 |parameters | Array of objects| This is an array of optional additional parameters you want to pass to your fetch function.  The objects have 3 properties: `name`, `type` (the string type of the parameter), and `optional` (boolean) |
 |returnType| string | The optional return type of the auto-generated routine.  Default is `void`.  It has a replaceable token of `$returnType$` to sub in the return type of the MVC action  This should probably match the return type of your fetch function.  For example, you might return a Promise from your fetch function, so you could put a value of `Promise<$returnType$>` in this property |
 |imports | Array of objects | This optional property allows you to add some more imports that might be required for your parameters or return types.  Each object has the following properties: `items` (string array of the names of the items ot import), `useAlias` (set to true to have an alias assigned for you - i.e. `import * as alias from X`), and `path` (relative path to the file).|
-|method | "get", "post", "default" | This is the request method for this action configuration. |
+|method | "get", "post", "put", "default" | This is the request method for this action configuration. |
 
 Model Binding Types:
 - singleParam - Use this if your POST web methods will consist of a single parameter marked with `FromBody`.  This is the recommended approach and is the method that is officially supported by default in ASP.NET Core MVC ([see documentation](https://docs.microsoft.com/en-us/aspnet/core/mvc/models/model-binding?view=aspnetcore-2.1))
@@ -244,13 +244,33 @@ You will notice that the return type of the function will automatically pull the
 ## Routes
 The Route attribute is only (currently) supported on the Controller level.  For example, if you specify this route:
 
-```
+```C#
 [Route("api/[controller]")]
 public class TestController {
 ```
 The resulting actions will be generated with a URL similar to this:
 
 `fetch("/api/Test/Action",...)`
+
+Actions will append onto the route defined by the controller for any route template defined in an `Http[Verb]` attribute.  So given the following class:
+
+```C#
+[Route("api/[controller]")]
+public class TestController {
+
+[HttpGet("thing/{thingId}/otherthing")]
+public string GetOtherThingForThing(string thingId) { ... }
+...
+
+}
+```
+
+Will generate the following fetch (where thingId is passed in as a parameter to the function):
+`fetch("/api/Test/thing/${thingId}/otherthing")`
+
+Currently, if you are using ApiControllers, you MUST define the routes via the verb attributes.  This tool does not do all the route matching MVC does, so the more explicit you are, the better.  So in short:
+ - Define the base route on the controller level
+ - Complete the route via the Http Verb attribute on the action
 
 ## Parameter binding
 Currently, only `FromBodyAttribute` and `FromQueryAttribute` are supported.  This example action (for the controller above in the Routes section):
