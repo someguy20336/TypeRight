@@ -84,8 +84,8 @@ namespace TypeRight.TypeProcessing
 			}
 
 			IAttributeData attr = NamedType.Attributes.FirstOrDefault(a => 
-				a.AttributeType.FullName == "Microsoft.AspNetCore.Mvc.RouteAttribute"
-				|| a.AttributeType.FullName == "System.Web.Mvc.RouteAttribute"
+				a.AttributeType.FullName == MvcConstants.RouteAttributeFullName_AspNetCore
+				|| a.AttributeType.FullName == MvcConstants.RouteAttributeFullName_AspNet
 			);
 			if (attr == null)
 			{		

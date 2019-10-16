@@ -34,6 +34,10 @@ namespace TypeRight.TypeProcessing
 		public static string HttpGetAttributeFullName_AspNetCore => ToAspNetCoreFullName(HttpGetAttributeName);
 		public static string HttpGetAttributeFullName_AspNet => ToAspNetFullName(HttpGetAttributeName);
 
+		public const string HttpPutAttributeName = "HttpPutAttribute";
+		public static string HttpPutAttributeFullName_AspNetCore => ToAspNetCoreFullName(HttpPutAttributeName);
+		public static string HttpPutAttributeFullName_AspNet => ToAspNetFullName(HttpPutAttributeName);
+
 		public static string ToAspNetCoreFullName(string className) => $"{AspNetCoreNamespace}.{className}";
 		public static string ToAspNetFullName(string className) => $"{AspNetNamespace}.{className}";
 	}

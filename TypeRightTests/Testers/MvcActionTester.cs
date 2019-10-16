@@ -76,5 +76,11 @@ namespace TypeRightTests.Testers
 			Assert.AreEqual(expectedType, parameter.ActionParameterSourceType);
 			return this;
 		}
+
+		public MvcActionModelTester RouteTemplateIs(string expected)
+		{
+			Assert.AreEqual(expected, _actionModel.RouteTemplate);
+			return this;
+		}
 	}
 }

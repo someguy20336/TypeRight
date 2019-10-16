@@ -87,19 +87,46 @@ namespace TypeRightTests.TestBuilders
 			// HTTP GET
 			CreateClassBuilder(MvcConstants.HttpGetAttributeName, MvcConstants.AspNetCoreNamespace)
 				.AddBaseClass("System.Attribute")
+				.AddConstructor()
+					.AddParameter("template", "string")
+					.Commit()
 				.Commit();
 
 			CreateClassBuilder(MvcConstants.HttpGetAttributeName, MvcConstants.AspNetNamespace)
 				.AddBaseClass("System.Attribute")
+				.AddConstructor()
+					.AddParameter("template", "string")
+					.Commit()
 				.Commit();
 
 			// HTTP Post
 			CreateClassBuilder(MvcConstants.HttpPostAttributeName, MvcConstants.AspNetCoreNamespace)
 			.AddBaseClass("System.Attribute")
+			.AddConstructor()
+					.AddParameter("template", "string")
+					.Commit()
 			.Commit();
 
 			CreateClassBuilder(MvcConstants.HttpPostAttributeName, MvcConstants.AspNetNamespace)
 				.AddBaseClass("System.Attribute")
+				.AddConstructor()
+					.AddParameter("template", "string")
+					.Commit()
+				.Commit();
+
+			// HTTP Put
+			CreateClassBuilder(MvcConstants.HttpPutAttributeName, MvcConstants.AspNetCoreNamespace)
+			.AddBaseClass("System.Attribute")
+			.AddConstructor()
+					.AddParameter("template", "string")
+					.Commit()
+			.Commit();
+
+			CreateClassBuilder(MvcConstants.HttpPutAttributeName, MvcConstants.AspNetNamespace)
+				.AddBaseClass("System.Attribute")
+				.AddConstructor()
+					.AddParameter("template", "string")
+					.Commit()
 				.Commit();
 
 			// From body

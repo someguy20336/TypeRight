@@ -8,6 +8,7 @@ namespace TypeRight.TypeProcessing
 	{
 		Default = 0,
 		Post = 1,
-		Get = 2
+		Get = 2,
+		Put = 3
 	}
 }

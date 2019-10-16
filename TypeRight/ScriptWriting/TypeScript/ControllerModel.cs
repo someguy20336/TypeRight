@@ -8,6 +8,7 @@ namespace TypeRight.ScriptWriting.TypeScript
 		Query,
 		Body,
 		Fetch,
+		Route,
 		Ignored
 	}
 
@@ -34,7 +35,7 @@ namespace TypeRight.ScriptWriting.TypeScript
 
 		public IEnumerable<ActionParameterModel> Parameters { get; set; }
 
-		public string BaseUrl { get; set; }
+		public string RouteTemplate { get; set; }
 
 		public string ReturnType { get; set; }
 

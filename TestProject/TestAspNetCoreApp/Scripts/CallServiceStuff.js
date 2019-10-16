@@ -41,4 +41,7 @@ export function callGet(url, abortSignal) {
         });
     });
 }
+export function callPut(url, data, abortSignal) {
+    return Promise.resolve(null);
+}
 //# sourceMappingURL=CallServiceStuff.js.map

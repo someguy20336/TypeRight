@@ -11,19 +11,19 @@ namespace TypeRight.TypeProcessing
 	/// </summary>
 	public class MvcActionInfo
 	{
-		private static ActionFilter s_postFilter = new ActionHasAttributeFilter(
-			new IsOfAnyTypeFilter(MvcConstants.HttpPostAttributeFullName_AspNet, MvcConstants.HttpPostAttributeFullName_AspNetCore)
-			);
+		private static TypeFilter s_postTypeFilter = new IsOfAnyTypeFilter(MvcConstants.HttpPostAttributeFullName_AspNet, MvcConstants.HttpPostAttributeFullName_AspNetCore);
+		private static TypeFilter s_getTypeFilter = new IsOfAnyTypeFilter(MvcConstants.HttpGetAttributeFullName_AspNet, MvcConstants.HttpGetAttributeFullName_AspNetCore);
+		private static TypeFilter s_putTypeFilter = new IsOfAnyTypeFilter(MvcConstants.HttpPutAttributeFullName_AspNet, MvcConstants.HttpPutAttributeFullName_AspNetCore);
 
-		private static ActionFilter s_getFilter = new ActionHasAttributeFilter(
-			new IsOfAnyTypeFilter(MvcConstants.HttpGetAttributeFullName_AspNet, MvcConstants.HttpGetAttributeFullName_AspNetCore)
-			);
+		private static ActionFilter s_postActionFilter = new ActionHasAttributeFilter(s_postTypeFilter);
+		private static ActionFilter s_getActionFilter = new ActionHasAttributeFilter(s_getTypeFilter);
+		private static ActionFilter s_putActionFilter = new ActionHasAttributeFilter(s_putTypeFilter);
 
 		/// <summary>
 		/// Gets the method behind this action info
 		/// </summary>
 		public IMethod Method { get; private set; }
-		
+
 		/// <summary>
 		/// Gets the name of the action
 		/// </summary>
@@ -43,7 +43,7 @@ namespace TypeRight.TypeProcessing
 		/// Gets the "returns" comments
 		/// </summary>
 		public string ReturnsComments => Method.ReturnsComments;
-		
+
 		/// <summary>
 		/// Gets the return type of the action
 		/// </summary>
@@ -59,23 +59,56 @@ namespace TypeRight.TypeProcessing
 		/// </summary>
 		public IEnumerable<IAttributeData> Attributes => Method.Attributes;
 
-		public RequestMethod RequestMethod {
+		public RequestMethod RequestMethod
+		{
 			get
 			{
-				if (s_getFilter.Evaluate(this))
+				if (s_getActionFilter.Evaluate(this))
 				{
 					return RequestMethod.Get;
 				}
-				else if (s_postFilter.Evaluate(this))
+				else if (s_postActionFilter.Evaluate(this))
 				{
 					return RequestMethod.Post;
 				}
-				else 
+				else if (s_putActionFilter.Evaluate(this))
+				{
+					return RequestMethod.Put;
+				}
+				else
 				{
 					return RequestMethod.Default;
 				}
 			}
-			
+		}
+
+		public string GetPartialTemplate()
+		{
+			if (RequestMethod == RequestMethod.Get)
+			{
+				var getAttribute = Attributes.FirstOrDefault(attr => s_getTypeFilter.Evaluate(attr.AttributeType));
+				if (getAttribute.ConstructorArguments.Count > 0)
+				{
+					return getAttribute.ConstructorArguments[0] as string;
+				}				
+			}
+			else if (RequestMethod == RequestMethod.Post)
+			{
+				var postAttr = Attributes.FirstOrDefault(attr => s_postTypeFilter.Evaluate(attr.AttributeType));
+				if (postAttr.ConstructorArguments.Count > 0)
+				{
+					return postAttr.ConstructorArguments[0] as string;
+				}
+			}
+			else if (RequestMethod == RequestMethod.Put)
+			{
+				var putAttr = Attributes.FirstOrDefault(attr => s_putTypeFilter.Evaluate(attr.AttributeType));
+				if (putAttr.ConstructorArguments.Count > 0)
+				{
+					return putAttr.ConstructorArguments[0] as string;
+				}
+			}
+			return Name;
 		}
 
 

@@ -23,7 +23,21 @@
 		{
 			"fetchFunctionName": "callGet",
 			"fetchFilePath": "./Scripts/CallServiceStuff.ts",
-			"method":  "GET",
+			"method": "GET",
+			"parameters": [
+				{
+					"name": "abort",
+					"type": "AbortSignal",
+					"optional": true
+				}
+			],
+			"returnType": "Promise<$returnType$>",
+			"imports": null
+		},
+		{
+			"fetchFunctionName": "callPut",
+			"fetchFilePath": "./Scripts/CallServiceStuff.ts",
+			"method": "PUT",
 			"parameters": [
 				{
 					"name": "abort",

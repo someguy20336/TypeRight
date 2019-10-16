@@ -145,7 +145,16 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
 				// TODO: need to escape?
 				urlParamQuery = "?" + string.Join("&", urlParams.Select(p => $"{p.Name}=${{{ p.Name}}}"));
 			}
-			return $"`{action.BaseUrl}{urlParamQuery}`";
+
+			// Add the route params
+			string route = action.RouteTemplate;
+			var routeParamNames = action.Parameters.Where(p => p.ActionParameterSourceType == ActionParameterSourceType.Route).Select(p => p.Name);
+			foreach (string paramName in routeParamNames)
+			{
+				route = route.Replace($"{{{paramName}}}", $"${{{paramName}}}");
+			}
+
+			return $"`{route}{urlParamQuery}`";
 		}
 
 		/// <summary>

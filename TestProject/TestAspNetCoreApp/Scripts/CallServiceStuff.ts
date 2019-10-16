@@ -45,3 +45,8 @@ export function callGet<T>(url: string, abortSignal?: AbortSignal): Promise<T> {
 		});
 	});
 }
+
+export function callPut<T>(url: string, data: any, abortSignal?: AbortSignal): Promise<T> {
+
+	return Promise.resolve(null);
+}

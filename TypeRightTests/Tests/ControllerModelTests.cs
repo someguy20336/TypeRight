@@ -63,7 +63,22 @@ namespace TypeRightTests.Tests
 						.AddParameter("service", "int", attribute: MvcConstants.FromServicesAttributeFullName_AspNetCore)
 						.AddLineOfCode("return null", 0)
 						.Commit()
-					.Commit();
+					.Commit()
+					
+				.CreateClassBuilder("RoutedApiController")
+					.WithControllerBaseClass()
+					.AddAttribute(MvcConstants.RouteAttributeFullName_AspNetCore)
+						.AddConstructorArg("\"api/RoutedApi\"")
+						.Commit()
+					.AddMethod("GetThing", "string")
+						.AddScriptActionAttribute()
+						.AddAttribute(MvcConstants.HttpGetAttributeFullName_AspNetCore)
+							.AddConstructorArg("\"thing/{thingId}\"").Commit()
+						.AddParameter("thingId", "string")
+						.AddLineOfCode("return null", 0)
+						.Commit()
+					.Commit()
+					;
 			
 
 			s_packageTester = wkspBuilder.GetPackageTester();
@@ -72,7 +87,7 @@ namespace TypeRightTests.Tests
 		[TestMethod]
 		public void IdentifiesQueryParameter()
 		{
-			GetControllerTester()
+			TestNonRoutedController()
 				.TestActionModelWithName("FromQuerySingleParamAction")
 				.ParameterSourceTypeIs("id", ActionParameterSourceType.Query);
 		}
@@ -80,7 +95,7 @@ namespace TypeRightTests.Tests
 		[TestMethod]
 		public void IdentifiesQueryAndBodyParams()
 		{
-			GetControllerTester()
+			TestNonRoutedController()
 				.TestActionModelWithName("HasFromQueryAndBody")
 				.ParameterSourceTypeIs("id", ActionParameterSourceType.Query)
 				.ParameterSourceTypeIs("body", ActionParameterSourceType.Body);
@@ -89,7 +104,7 @@ namespace TypeRightTests.Tests
 		[TestMethod]
 		public void FromServicesIsIgnored()
 		{
-			GetControllerTester()
+			TestNonRoutedController()
 				.TestActionModelWithName("HasFromQueryAndServices")
 				.ParameterSourceTypeIs("id", ActionParameterSourceType.Query)
 				.ParameterSourceTypeIs("service", ActionParameterSourceType.Ignored);
@@ -98,7 +113,7 @@ namespace TypeRightTests.Tests
 		[TestMethod]
 		public void HttpGet_UsesDefaultActionConfig()
 		{
-			GetControllerTester()
+			TestNonRoutedController()
 				.TestActionModelWithName("HasFromQueryAndBody")
 				.FetchFunctionIs("TestAjax");
 		}
@@ -106,7 +121,7 @@ namespace TypeRightTests.Tests
 		[TestMethod]
 		public void HttpGet_UsesGetActionConfig()
 		{
-			GetControllerTester()
+			TestNonRoutedController()
 				.TestActionModelWithName("GetMethod")
 				.FetchFunctionIs("callGet");
 		}
@@ -114,7 +129,7 @@ namespace TypeRightTests.Tests
 		[TestMethod]
 		public void HttpGet_UsesPostActionConfig()
 		{
-			GetControllerTester()
+			TestNonRoutedController()
 				.TestActionModelWithName("PostMethod")
 				.FetchFunctionIs("callPost");
 		}
@@ -122,13 +137,24 @@ namespace TypeRightTests.Tests
 		[TestMethod]
 		public void ImportsAllFetchFiles()
 		{
-			GetControllerTester()
+			TestNonRoutedController()
 				.HasImportForFile(@"../../FolderM/FolderN/AjaxFunc")
 				.HasImportForFile(@"../../FolderM/FolderN/AjaxFuncPost")
 				.HasImportForFile(@"../../FolderM/FolderN/AjaxFuncGet");
 		}
 
-		private ControllerTester GetControllerTester()
+		[TestMethod]
+		public void HttpGet_RouteParameterInTemplate()
+		{
+			TestRoutedController()
+				.TestActionModelWithName("GetThing")
+				.RouteTemplateIs("/api/RoutedApi/thing/{thingId}");
+		}
+
+		private ControllerTester TestNonRoutedController() => CreateControllerTester("TestController");
+		private ControllerTester TestRoutedController() => CreateControllerTester("RoutedApiController");
+
+		private ControllerTester CreateControllerTester(string name)
 		{
 			var actionConfig = s_packageTester.GetDefaultActionConfig();
 			actionConfig.Add(new ActionConfig()
@@ -153,7 +179,7 @@ namespace TypeRightTests.Tests
 			var context = s_packageTester.GetDefaultControllerContext(actionConfig);
 			context.ModelBinding = ModelBindingType.SingleParam;
 
-			return s_packageTester.TestControllerWithName("TestController", context);
+			return s_packageTester.TestControllerWithName(name, context);
 		}
 	}
 }

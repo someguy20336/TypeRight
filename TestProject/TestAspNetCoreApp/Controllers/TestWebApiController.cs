@@ -36,5 +36,17 @@ namespace TestAspNetCoreApp.Controllers
 		{
 			return "";
 		}
+
+		[HttpGet("things/{id}/action"), ScriptAction]
+		public string GetSomething(string id)
+		{
+			return "";
+		}
+
+		[HttpPut("things/{id}/action"), ScriptAction]
+		public string PutSomething(string id, [FromBody] bool body)
+		{
+			return "";
+		}
 	}
 }
