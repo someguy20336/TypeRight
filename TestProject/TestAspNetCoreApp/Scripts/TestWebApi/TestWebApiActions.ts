@@ -38,6 +38,20 @@ export function PutSomething(id: string, body: boolean, abort?: AbortSignal): Pr
 
 /**
  * 
+ */
+export function TestActionResult(abort?: AbortSignal): Promise<string> {
+	return callPost(`/api/TestWebApi/TestActionResult`, {}, abort);
+}
+
+/**
+ * 
+ */
+export function TestClassActionResult(abort?: AbortSignal): Promise<CustomGroup.CustomGroupObject1> {
+	return callPost(`/api/TestWebApi/TestClassActionResult`, {}, abort);
+}
+
+/**
+ * 
  * @param id 
  */
 export function TestGetMethod(id: string, abort?: AbortSignal): Promise<string> {

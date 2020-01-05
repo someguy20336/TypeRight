@@ -28,8 +28,6 @@ namespace TypeRightTests.TestBuilders
 			DefaultResultPath = DefaultResultPath
 		};
 			
-		public TypeRight.Workspaces.Parsing.ParseOptions ParseOptions { get; set; } = TypeRight.Workspaces.Parsing.ParseOptions.GetDefault();
-
 		public TestWorkspaceBuilder()
 		{
 			Workspace = new AdhocWorkspace();
@@ -54,7 +52,7 @@ namespace TypeRightTests.TestBuilders
 
 		public TypeCollectionTester GetPackageTester(ProjectId projectId)
 		{
-			ProjectParser workspaceParser = new ProjectParser(Workspace, projectId, ParseOptions);
+			ProjectParser workspaceParser = new ProjectParser(Workspace, projectId);
 			TypeVisitor visitor = new TypeVisitor(ProcessorSettings);
 
 			workspaceParser.IterateTypes(visitor);

@@ -198,14 +198,14 @@
     <Compile Include="CodeModel\RoslynMethodParameter.cs" />
     <Compile Include="Documentation\DocumentationProvider.cs" />
     <Compile Include="Documentation\ExternalReferenceDocumentationProvider.cs" />
+    <Compile Include="Parsing\ReturnTypeHandlers\ActionResultReturnTypeHandler.cs" />
     <Compile Include="Parsing\CompilationParser.cs" />
-    <Compile Include="Parsing\InvocationReturnForwardFilter.cs" />
+    <Compile Include="Parsing\ReturnTypeHandlers\InvocationReturnForwardFilter.cs" />
     <Compile Include="Parsing\MethodReturnTypeHandler.cs" />
     <Compile Include="Parsing\MvcActionMethodWalker.cs" />
     <Compile Include="CodeModel\ParseHelper.cs" />
     <Compile Include="Parsing\ParseContext.cs" />
-    <Compile Include="Parsing\ParseOptions.cs" />
-    <Compile Include="Parsing\ParseSyntaxForTypeMethodHandler.cs" />
+    <Compile Include="Parsing\ReturnTypeHandlers\ParseSyntaxForTypeMethodHandler.cs" />
     <Compile Include="Parsing\ProjectParser.cs" />
     <Compile Include="Documentation\SourceCommentsDocumentationProvider.cs" />
     <Compile Include="CodeModel\RoslynArrayType.cs" />

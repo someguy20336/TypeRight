@@ -19,21 +19,14 @@ namespace TypeRight.Workspaces.Parsing
 		/// Gets the compilation being parsed
 		/// </summary>
 		public Compilation Compilation { get; private set; }
-
-		/// <summary>
-		/// The parse options
-		/// </summary>
-		private readonly ParseOptions _options;
-
+		
 		/// <summary>
 		/// Creates a new compilation parser
 		/// </summary>
 		/// <param name="compilation">The compilation</param>
-		/// <param name="options">The parse options</param>
-		public CompilationParser(Compilation compilation, ParseOptions options)
+		public CompilationParser(Compilation compilation)
 		{
 			Compilation = compilation;
-			_options = options;
 		}
 
 		/// <summary>
@@ -77,7 +70,7 @@ namespace TypeRight.Workspaces.Parsing
 
 								INamedTypeSymbol type = oneTypeArg.Value as INamedTypeSymbol;
 
-								ParseContext context = new ParseContext(Compilation, GetDocumentationProvider(type), _options);
+								ParseContext context = new ParseContext(Compilation, GetDocumentationProvider(type));
 								INamedType namedType = RoslynType.CreateNamedType(type, context);
 								_visitor.VisitExternalType(namedType, targetPath);
 							}
@@ -134,7 +127,7 @@ namespace TypeRight.Workspaces.Parsing
 
 			RoslynNamedType namedTypeResult = RoslynType.CreateNamedType(
 				namedType,
-				new ParseContext(Compilation, new SourceCommentsDocumentationProvider(), _options)
+				new ParseContext(Compilation, new SourceCommentsDocumentationProvider())
 				);
 			_visitor.Visit(namedTypeResult);
 		}
@@ -150,7 +143,7 @@ namespace TypeRight.Workspaces.Parsing
 			INamedTypeSymbol namedType = Compilation.GetSemanticModel(node.SyntaxTree).GetDeclaredSymbol(node);
 			RoslynNamedType namedTypeResult = RoslynType.CreateNamedType(
 				namedType,
-				new ParseContext(Compilation, new SourceCommentsDocumentationProvider(), _options)
+				new ParseContext(Compilation, new SourceCommentsDocumentationProvider())
 				);
 			_visitor.Visit(namedTypeResult);
 		}

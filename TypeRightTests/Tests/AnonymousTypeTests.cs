@@ -54,36 +54,28 @@ namespace TypeRightTests.Tests
 					.WithControllerBaseClass()
 
 					// Fake Json Method - not extracted
-					.AddMethod("FakeJson", "FakeJsonResultLikeClass")
+					.AddMethod("Json", MvcConstants.JsonResult_AspNetCore)
 						.AddParameter("data", "object")
 						.AddLineOfCode("return null;", 0)
 						.Commit()
-					.AddMethod("SimpleAnonymousType", "FakeJsonResultLikeClass")
+					.AddMethod("SimpleAnonymousType", MvcConstants.JsonResult_AspNetCore)
 						.AddScriptActionAttribute()
-						.AddLineOfCode("return FakeJson(new { stringProp = \"Hi\", intProp = 1 });", 0)
+						.AddLineOfCode("return Json(new { stringProp = \"Hi\", intProp = 1 });", 0)
 						.Commit()
-					.AddMethod("AnonymousTypeWithExtracted", "FakeJsonResultLikeClass")
+					.AddMethod("AnonymousTypeWithExtracted", MvcConstants.JsonResult_AspNetCore)
 						.AddScriptActionAttribute()
 						.AddLineOfCode("TestClass test = new TestClass();", 0)
-						.AddLineOfCode("return FakeJson(new { testClassProp = test, intProp = 1 });", 0)
+						.AddLineOfCode("return Json(new { testClassProp = test, intProp = 1 });", 0)
 						.Commit()
-					.AddMethod("AnonymousTypeWithNonExtracted", "FakeJsonResultLikeClass")
+					.AddMethod("AnonymousTypeWithNonExtracted", MvcConstants.JsonResult_AspNetCore)
 						.AddScriptActionAttribute()
 						.AddLineOfCode("NotExtracted test = new NotExtracted();", 0)
-						.AddLineOfCode("return FakeJson(new { testClassProp = test, intProp = 1 });", 0)
+						.AddLineOfCode("return Json(new { testClassProp = test, intProp = 1 });", 0)
 						.Commit()
 					.Commit()
 
 			;
-
-			MethodReturnTypeHandler handler = new ParseSyntaxForTypeMethodHandler(
-				"Test.FakeJsonResultLikeClass",
-				new InvocationReturnForwardFilter("FakeJson", 0)
-				);
-			ParseOptions parseOptions = new ParseOptions();
-			parseOptions.MethodReturnTypeHandlers.Add(handler);
-			wkspBuilder.ParseOptions = parseOptions;
-
+			
 			s_packageTester = wkspBuilder.GetPackageTester();
 		}
 

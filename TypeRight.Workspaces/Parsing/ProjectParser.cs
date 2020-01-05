@@ -22,30 +22,16 @@ namespace TypeRight.Workspaces.Parsing
 		/// The path of the project currently being processed
 		/// </summary>
 		private readonly ProjectId _projectId;
-
-		private readonly ParseOptions _options;
-
+				
 		/// <summary>
 		/// Creates a new solution parser
 		/// </summary>
 		/// <param name="workspace">The solution workspace</param>
 		/// <param name="projId">The project ID we are parsing</param>
 		public ProjectParser(Workspace workspace, ProjectId projId)
-			: this(workspace, projId, ParseOptions.GetDefault())
-		{
-		}
-
-		/// <summary>
-		/// Creates a new solution parser
-		/// </summary>
-		/// <param name="workspace">The solution workspace</param>
-		/// <param name="projId">The project ID we are parsing</param>
-		/// <param name="options">The parse options to use</param>
-		public ProjectParser(Workspace workspace, ProjectId projId, ParseOptions options)
 		{
 			_workspace = workspace;
 			_projectId = projId;
-			_options = options;
 		}
 
 		/// <summary>
@@ -73,7 +59,7 @@ namespace TypeRight.Workspaces.Parsing
 
 			foreach (Compilation comp in compilations.Values)
 			{
-				CompilationParser parser = new CompilationParser(comp, _options);
+				CompilationParser parser = new CompilationParser(comp);
 				parser.IterateTypes(_visitor);
 			}
 		}

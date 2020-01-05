@@ -144,6 +144,13 @@ namespace TypeRightTests.TestBuilders
 				.AddBaseClass("System.Attribute")
 				.Commit();
 
+			CreateClassBuilder(MvcConstants.JsonResultName, MvcConstants.AspNetCoreNamespace).Commit();
+			CreateClassBuilder(MvcConstants.JsonResultName, MvcConstants.AspNetNamespace).Commit();
+
+			CreateClassBuilder(MvcConstants.ActionResultName, MvcConstants.AspNetCoreNamespace)
+				.AddGenericParameter("TValue")
+				.Commit();
+
 			return this;
 		}
 	}

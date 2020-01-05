@@ -48,5 +48,17 @@ namespace TestAspNetCoreApp.Controllers
 		{
 			return "";
 		}
+
+		[ScriptAction]
+		public ActionResult<string> TestActionResult()
+		{
+			return "";
+		}
+
+		[ScriptAction]
+		public ActionResult<CustomGroupObject1> TestClassActionResult()
+		{
+			return null;
+		}
 	}
 }

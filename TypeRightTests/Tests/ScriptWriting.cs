@@ -40,16 +40,11 @@ namespace TypeRightTests.Tests
 					.AddGenericParameter("T")
 					.AddProperty("GenericProp", "T")
 					.Commit()
-
-				// Fake JsonResult-like class
-				.CreateClassBuilder("FakeJsonResultLikeClass")
-					.AddProperty("DontCare", "int")
-					.Commit()
-
+					
 				// Display name attribute
 				.CreateClassBuilder("SimpleController")
 					.WithControllerBaseClass()
-					.AddMethod("FakeJson", "FakeJsonResultLikeClass")
+					.AddMethod("Json", "FakeJsonResultLikeClass")
 						.AddParameter("data", "object")
 						.AddLineOfCode("return null;", 0)
 						.Commit()
@@ -58,40 +53,40 @@ namespace TypeRightTests.Tests
 						.AddScriptActionAttribute()
 						.AddLineOfCode("return \"Hi\";", 0)
 						.Commit()
-					.AddMethod("SimpleParameter_Json", "FakeJsonResultLikeClass")
+					.AddMethod("SimpleParameter_Json", MvcConstants.JsonResult_AspNetCore)
 						.AddScriptActionAttribute()
 						.AddParameter("testParam", "TestClass")
-						.AddLineOfCode("return FakeJson(testParam);", 0)
+						.AddLineOfCode("return Json(testParam);", 0)
 						.Commit()
-					.AddMethod("GenericPropReturn_Json", "FakeJsonResultLikeClass")
+					.AddMethod("GenericPropReturn_Json", MvcConstants.JsonResult_AspNetCore)
 						.AddScriptActionAttribute()
 						.AddLineOfCode("TestGenericClass<TestClass> gen = new TestGenericClass<TestClass>();", 0)
-						.AddLineOfCode("return FakeJson(gen.GenericProp);", 0)
+						.AddLineOfCode("return Json(gen.GenericProp);", 0)
 						.Commit()
 					.Commit()
 
 				.CreateClassBuilder("TestParamAttributesController")
 					.WithControllerBaseClass()
-					.AddMethod("TestingParamFilter", "FakeJsonResultLikeClass")
+					.AddMethod("TestingParamFilter", MvcConstants.JsonResult_AspNetCore)
 						.AddScriptActionAttribute()
 						.AddParameter("fromBody", "string", attribute: MvcConstants.FromBodyAttributeFullName_AspNetCore)
 						.AddParameter("fromServices", "TestClass", attribute: MvcConstants.FromServicesAttributeFullName_AspNetCore)
-						.AddLineOfCode("return FakeJson(0);", 0)
+						.AddLineOfCode("return Json(0);", 0)
 						.Commit()
-					.AddMethod("IsNotFirstParameter", "FakeJsonResultLikeClass")
+					.AddMethod("IsNotFirstParameter", MvcConstants.JsonResult_AspNetCore)
 						.AddScriptActionAttribute()
 						.AddParameter("fromServices", "TestClass", attribute: MvcConstants.FromServicesAttributeFullName_AspNetCore)
 						.AddParameter("fromBody", "string", attribute: MvcConstants.FromBodyAttributeFullName_AspNetCore)
-						.AddLineOfCode("return FakeJson(0);", 0)
+						.AddLineOfCode("return Json(0);", 0)
 						.Commit()
-					.AddMethod("NoFromBodyParams", "FakeJsonResultLikeClass")
+					.AddMethod("NoFromBodyParams", MvcConstants.JsonResult_AspNetCore)
 						.AddScriptActionAttribute()
 						.AddParameter("fromServices", "TestClass", attribute: MvcConstants.FromServicesAttributeFullName_AspNetCore)
 						.AddParameter("fromServices2", "string", attribute: MvcConstants.FromServicesAttributeFullName_AspNetCore)
 						.AddParameter("fromServices3", "string", attribute: MvcConstants.FromServicesAttributeFullName_AspNetCore)
-						.AddLineOfCode("return FakeJson(0);", 0)
+						.AddLineOfCode("return Json(0);", 0)
 						.Commit()
-					.AddMethod("QueryParameterWithBody", "FakeJsonResultLikeClass")
+					.AddMethod("QueryParameterWithBody", MvcConstants.JsonResult_AspNetCore)
 						.AddScriptActionAttribute()
 						.AddParameter("fromQuery", "string", attribute: MvcConstants.FromQueryAttributeFullName_AspNetCore)
 						.AddParameter("fromBody", "TestClass", attribute: MvcConstants.FromBodyAttributeFullName_AspNetCore)
@@ -121,16 +116,7 @@ namespace TypeRightTests.Tests
 						.Commit()
 					.Commit()
 			;
-
-
-			MethodReturnTypeHandler handler = new ParseSyntaxForTypeMethodHandler(
-				"Test.FakeJsonResultLikeClass",
-				new InvocationReturnForwardFilter("FakeJson", 0)
-				);
-			ParseOptions parseOptions = new ParseOptions();
-			parseOptions.MethodReturnTypeHandlers.Add(handler);
-			wkspBuilder.ParseOptions = parseOptions;
-
+			
 			s_packageTester = wkspBuilder.GetPackageTester();
 		}
 

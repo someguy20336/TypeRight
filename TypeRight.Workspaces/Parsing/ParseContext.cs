@@ -1,4 +1,6 @@
 ﻿using Microsoft.CodeAnalysis;
+using System.Collections.Generic;
+using TypeRight.TypeProcessing;
 
 namespace TypeRight.Workspaces.Parsing
 {
@@ -7,10 +9,8 @@ namespace TypeRight.Workspaces.Parsing
 	/// </summary>
 	public class ParseContext
 	{
-		/// <summary>
-		/// The parse options
-		/// </summary>
-		private ParseOptions _options;
+
+		private List<MethodReturnTypeHandler> _returnTypeHandlers = new List<MethodReturnTypeHandler>();
 
 		/// <summary>
 		/// Gets the compilation for this parse
@@ -28,11 +28,36 @@ namespace TypeRight.Workspaces.Parsing
 		/// <param name="comp">The compilation</param>
 		/// <param name="documentationProvider">The doc provider</param>
 		/// <param name="options">The parse options</param>
-		public ParseContext(Compilation comp, DocumentationProvider documentationProvider, ParseOptions options)
+		public ParseContext(Compilation comp, DocumentationProvider documentationProvider)
 		{
 			Compilation = comp;
 			DocumentationProvider = documentationProvider;
-			_options = options;
+
+			_returnTypeHandlers.Add(new ParseSyntaxForTypeMethodHandler(
+				MvcConstants.ToAspNetFullName("JsonResult"),
+				new InvocationReturnForwardFilter("Json", 0)
+				));
+			_returnTypeHandlers.Add(new ParseSyntaxForTypeMethodHandler(
+				MvcConstants.ToAspNetFullName("ActionResult"),
+				new InvocationReturnForwardFilter("Json", 0)
+				));
+			_returnTypeHandlers.Add(new ParseSyntaxForTypeMethodHandler(
+				MvcConstants.ToAspNetCoreFullName("JsonResult"),
+				new InvocationReturnForwardFilter("Json", 0)
+				));
+			_returnTypeHandlers.Add(new ParseSyntaxForTypeMethodHandler(
+				MvcConstants.ToAspNetCoreFullName("ActionResult"),
+				new InvocationReturnForwardFilter("Json", 0)
+				));
+			_returnTypeHandlers.Add(new ParseSyntaxForTypeMethodHandler(
+				MvcConstants.ToAspNetCoreFullName("IActionResult"),
+				new InvocationReturnForwardFilter("Json", 0)
+				));
+			_returnTypeHandlers.Add(new ParseSyntaxForTypeMethodHandler(
+				MvcConstants.ToAspNetCoreFullName("IActionResult"),
+				new InvocationReturnForwardFilter("Json", 0)
+				));
+			_returnTypeHandlers.Add(new ActionResultReturnTypeHandler(this));
 		}
 
 		/// <summary>
@@ -42,7 +67,7 @@ namespace TypeRight.Workspaces.Parsing
 		/// <returns>The matching return type handler</returns>
 		public MethodReturnTypeHandler GetMethodReturnTypeHandler(IMethodSymbol methodSymbol)
 		{
-			foreach (MethodReturnTypeHandler handler in _options.MethodReturnTypeHandlers)
+			foreach (MethodReturnTypeHandler handler in _returnTypeHandlers)
 			{
 				if (handler.CanHandleMethodSymbol(methodSymbol))
 				{

@@ -45,17 +45,12 @@ namespace TypeRightTests.Tests
 					.AddProperty("DontCare", "int")
 					.Commit()
 
-				// Fake JsonResult-like class
-				.CreateClassBuilder("FakeJsonResultLikeClass")
-					.AddProperty("DontCare", "int")
-					.Commit()
-
 				// Display name attribute
 				.CreateClassBuilder("SimpleController")
 					.WithControllerBaseClass()
 
 					// Fake Json Method - not extracted
-					.AddMethod("FakeJson", "FakeJsonResultLikeClass")
+					.AddMethod("Json", "FakeJsonResultLikeClass")
 						.AddParameter("data", "object")
 						.AddLineOfCode("return null;", 0)
 						.Commit()
@@ -72,19 +67,19 @@ namespace TypeRightTests.Tests
 						.AddScriptActionAttribute()
 						.AddLineOfCode("return new TestClass();", 0)
 						.Commit()
-					.AddMethod("NewObjectResult_Json", "FakeJsonResultLikeClass")
+					.AddMethod("NewObjectResult_Json", MvcConstants.JsonResult_AspNet)
 						.AddScriptActionAttribute()
-						.AddLineOfCode("return FakeJson(new TestClass());", 0)
+						.AddLineOfCode("return Json(new TestClass());", 0)
 						.Commit()
 					.AddMethod("VariableResult", "bool")
 						.AddScriptActionAttribute()
 						.AddLineOfCode("bool testVar = true;", 0)
 						.AddLineOfCode("return testVar;", 0)
 						.Commit()
-					.AddMethod("VariableResult_Json", "FakeJsonResultLikeClass")
+					.AddMethod("VariableResult_Json", MvcConstants.JsonResult_AspNet)
 						.AddScriptActionAttribute()
 						.AddLineOfCode("bool testVar = true;", 0)
-						.AddLineOfCode("return FakeJson(testVar);", 0)
+						.AddLineOfCode("return Json(testVar);", 0)
 						.Commit()
 					.AddMethod("StringConcatResult", "string")
 						.AddScriptActionAttribute()
@@ -94,27 +89,27 @@ namespace TypeRightTests.Tests
 						.AddScriptActionAttribute()
 						.AddLineOfCode("return ARandomMethod();", 0)
 						.Commit()
-					.AddMethod("SimpleParameter_Json", "FakeJsonResultLikeClass")
+					.AddMethod("SimpleParameter_Json", MvcConstants.JsonResult_AspNet)
 						.AddScriptActionAttribute()
 						.AddParameter("testParam", "TestClass")
-						.AddLineOfCode("return FakeJson(testParam);", 0)
+						.AddLineOfCode("return Json(testParam);", 0)
 						.Commit()
-					.AddMethod("NotExtracted_Json", "FakeJsonResultLikeClass")
+					.AddMethod("NotExtracted_Json", MvcConstants.JsonResult_AspNet)
 						.AddScriptActionAttribute()
-						.AddLineOfCode("return FakeJson(new NotExtracted());", 0)
+						.AddLineOfCode("return Json(new NotExtracted());", 0)
 						.Commit()
-					.AddMethod("ComplexMethod", "FakeJsonResultLikeClass")
+					.AddMethod("ComplexMethod", MvcConstants.JsonResult_AspNet)
 						.AddScriptActionAttribute()
 						.AddParameter("dateStringDict", "Dictionary<DateTime, string>")
 						.AddParameter("intStringDict", "Dictionary<int, string>")
 						.AddParameter("stringStringDict", "Dictionary<string, string>")
 						.AddLineOfCode("TestGenericClass<TestClass> gen = new TestGenericClass<TestClass>();", 0)
-						.AddLineOfCode("return FakeJson(gen);", 0)
+						.AddLineOfCode("return Json(gen);", 0)
 						.Commit()
-					.AddMethod("GenericPropReturn_Json", "FakeJsonResultLikeClass")
+					.AddMethod("GenericPropReturn_Json", MvcConstants.JsonResult_AspNet)
 						.AddScriptActionAttribute()
 						.AddLineOfCode("TestGenericClass<TestClass> gen = new TestGenericClass<TestClass>();", 0)
-						.AddLineOfCode("return FakeJson(gen.GenericProp);", 0)
+						.AddLineOfCode("return Json(gen.GenericProp);", 0)
 						.Commit()
 					.Commit()
 				
@@ -127,6 +122,10 @@ namespace TypeRightTests.Tests
 						.AddScriptActionAttribute()
 						.AddLineOfCode("return new List<string>();", 0)
 						.Commit()
+					.AddMethod("GetStringActionResult", MvcConstants.ActionResult_AspNetCore + "<string>")
+						.AddScriptActionAttribute()
+						.AddLineOfCode("return null;", 0)
+						.Commit()
 					.Commit()
 
 				.CreateClassBuilder("AspNetWebApiController")
@@ -134,21 +133,13 @@ namespace TypeRightTests.Tests
 					.AddAttribute(MvcConstants.RouteAttributeFullName_AspNet)
 						.AddConstructorArg("\"api/asp/[controller]\"")
 						.Commit()
-					.AddMethod("WhoCares", "FakeJsonResultLikeClass")
+					.AddMethod("WhoCares", MvcConstants.JsonResult_AspNet)
 						.AddScriptActionAttribute()
-						.AddLineOfCode("return FakeJson(true);", 0)
+						.AddLineOfCode("return Json(true);", 0)
 						.Commit()
 					.Commit()
 			;
 			
-			MethodReturnTypeHandler handler = new ParseSyntaxForTypeMethodHandler(
-				"Test.FakeJsonResultLikeClass",
-				new InvocationReturnForwardFilter("FakeJson", 0)
-				);
-			ParseOptions parseOptions = new ParseOptions();
-			parseOptions.MethodReturnTypeHandlers.Add(handler);
-			wkspBuilder.ParseOptions = parseOptions;
-
 			_packageTester = wkspBuilder.GetPackageTester();
 		}
 		
@@ -281,5 +272,12 @@ namespace TypeRightTests.Tests
 				.ReturnTypeTypescriptNameIs("string[]");
 		}
 
+		[TestMethod]
+		public void WebApi_ActionResultUsesTypeParam()
+		{
+			_packageTester.TestControllerWithName("WebApiController")
+				.TestActionWithName("GetStringActionResult")
+				.ReturnTypeTypescriptNameIs("string");
+		}
 	}
 }

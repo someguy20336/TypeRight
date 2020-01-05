@@ -30,6 +30,18 @@ export function PutSomething(id, body, abort) {
 }
 /**
  *
+ */
+export function TestActionResult(abort) {
+    return callPost(`/api/TestWebApi/TestActionResult`, {}, abort);
+}
+/**
+ *
+ */
+export function TestClassActionResult(abort) {
+    return callPost(`/api/TestWebApi/TestClassActionResult`, {}, abort);
+}
+/**
+ *
  * @param id
  */
 export function TestGetMethod(id, abort) {
