@@ -24,7 +24,6 @@
 
   <ItemGroup>
     <Folder Include="Scripts\Home\" />
-    <Folder Include="Scripts\TestWebApi\" />
     <Folder Include="Views\" />
     <Folder Include="wwwroot\css\" />
     <Folder Include="wwwroot\images\" />

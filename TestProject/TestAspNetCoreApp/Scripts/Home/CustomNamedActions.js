@@ -55,4 +55,4 @@ export function TestGetMethod(id, abort) {
 export function WithFromQuery(id, body, abort) {
     return callPost(`/api/TestWebApi/WithFromQuery?id=${id}`, body, abort);
 }
-//# sourceMappingURL=TestWebApiActions.js.map
+//# sourceMappingURL=CustomNamedActions.js.map

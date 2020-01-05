@@ -11,6 +11,7 @@ namespace TestAspNetCoreApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+	[ScriptOutput("../Scripts/Home/CustomNamedActions.ts")]
     public class TestWebApiController : ControllerBase
     {
 		[ScriptAction]

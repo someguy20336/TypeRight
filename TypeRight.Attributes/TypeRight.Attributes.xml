@@ -104,5 +104,16 @@
             <param name="path">The path, relative to the root of the project, to save the result file to</param>
             <param name="types">The types to extract</param>
         </member>
+        <member name="T:TypeRight.Attributes.ScriptOutputAttribute">
+            <summary>
+            Directs the script generator to where the output script for this object should go
+            </summary>
+        </member>
+        <member name="M:TypeRight.Attributes.ScriptOutputAttribute.#ctor(System.String)">
+            <summary>
+            Directs the script generator to where the output script for this object should go
+            </summary>
+            <param name="relativePath">The path relative to this file</param>
+        </member>
     </members>
 </doc>

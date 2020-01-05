@@ -128,7 +128,7 @@ namespace TypeRight.ScriptGeneration
 
 			foreach (MvcControllerInfo controller in typeCollection.GetMvcControllers())
 			{
-				string outputPath = GetControllerResultPath(controller);
+				string outputPath = controller.GetControllerResultPath();
 				ControllerContext context = new ControllerContext()
 				{
 					OutputPath = outputPath,
@@ -151,23 +151,6 @@ namespace TypeRight.ScriptGeneration
 
 			return new ScriptGenerationResult(true, null);
 		}
-
-
-		/// <summary>
-		/// Gets the result path for a controller
-		/// </summary>
-		/// <param name="controller">The controller</param>
-		/// <returns>The result path</returns>
-		private string GetControllerResultPath(MvcControllerInfo controller)
-		{
-			FileInfo fileInfo = new FileInfo(controller.FilePath);
-			DirectoryInfo controllerDir = fileInfo.Directory;
-
-			// Calculate the result
-			string controllerName = controller.Name.Substring(0, controller.Name.Length - "Controller".Length);
-			string resultPath = Path.Combine(controllerDir.FullName, $"..\\Scripts\\{controllerName}", controllerName + "Actions.ts");
-			return Path.GetFullPath(resultPath);
-		}
-
+		
 	}
 }

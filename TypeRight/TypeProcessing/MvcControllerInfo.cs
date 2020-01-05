@@ -3,6 +3,7 @@ using TypeRight.TypeFilters;
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
+using TypeRight.Attributes;
 
 namespace TypeRight.TypeProcessing
 {
@@ -119,6 +120,31 @@ namespace TypeRight.TypeProcessing
 				return template;
 			}
 		}
+
+		/// <summary>
+		/// Gets the result path for a controller
+		/// </summary>
+		/// <returns>The result path</returns>
+		public string GetControllerResultPath()
+		{
+			FileInfo fileInfo = new FileInfo(FilePath);
+			DirectoryInfo controllerDir = fileInfo.Directory;
+
+			// Get relative output path
+			string controllerName = Name.Substring(0, Name.Length - "Controller".Length);
+			string relativeOutputPath = Path.Combine($"..\\Scripts\\{controllerName}", controllerName + "Actions.ts");
+
+			var outputAttr = NamedType.Attributes.FirstOrDefault(attr => attr.AttributeType.FullName == typeof(ScriptOutputAttribute).FullName);
+			if (outputAttr != null)
+			{
+				relativeOutputPath = outputAttr.ConstructorArguments[0] as string;
+			}
+
+			// Calculate the result
+			string resultPath = Path.Combine(controllerDir.FullName, relativeOutputPath);
+			return Path.GetFullPath(resultPath);
+		}
+
 
 		/// <summary>
 		/// Writes to a string
