@@ -6,7 +6,7 @@ using TypeRight.TypeProcessing;
 using TypeRightTests.TestBuilders;
 using TypeRightTests.Testers;
 
-namespace TypeRightTests.Tests
+namespace TypeRightTests.TestsWithParsing
 {
 	[TestClass]
 	public class ControllerModelTests

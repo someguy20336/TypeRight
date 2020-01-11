@@ -9,7 +9,7 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
 {
 	internal partial class ModuleTypeTextTemplate : ITypeTextTemplate
 	{
-		private Dictionary<string, ImportStatement> _imports = new Dictionary<string, ImportStatement>();
+		private ImportManager _imports;
 		private TypeFormatter _formatter;
 
 		private TypeWriteContext _context;
@@ -21,14 +21,14 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
 		public string GetText(TypeWriteContext context)
 		{
 			_context = context;
-			
-			CompileImports();
+
+			_imports = ImportManager.FromTypes(_context.IncludedTypes, _context.OutputPath);
 			_formatter = new TypeScriptTypeFormatter(context.TypeCollection, new ModuleTypePrefixResolver(_imports));  // Add no prefix to the types
 
 			return TransformText();
 		}
 
-		private IEnumerable<ImportStatement> GetImports() => _imports.Values;
+		private IEnumerable<ImportStatement> GetImports() => _imports.GetImports().OrderBy(i => i.FromRelativePath);
 
 		private IEnumerable<ExtractedReferenceType> GetReferenceTypes() => _context.IncludedTypes.GetReferenceTypes().OrderBy(type => type.Name);
 
@@ -38,18 +38,6 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
 		{
 			return TextTemplateHelper.GetPartialTypeTextTemplate(type, _formatter);
 		}
-
-		private void CompileImports()
-		{
-			foreach (var type in GetReferenceTypes())
-			{
-				foreach (var property in type.Properties)
-				{
-					TypeScriptHelper.TryAddToImports(_imports, property.Type, _context.OutputPath);
-				}
-			}
-		}
-
-	
+			   	
 	}
 }

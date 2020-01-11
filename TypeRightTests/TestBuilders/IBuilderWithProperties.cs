@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TypeRightTests.TestBuilders
 {
-	internal interface ITypeWithProperties
+	internal interface IBuilderWithProperties
 	{
 		List<SymbolInfo> Properties { get; }
 	}

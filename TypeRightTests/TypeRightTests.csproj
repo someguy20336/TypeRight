@@ -207,7 +207,7 @@
       <DependentUpon>InterfaceBuilder.tt</DependentUpon>
     </Compile>
     <Compile Include="TestBuilders\InterfaceBuilderCode.cs" />
-    <Compile Include="TestBuilders\ITypeWithProperties.cs" />
+    <Compile Include="TestBuilders\IBuilderWithProperties.cs" />
     <Compile Include="TestBuilders\MethodInfo.cs" />
     <Compile Include="TestBuilders\SymbolInfo.cs" />
     <Compile Include="TestBuilders\TestAttributeBuilder.cs" />
@@ -220,6 +220,9 @@
     <Compile Include="TestBuilders\EnumMemberInfo.cs" />
     <Compile Include="TestBuilders\TestEnumMemberBuilder.cs" />
     <Compile Include="TestBuilders\TestMethodBuilder.cs" />
+    <Compile Include="TestBuilders\TypeCollection\KnownTypes.cs" />
+    <Compile Include="TestBuilders\TypeCollection\NamedTypeBuilder.cs" />
+    <Compile Include="TestBuilders\TypeCollection\TypeCollectionBuilder.cs" />
     <Compile Include="Testers\ControllerTester.cs" />
     <Compile Include="Testers\EnumTester.cs" />
     <Compile Include="Testers\MvcActionTester.cs" />
@@ -235,22 +238,24 @@
     <Compile Include="TestBuilders\TestWorkspaceBuilder.cs" />
     <Compile Include="Testers\PropertyTester.cs" />
     <Compile Include="Testers\ReferenceTypeTester.cs" />
-    <Compile Include="Tests\AnonymousTypeTests.cs" />
-    <Compile Include="Tests\CollectionsTests.cs" />
-    <Compile Include="Tests\ComplexPropertyTypeTests.cs" />
-    <Compile Include="Tests\ControllerTests.cs" />
-    <Compile Include="Tests\EnumTests.cs" />
-    <Compile Include="Tests\GenericsTests.cs" />
-    <Compile Include="Tests\InteritenceTests.cs" />
-    <Compile Include="Tests\PrimitiveTypeTests.cs" />
+    <Compile Include="TestsWithoutParsing\ImportManagerTests.cs" />
+    <Compile Include="TestsWithParsing\AnonymousTypeTests.cs" />
+    <Compile Include="TestsWithParsing\CollectionsTests.cs" />
+    <Compile Include="TestsWithParsing\ComplexPropertyTypeTests.cs" />
+    <Compile Include="TestsWithParsing\ControllerTests.cs" />
+    <Compile Include="TestsWithParsing\EnumTests.cs" />
+    <Compile Include="TestsWithParsing\GenericsTests.cs" />
+    <Compile Include="TestsWithParsing\InteritenceTests.cs" />
+    <Compile Include="TestsWithParsing\PrimitiveTypeTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Tests\DocumentationTests.cs" />
-    <Compile Include="Tests\ExternalTypeTests.cs" />
-    <Compile Include="Tests\FunctionalTypeTests.cs" />
-    <Compile Include="Tests\SameNameTests.cs" />
-    <Compile Include="Tests\MiscHelperTests.cs" />
-    <Compile Include="Tests\ScriptWriting.cs" />
-    <Compile Include="Tests\ControllerModelTests.cs" />
+    <Compile Include="TestsWithParsing\DocumentationTests.cs" />
+    <Compile Include="TestsWithParsing\ExternalTypeTests.cs" />
+    <Compile Include="TestsWithParsing\FunctionalTypeTests.cs" />
+    <Compile Include="TestsWithParsing\SameNameTests.cs" />
+    <Compile Include="TestsWithParsing\MiscHelperTests.cs" />
+    <Compile Include="TestsWithParsing\ScriptWriting.cs" />
+    <Compile Include="TestsWithParsing\ControllerModelTests.cs" />
+    <Compile Include="TestsWithoutParsing\TypeCollectionBuilderTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

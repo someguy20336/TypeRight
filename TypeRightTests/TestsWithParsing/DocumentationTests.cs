@@ -4,7 +4,7 @@ using TypeRightTests.TestBuilders;
 using TypeRightTests.Testers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace TypeRightTests.Tests
+namespace TypeRightTests.TestsWithParsing
 {
 	[TestClass]
 	public class DocumentationTests

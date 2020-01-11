@@ -4,7 +4,7 @@ using TypeRightTests.Testers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TypeRight.Attributes;
 
-namespace TypeRightTests.Tests
+namespace TypeRightTests.TestsWithParsing
 {
 	[TestClass]
 	public class EnumTests

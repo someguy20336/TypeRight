@@ -78,13 +78,13 @@ namespace TypeRight.ScriptWriting.TypeScript
 	/// </summary>
 	public class ModuleTypePrefixResolver : ITypePrefixResolver
 	{
-		private Dictionary<string, ImportStatement> _imports;
+		private ImportManager _imports;
 
 		/// <summary>
 		/// Creates a new resolver from the import statements
 		/// </summary>
 		/// <param name="imports"></param>
-		public ModuleTypePrefixResolver(Dictionary<string, ImportStatement> imports)
+		public ModuleTypePrefixResolver(ImportManager imports)
 		{
 			_imports = imports;
 		}
@@ -96,9 +96,9 @@ namespace TypeRight.ScriptWriting.TypeScript
 		/// <returns></returns>
 		public string GetPrefix(ExtractedTypeDescriptor extractedType)
 		{
-			if (_imports.ContainsKey(extractedType.TargetPath))
+			if (_imports.ContainsImportPath(extractedType.TargetPath))
 			{
-				return _imports[extractedType.TargetPath].ImportAlias;
+				return _imports.GetImportAtPath(extractedType.TargetPath).ImportAlias;
 			}
 			return "";
 		}
@@ -110,9 +110,9 @@ namespace TypeRight.ScriptWriting.TypeScript
 		/// <returns></returns>
 		public string GetPrefix(ExtractedType type)
 		{
-			if (_imports.ContainsKey(type.TargetPath))
+			if (_imports.ContainsImportPath(type.TargetPath))
 			{
-				return _imports[type.TargetPath].ImportAlias;
+				return _imports.GetImportAtPath(type.TargetPath).ImportAlias;
 			}
 			return "";
 		}

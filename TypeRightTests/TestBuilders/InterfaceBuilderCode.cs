@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TypeRightTests.TestBuilders
 {
-	partial class InterfaceBuilder : IAttributable, ITypeWithProperties
+	partial class InterfaceBuilder : IAttributable, IBuilderWithProperties
 	{
 		private string _interfaceName;
 		private string _namespace;

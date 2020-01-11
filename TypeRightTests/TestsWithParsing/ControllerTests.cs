@@ -6,7 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TypeRight.TypeProcessing;
 using TypeRight.TypeLocation;
 
-namespace TypeRightTests.Tests
+namespace TypeRightTests.TestsWithParsing
 {
 	[TestClass]
 	public class ControllerTests

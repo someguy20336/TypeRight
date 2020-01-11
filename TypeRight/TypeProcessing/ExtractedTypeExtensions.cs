@@ -26,5 +26,14 @@ namespace TypeRight.TypeProcessing
 		/// <returns></returns>
 		public static IEnumerable<ExtractedEnumType> GetEnumTypes(this IEnumerable<ExtractedType> collection)
 			=> collection.Where(type => type.NamedType.Flags.IsEnum).Cast<ExtractedEnumType>();
+
+		/// <summary>
+		/// Gets the first type from the collection by the name of the type
+		/// </summary>
+		/// <param name="collection">The collection</param>
+		/// <param name="name">The name to get</param>
+		/// <returns></returns>
+		public static ExtractedReferenceType GetTypeByName(this IEnumerable<ExtractedType> collection, string name)
+			=> collection.FirstOrDefault(type => type.Name == name) as ExtractedReferenceType;
 	}
 }

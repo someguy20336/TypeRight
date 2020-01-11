@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace TypeRightTests.Tests
+namespace TypeRightTests.TestsWithParsing
 {
 	[TestClass]
 	public class ExternalTypeTests

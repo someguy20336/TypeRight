@@ -12,7 +12,7 @@ namespace TypeRight.ScriptWriting.TypeScript
 	{
 		private TypeFormatter _typeFormatter;
 		private ControllerContext _context;
-		public Dictionary<string, ImportStatement> Imports { get; } = new Dictionary<string, ImportStatement>();
+		public ImportManager Imports { get; private set; }
 		private MvcControllerInfo _controllerInfo;
 
 		public ControllerProcessor(MvcControllerInfo controllerInfo, ControllerContext context)
@@ -29,7 +29,7 @@ namespace TypeRight.ScriptWriting.TypeScript
 
 			controllerModel.Name = _controllerInfo.Name;
 			controllerModel.Actions = _controllerInfo.Actions.Select(ac => CreateActionModel(ac));
-			controllerModel.Imports = Imports.Values;
+			controllerModel.Imports = Imports.GetImports();
 			return controllerModel;
 		}
 
@@ -99,6 +99,7 @@ namespace TypeRight.ScriptWriting.TypeScript
 
 		private void CompileImports()
 		{
+			Imports = new ImportManager(_context.OutputPath);
 			foreach (MvcActionInfo actionInfo in _controllerInfo.Actions)
 			{
 				CompileActionImport(actionInfo);
@@ -110,11 +111,11 @@ namespace TypeRight.ScriptWriting.TypeScript
 			FetchFunctionDescriptor fetchDescriptor = _context.FetchFunctionResolver.Resolve(actionInfo);
 
 			string funcKey = "fetch-" + fetchDescriptor.FetchModulePath;
-			if (!Imports.ContainsKey(funcKey))
+			if (!Imports.ContainsImportPath(funcKey))
 			{				
-				Imports.Add(funcKey, new ImportStatement(_context.OutputPath, fetchDescriptor.FetchModulePath, false));
+				Imports.AddImport(funcKey, new ImportStatement(_context.OutputPath, fetchDescriptor.FetchModulePath, false));
 			}
-			ImportStatement ajaxImport = Imports[funcKey];
+			ImportStatement ajaxImport = Imports.GetImportAtPath(funcKey);
 			ajaxImport.AddItem(fetchDescriptor.FunctionName);
 
 			AddActionImports(actionInfo, fetchDescriptor.AdditionalImports);
@@ -133,10 +134,10 @@ namespace TypeRight.ScriptWriting.TypeScript
 
 		private void AddActionImports(MvcActionInfo action, IEnumerable<ImportDefinition> additionalImports)
 		{
-			TryAddImport(action.ReturnType);
+			Imports.TryAddToImports(action.ReturnType);
 			foreach (var param in action.Parameters)
 			{
-				TryAddImport(param.Type);
+				Imports.TryAddToImports(param.Type);
 			}
 
 
@@ -146,12 +147,12 @@ namespace TypeRight.ScriptWriting.TypeScript
 				string importPath = PathUtils.ResolveRelativePath(_context.OutputPath, def.Path);
 
 				string key = "custom" + importPath;
-				if (!Imports.ContainsKey(key))
+				if (!Imports.ContainsImportPath(key))
 				{
-					Imports.Add(key, new ImportStatement(_context.OutputPath, importPath, def.UseAlias));
+					Imports.AddImport(key, new ImportStatement(_context.OutputPath, importPath, def.UseAlias));
 				}
 
-				ImportStatement statement = Imports[key];
+				ImportStatement statement = Imports.GetImportAtPath(key);
 				if (def.Items != null)
 				{
 					foreach (var item in def.Items)
@@ -162,11 +163,6 @@ namespace TypeRight.ScriptWriting.TypeScript
 
 			}
 		}
-
-		private void TryAddImport(TypeDescriptor type)
-		{
-			TypeScriptHelper.TryAddToImports(Imports, type, _context.OutputPath);
-		}
-
+		
 	}
 }

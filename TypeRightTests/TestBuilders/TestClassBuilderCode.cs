@@ -10,7 +10,7 @@ using TypeRight.TypeProcessing;
 
 namespace TypeRightTests.TestBuilders
 {
-	partial class TestClassBuilder : IAttributable, ITypeWithProperties
+	partial class TestClassBuilder : IAttributable, IBuilderWithProperties
 	{
 		private TestProjectBuilder _parentBuilder;
 

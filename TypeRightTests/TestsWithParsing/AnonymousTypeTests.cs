@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 using TypeRight.TypeProcessing;
 using TypeRight.TypeLocation;
 
-namespace TypeRightTests.Tests
+namespace TypeRightTests.TestsWithParsing
 {
 	[TestClass]
 	public class AnonymousTypeTests

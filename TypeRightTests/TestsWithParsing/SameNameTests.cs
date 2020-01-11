@@ -4,7 +4,7 @@ using TypeRightTests.Testers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TypeRight.TypeLocation;
 
-namespace TypeRightTests.Tests
+namespace TypeRightTests.TestsWithParsing
 {
 	/// <summary>
 	/// Tests cases where classes have the same name, but different type args.  Typescript doesn't allow this

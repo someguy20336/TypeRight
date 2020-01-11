@@ -7,7 +7,7 @@ using TypeRight.Workspaces.Parsing;
 using TypeRightTests.TestBuilders;
 using TypeRightTests.Testers;
 
-namespace TypeRightTests.Tests
+namespace TypeRightTests.TestsWithParsing
 {
 	[TestClass]
 	public class ScriptWriting
@@ -465,8 +465,6 @@ export interface MyType_1<T> extends MyType {
 ");
 
 		}
-
-
 		
 	}
 }

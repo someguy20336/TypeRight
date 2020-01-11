@@ -27,7 +27,7 @@ namespace TypeRightTests.TestBuilders
 		}
 
 
-		public static T AddProperty<T>(this T builder, string name, string type, string comments = "") where T : ITypeWithProperties
+		public static T AddProperty<T>(this T builder, string name, string type, string comments = "") where T : IBuilderWithProperties
 		{
 			builder.Properties.Add(new SymbolInfo() { Name = name, Type = type, Comments = comments });
 			return builder;
