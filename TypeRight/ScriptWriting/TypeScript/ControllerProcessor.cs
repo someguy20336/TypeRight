@@ -45,10 +45,12 @@ namespace TypeRight.ScriptWriting.TypeScript
 				ParameterType = ReplaceTokens(p.Type, actionInfo),
 				IsOptional = p.Optional
 			});
-			var parameters = actionInfo.Parameters.Select(param => CreateActionParameterModel(actionInfo, param)).Union(fetchParameters);
+
+			string routeTemplate = _controllerInfo.GetActionUrlTemplate(actionInfo);
+			var parameters = actionInfo.Parameters.Select(param => CreateActionParameterModel(actionInfo, param, routeTemplate)).Union(fetchParameters);
 			return new ControllerActionModel()
 			{
-				RouteTemplate = _controllerInfo.GetBaseUrl() + actionInfo.GetPartialTemplate(),
+				RouteTemplate = routeTemplate,
 				SummaryComments = actionInfo.SummaryComments,
 				ReturnsComments = actionInfo.ReturnsComments,
 				ParameterComments = actionInfo.ParameterComments,
@@ -60,13 +62,12 @@ namespace TypeRight.ScriptWriting.TypeScript
 			};
 		}
 
-		private ActionParameterModel CreateActionParameterModel(MvcActionInfo actionInfo, MvcActionParameter actionParameter)
+		private ActionParameterModel CreateActionParameterModel(MvcActionInfo actionInfo, MvcActionParameter actionParameter, string routeTemplate)
 		{
 			ActionParameterSourceType sourceType = ActionParameterSourceType.Body;
 
 			if (_context.ModelBinding == ModelBindingType.SingleParam)
 			{
-				string routeTemplate = actionInfo.GetPartialTemplate();
 				var bodyFilter = new ParameterHasAttributeFilter(new IsOfTypeFilter(MvcConstants.FromBodyAttributeFullName_AspNetCore));
 				var queryFilter = new ParameterHasAttributeFilter(new IsOfTypeFilter(MvcConstants.FromQueryAttributeFullName_AspNetCore));
 

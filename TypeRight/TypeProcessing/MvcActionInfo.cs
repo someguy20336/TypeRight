@@ -82,34 +82,6 @@ namespace TypeRight.TypeProcessing
 			}
 		}
 
-		public string GetPartialTemplate()
-		{
-			if (RequestMethod == RequestMethod.Get)
-			{
-				var getAttribute = Attributes.FirstOrDefault(attr => s_getTypeFilter.Evaluate(attr.AttributeType));
-				if (getAttribute.ConstructorArguments.Count > 0)
-				{
-					return getAttribute.ConstructorArguments[0] as string;
-				}				
-			}
-			else if (RequestMethod == RequestMethod.Post)
-			{
-				var postAttr = Attributes.FirstOrDefault(attr => s_postTypeFilter.Evaluate(attr.AttributeType));
-				if (postAttr.ConstructorArguments.Count > 0)
-				{
-					return postAttr.ConstructorArguments[0] as string;
-				}
-			}
-			else if (RequestMethod == RequestMethod.Put)
-			{
-				var putAttr = Attributes.FirstOrDefault(attr => s_putTypeFilter.Evaluate(attr.AttributeType));
-				if (putAttr.ConstructorArguments.Count > 0)
-				{
-					return putAttr.ConstructorArguments[0] as string;
-				}
-			}
-			return Name;
-		}
 
 
 		/// <summary>

@@ -220,9 +220,12 @@
     <Compile Include="TestBuilders\EnumMemberInfo.cs" />
     <Compile Include="TestBuilders\TestEnumMemberBuilder.cs" />
     <Compile Include="TestBuilders\TestMethodBuilder.cs" />
-    <Compile Include="TestBuilders\TypeCollection\KnownTypes.cs" />
+    <Compile Include="TestBuilders\TypeCollection\IAttributable.cs" />
+    <Compile Include="TestBuilders\TypeCollection\MethodBuilder.cs" />
     <Compile Include="TestBuilders\TypeCollection\NamedTypeBuilder.cs" />
+    <Compile Include="TestBuilders\TypeCollection\RouteGeneratorTests.cs" />
     <Compile Include="TestBuilders\TypeCollection\TypeCollectionBuilder.cs" />
+    <Compile Include="TestBuilders\TypeCollection\TypeCollectionBuilderExtensions.cs" />
     <Compile Include="Testers\ControllerTester.cs" />
     <Compile Include="Testers\EnumTester.cs" />
     <Compile Include="Testers\MvcActionTester.cs" />

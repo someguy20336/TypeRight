@@ -35,14 +35,14 @@ namespace TypeRight.CodeModel.Default
 		public NamedType(string name, 
 			string fullName,
 			TypeFlags flags = null,
-			IReadOnlyList<IProperty> properties = null, 
+			IReadOnlyList<IProperty> properties = null,
+			IReadOnlyList<IMethod> methods = null,
 			INamedType baseType = null, 
 			IReadOnlyList<INamedType> interfaces = null, 
 			string filePath = null,
 			INamedType constructedFromType = null,
 			IReadOnlyList<IType> typeArguments = null, 
 			IReadOnlyList<IField> fields = null, 
-			IReadOnlyList<IMethod> methods = null, 
 			IReadOnlyList<IAttributeData> attributes = null, 
 			string comments = "")
 		{
@@ -54,9 +54,9 @@ namespace TypeRight.CodeModel.Default
 			Interfaces = interfaces ?? new List<NamedType>();
 			FilePath = filePath;
 			TypeArguments = typeArguments ?? new List<TypeBase>();
-			Fields = fields;
-			Methods = methods;
-			Attributes = attributes;
+			Fields = fields ?? new List<IField>();
+			Methods = methods ?? new List<IMethod>();
+			Attributes = attributes ?? new List<IAttributeData>();
 			Flags = flags ?? new TypeFlags();
 			Comments = comments;
 		}

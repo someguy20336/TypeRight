@@ -27,7 +27,6 @@ namespace TypeRight.Workspaces.Parsing
 		/// </summary>
 		/// <param name="comp">The compilation</param>
 		/// <param name="documentationProvider">The doc provider</param>
-		/// <param name="options">The parse options</param>
 		public ParseContext(Compilation comp, DocumentationProvider documentationProvider)
 		{
 			Compilation = comp;

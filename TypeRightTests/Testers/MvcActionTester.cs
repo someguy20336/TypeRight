@@ -16,11 +16,13 @@ namespace TypeRightTests.Testers
 	class MvcActionTester
 	{
 		private MvcActionInfo _method;
+		private MvcControllerInfo _controllerInfo;
 
 		private readonly TypeFormatter _typeFormatter;
 
-		public MvcActionTester(MvcActionInfo method, TypeFormatter typeFormatter)
+		public MvcActionTester(MvcControllerInfo controller, MvcActionInfo method, TypeFormatter typeFormatter)
 		{
+			_controllerInfo = controller;
 			_method = method;
 			_typeFormatter = typeFormatter;
 		}
@@ -35,6 +37,14 @@ namespace TypeRightTests.Testers
 		public MvcActionTester ReturnTypeTypescriptNameIs(string typescriptName)
 		{
 			Assert.AreEqual(typescriptName, _method.ReturnType.FormatType(_typeFormatter));
+			return this;
+		}
+
+		
+		public MvcActionTester UrlTemplateIs(string expected)
+		{
+			string baseUrl = _controllerInfo.GetActionUrlTemplate(_method);
+			Assert.AreEqual(expected, baseUrl);
 			return this;
 		}
 	}

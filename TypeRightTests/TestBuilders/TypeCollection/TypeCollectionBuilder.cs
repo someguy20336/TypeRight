@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TypeRight.CodeModel;
+using TypeRight.CodeModel.Default;
 using TypeRight.TypeProcessing;
 
 namespace TypeRightTests.TestBuilders.TypeCollection
@@ -11,7 +12,7 @@ namespace TypeRightTests.TestBuilders.TypeCollection
 	/// <summary>
 	/// Builds a type collection
 	/// </summary>
-	class TypeCollectionBuilder
+	internal class TypeCollectionBuilder
 	{
 
 		public const string DefaultNamespace = "Test.TypeCollection";
@@ -22,26 +23,57 @@ namespace TypeRightTests.TestBuilders.TypeCollection
 			ProjectPath = @"C:\FolderA\Test.csproj"
 		});
 
+		private Dictionary<string, INamedType> _externalTypes = new Dictionary<string, INamedType>();
+
 		public static TypeCollectionBuilder Create() => new TypeCollectionBuilder();
+
+		private TypeCollectionBuilder()
+		{
+			RegisterExternalType(typeof(string));
+			RegisterExternalType(typeof(int));
+		}
 
 		public NamedTypeBuilder AddNamedType(string typeName)
 		{
 			return new NamedTypeBuilder(this, typeName);
 		}
-
+		
 		public TypeCollectionBuilder RegisterType(INamedType type, string targetPath)
 		{
 			_extractedTypes.RegisterType(type, targetPath);
 			return this;
 		}
 
-		public INamedType GetNamedType(string name)
+		public TypeCollectionBuilder RegisterController(INamedType type)
 		{
-			return KnownTypes.TryResolveKnownType(name) ?? _extractedTypes.GetReferenceTypes()
-				.Select(t => t.NamedType)
-				.First(t => t.Name == name);
+			_extractedTypes.RegisterController(type);
+			return this;
+		}
+
+		public INamedType GetNamedType(Type type)
+		{
+			return GetNamedType(type.FullName);
+		}
+
+		public INamedType GetNamedType(string fullName)
+		{
+			return _externalTypes.ContainsKey(fullName)
+				? _externalTypes[fullName]
+				: _extractedTypes.GetReferenceTypes().Select(t => t.NamedType).First(t => t.FullName == fullName);
 		}
 
 		public ExtractedTypeCollection Build() => _extractedTypes;
+
+		public TypeCollectionBuilder RegisterExternalType(Type type)
+		{
+			return RegisterExternalType(type.Name, type.Namespace);
+		}
+
+		public TypeCollectionBuilder RegisterExternalType(string name, string ns)
+		{
+			string fullName = $"{ns}.{name}";
+			_externalTypes.Add(fullName, new NamedType(name, fullName));
+			return this;
+		}
 	}
 }

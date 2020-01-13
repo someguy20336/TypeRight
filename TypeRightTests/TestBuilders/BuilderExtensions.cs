@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TypeRight.Attributes;
+using TypeRight.CodeModel;
+using TypeRight.CodeModel.Default;
 
 namespace TypeRightTests.TestBuilders
 {
@@ -27,12 +29,12 @@ namespace TypeRightTests.TestBuilders
 		}
 
 
-		public static T AddProperty<T>(this T builder, string name, string type, string comments = "") where T : IBuilderWithProperties
+		public static T AddProperty<T>(this T builder, string name, string type, string comments = "") where T : IBuilderWithTypeNameProperties
 		{
 			builder.Properties.Add(new SymbolInfo() { Name = name, Type = type, Comments = comments });
 			return builder;
 		}
-
+		
 		public static string GetAttributeText<T>(this T builder) where T : IAttributable
 		{
 			if (builder.Attributes.Count == 0)

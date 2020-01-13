@@ -13,6 +13,9 @@ namespace TypeRight.TypeProcessing
 		public static string RouteAttributeFullName_AspNet => ToAspNetFullName(RouteAttributeName);
 		public static string RouteAttributeFullName_AspNetCore => ToAspNetCoreFullName(RouteAttributeName);
 
+		public const string AreaAttribute = "AreaAttribute";
+		public static string AreaAttributeFullName_AspNetCore => ToAspNetCoreFullName(AreaAttribute);
+
 		public const string ControllerBaseName = "ControllerBase";
 		public static string ControllerBaseFullName_AspNet => ToAspNetFullName(ControllerBaseName);
 		public static string ControllerBaseFullName_AspNetCore => ToAspNetCoreFullName(ControllerBaseName);

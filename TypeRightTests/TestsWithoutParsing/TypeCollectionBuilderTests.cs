@@ -59,7 +59,7 @@ namespace TypeRightTests.TestsWithoutParsing
 		{
 			var collection = TypeCollectionBuilder.Create()
 				.AddNamedType("TestClass")
-					.AddProperty("TestProp", "int")
+					.AddProperty("TestProp", typeof(int))
 					.Build()
 				.Build();
 

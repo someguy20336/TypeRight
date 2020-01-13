@@ -25,16 +25,9 @@ namespace TypeRightTests.Testers
 			_typeFormatter = typeFormatter;
 		}
 
-		public ControllerTester BaseUrlIs(string expected)
-		{
-			string baseUrl = _controllerInfo.GetBaseUrl();
-			Assert.AreEqual(expected, baseUrl);
-			return this;
-		}
-
 		public MvcActionTester TestActionWithName(string name)
 		{
-			return new MvcActionTester(_controllerInfo.Actions.Where(m => m.Name == name).First(), _typeFormatter);
+			return new MvcActionTester(_controllerInfo, _controllerInfo.Actions.Where(m => m.Name == name).First(), _typeFormatter);
 		}
 
 		public MvcActionModelTester TestActionModelWithName(string name)

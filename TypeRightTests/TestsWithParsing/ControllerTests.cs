@@ -120,6 +120,7 @@ namespace TypeRightTests.TestsWithParsing
 						.Commit()
 					.AddMethod("GetStringList", "List<string>")
 						.AddScriptActionAttribute()
+						.AddAttribute(MvcConstants.HttpGetAttributeFullName_AspNetCore).AddConstructorArg("\"getList\"").Commit()
 						.AddLineOfCode("return new List<string>();", 0)
 						.Commit()
 					.AddMethod("GetStringActionResult", MvcConstants.ActionResult_AspNetCore + "<string>")
@@ -129,9 +130,9 @@ namespace TypeRightTests.TestsWithParsing
 					.Commit()
 
 				.CreateClassBuilder("AspNetWebApiController")
-					.WithControllerBaseClass()
+					.WithControllerBaseClass(false)
 					.AddAttribute(MvcConstants.RouteAttributeFullName_AspNet)
-						.AddConstructorArg("\"api/asp/[controller]\"")
+						.AddConstructorArg("\"api/asp/[controller]/[action]\"")
 						.Commit()
 					.AddMethod("WhoCares", MvcConstants.JsonResult_AspNet)
 						.AddScriptActionAttribute()
@@ -257,11 +258,13 @@ namespace TypeRightTests.TestsWithParsing
 		{
 			// Asp net core
 			_packageTester.TestControllerWithName("WebApiController")
-				.BaseUrlIs("/api/WebApi/");
+				.TestActionWithName("GetStringList")
+				.UrlTemplateIs("/api/WebApi/getList");
 
 			// asp.net
 			_packageTester.TestControllerWithName("AspNetWebApiController")
-				.BaseUrlIs("/api/asp/AspNetWebApi/");
+				.TestActionWithName("WhoCares")
+				.UrlTemplateIs("/api/asp/AspNetWebApi/WhoCares");
 		}
 
 		[TestMethod]

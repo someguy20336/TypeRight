@@ -63,62 +63,10 @@ namespace TypeRight.TypeProcessing
 			}
 		}
 
-		public string GetBaseUrl()
+		public string GetActionUrlTemplate(MvcActionInfo action)
 		{
-			
-			FileInfo fileInfo = new FileInfo(FilePath);
-			DirectoryInfo controllerDir = fileInfo.Directory;
-
-			// Check if this controller is in an "Area"
-			bool foundAreas = false;
-			DirectoryInfo dir = controllerDir;
-			DirectoryInfo areaDir = null;  // if areas is found, this is the specific area directory (like "Admin", or "Shared", etc)
-			while (dir != null)
-			{
-				if (dir.Name == "Areas")
-				{
-					foundAreas = true;
-					break;
-				}
-				areaDir = dir;
-				dir = dir.Parent;
-			}
-
-			IAttributeData attr = NamedType.Attributes.FirstOrDefault(a => 
-				a.AttributeType.FullName == MvcConstants.RouteAttributeFullName_AspNetCore
-				|| a.AttributeType.FullName == MvcConstants.RouteAttributeFullName_AspNet
-			);
-			if (attr == null)
-			{		
-
-				if (foundAreas)
-				{
-					// Area/ControllerName/Action
-					return $"/{areaDir.Name}/{ControllerName}/";
-				}
-				else
-				{
-					// ControllerName/Action
-					return $"/{ControllerName}/";
-				}
-			}
-			else
-			{
-				string template = attr.ConstructorArguments[0] as string;
-				template = template.Replace("[controller]", ControllerName)
-					.Replace("[area]", foundAreas ? "" : areaDir.Name);
-
-				if (!template.StartsWith("/"))
-				{
-					template = "/" + template;
-				}
-				if (!template.EndsWith("/"))
-				{
-					template += "/";
-				}
-
-				return template;
-			}
+			var resolver = MvcRouteGenerator.CreateGenerator(this);
+			return resolver.GenerateRouteTemplate(action);
 		}
 
 		/// <summary>
