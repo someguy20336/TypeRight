@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using TypeRight.CodeModel;
+using TypeRight.TypeFilters;
 
 namespace TypeRight.TypeProcessing.RouteGenerators
 {
@@ -12,14 +13,26 @@ namespace TypeRight.TypeProcessing.RouteGenerators
 	/// </summary>
 	internal class AspNetRouteGenerator : MvcRouteGenerator
 	{
+
+		private static TypeFilter s_routeAreaTypeFilter = new IsOfTypeFilter(MvcConstants.RouteAreaAttributeFullName_AspNet);
+
 		public AspNetRouteGenerator(MvcControllerInfo controllerInfo) : base(controllerInfo)
 		{
 		}
 
 		protected override string GetArea()
 		{
+			// Check for route area attribute
+			var routeArea = Controller.NamedType.Attributes.FirstOrDefault(attr => s_routeAreaTypeFilter.Evaluate(attr.AttributeType));
+			if (routeArea != null)
+			{
+				return routeArea.ConstructorArguments[0] as string;
+			}
+
+			// Fall back to folder structure
 			FileInfo fileInfo = new FileInfo(Controller.FilePath);
 			DirectoryInfo controllerDir = fileInfo.Directory;
+
 
 			// Check if this controller is in an "Area"
 			bool foundAreas = false;

@@ -143,5 +143,64 @@ namespace TypeRightTests.TestBuilders.TypeCollection
 			var routeGen = MvcRouteGenerator.CreateGenerator(controller);
 			Assert.AreEqual("/Things/RandoMethod", routeGen.GenerateRouteTemplate(controller.Actions.First()));
 		}
+
+		[TestMethod]
+		public void DotNet_Area_FromFolder_RoutedByConvention()
+		{
+			var collection = TypeCollectionBuilder.Create()
+				.AddAspNetTypes()
+				.AddNamedType("ThingsController")
+					.WithFilePath(@"C:\FolderA\Areas\ThingsArea\Controllers\ThingsController.cs")
+					.WithBaseType(MvcConstants.ControllerBaseName, MvcConstants.AspNetNamespace)
+					.AddMethod("RandoMethod", typeof(int))
+						.AddScriptActionAttribute()
+						.Commit()
+					.BuildAsController()
+				.Build();
+
+			var controller = collection.GetMvcControllers().First();
+			var routeGen = MvcRouteGenerator.CreateGenerator(controller);
+
+			Assert.AreEqual("/ThingsArea/Things/RandoMethod", routeGen.GenerateRouteTemplate(controller.Actions.First()));
+		}
+
+		[TestMethod]
+		public void DotNet_Area_FromRouteArea_RoutedByConvention()
+		{
+			var collection = TypeCollectionBuilder.Create()
+				.AddAspNetTypes()
+				.AddNamedType("ThingsController")
+					.WithBaseType(MvcConstants.ControllerBaseName, MvcConstants.AspNetNamespace)
+					.AddAttribute(MvcConstants.RouteAreaAttributeFullName_AspNet, "ThingsArea")
+					.AddMethod("RandoMethod", typeof(int))
+						.AddScriptActionAttribute()
+						.Commit()
+					.BuildAsController()
+				.Build();
+
+			var controller = collection.GetMvcControllers().First();
+			var routeGen = MvcRouteGenerator.CreateGenerator(controller);
+			Assert.AreEqual("/ThingsArea/Things/RandoMethod", routeGen.GenerateRouteTemplate(controller.Actions.First()));
+		}
+
+		[TestMethod]
+		public void DotNet_HttpGet_RoutedByAttribute()
+		{
+			var collection = TypeCollectionBuilder.Create()
+				.AddAspNetTypes()
+				.AddNamedType("ThingsController")
+					.WithBaseType(MvcConstants.ControllerBaseName, MvcConstants.AspNetNamespace)
+					.AddAttribute(MvcConstants.RouteAttributeFullName_AspNet, "api/Things")
+					.AddMethod("RandoMethod", typeof(int))
+						.AddScriptActionAttribute()
+						.AddAttribute(MvcConstants.HttpGetAttributeFullName_AspNet, "GetThings")
+						.Commit()
+					.BuildAsController()
+				.Build();
+
+			var controller = collection.GetMvcControllers().First();
+			var routeGen = MvcRouteGenerator.CreateGenerator(controller);
+			Assert.AreEqual("/api/Things/GetThings", routeGen.GenerateRouteTemplate(controller.Actions.First()));
+		}
 	}
 }

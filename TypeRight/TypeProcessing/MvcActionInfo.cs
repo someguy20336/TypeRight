@@ -11,13 +11,9 @@ namespace TypeRight.TypeProcessing
 	/// </summary>
 	public class MvcActionInfo
 	{
-		private static TypeFilter s_postTypeFilter = new IsOfAnyTypeFilter(MvcConstants.HttpPostAttributeFullName_AspNet, MvcConstants.HttpPostAttributeFullName_AspNetCore);
-		private static TypeFilter s_getTypeFilter = new IsOfAnyTypeFilter(MvcConstants.HttpGetAttributeFullName_AspNet, MvcConstants.HttpGetAttributeFullName_AspNetCore);
-		private static TypeFilter s_putTypeFilter = new IsOfAnyTypeFilter(MvcConstants.HttpPutAttributeFullName_AspNet, MvcConstants.HttpPutAttributeFullName_AspNetCore);
-
-		private static ActionFilter s_postActionFilter = new ActionHasAttributeFilter(s_postTypeFilter);
-		private static ActionFilter s_getActionFilter = new ActionHasAttributeFilter(s_getTypeFilter);
-		private static ActionFilter s_putActionFilter = new ActionHasAttributeFilter(s_putTypeFilter);
+		private static ActionFilter s_postActionFilter = new ActionHasAttributeFilter(MvcTypeFilters.HttpPostTypeFilter);
+		private static ActionFilter s_getActionFilter = new ActionHasAttributeFilter(MvcTypeFilters.HttpGetTypeFilter);
+		private static ActionFilter s_putActionFilter = new ActionHasAttributeFilter(MvcTypeFilters.HttpPutTypeFilter);
 
 		/// <summary>
 		/// Gets the method behind this action info

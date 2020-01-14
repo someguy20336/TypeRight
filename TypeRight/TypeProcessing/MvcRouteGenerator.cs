@@ -9,11 +9,6 @@ namespace TypeRight.TypeProcessing
 {
 	public abstract class MvcRouteGenerator
 	{
-
-		private static TypeFilter s_postTypeFilter = new IsOfAnyTypeFilter(MvcConstants.HttpPostAttributeFullName_AspNet, MvcConstants.HttpPostAttributeFullName_AspNetCore);
-		private static TypeFilter s_getTypeFilter = new IsOfAnyTypeFilter(MvcConstants.HttpGetAttributeFullName_AspNet, MvcConstants.HttpGetAttributeFullName_AspNetCore);
-		private static TypeFilter s_putTypeFilter = new IsOfAnyTypeFilter(MvcConstants.HttpPutAttributeFullName_AspNet, MvcConstants.HttpPutAttributeFullName_AspNetCore);
-
 		public const string ConventionalBaseRouteTemplate = "/[controller]/[action]";
 		public const string ConventionalBaseRouteTemplateWithArea = "/[area]/[controller]/[action]";
 
@@ -62,7 +57,7 @@ namespace TypeRight.TypeProcessing
 		{
 			if (actionInfo.RequestMethod == RequestMethod.Get)
 			{
-				var getAttribute = actionInfo.Attributes.FirstOrDefault(attr => s_getTypeFilter.Evaluate(attr.AttributeType));
+				var getAttribute = actionInfo.Attributes.FirstOrDefault(attr => MvcTypeFilters.HttpGetTypeFilter.Evaluate(attr.AttributeType));
 				if (getAttribute.ConstructorArguments.Count > 0)
 				{
 					return getAttribute.ConstructorArguments[0] as string;
@@ -70,7 +65,7 @@ namespace TypeRight.TypeProcessing
 			}
 			else if (actionInfo.RequestMethod == RequestMethod.Post)
 			{
-				var postAttr = actionInfo.Attributes.FirstOrDefault(attr => s_postTypeFilter.Evaluate(attr.AttributeType));
+				var postAttr = actionInfo.Attributes.FirstOrDefault(attr => MvcTypeFilters.HttpPostTypeFilter.Evaluate(attr.AttributeType));
 				if (postAttr.ConstructorArguments.Count > 0)
 				{
 					return postAttr.ConstructorArguments[0] as string;
@@ -78,7 +73,7 @@ namespace TypeRight.TypeProcessing
 			}
 			else if (actionInfo.RequestMethod == RequestMethod.Put)
 			{
-				var putAttr = actionInfo.Attributes.FirstOrDefault(attr => s_putTypeFilter.Evaluate(attr.AttributeType));
+				var putAttr = actionInfo.Attributes.FirstOrDefault(attr => MvcTypeFilters.HttpPutTypeFilter.Evaluate(attr.AttributeType));
 				if (putAttr.ConstructorArguments.Count > 0)
 				{
 					return putAttr.ConstructorArguments[0] as string;

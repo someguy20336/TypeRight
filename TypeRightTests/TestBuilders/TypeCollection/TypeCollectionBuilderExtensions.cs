@@ -25,11 +25,12 @@ namespace TypeRightTests.TestBuilders.TypeCollection
 		public static TypeCollectionBuilder AddAspNetTypes(this TypeCollectionBuilder builder)
 		{
 			return builder.RegisterExternalType(MvcConstants.ControllerBaseName, MvcConstants.AspNetNamespace)
-				.RegisterExternalType(MvcConstants.RouteAttributeName, MvcConstants.AspNetNamespace);
-				//.RegisterExternalType(MvcConstants.AreaAttribute, MvcConstants.AspNetCoreNamespace)
-				//.RegisterExternalType(MvcConstants.HttpGetAttributeName, MvcConstants.AspNetCoreNamespace)
-				//.RegisterExternalType(MvcConstants.HttpPostAttributeName, MvcConstants.AspNetCoreNamespace)
-				//.RegisterExternalType(MvcConstants.HttpPutAttributeName, MvcConstants.AspNetCoreNamespace);
+				.RegisterExternalType(MvcConstants.RouteAttributeName, MvcConstants.AspNetNamespace)
+				.RegisterExternalType(MvcConstants.RouteAreaAttribute, MvcConstants.AspNetNamespace)
+				.RegisterExternalType(MvcConstants.HttpGetAttributeName, MvcConstants.AspNetNamespace)
+				.RegisterExternalType(MvcConstants.HttpPostAttributeName, MvcConstants.AspNetNamespace)
+				.RegisterExternalType(MvcConstants.HttpPutAttributeName, MvcConstants.AspNetNamespace)
+			;
 		}
 
 		public static T AddAttribute<T>(this T attributable, string fullTypeName, params object[] ctorArgs) where T : IAttributable
