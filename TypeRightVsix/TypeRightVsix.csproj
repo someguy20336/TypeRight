@@ -427,9 +427,9 @@
     <Analyzer Include="..\packages\Microsoft.VisualStudio.Threading.Analyzers.15.8.168\analyzers\cs\Microsoft.VisualStudio.Threading.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TypeRight.Core\TypeRight.Core.csproj">
+    <ProjectReference Include="..\TypeRight.Contracts\TypeRight.Contracts.csproj">
       <Project>{d3f8a40d-be0b-48b9-b5ea-6032a4c5f4b1}</Project>
-      <Name>TypeRight.Core</Name>
+      <Name>TypeRight.Contracts</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -259,3 +259,14 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+/TypeRight.Tests/TestBuilders/InterfaceBuilder.cs
+/TypeRight.Tests/TestBuilders/TestClassBuilder.cs
+/TypeRight.Tests/TestBuilders/TestEnumBuilder.cs
+/TypeRight.Core/ScriptWriting/TypeScript/PartialTextTemplates/EnumTextTemplate.cs
+/TypeRight.Core/ScriptWriting/TypeScript/PartialTextTemplates/TypeScriptClassTextTemplate.cs
+/TypeRight.Core/ScriptWriting/TypeScript/PartialTextTemplates/TypeScriptInterfaceTextTemplate.cs
+/TypeRight.Core/ScriptWriting/TypeScript/TextTemplates/ModuleMvcMethodTextTemplate.cs
+/TypeRight.Core/ScriptWriting/TypeScript/TextTemplates/ModuleTypeTextTemplate.cs
+/TypeRight.Core/ScriptWriting/TypeScript/TextTemplates/MvcMethodTextTemplateBase.cs
+/TypeRight.Core/ScriptWriting/TypeScript/TextTemplates/NamespaceMvcMethodTextTemplate.cs
+/TypeRight.Core/ScriptWriting/TypeScript/TextTemplates/NamespaceTypeTextTemplate.cs

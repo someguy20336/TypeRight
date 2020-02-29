@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "AspNetCore - Command Line": {
+      "commandName": "Project",
+      "commandLineArgs": "\"..\\..\\..\\..\\TestProjects\\AspNetCore\\TestAspNetCoreApp\\TestAspNetCoreApp.csproj\""
+    },
+    "AspNet - Command Line": {
+      "commandName": "Project",
+      "commandLineArgs": "\"..\\..\\..\\..\\TestProjects\\AspNet\\TestWebApp\\TestWebApp.csproj\""
+    }
+  }
+}
