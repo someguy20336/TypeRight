@@ -43,8 +43,7 @@ namespace TypeRightVsix.Commands
 		{
 			this._package = package ?? throw new ArgumentNullException("package");
 
-			OleMenuCommandService commandService = this.ServiceProvider.GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
-			if (commandService != null)
+			if (this.ServiceProvider.GetService(typeof(IMenuCommandService)) is OleMenuCommandService commandService)
 			{
 				var menuCommandID = new CommandID(CommandSet, CommandId);
 				var menuItem = new OleMenuCommand(this.MenuItemCallback, menuCommandID);
@@ -60,8 +59,8 @@ namespace TypeRightVsix.Commands
 		/// <param name="e"></param>
 		private void MenuItem_BeforeQueryStatus(object sender, EventArgs e)
 		{
+			ThreadHelper.ThrowIfNotOnUIThread();
 			OleMenuCommand button = (OleMenuCommand)sender;
-			bool hasProj = VsHelper.GetSelectedItemsOfType<Project>().Any();  // Check if the solution is selectd
 
 			button.Visible = false;
 			button.Enabled = false;
@@ -114,6 +113,8 @@ namespace TypeRightVsix.Commands
 		/// <param name="e">Event args.</param>
 		private void MenuItemCallback(object sender, EventArgs e)
 		{
+			ThreadHelper.ThrowIfNotOnUIThread();
+
 			foreach (Project proj in VsHelper.GetSelectedItemsOfType<Project>())
 			{
 				if (!VsHelper.IsSolutionItemsFolder(proj) 

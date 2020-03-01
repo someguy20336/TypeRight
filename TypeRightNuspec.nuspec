@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
 	<metadata>
 		<id>TypeRight</id>
-		<version>0.10.0</version>
+		<version>1.0.0</version>
 		<title>TypeRight</title>
 		<authors>Dave W</authors>
 		<owners>Dave W</owners>
@@ -20,12 +20,22 @@
 		<license type="expression">MIT</license>
 	</metadata>
 	<files>
-		<file src=".\TypeRight.Attributes.dll" target="lib\netstandard2.0" />
-		<file src=".\TypeRight.Attributes.xml" target="lib\netstandard2.0" />
-		<file src=".\TypeRight.targets" target="build" />
-		<file src=".\typeRightConfig.json" target="content"></file>
-		<file src=".\*.dll" target="tools" />
-		<file src=".\*.pdb" target="tools" />
-		<file src="..\..\..\Icons\TypeRight64x64.png" target="images\"></file>
+		<!-- Attributes reference -->
+		<file src=".\TypeRight.Attributes\bin\Release\netstandard2.0\TypeRight.Attributes.dll" target="lib\netstandard2.0" />
+		<file src=".\TypeRight.Attributes\bin\Release\netstandard2.0\TypeRight.Attributes.xml" target="lib\netstandard2.0" />
+		
+		<!-- Build tool -->
+		<file src=".\TypeRight\TypeRight.targets" target="build" />
+		<file src=".\TypeRight\bin\Release\netcoreapp2.2\publish\*.dll" target="tools" />
+		<file src=".\TypeRight\bin\Release\netcoreapp2.2\publish\*.pdb" target="tools" />
+		<file src=".\TypeRight\bin\Release\netcoreapp2.2\publish\TypeRight.exe" target="tools" />
+		
+		<!-- Bridge -->
+		<file src=".\TypeRight.Workspaces.Bridge\bin\Release\*.dll" target="tools\bridge" />
+		<file src=".\TypeRight.Workspaces.Bridge\bin\Release\*.pdb" target="tools\bridge" />
+		
+		<!-- Content -->
+		<file src=".\Icons\TypeRight64x64.png" target="images\"></file>
+
 	</files>
 </package>

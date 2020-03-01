@@ -63,7 +63,7 @@ namespace TypeRightVsix.Commands
 		/// <param name="e"></param>
 		private void MenuItem_BeforeQueryStatus(object sender, EventArgs e)
 		{
-			
+			ThreadHelper.ThrowIfNotOnUIThread();
 			OleMenuCommand button = (OleMenuCommand)sender;
 			button.Enabled = false;
 
@@ -119,6 +119,7 @@ namespace TypeRightVsix.Commands
 		/// <param name="e">Event args.</param>
 		private void MenuItemCallback(object sender, EventArgs e)
 		{
+			ThreadHelper.ThrowIfNotOnUIThread();
 			var question = MessageBox.Show("Selecting this command will install a NuGet package that will enable this project for script generation. " + 
 				"\r\rDo you want to continue?", "Install NuGet Package?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 

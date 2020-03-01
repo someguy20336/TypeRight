@@ -21,7 +21,7 @@
 
   <ItemGroup>
     <None Update="TypeRight.targets">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 

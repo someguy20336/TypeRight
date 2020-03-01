@@ -59,6 +59,7 @@ namespace TypeRightVsix.Commands
 		/// <param name="e"></param>
 		private void MenuItem_BeforeQueryStatus(object sender, EventArgs e)
 		{
+			ThreadHelper.ThrowIfNotOnUIThread();
 			OleMenuCommand button = (OleMenuCommand)sender;
 			button.Enabled = false;
 			

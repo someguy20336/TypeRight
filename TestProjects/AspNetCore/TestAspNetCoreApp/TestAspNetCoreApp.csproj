@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <TypeScriptToolsVersion>3.1</TypeScriptToolsVersion>
+	<TypeRightTesting>true</TypeRightTesting>
   </PropertyGroup>
 
   <ItemGroup>
@@ -45,5 +46,5 @@
     <TypeScriptCompile Include="Scripts\CallServiceStuff.ts" />
   </ItemGroup>
 
-	<Import Project="..\..\..\TypeRight\bin\Debug\netcoreapp2.2\publish\TypeRight.targets" />
+	<Import Project="..\..\..\TypeRight\TypeRight.targets" />
 </Project>

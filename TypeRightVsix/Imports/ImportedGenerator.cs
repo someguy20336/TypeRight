@@ -44,7 +44,7 @@ namespace TypeRightVsix.Imports
 		public ImportedGenerator(string cacheBasePath, string version, string nugetPath)
 		{
 			AssemblyVersion = version;
-			AssemblyPath = Path.Combine(nugetPath, "tools");
+			AssemblyPath = Path.Combine(nugetPath, "tools\bridge");
 			string cachePath = Path.Combine(cacheBasePath, AssemblyVersion);
 
 			// If we don't have this version locally cached, do that now
@@ -76,7 +76,7 @@ namespace TypeRightVsix.Imports
 				}
 				catch (Exception)
 				{
-
+					// TODO - useful error message here?
 					throw;
 				}
 			}
