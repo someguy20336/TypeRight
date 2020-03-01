@@ -62,7 +62,7 @@ namespace TypeRight
 				ScriptGenEngine engine = new ScriptGenEngine(projectPath, parser);
 				var result = engine.GenerateScripts();
 
-				if (!result.Sucess)
+				if (!result.Success)
 				{
 					Console.WriteLine(result.ErrorMessage);
 				}

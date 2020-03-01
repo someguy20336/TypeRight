@@ -12,9 +12,9 @@ namespace TypeRight
 	public interface IScriptGenerationResult
 	{
 		/// <summary>
-		/// Gets whether the process was a sucess
+		/// Gets whether the process was a success
 		/// </summary>
-		bool Sucess { get; }
+		bool Success { get; }
 
 		/// <summary>
 		/// Gets the error message for the process

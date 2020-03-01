@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.Composition;
+using TypeRight.Configuration;
 
-namespace TypeRight.Configuration
+namespace TypeRight.Workspaces.Bridge
 {
 	/// <summary>
 	/// Configuration manager for the script generator

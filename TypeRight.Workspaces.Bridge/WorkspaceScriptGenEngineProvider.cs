@@ -2,8 +2,9 @@
 using Microsoft.CodeAnalysis;
 using System.ComponentModel.Composition;
 using System.Linq;
+using TypeRight.Workspaces.Parsing;
 
-namespace TypeRight.Workspaces.Parsing
+namespace TypeRight.Workspaces.Bridge
 {
 
 	/// <summary>

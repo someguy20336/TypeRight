@@ -123,7 +123,7 @@ namespace TypeRightVsix.Commands
 					IScriptGenEngine engine = provider.GetEngine(currentWorkspace, proj.FullName);
 					IScriptGenerationResult result = engine.GenerateScripts();
 					// Show a message box to prove we were here
-					if (!result.Sucess)
+					if (!result.Success)
 					{
 						VsShellUtilities.ShowMessageBox(
 							this.ServiceProvider,

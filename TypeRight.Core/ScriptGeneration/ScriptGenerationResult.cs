@@ -8,7 +8,7 @@
 		/// <summary>
 		/// Gets whether the process was a sucess
 		/// </summary>
-		public bool Sucess { get; private set; }
+		public bool Success { get; private set; }
 
 		/// <summary>
 		/// Gets the error message for the process
@@ -22,7 +22,7 @@
 		/// <param name="msg">The error message if not sucessful</param>
 		public ScriptGenerationResult(bool sucess, string msg)
 		{
-			Sucess = sucess;
+			Success = sucess;
 			ErrorMessage = msg;
 		}
 	}
