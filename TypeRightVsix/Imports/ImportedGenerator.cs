@@ -56,7 +56,7 @@ namespace TypeRightVsix.Imports
 			// Use the test build
 			Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
 			string solnDir = new FileInfo(Shared.VsHelper.Current.Dte.Solution.FullName).Directory.FullName;
-			string relativeBuildDir = @"..\TypeRight.Build\bin\Debug";
+			string relativeBuildDir = @"..\..\TypeRight.Workspaces.Bridge\bin\Debug\";
 			AssemblyPath = Path.GetFullPath(Path.Combine(solnDir, relativeBuildDir));
 #endif
 			if (!Directory.Exists(cachePath))

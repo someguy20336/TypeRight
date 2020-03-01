@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TypeRight", "TypeRight\Type
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TypeRight.Tests", "TypeRight.Tests\TypeRight.Tests.csproj", "{86FA2628-AE16-4BED-99AB-BECB91FDE318}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TypeRight.Workspaces.Bridge", "TypeRight.Workspaces.Bridge\TypeRight.Workspaces.Bridge.csproj", "{AC6C53F4-FB54-48AB-8E96-1AA1AE93CBA8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,6 +83,14 @@ Global
 		{86FA2628-AE16-4BED-99AB-BECB91FDE318}.Release|Any CPU.Build.0 = Release|Any CPU
 		{86FA2628-AE16-4BED-99AB-BECB91FDE318}.Release|x86.ActiveCfg = Release|Any CPU
 		{86FA2628-AE16-4BED-99AB-BECB91FDE318}.Release|x86.Build.0 = Release|Any CPU
+		{AC6C53F4-FB54-48AB-8E96-1AA1AE93CBA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC6C53F4-FB54-48AB-8E96-1AA1AE93CBA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC6C53F4-FB54-48AB-8E96-1AA1AE93CBA8}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{AC6C53F4-FB54-48AB-8E96-1AA1AE93CBA8}.Debug|x86.Build.0 = Debug|Any CPU
+		{AC6C53F4-FB54-48AB-8E96-1AA1AE93CBA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC6C53F4-FB54-48AB-8E96-1AA1AE93CBA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC6C53F4-FB54-48AB-8E96-1AA1AE93CBA8}.Release|x86.ActiveCfg = Release|Any CPU
+		{AC6C53F4-FB54-48AB-8E96-1AA1AE93CBA8}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
