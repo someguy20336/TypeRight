@@ -8,6 +8,6 @@ namespace TypeRight.VsixContract
 	/// </summary>
 	public interface IScriptGenerationAdapter
 	{
-		IScriptGenerationResult GenerateScripts(Workspace workspace, string projPath);
+		IScriptGenerationResult GenerateScripts(Workspace workspace, string projPath, bool force);
 	}
 }

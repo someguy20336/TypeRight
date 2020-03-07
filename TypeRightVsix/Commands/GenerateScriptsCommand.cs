@@ -120,7 +120,7 @@ namespace TypeRightVsix.Commands
 				if (ConfigProcessing.ConfigExistsForProject(proj))
 				{
 					var engine = Imports.ScriptGenAssemblyCache.GetForProj(proj).ScriptGenerator;
-					var result = engine.GenerateScripts(currentWorkspace, proj.FullName);
+					var result = engine.GenerateScripts(currentWorkspace, proj.FullName, true);
 					// Show a message box to prove we were here
 					if (!result.Success)
 					{

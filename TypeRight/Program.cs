@@ -10,6 +10,7 @@ namespace TypeRight
 {
 	class Program
 	{
+		public const string ForceSwitch = "force";
 
 		static void Main(string[] args)
 		{
@@ -62,7 +63,8 @@ namespace TypeRight
 				var result = engine.GenerateScripts(new ScriptGenerationParameters()
 				{
 					ProjectPath = projectPath,
-					TypeIterator = parser
+					TypeIterator = parser,
+					Force = args.HasSwitch(ForceSwitch)
 				});
 
 				if (!result.Success)
@@ -73,5 +75,8 @@ namespace TypeRight
 			}
 			
 		}
+		
+
+		
 	}
 }

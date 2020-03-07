@@ -31,7 +31,7 @@ namespace TypeRight
 				return new ScriptGenerationResult(false, $"A {typeof(ITypeIterator).Name} was not provided");
 			}
 
-			if (configOptions == null || !configOptions.Enabled)
+			if (configOptions == null || (!configOptions.Enabled && !parameters.Force))
 			{
 				return new ScriptGenerationResult(false, $"Script generation is disabled in the configuration options.");
 			}

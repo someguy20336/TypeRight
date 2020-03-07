@@ -114,7 +114,7 @@ namespace TypeRightVsix
 					try
 					{
 						IScriptGenerationAdapter adapter = ScriptGenAssemblyCache.GetForProj(proj).ScriptGenerator;
-						adapter.GenerateScripts(workspace, proj.FullName);
+						adapter.GenerateScripts(workspace, proj.FullName, false);
 					}
 					catch (Exception e)
 					{

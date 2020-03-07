@@ -11,7 +11,7 @@ namespace TypeRightVsix.Imports
 {
 	public class NullScriptGenerationAdapter : IScriptGenerationAdapter
 	{
-		public IScriptGenerationResult GenerateScripts(Workspace workspace, string projPath)
+		public IScriptGenerationResult GenerateScripts(Workspace workspace, string projPath, bool force)
 		{
 			return new NullScriptGenerationResult()
 			{

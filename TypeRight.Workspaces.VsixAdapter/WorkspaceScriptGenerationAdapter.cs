@@ -19,7 +19,7 @@ namespace TypeRight.Workspaces.VsixAdapter
 		/// <param name="workspace">The workspace</param>
 		/// <param name="projPath">The project path</param>
 		/// <returns>The script generation engine</returns>
-		public IScriptGenerationResult GenerateScripts(Workspace workspace, string projPath)
+		public IScriptGenerationResult GenerateScripts(Workspace workspace, string projPath, bool force)
 		{
 			// Can i just use proj path in package builder?
 			ProjectId mainProjId = workspace.CurrentSolution.Projects
