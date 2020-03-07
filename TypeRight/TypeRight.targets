@@ -16,12 +16,10 @@
 		<PropertyGroup>
 			<TypeRightExe />
 			<ExecOutput />
-			<ExeRelativePath Condition="$(TypeRightTesting) == true">.\bin\Debug\netcoreapp2.2\publish\TypeRight.exe</ExeRelativePath>
-			<ExeRelativePath Condition="$(TypeRightTesting) != true">..\tools\TypeRight.exe</ExeRelativePath>
 		</PropertyGroup>
 
 		<PropertyGroup Condition="$(TypeRightTesting) == true">
-			<ExeRelativePath>.\bin\Debug\netcoreapp2.2\publish\TypeRight.exe</ExeRelativePath>
+			<ExeRelativePath>.\bin\Debug\netcoreapp3.1\publish\TypeRight.exe</ExeRelativePath>
 		</PropertyGroup>
 
 		<PropertyGroup Condition="$(TypeRightTesting) != true">
