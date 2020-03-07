@@ -37,7 +37,7 @@ namespace TypeRightVsix.Imports
 		/// <returns>the associated import generator</returns>
 		public static ImportedGenerator GetForProj(Project proj)
 		{
-#if DEBUG
+#if DEBUG && !NUGET
 			return s_imports.GetOrAdd("Debug", (dontcare) =>
 			{
 				return new ImportedGenerator(CacheBasePath, "Debug", "");

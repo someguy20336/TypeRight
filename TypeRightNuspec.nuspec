@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
 	<metadata>
 		<id>TypeRight</id>
-		<version>1.0.0</version>
+		<version>0.11.0</version>
 		<title>TypeRight</title>
 		<authors>Dave W</authors>
 		<owners>Dave W</owners>
@@ -31,8 +31,8 @@
 		<file src=".\TypeRight\bin\Release\netcoreapp2.2\publish\TypeRight.exe" target="tools" />
 		
 		<!-- Bridge -->
-		<file src=".\TypeRight.Workspaces.Bridge\bin\Release\*.dll" target="tools\bridge" />
-		<file src=".\TypeRight.Workspaces.Bridge\bin\Release\*.pdb" target="tools\bridge" />
+		<file src=".\TypeRight.Workspaces.VsixAdapter\bin\Release\*.dll" target="tools\adapter" />
+		<file src=".\TypeRight.Workspaces.VsixAdapter\bin\Release\*.pdb" target="tools\adapter" />
 		
 		<!-- Content -->
 		<file src=".\Icons\TypeRight64x64.png" target="images\"></file>

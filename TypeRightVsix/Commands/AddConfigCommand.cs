@@ -11,6 +11,8 @@ using EnvDTE;
 using System.Linq;
 using TypeRightVsix.Shared;
 using System.IO;
+using TypeRightVsix.Imports;
+using Microsoft.VisualStudio.Shell.Interop;
 
 namespace TypeRightVsix.Commands
 {
@@ -68,7 +70,7 @@ namespace TypeRightVsix.Commands
 			foreach (Project proj in VsHelper.GetSelectedItemsOfType<Project>())
 			{
 				button.Visible = true;  // At least one project is selected...
-				if (!ConfigProcessing.IsGenEnabledForProject(proj) && VsHelper.IsPackageInstalled(proj))
+				if (!ConfigProcessing.ConfigExistsForProject(proj) && VsHelper.IsPackageInstalled(proj))
 				{
 					button.Enabled = true;
 				}
@@ -120,7 +122,27 @@ namespace TypeRightVsix.Commands
 				if (!VsHelper.IsSolutionItemsFolder(proj) 
 					&& !ConfigProcessing.ConfigExistsForProject(proj))
 				{
-					ConfigProcessing.CreateForProject(proj);
+
+					string configPath = ScriptGenAssemblyCache.GetForProj(proj)?.ConfigManager.GetConfigFilepath(proj.FullName);
+					if (string.IsNullOrEmpty(configPath))
+					{
+						VsShellUtilities.ShowMessageBox(
+							ServiceProvider,
+							"Failed to find target configuration file path.  It is possible you need to update the Nuget Package.",
+							"Add Config Failed",
+							OLEMSGICON.OLEMSGICON_CRITICAL,
+							OLEMSGBUTTON.OLEMSGBUTTON_OK,
+							OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
+						return;
+					}
+
+
+					if (!File.Exists(configPath))
+					{
+						ScriptGenAssemblyCache.GetForProj(proj).ConfigManager.CreateNew(configPath);
+					}
+					proj.ProjectItems.AddFromFile(configPath);
+
 				}				
 			}
 			

@@ -62,18 +62,5 @@ namespace TypeRightVsix.Shared
 			return configExists && !existsButNotAdded;
 		}
 
-		/// <summary>
-		/// Creates a config file for the given solution
-		/// </summary>
-		public static void CreateForProject(Project proj)
-		{
-			ThreadHelper.ThrowIfNotOnUIThread();
-			string configPath = ScriptGenAssemblyCache.GetForProj(proj)?.ConfigManager.GetConfigFilepath(proj.FullName);
-			if (!File.Exists(configPath))
-			{
-				ScriptGenAssemblyCache.GetForProj(proj).ConfigManager.CreateNew(configPath);
-			}
-			proj.ProjectItems.AddFromFile(configPath);
-		}
 	}
 }

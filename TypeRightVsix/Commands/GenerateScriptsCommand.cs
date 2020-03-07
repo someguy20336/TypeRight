@@ -62,12 +62,12 @@ namespace TypeRightVsix.Commands
 			ThreadHelper.ThrowIfNotOnUIThread();
 			OleMenuCommand button = (OleMenuCommand)sender;
 			button.Enabled = false;
-			
+
 			foreach (EnvDTE.Project proj in VsHelper.GetSelectedItemsOfType<EnvDTE.Project>())
 			{
-				if (!VsHelper.IsSolutionItemsFolder(proj) 
+				if (!VsHelper.IsSolutionItemsFolder(proj)
 					&& VsHelper.IsPackageInstalled(proj)
-					&& ConfigProcessing.IsGenEnabledForProject(proj))
+					&& ConfigProcessing.ConfigExistsForProject(proj))
 				{
 					button.Enabled = true;
 				}
@@ -117,7 +117,7 @@ namespace TypeRightVsix.Commands
 
 			foreach (EnvDTE.Project proj in VsHelper.GetSelectedItemsOfType<EnvDTE.Project>())
 			{
-				if (ConfigProcessing.IsGenEnabledForProject(proj))
+				if (ConfigProcessing.ConfigExistsForProject(proj))
 				{
 					var engine = Imports.ScriptGenAssemblyCache.GetForProj(proj).ScriptGenerator;
 					var result = engine.GenerateScripts(currentWorkspace, proj.FullName);
@@ -125,7 +125,7 @@ namespace TypeRightVsix.Commands
 					if (!result.Success)
 					{
 						VsShellUtilities.ShowMessageBox(
-							this.ServiceProvider,
+							ServiceProvider,
 							result.ErrorMessage,
 							"Script Generation Failed",
 							OLEMSGICON.OLEMSGICON_CRITICAL,
@@ -133,7 +133,7 @@ namespace TypeRightVsix.Commands
 							OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
 					}
 				}
-			}			
+			}
 		}
 	}
 }
