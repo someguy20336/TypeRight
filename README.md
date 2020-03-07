@@ -7,7 +7,7 @@ TypeRight is a simple tool that generates TypeScript files from your C# objects 
 
 This tool solves those problems by autogenerating those TypeScript files every time you build your project.
 
-**NOTE**: Version 0.9.0 has some breaking changes with configuration. Some options have been removed and action configuration has changed. See the configuration section for more.
+**NOTE**: Version 0.11.0 has some breaking changes!  The current version of the extension (>= 0.8) is not compatible with anything before v0.11.0 and the old version of the extension (< 0.8) is not compatible with anything >= v0.11.0.  This was done in an effort to make the contract between the two a little more solid and to refactor some of the solution architecture to be a little more solid.  You should update your version of the Nuget package and extension for best results.
 
 See [the wiki](https://github.com/someguy20336/TypeRight/wiki/Quick-Start) for a quick start guide
 
