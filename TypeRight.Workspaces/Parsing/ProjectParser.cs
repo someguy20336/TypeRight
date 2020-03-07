@@ -1,8 +1,8 @@
 ﻿using Microsoft.CodeAnalysis;
 using System.Collections.Generic;
-using TypeRight.TypeLocation;
 using System;
 using System.Linq;
+using TypeRight.TypeLocation;
 
 namespace TypeRight.Workspaces.Parsing
 {
@@ -11,7 +11,7 @@ namespace TypeRight.Workspaces.Parsing
 	/// </summary>
 	public class ProjectParser : ITypeIterator
 	{
-		private TypeVisitor _visitor;
+		private ITypeVisitor _visitor;
 
 		/// <summary>
 		/// The current workspace
@@ -38,7 +38,7 @@ namespace TypeRight.Workspaces.Parsing
 		/// Iterates the types in the project
 		/// </summary>
 		/// <param name="visitor">The visitor for the iterator</param>
-		public void IterateTypes(TypeVisitor visitor)
+		public void IterateTypes(ITypeVisitor visitor)
 		{
 			_visitor = visitor;
 			Solution sol = _workspace.CurrentSolution;

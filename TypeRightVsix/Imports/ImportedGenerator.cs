@@ -4,6 +4,7 @@ using System;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.IO;
+using TypeRight.VsixContract;
 
 namespace TypeRightVsix.Imports
 {
@@ -26,8 +27,8 @@ namespace TypeRightVsix.Imports
 		/// <summary>
 		/// Gets or sets the engine provider
 		/// </summary>
-		[Import(typeof(IScriptGenEngineProvider<Workspace>))]
-		public IScriptGenEngineProvider<Workspace> EngineProvider { get; set; }
+		[Import(typeof(IScriptGenerationAdapter))]
+		public IScriptGenerationAdapter ScriptGenerator { get; set; }
 
 		/// <summary>
 		/// Gets or sets the config manager

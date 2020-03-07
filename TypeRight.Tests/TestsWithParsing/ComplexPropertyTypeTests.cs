@@ -74,7 +74,7 @@ namespace TypeRight.Tests.TestsWithParsing
 		{
 			_packageTester.TestReferenceTypeWithName(Class_Extracted)
 				.TestPropertyWithName(Prop_OtherExtracted)
-				.TypescriptNameIs($"{ReferenceTypeTester.TestNamespace}.{Class_OtherExtracted}");
+				.TypescriptNameIs($"{FakeTypePrefixer.Prefix}.{Class_OtherExtracted}");
 		}
 
 		[TestMethod]

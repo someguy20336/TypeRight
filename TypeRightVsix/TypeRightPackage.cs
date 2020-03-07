@@ -12,6 +12,7 @@ using TypeRight;
 using TypeRightVsix.Imports;
 using System.Threading;
 using System.Threading.Tasks;
+using TypeRight.VsixContract;
 
 namespace TypeRightVsix
 {
@@ -103,11 +104,10 @@ namespace TypeRightVsix
 				foreach (EnvDTE.Project proj in enabledProj)
 				{
 					BuildHelper.StartBuild(proj.FullName);
-					IScriptGenEngineProvider<Workspace> provider = Imports.ScriptGenAssemblyCache.GetForProj(proj).EngineProvider;
-					IScriptGenEngine engine = provider.GetEngine(workspace, proj.FullName);
+					IScriptGenerationAdapter adapter = ScriptGenAssemblyCache.GetForProj(proj).ScriptGenerator;
 					try
 					{
-						engine.GenerateScripts();
+						adapter.GenerateScripts(workspace, proj.FullName);
 					}
 					catch (Exception e)
 					{

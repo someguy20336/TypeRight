@@ -1,7 +1,8 @@
 ﻿using System.ComponentModel.Composition;
 using TypeRight.Configuration;
+using TypeRight.VsixContract;
 
-namespace TypeRight.Workspaces.Bridge
+namespace TypeRight.Workspaces.VsixAdapter
 {
 	/// <summary>
 	/// Configuration manager for the script generator
@@ -9,14 +10,6 @@ namespace TypeRight.Workspaces.Bridge
 	[Export(typeof(IConfigManager))]
 	public class ConfigManager : IConfigManager
 	{
-		/// <summary>
-		/// Creates a new Config options object
-		/// </summary>
-		/// <returns>Configuration options</returns>
-		public IConfigOptions CreateNew()
-		{
-			return new ConfigOptions();
-		}
 
 		/// <summary>
 		/// Gets the configuration filepath
@@ -33,19 +26,22 @@ namespace TypeRight.Workspaces.Bridge
 		/// </summary>
 		/// <param name="projPath">the project path</param>
 		/// <returns>The configuration options</returns>
-		public IConfigOptions GetForProject(string projPath)
+		public bool IsEnabled(string projPath)
 		{
-			return ConfigParser.GetForProject(projPath);
+			var config = ConfigParser.GetForProject(projPath);
+			return config?.Enabled ?? false;
 		}
 
 		/// <summary>
 		/// Saves the config options
 		/// </summary>
-		/// <param name="options">The config options to save</param>
 		/// <param name="toPath">The path to save to</param>
-		public void Save(IConfigOptions options, string toPath)
+		public void CreateNew(string toPath)
 		{
-			ConfigOptions configOpts = options as ConfigOptions;
+			ConfigOptions configOpts = new ConfigOptions()
+			{
+				Enabled = true
+			};
 			ConfigParser.Save(configOpts, toPath);
 		}
 	}

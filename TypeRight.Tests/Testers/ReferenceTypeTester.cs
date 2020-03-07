@@ -16,8 +16,6 @@ namespace TypeRight.Tests.Testers
 		private ExtractedReferenceType _namedObjectType;
 
 		private TypeFormatter _typeFormatter;
-
-		public const string TestNamespace = "DefaultClass";
 		
 		public ReferenceTypeTester(ExtractedReferenceType scriptClass, TypeFormatter typeFormatter)
 		{
@@ -75,7 +73,7 @@ namespace TypeRight.Tests.Testers
 
 		public ReferenceTypeTester BaseClassNameIs(string expectedName)
 		{
-			Assert.AreEqual($"{TestNamespace}.{expectedName}", GetBaseClassName());
+			Assert.AreEqual($"{FakeTypePrefixer.Prefix}.{expectedName}", GetBaseClassName());
 			return this;
 		}
 

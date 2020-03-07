@@ -17,13 +17,5 @@
 	// depend on how you make the requests.  See the GitHub project for more details
 	"modelBindingType": "singleParam"
 
-	// These settings are only applicable for the "namespace" template type.  Uncomment this if you want to use that template
-	//"ClassNamespace": "ServerClasses",
-	//"EnumNamespace": "ServerEnums",
-	//"WebMethodNamespace": "WebMethods",
-
-	// It isn't recommended you change this setting, but if you wanted to have another attribute instead of ScriptAction
-	// mark MVC actions, you can do that by giving the fully qualified type name of the attribute
-	//"MvcActionAttributeName": "",
 
 }

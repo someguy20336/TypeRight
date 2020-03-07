@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TypeRight.Contracts\TypeRight.Contracts.csproj" />
+    <ProjectReference Include="..\TypeRight.Attributes\TypeRight.Attributes.csproj" />
     <ProjectReference Include="..\TypeRight.Core\TypeRight.Core.csproj" />
   </ItemGroup>
 

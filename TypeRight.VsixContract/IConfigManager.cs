@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TypeRight
+namespace TypeRight.VsixContract
 {
 	/// <summary>
 	/// A class that manages the configuration file
@@ -17,26 +17,19 @@ namespace TypeRight
 		/// <param name="projPath">The project path</param>
 		/// <returns>The path to the config file</returns>
 		string GetConfigFilepath(string projPath);
-
-		/// <summary>
-		/// Gets the config options for the project
-		/// </summary>
-		/// <param name="projPath">The project path</param>
-		/// <returns>The config options</returns>
-		IConfigOptions GetForProject(string projPath);
-
+		
 		/// <summary>
 		/// Creates a new config options
 		/// </summary>
 		/// <returns></returns>
-		IConfigOptions CreateNew();
+		void CreateNew(string toPath);
 
 		/// <summary>
-		/// Saves the config options
+		/// Gets whether script generation is enabled for the given project
 		/// </summary>
-		/// <param name="options">The options to save</param>
-		/// <param name="toPath">The path to save them to</param>
-		void Save(IConfigOptions options, string toPath);
+		/// <param name="projPath"></param>
+		/// <returns></returns>
+		bool IsEnabled(string projPath);
 
 	}
 }

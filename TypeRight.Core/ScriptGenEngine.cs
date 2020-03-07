@@ -9,72 +9,44 @@ using System.IO;
 using System.Linq;
 using System.Collections.Generic;
 
-namespace TypeRight.ScriptGeneration
+namespace TypeRight
 {
 	/// <summary>
 	/// Base class to use for script generation engines
 	/// </summary>
-	public class ScriptGenEngine : IScriptGenEngine
+	public class ScriptGenEngine
 	{
-		private ITypeIterator _typeIterator;
-
-		/// <summary>
-		/// Gets the path of the project we are generating scripts for
-		/// </summary>
-		public string ProjectPath { get; }
-
-		/// <summary>
-		/// Gets the config options
-		/// </summary>
-		public ConfigOptions ConfigurationOptions { get; set; }
-
-
-		/// <summary>
-		/// Creates a new script generation engine
-		/// </summary>
-		/// <param name="projPath">The path to the project</param>
-		/// <param name="typeIterator">The type iterator</param>
-		public ScriptGenEngine(string projPath, ITypeIterator typeIterator)
-			: this(projPath, typeIterator, ConfigParser.GetForProject(projPath))
-		{
-		}
-
-		/// <summary>
-		/// Creates a new script generation engine
-		/// </summary>
-		/// <param name="projPath"></param>
-		/// <param name="typeIterator"></param>
-		/// <param name="options"></param>
-		public ScriptGenEngine(string projPath, ITypeIterator typeIterator, ConfigOptions options)  // Need some sort of options provider?
-		{
-			ProjectPath = projPath;
-			_typeIterator = typeIterator;
-			ConfigurationOptions = options;
-		}
-
+		
 		/// <summary>
 		/// Generates the scripts
 		/// </summary>
 		/// <returns>The script generation result</returns>
-		public IScriptGenerationResult GenerateScripts()
+		public ScriptGenerationResult GenerateScripts(ScriptGenerationParameters parameters)
 		{
+			string projectPath = parameters.ProjectPath;
+			ConfigOptions configOptions = ConfigParser.GetForProject(parameters.ProjectPath);
 
-			if (ConfigurationOptions == null || !ConfigurationOptions.Enabled)
+			if (parameters.TypeIterator == null)
+			{
+				return new ScriptGenerationResult(false, $"A {typeof(ITypeIterator).Name} was not provided");
+			}
+
+			if (configOptions == null || !configOptions.Enabled)
 			{
 				return new ScriptGenerationResult(false, $"Script generation is disabled in the configuration options.");
 			}
 
-			if (string.IsNullOrEmpty(ConfigurationOptions.ServerObjectsResultFilepath))
+			if (string.IsNullOrEmpty(configOptions.ServerObjectsResultFilepath))
 			{
 				return new ScriptGenerationResult(false, "ResultFilePath is not specified in the configuration options.");
 			}
 
-			Uri projUri = new Uri(ProjectPath);
+			Uri projUri = new Uri(projectPath);
 
 			Uri resultRelative;
 			try
 			{
-				resultRelative = new Uri(ConfigurationOptions.ServerObjectsResultFilepath, UriKind.RelativeOrAbsolute);
+				resultRelative = new Uri(configOptions.ServerObjectsResultFilepath, UriKind.RelativeOrAbsolute);
 			}
 			catch (UriFormatException)
 			{
@@ -94,18 +66,12 @@ namespace TypeRight.ScriptGeneration
 				ProjectPath = projUri.LocalPath
 			};
 
-			if (!string.IsNullOrEmpty(ConfigurationOptions.MvcActionAttributeName))
-			{
-				processorSettings.MvcActionFilter = new IsOfTypeFilter(ConfigurationOptions.MvcActionAttributeName);
-			}
-
-
 			// At this point we are good
 			TypeVisitor visitor = new TypeVisitor(processorSettings);
-			_typeIterator.IterateTypes(visitor);
+			parameters.TypeIterator.IterateTypes(visitor);
 
 			ExtractedTypeCollection typeCollection = visitor.TypeCollection;
-			IScriptTemplate scriptGen = ScriptTemplateFactory.GetTemplate(ConfigurationOptions.TemplateType);
+			IScriptTemplate scriptGen = ScriptTemplateFactory.GetTemplate(configOptions.TemplateType);
 
 			// Write the object script text
 			foreach (var typeGroup in typeCollection.GroupBy(t => t.TargetPath))
@@ -116,15 +82,16 @@ namespace TypeRight.ScriptGeneration
 					OutputPath = typeGroup.Key,
 					TypeCollection = typeCollection,
 
-					TypeNamespace = ConfigurationOptions.ClassNamespace,
-					EnumNamespace = ConfigurationOptions.EnumNamespace,
+
+					TypeNamespace = configOptions.ClassNamespace,
+					EnumNamespace = configOptions.EnumNamespace,
 				};
 				string scriptText = scriptGen.CreateTypeTemplate().GetText(scriptContext);
 				File.WriteAllText(typeGroup.Key, scriptText);
 			}
 
 			// Write MVC controllers
-			FetchFunctionResolver fetchResolver = new FetchFunctionResolver(projUri, ConfigurationOptions.ActionConfigurations);
+			FetchFunctionResolver fetchResolver = new FetchFunctionResolver(projUri, configOptions.ActionConfigurations);
 
 			foreach (MvcControllerInfo controller in typeCollection.GetMvcControllers())
 			{
@@ -134,15 +101,15 @@ namespace TypeRight.ScriptGeneration
 					OutputPath = outputPath,
 					ServerObjectsResultFilepath = new Uri(resultAbsolute.LocalPath),
 					TypeCollection = typeCollection,
-					ModelBinding = ConfigurationOptions.ModelBindingType,
+					ModelBinding = configOptions.ModelBindingType,
 
 					// Fetch Function
 					FetchFunctionResolver = fetchResolver,
 
 					// Things I don't want to support anymore
-					WebMethodNamespace = ConfigurationOptions.WebMethodNamespace,
-					TypeNamespace = ConfigurationOptions.ClassNamespace,
-					EnumNamespace = ConfigurationOptions.EnumNamespace,
+					WebMethodNamespace = configOptions.WebMethodNamespace,
+					TypeNamespace = configOptions.ClassNamespace,
+					EnumNamespace = configOptions.EnumNamespace,
 				};
 
 				string controllerScript = scriptGen.CreateControllerTextTemplate().GetText(controller, context);

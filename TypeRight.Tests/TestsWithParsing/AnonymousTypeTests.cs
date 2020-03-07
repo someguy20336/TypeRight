@@ -99,7 +99,7 @@ namespace TypeRight.Tests.TestsWithParsing
 		{
 			Dictionary<string, string> expected = new Dictionary<string, string>
 			{
-				{ "testClassProp", $"{ReferenceTypeTester.TestNamespace}.TestClass" },
+				{ "testClassProp", $"{FakeTypePrefixer.Prefix}.TestClass" },
 				{ "intProp", TypeScriptHelper.NumericTypeName }
 			};
 			s_packageTester.TestControllerWithName("SimpleController")

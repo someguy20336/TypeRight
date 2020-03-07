@@ -4,7 +4,6 @@ using Microsoft.CodeAnalysis;
 using System;
 using System.IO;
 using System.Linq;
-using TypeRight.ScriptGeneration;
 using TypeRight.Workspaces.Parsing;
 
 namespace TypeRight
@@ -59,8 +58,12 @@ namespace TypeRight
 				ProjectId mainProjId = workspace.CurrentSolution.Projects
 					.Where(pr => pr.FilePath == projectPath).FirstOrDefault()?.Id;
 				ProjectParser parser = new ProjectParser(workspace, mainProjId);
-				ScriptGenEngine engine = new ScriptGenEngine(projectPath, parser);
-				var result = engine.GenerateScripts();
+				ScriptGenEngine engine = new ScriptGenEngine();
+				var result = engine.GenerateScripts(new ScriptGenerationParameters()
+				{
+					ProjectPath = projectPath,
+					TypeIterator = parser
+				});
 
 				if (!result.Success)
 				{

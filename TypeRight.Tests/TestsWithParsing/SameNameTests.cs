@@ -72,7 +72,7 @@ namespace TypeRight.Tests.TestsWithParsing
 		{
 			_packageTester.TestReferenceTypeWithName("TestClass", 2)
 				.TestPropertyWithName("TestClass_1_Prop")
-				.TypescriptNameIs($"{ReferenceTypeTester.TestNamespace}.TestClass_1<number>");
+				.TypescriptNameIs($"{FakeTypePrefixer.Prefix}.TestClass_1<number>");
 		}
 
 		[TestMethod]
@@ -80,7 +80,7 @@ namespace TypeRight.Tests.TestsWithParsing
 		{
 			_packageTester.TestReferenceTypeWithName("TestClass", 2)
 				.TestPropertyWithName("TestClass_Prop")
-				.TypescriptNameIs($"{ReferenceTypeTester.TestNamespace}.TestClass");
+				.TypescriptNameIs($"{FakeTypePrefixer.Prefix}.TestClass");
 		}
 
 		[TestMethod]

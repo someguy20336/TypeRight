@@ -7,6 +7,7 @@
     <AssemblyVersion>2.0.0.0</AssemblyVersion>
     <FileVersion>2.0.0.0</FileVersion>
     <Version>0.9.0</Version>
+    <RootNamespace>TypeRight</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -24,7 +25,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TypeRight.Attributes\TypeRight.Attributes.csproj" />
-    <ProjectReference Include="..\TypeRight.Contracts\TypeRight.Contracts.csproj" />
   </ItemGroup>
 
   <ItemGroup>

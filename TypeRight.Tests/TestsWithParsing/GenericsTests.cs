@@ -126,7 +126,7 @@ namespace TypeRight.Tests.TestsWithParsing
 		{
 			_packageTester.TestReferenceTypeWithName("ExtendedGenericWithBaseNonExtracted")
 				.TestPropertyWithName("ExtractedGeneric")
-				.TypescriptNameIs($"{ReferenceTypeTester.TestNamespace}.{Class_SimpleGeneric}<number>");
+				.TypescriptNameIs($"{FakeTypePrefixer.Prefix}.{Class_SimpleGeneric}<number>");
 		}
 
 		[TestMethod]

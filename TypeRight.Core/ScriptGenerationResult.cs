@@ -1,9 +1,9 @@
-﻿namespace TypeRight.ScriptGeneration
+﻿namespace TypeRight
 {
 	/// <summary>
 	/// Represents a result for a script generation process
 	/// </summary>
-	public class ScriptGenerationResult : IScriptGenerationResult
+	public class ScriptGenerationResult
 	{
 		/// <summary>
 		/// Gets whether the process was a sucess

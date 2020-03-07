@@ -158,7 +158,7 @@ namespace TypeRight.Tests.TestsWithParsing
 		{
 			_packageTester.TestControllerWithName("SimpleController")
 				.TestActionWithName("NewObjectResult")
-				.ReturnTypeTypescriptNameIs($"{ReferenceTypeTester.TestNamespace}.TestClass");
+				.ReturnTypeTypescriptNameIs($"{FakeTypePrefixer.Prefix}.TestClass");
 		}
 
 		[TestMethod]
@@ -166,7 +166,7 @@ namespace TypeRight.Tests.TestsWithParsing
 		{
 			_packageTester.TestControllerWithName("SimpleController")
 				.TestActionWithName("NewObjectResult_Json")
-				.ReturnTypeTypescriptNameIs($"{ReferenceTypeTester.TestNamespace}.TestClass");
+				.ReturnTypeTypescriptNameIs($"{FakeTypePrefixer.Prefix}.TestClass");
 		}
 
 		[TestMethod]
@@ -200,7 +200,7 @@ namespace TypeRight.Tests.TestsWithParsing
 		{
 			_packageTester.TestControllerWithName("SimpleController")
 				.TestActionWithName("MethodResult")
-				.ReturnTypeTypescriptNameIs($"{ReferenceTypeTester.TestNamespace}.TestClass");
+				.ReturnTypeTypescriptNameIs($"{FakeTypePrefixer.Prefix}.TestClass");
 		}
 
 		[TestMethod]
@@ -208,11 +208,11 @@ namespace TypeRight.Tests.TestsWithParsing
 		{
 			_packageTester.TestControllerWithName("SimpleController")
 				.TestActionWithName("SimpleParameter_Json")
-				.ParameterTypeIs("testParam", $"{ReferenceTypeTester.TestNamespace}.TestClass");
+				.ParameterTypeIs("testParam", $"{FakeTypePrefixer.Prefix}.TestClass");
 
 			_packageTester.TestControllerWithName("SimpleController")
 				.TestActionWithName("SimpleParameter_Json")
-				.ReturnTypeTypescriptNameIs($"{ReferenceTypeTester.TestNamespace}.TestClass");
+				.ReturnTypeTypescriptNameIs($"{FakeTypePrefixer.Prefix}.TestClass");
 		}
 
 		[TestMethod]
@@ -241,7 +241,7 @@ namespace TypeRight.Tests.TestsWithParsing
 			//DictionaryParams
 			_packageTester.TestControllerWithName("SimpleController")
 				.TestActionWithName("ComplexMethod")
-				.ReturnTypeTypescriptNameIs($"{ReferenceTypeTester.TestNamespace}.TestGenericClass<{ReferenceTypeTester.TestNamespace}.TestClass>");
+				.ReturnTypeTypescriptNameIs($"{FakeTypePrefixer.Prefix}.TestGenericClass<{FakeTypePrefixer.Prefix}.TestClass>");
 		}
 
 		[TestMethod]
@@ -250,7 +250,7 @@ namespace TypeRight.Tests.TestsWithParsing
 			//DictionaryParams
 			_packageTester.TestControllerWithName("SimpleController")
 				.TestActionWithName("GenericPropReturn_Json")
-				.ReturnTypeTypescriptNameIs($"{ReferenceTypeTester.TestNamespace}.TestClass");
+				.ReturnTypeTypescriptNameIs($"{FakeTypePrefixer.Prefix}.TestClass");
 		}
 
 		[TestMethod]

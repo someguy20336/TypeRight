@@ -119,9 +119,8 @@ namespace TypeRightVsix.Commands
 			{
 				if (ConfigProcessing.IsGenEnabledForProject(proj))
 				{
-					IScriptGenEngineProvider<Workspace> provider = Imports.ScriptGenAssemblyCache.GetForProj(proj).EngineProvider;
-					IScriptGenEngine engine = provider.GetEngine(currentWorkspace, proj.FullName);
-					IScriptGenerationResult result = engine.GenerateScripts();
+					var engine = Imports.ScriptGenAssemblyCache.GetForProj(proj).ScriptGenerator;
+					var result = engine.GenerateScripts(currentWorkspace, proj.FullName);
 					// Show a message box to prove we were here
 					if (!result.Success)
 					{

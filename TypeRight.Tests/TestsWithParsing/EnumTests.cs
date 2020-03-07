@@ -125,7 +125,7 @@ namespace TypeRight.Tests.TestsWithParsing
 		{
 			_packageTester.TestReferenceTypeWithName("SimpleClass")
 				.TestPropertyWithName("EnumProp")
-				.TypescriptNameIs($"{EnumTester.TestNamespace}.SimpleEnum");
+				.TypescriptNameIs($"{FakeTypePrefixer.Prefix}.SimpleEnum");
 		}
 
 		//[TestMethod]

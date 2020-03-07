@@ -13,8 +13,6 @@ namespace TypeRight.Tests.Testers
 	{
 		private ExtractedEnumType _enumInfo;
 
-		public const string TestNamespace = "DefaultEnumNamespace";
-
 		public EnumTester(ExtractedEnumType enumInfo)
 		{
 			_enumInfo = enumInfo;

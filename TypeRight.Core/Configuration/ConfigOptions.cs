@@ -6,7 +6,7 @@ namespace TypeRight.Configuration
 	/// <summary>
 	/// Represents a configuration file for a solution
 	/// </summary>
-	public class ConfigOptions : IConfigOptions
+	public class ConfigOptions
 	{
 
 		/// <summary>
@@ -35,11 +35,6 @@ namespace TypeRight.Configuration
 		/// </summary>
 		public string ServerObjectsResultFilepath { get; set; }
 		
-		/// <summary>
-		/// Gets or sets the name of the attribute that identifies actions.
-		/// If not specified, it will default to the implementation specific attribute
-		/// </summary>
-		public string MvcActionAttributeName { get; set; } = "";
 
 		/// <summary>
 		/// Gets or sets the template type

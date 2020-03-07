@@ -14,7 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TypeRight.Attributes\TypeRight.Attributes.csproj" />
-    <ProjectReference Include="..\TypeRight.Contracts\TypeRight.Contracts.csproj" />
+    <ProjectReference Include="..\TypeRight.Build\TypeRight.Build.csproj" />
     <ProjectReference Include="..\TypeRight.Core\TypeRight.Core.csproj" />
     <ProjectReference Include="..\TypeRight.Workspaces\TypeRight.Workspaces.csproj" />
   </ItemGroup>

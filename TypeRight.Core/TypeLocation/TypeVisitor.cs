@@ -7,7 +7,7 @@ namespace TypeRight.TypeLocation
 	/// <summary>
 	/// An object that visits types to perform filtering and manipulation for a package
 	/// </summary>
-	public class TypeVisitor
+	public class TypeVisitor : ITypeVisitor
 	{
 		/// <summary>
 		/// Gets or sets the filter settings for the visitor

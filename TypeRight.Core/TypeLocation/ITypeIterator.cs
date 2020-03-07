@@ -9,6 +9,6 @@
 		/// Iterates types
 		/// </summary>
 		/// <param name="visitor">The visitor to use when a type is found</param>
-		void IterateTypes(TypeVisitor visitor);
+		void IterateTypes(ITypeVisitor visitor);
 	}
 }

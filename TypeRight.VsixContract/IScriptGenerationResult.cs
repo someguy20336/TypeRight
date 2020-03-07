@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TypeRight
+﻿namespace TypeRight.VsixContract
 {
 	/// <summary>
-	/// The script generation result
+	/// Represents a result for a script generation process
 	/// </summary>
 	public interface IScriptGenerationResult
 	{
 		/// <summary>
-		/// Gets whether the process was a success
+		/// Gets whether the process was a sucess
 		/// </summary>
 		bool Success { get; }
 
@@ -20,5 +14,6 @@ namespace TypeRight
 		/// Gets the error message for the process
 		/// </summary>
 		string ErrorMessage { get; }
+
 	}
 }

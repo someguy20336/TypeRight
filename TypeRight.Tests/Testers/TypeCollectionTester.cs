@@ -28,12 +28,10 @@ namespace TypeRight.Tests.Testers
 			_typeCollection = typeCollection;
 
 			// TODO not hardcode?
-			_scriptWriter = new NamespaceTemplate();
 			_scriptWriter = new ModuleTemplate();
-
-
+			
 			// TODO any way to define this?  Or maybe an option when getting type name
-			_typeFormatter = new TypeScriptTypeFormatter(_typeCollection, new NamespacedTypePrefixResolver(EnumTester.TestNamespace, ReferenceTypeTester.TestNamespace));
+			_typeFormatter = new TypeScriptTypeFormatter(_typeCollection, new FakeTypePrefixer());
 		}
 
 		public ReferenceTypeTester TestReferenceTypeWithName(string name, int? typeArgCnt = null)
@@ -61,10 +59,7 @@ namespace TypeRight.Tests.Testers
 			{
 				IncludedTypes = _typeCollection,
 				TypeCollection = _typeCollection,
-				OutputPath = TestWorkspaceBuilder.DefaultResultPath,
-
-				TypeNamespace = ReferenceTypeTester.TestNamespace,
-				EnumNamespace = EnumTester.TestNamespace,
+				OutputPath = TestWorkspaceBuilder.DefaultResultPath
 			};
 			string scriptText = _scriptWriter.CreateTypeTemplate().GetText(context);
 			Assert.IsFalse(string.IsNullOrEmpty(scriptText));
@@ -78,9 +73,6 @@ namespace TypeRight.Tests.Testers
 				IncludedTypes = _typeCollection,
 				TypeCollection = _typeCollection,
 				OutputPath = TestWorkspaceBuilder.DefaultResultPath,
-
-				TypeNamespace = ReferenceTypeTester.TestNamespace,
-				EnumNamespace = EnumTester.TestNamespace,
 			};
 			string scriptText = _scriptWriter.CreateTypeTemplate().GetText(context).Trim();
 			expectedText = expectedText.Trim();
@@ -93,16 +85,12 @@ namespace TypeRight.Tests.Testers
 			FetchFunctionResolver resolver = new FetchFunctionResolver(new Uri(@"C:\FolderA\FolderB\Project.csproj"), actionConfig ?? GetDefaultActionConfig());
 			return new ControllerContext()
 			{
-				WebMethodNamespace = "MethodNamespace",
 				TypeCollection = _typeCollection,
 				ServerObjectsResultFilepath = new Uri(@"C:\FolderA\FolderB\FolderC\FolderD\ServerObjects.ts"),
 				OutputPath = @"C:\FolderA\FolderB\FolderX\FolderY\SomeController.ts",
 
 				FetchFunctionResolver = resolver,
 				ModelBinding = ModelBindingType.MultiParam, // TODO stop this
-
-				TypeNamespace = ReferenceTypeTester.TestNamespace,
-				EnumNamespace = EnumTester.TestNamespace,
 			};
 		}
 
