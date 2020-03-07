@@ -71,7 +71,7 @@ namespace TypeRight
 			parameters.TypeIterator.IterateTypes(visitor);
 
 			ExtractedTypeCollection typeCollection = visitor.TypeCollection;
-			IScriptTemplate scriptGen = ScriptTemplateFactory.GetTemplate(configOptions.TemplateType);
+			IScriptTemplate scriptGen = ScriptTemplateFactory.GetTemplate();
 
 			// Write the object script text
 			foreach (var typeGroup in typeCollection.GroupBy(t => t.TargetPath))
@@ -80,11 +80,7 @@ namespace TypeRight
 				{
 					IncludedTypes = typeGroup,
 					OutputPath = typeGroup.Key,
-					TypeCollection = typeCollection,
-
-
-					TypeNamespace = configOptions.ClassNamespace,
-					EnumNamespace = configOptions.EnumNamespace,
+					TypeCollection = typeCollection
 				};
 				string scriptText = scriptGen.CreateTypeTemplate().GetText(scriptContext);
 				File.WriteAllText(typeGroup.Key, scriptText);
@@ -104,12 +100,7 @@ namespace TypeRight
 					ModelBinding = configOptions.ModelBindingType,
 
 					// Fetch Function
-					FetchFunctionResolver = fetchResolver,
-
-					// Things I don't want to support anymore
-					WebMethodNamespace = configOptions.WebMethodNamespace,
-					TypeNamespace = configOptions.ClassNamespace,
-					EnumNamespace = configOptions.EnumNamespace,
+					FetchFunctionResolver = fetchResolver
 				};
 
 				string controllerScript = scriptGen.CreateControllerTextTemplate().GetText(controller, context);

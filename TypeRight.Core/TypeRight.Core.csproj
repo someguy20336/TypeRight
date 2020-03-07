@@ -52,14 +52,6 @@
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>MvcMethodTextTemplateBase.cs</LastGenOutput>
     </None>
-    <None Update="ScriptWriting\TypeScript\TextTemplates\NamespaceMvcMethodTextTemplate.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>NamespaceMvcMethodTextTemplate.cs</LastGenOutput>
-    </None>
-    <None Update="ScriptWriting\TypeScript\TextTemplates\NamespaceTypeTextTemplate.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>NamespaceTypeTextTemplate.cs</LastGenOutput>
-    </None>
   </ItemGroup>
 
   <ItemGroup>
@@ -96,16 +88,6 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>MvcMethodTextTemplateBase.tt</DependentUpon>
-    </Compile>
-    <Compile Update="ScriptWriting\TypeScript\TextTemplates\NamespaceMvcMethodTextTemplate.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>NamespaceMvcMethodTextTemplate.tt</DependentUpon>
-    </Compile>
-    <Compile Update="ScriptWriting\TypeScript\TextTemplates\NamespaceTypeTextTemplate.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>NamespaceTypeTextTemplate.tt</DependentUpon>
     </Compile>
   </ItemGroup>
 
