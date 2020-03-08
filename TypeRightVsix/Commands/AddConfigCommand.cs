@@ -11,6 +11,8 @@ using EnvDTE;
 using System.Linq;
 using TypeRightVsix.Shared;
 using System.IO;
+using TypeRightVsix.Imports;
+using Microsoft.VisualStudio.Shell.Interop;
 
 namespace TypeRightVsix.Commands
 {
@@ -43,8 +45,7 @@ namespace TypeRightVsix.Commands
 		{
 			this._package = package ?? throw new ArgumentNullException("package");
 
-			OleMenuCommandService commandService = this.ServiceProvider.GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
-			if (commandService != null)
+			if (this.ServiceProvider.GetService(typeof(IMenuCommandService)) is OleMenuCommandService commandService)
 			{
 				var menuCommandID = new CommandID(CommandSet, CommandId);
 				var menuItem = new OleMenuCommand(this.MenuItemCallback, menuCommandID);
@@ -60,8 +61,8 @@ namespace TypeRightVsix.Commands
 		/// <param name="e"></param>
 		private void MenuItem_BeforeQueryStatus(object sender, EventArgs e)
 		{
+			ThreadHelper.ThrowIfNotOnUIThread();
 			OleMenuCommand button = (OleMenuCommand)sender;
-			bool hasProj = VsHelper.GetSelectedItemsOfType<Project>().Any();  // Check if the solution is selectd
 
 			button.Visible = false;
 			button.Enabled = false;
@@ -69,7 +70,7 @@ namespace TypeRightVsix.Commands
 			foreach (Project proj in VsHelper.GetSelectedItemsOfType<Project>())
 			{
 				button.Visible = true;  // At least one project is selected...
-				if (!ConfigProcessing.IsGenEnabledForProject(proj) && VsHelper.IsPackageInstalled(proj))
+				if (!ConfigProcessing.ConfigExistsForProject(proj) && VsHelper.IsPackageInstalled(proj))
 				{
 					button.Enabled = true;
 				}
@@ -114,12 +115,34 @@ namespace TypeRightVsix.Commands
 		/// <param name="e">Event args.</param>
 		private void MenuItemCallback(object sender, EventArgs e)
 		{
+			ThreadHelper.ThrowIfNotOnUIThread();
+
 			foreach (Project proj in VsHelper.GetSelectedItemsOfType<Project>())
 			{
 				if (!VsHelper.IsSolutionItemsFolder(proj) 
 					&& !ConfigProcessing.ConfigExistsForProject(proj))
 				{
-					ConfigProcessing.CreateForProject(proj);
+
+					string configPath = ScriptGenAssemblyCache.GetForProj(proj)?.ConfigManager.GetConfigFilepath(proj.FullName);
+					if (string.IsNullOrEmpty(configPath))
+					{
+						VsShellUtilities.ShowMessageBox(
+							ServiceProvider,
+							"Failed to find target configuration file path.  It is possible you need to update the Nuget Package.",
+							"Add Config Failed",
+							OLEMSGICON.OLEMSGICON_CRITICAL,
+							OLEMSGBUTTON.OLEMSGBUTTON_OK,
+							OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
+						return;
+					}
+
+
+					if (!File.Exists(configPath))
+					{
+						ScriptGenAssemblyCache.GetForProj(proj).ConfigManager.CreateNew(configPath);
+					}
+					proj.ProjectItems.AddFromFile(configPath);
+
 				}				
 			}
 			

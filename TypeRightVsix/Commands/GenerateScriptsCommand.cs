@@ -59,14 +59,15 @@ namespace TypeRightVsix.Commands
 		/// <param name="e"></param>
 		private void MenuItem_BeforeQueryStatus(object sender, EventArgs e)
 		{
+			ThreadHelper.ThrowIfNotOnUIThread();
 			OleMenuCommand button = (OleMenuCommand)sender;
 			button.Enabled = false;
-			
+
 			foreach (EnvDTE.Project proj in VsHelper.GetSelectedItemsOfType<EnvDTE.Project>())
 			{
-				if (!VsHelper.IsSolutionItemsFolder(proj) 
+				if (!VsHelper.IsSolutionItemsFolder(proj)
 					&& VsHelper.IsPackageInstalled(proj)
-					&& ConfigProcessing.IsGenEnabledForProject(proj))
+					&& ConfigProcessing.ConfigExistsForProject(proj))
 				{
 					button.Enabled = true;
 				}
@@ -116,16 +117,15 @@ namespace TypeRightVsix.Commands
 
 			foreach (EnvDTE.Project proj in VsHelper.GetSelectedItemsOfType<EnvDTE.Project>())
 			{
-				if (ConfigProcessing.IsGenEnabledForProject(proj))
+				if (ConfigProcessing.ConfigExistsForProject(proj))
 				{
-					IScriptGenEngineProvider<Workspace> provider = Imports.ScriptGenAssemblyCache.GetForProj(proj).EngineProvider;
-					IScriptGenEngine engine = provider.GetEngine(currentWorkspace, proj.FullName);
-					IScriptGenerationResult result = engine.GenerateScripts();
+					var engine = Imports.ScriptGenAssemblyCache.GetForProj(proj).ScriptGenerator;
+					var result = engine.GenerateScripts(currentWorkspace, proj.FullName, true);
 					// Show a message box to prove we were here
-					if (!result.Sucess)
+					if (!result.Success)
 					{
 						VsShellUtilities.ShowMessageBox(
-							this.ServiceProvider,
+							ServiceProvider,
 							result.ErrorMessage,
 							"Script Generation Failed",
 							OLEMSGICON.OLEMSGICON_CRITICAL,
@@ -133,7 +133,7 @@ namespace TypeRightVsix.Commands
 							OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
 					}
 				}
-			}			
+			}
 		}
 	}
 }

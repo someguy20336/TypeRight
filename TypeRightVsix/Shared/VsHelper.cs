@@ -5,6 +5,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.VisualStudio.ComponentModelHost;
 using Microsoft.VisualStudio.LanguageServices;
 using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
 using NuGet.VisualStudio;
 using System;
 using System.Collections.Generic;
@@ -141,6 +142,33 @@ namespace TypeRightVsix.Shared
 			}
 		}
 
+		/// <summary>
+		/// Sets the status bar text
+		/// </summary>
+		/// <param name="text"></param>
+		public static void SetStatusBar(string text)
+		{
+			ThreadHelper.ThrowIfNotOnUIThread();
+			IVsStatusbar statusBar = (IVsStatusbar)Current._servProvider.GetService(typeof(SVsStatusbar));
+			if (statusBar == null)
+			{
+				return;
+			}
+
+			// Make sure the status bar is not frozen
+			statusBar.IsFrozen(out int frozen);
+
+			if (frozen != 0)
+			{
+				statusBar.FreezeOutput(0);
+			}
+
+			// Set the status bar text and make its display static.
+			statusBar.SetText(text);
+			//// Freeze the status bar.
+			statusBar.FreezeOutput(1);
+
+		}
 		
 	}
 }

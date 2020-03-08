@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Microsoft.VisualStudio.Shell;
+using TypeRight.VsixContract;
 
 namespace TypeRightVsix.Shared
 {
@@ -40,13 +41,7 @@ namespace TypeRightVsix.Shared
 		public static bool IsGenEnabledForProject(Project proj)
 		{
 			ThreadHelper.ThrowIfNotOnUIThread();
-			IConfigOptions opt = ScriptGenAssemblyCache.GetForProj(proj)?.ConfigManager.GetForProject(proj.FullName);
-			if (opt != null && opt.Enabled)
-			{
-				return true;
-			}
-
-			return false;
+			return ScriptGenAssemblyCache.GetForProj(proj)?.ConfigManager.IsEnabled(proj.FullName) ?? false;
 		}
 
 		/// <summary>
@@ -67,29 +62,5 @@ namespace TypeRightVsix.Shared
 			return configExists && !existsButNotAdded;
 		}
 
-		/// <summary>
-		/// Creates a config file for the given solution
-		/// </summary>
-		public static void CreateForProject(Project proj)
-		{
-			ThreadHelper.ThrowIfNotOnUIThread();
-			string configPath = ScriptGenAssemblyCache.GetForProj(proj)?.ConfigManager.GetConfigFilepath(proj.FullName);
-			if (!File.Exists(configPath))
-			{
-				IConfigOptions config = ScriptGenAssemblyCache.GetForProj(proj).ConfigManager.CreateNew();
-				
-				FileInfo projFile = new FileInfo(proj.FullName);
-
-				Uri projUri = new Uri(projFile.Directory.FullName, UriKind.Absolute);
-				Uri fileUri = new Uri(Path.Combine(projFile.Directory.FullName, "Scripts"), UriKind.Absolute);
-
-				string relative = projUri.MakeRelativeUri(fileUri).ToString();
-				relative = "." + relative.Substring(projFile.Directory.Name.Length);
-				config.ServerObjectsResultFilepath = relative + "/ServerObjects.ts";
-
-				ScriptGenAssemblyCache.GetForProj(proj).ConfigManager.Save(config, configPath);
-			}
-			proj.ProjectItems.AddFromFile(configPath);
-		}
 	}
 }

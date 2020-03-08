@@ -1,0 +1,20 @@
+<Project ToolsVersion="12.0" DefaultTargets="BuildDebug" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" >
+	<PropertyGroup>
+		<configName>Debug</configName>
+	</PropertyGroup>
+	
+	
+	<!--
+	Target: BuildDebug
+	Description: This target is called for building the solution
+	-->
+	<Target Name="Build">
+		<!-- Build the project code -->
+		<Message Text="Building solution..." Importance="high" />		
+		<MSBuild Projects="TestProject.sln" Targets="Rebuild" Properties="Configuration=$(configName)" /> 
+	
+		
+	</Target> 
+
+  
+</Project>

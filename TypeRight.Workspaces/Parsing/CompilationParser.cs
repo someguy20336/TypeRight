@@ -1,10 +1,10 @@
-﻿using TypeRight.Attributes;
-using TypeRight.CodeModel;
-using TypeRight.TypeLocation;
+﻿using TypeRight.CodeModel;
 using TypeRight.Workspaces.CodeModel;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using TypeRight.Attributes;
+using TypeRight.TypeLocation;
 
 namespace TypeRight.Workspaces.Parsing
 {
@@ -13,13 +13,13 @@ namespace TypeRight.Workspaces.Parsing
 	/// </summary>
 	public class CompilationParser : CSharpSyntaxWalker, ITypeIterator
 	{
-		private TypeVisitor _visitor;
+		private ITypeVisitor _visitor;
 
 		/// <summary>
 		/// Gets the compilation being parsed
 		/// </summary>
 		public Compilation Compilation { get; private set; }
-		
+
 		/// <summary>
 		/// Creates a new compilation parser
 		/// </summary>
@@ -33,7 +33,7 @@ namespace TypeRight.Workspaces.Parsing
 		/// Iterates the types in the compilation
 		/// </summary>
 		/// <param name="visitor">The visitor for the iterator</param>
-		public void IterateTypes(TypeVisitor visitor)
+		public void IterateTypes(ITypeVisitor visitor)
 		{
 			_visitor = visitor;
 			FindExternalTypes();

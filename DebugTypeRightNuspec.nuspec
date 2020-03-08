@@ -1,0 +1,39 @@
+﻿<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+	<metadata>
+		<id>TypeRightDebug</id>
+		<version>0.11.0</version>
+		<title>TypeRight</title>
+		<authors>Dave W</authors>
+		<owners>Dave W</owners>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<description>
+			This is only meant for generating a debug package for nuget
+		</description>
+		<releaseNotes>Better support for web API and multiple request methods (GET, POST, PUT).  This version has breaking changes!  See the github page.</releaseNotes>
+		<copyright>Copyright 2019</copyright>
+		<projectUrl>https://github.com/someguy20336/TypeRight</projectUrl>
+		<icon>images\TypeRight64x64.png	</icon>
+		<tags>TypeScript Generator MVC C# classes</tags>
+		<license type="expression">MIT</license>
+	</metadata>
+	<files>
+		<!-- Attributes reference -->
+		<file src=".\TypeRight.Attributes\bin\Release\netstandard2.0\TypeRight.Attributes.dll" target="lib\netstandard2.0" />
+		<file src=".\TypeRight.Attributes\bin\Release\netstandard2.0\TypeRight.Attributes.xml" target="lib\netstandard2.0" />
+		
+		<!-- Build tool -->
+		<file src=".\TypeRight\TypeRight.targets" target="build\TypeRightDebug.targets" />
+		<!--<file src=".\TypeRight\bin\Release\netcoreapp2.2\publish\*.dll" target="tools" />-->
+		<file src=".\TypeRight\bin\Release\netcoreapp3.1\publish\*.pdb" target="tools" />
+		<file src=".\TypeRight\bin\Release\netcoreapp3.1\publish\TypeRight.exe" target="tools" />
+		
+		<!-- Bridge -->
+		<file src=".\TypeRight.Workspaces.VsixAdapter\bin\Release\*.dll" target="tools\adapter" />
+		<file src=".\TypeRight.Workspaces.VsixAdapter\bin\Release\*.pdb" target="tools\adapter" />
+		
+		<!-- Content -->
+		<file src=".\Icons\TypeRight64x64.png" target="images\"></file>
+
+	</files>
+</package>

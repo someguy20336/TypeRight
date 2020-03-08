@@ -4,6 +4,8 @@ using System;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.IO;
+using TypeRight.VsixContract;
+using TypeRightVsix.Shared;
 
 namespace TypeRightVsix.Imports
 {
@@ -26,8 +28,8 @@ namespace TypeRightVsix.Imports
 		/// <summary>
 		/// Gets or sets the engine provider
 		/// </summary>
-		[Import(typeof(IScriptGenEngineProvider<Workspace>))]
-		public IScriptGenEngineProvider<Workspace> EngineProvider { get; set; }
+		[Import(typeof(IScriptGenerationAdapter))]
+		public IScriptGenerationAdapter ScriptGenerator { get; set; }
 
 		/// <summary>
 		/// Gets or sets the config manager
@@ -44,11 +46,11 @@ namespace TypeRightVsix.Imports
 		public ImportedGenerator(string cacheBasePath, string version, string nugetPath)
 		{
 			AssemblyVersion = version;
-			AssemblyPath = Path.Combine(nugetPath, "tools");
+			AssemblyPath = Path.Combine(nugetPath, "tools", "adapter");
 			string cachePath = Path.Combine(cacheBasePath, AssemblyVersion);
 
 			// If we don't have this version locally cached, do that now
-#if DEBUG
+#if DEBUG && !NUGET
 			if (Directory.Exists(cachePath))
 			{
 				Directory.Delete(cachePath);
@@ -56,14 +58,19 @@ namespace TypeRightVsix.Imports
 			// Use the test build
 			Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
 			string solnDir = new FileInfo(Shared.VsHelper.Current.Dte.Solution.FullName).Directory.FullName;
-			string relativeBuildDir = @"..\TypeRight.Build\bin\Debug";
+			string relativeBuildDir = @"..\..\TypeRight.Workspaces.Bridge\bin\Debug\";
 			AssemblyPath = Path.GetFullPath(Path.Combine(solnDir, relativeBuildDir));
 #endif
+			if (!Directory.Exists(AssemblyPath))
+			{
+				SetNullImporters();
+				return;
+			}
+
 			if (!Directory.Exists(cachePath))
 			{
 				Directory.CreateDirectory(cachePath);
 				DirectoryCopy(AssemblyPath, cachePath, true);
-
 			}
 
 			// Import the files
@@ -76,10 +83,16 @@ namespace TypeRightVsix.Imports
 				}
 				catch (Exception)
 				{
-
-					throw;
+					SetNullImporters();
 				}
 			}
+		}
+
+		private void SetNullImporters()
+		{
+			VsHelper.SetStatusBar("Failed to load compatible version of TypeRight - you may need to update the Nuget package");
+			ScriptGenerator = new NullScriptGenerationAdapter();
+			ConfigManager = new NullConfigManager();
 		}
 
 		private static void DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs)
