@@ -7,6 +7,8 @@ TypeRight is a simple tool that generates TypeScript files from your C# objects 
 
 This tool solves those problems by autogenerating those TypeScript files every time you build your project.
 
+**NOTE**: I am temporarily unlisting version 0.11.0 until I can take a look at [this issue](https://github.com/someguy20336/TypeRight/issues/29).  It is possible that some unique project configurations (and or VS version) are causing some problems during build.
+
 **RECENT BREAKING CHANGES**
 
 ***Breaking changes between the tool and the VS extention (Tools: 0.11.0, VS Extension: 0.8.0)***
