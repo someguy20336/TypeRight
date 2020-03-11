@@ -1,5 +1,6 @@
 ﻿using Microsoft.CodeAnalysis;
 using System.Collections.Generic;
+using System.Linq;
 using TypeRight.TypeProcessing;
 
 namespace TypeRight.Workspaces.Parsing
@@ -32,31 +33,21 @@ namespace TypeRight.Workspaces.Parsing
 			Compilation = comp;
 			DocumentationProvider = documentationProvider;
 
+			// ActionResult<T>
+			_returnTypeHandlers.Add(new ActionResultReturnTypeHandler(this));
+
+			// ActionResult, IActionResult, JsonResult, ActionResult<object>
 			_returnTypeHandlers.Add(new ParseSyntaxForTypeMethodHandler(
 				MvcConstants.ToAspNetFullName("JsonResult"),
-				new InvocationReturnForwardFilter("Json", 0)
-				));
-			_returnTypeHandlers.Add(new ParseSyntaxForTypeMethodHandler(
-				MvcConstants.ToAspNetFullName("ActionResult"),
-				new InvocationReturnForwardFilter("Json", 0)
-				));
-			_returnTypeHandlers.Add(new ParseSyntaxForTypeMethodHandler(
 				MvcConstants.ToAspNetCoreFullName("JsonResult"),
-				new InvocationReturnForwardFilter("Json", 0)
-				));
-			_returnTypeHandlers.Add(new ParseSyntaxForTypeMethodHandler(
+				MvcConstants.ToAspNetFullName("ActionResult"),
 				MvcConstants.ToAspNetCoreFullName("ActionResult"),
-				new InvocationReturnForwardFilter("Json", 0)
+				MvcConstants.ToAspNetCoreFullName("ActionResult") + "`1",
+				MvcConstants.ToAspNetFullName("IActionResult"),
+				MvcConstants.ToAspNetCoreFullName("IActionResult")
 				));
-			_returnTypeHandlers.Add(new ParseSyntaxForTypeMethodHandler(
-				MvcConstants.ToAspNetCoreFullName("IActionResult"),
-				new InvocationReturnForwardFilter("Json", 0)
-				));
-			_returnTypeHandlers.Add(new ParseSyntaxForTypeMethodHandler(
-				MvcConstants.ToAspNetCoreFullName("IActionResult"),
-				new InvocationReturnForwardFilter("Json", 0)
-				));
-			_returnTypeHandlers.Add(new ActionResultReturnTypeHandler(this));
+
+			_returnTypeHandlers.Add(new DefaultMethodReturnTypeHandler());
 		}
 
 		/// <summary>
@@ -66,15 +57,7 @@ namespace TypeRight.Workspaces.Parsing
 		/// <returns>The matching return type handler</returns>
 		public MethodReturnTypeHandler GetMethodReturnTypeHandler(IMethodSymbol methodSymbol)
 		{
-			foreach (MethodReturnTypeHandler handler in _returnTypeHandlers)
-			{
-				if (handler.CanHandleMethodSymbol(methodSymbol))
-				{
-					return handler;
-				}
-			}
-
-			return new DefaultMethodReturnTypeHandler();
+			return _returnTypeHandlers.FirstOrDefault(h => h.CanHandleMethodSymbol(methodSymbol));
 		}
 		
 	}

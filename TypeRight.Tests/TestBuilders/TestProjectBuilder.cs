@@ -149,7 +149,12 @@ namespace TypeRight.Tests.TestBuilders
 
 			CreateClassBuilder(MvcConstants.ActionResultName, MvcConstants.AspNetCoreNamespace)
 				.AddGenericParameter("TValue")
+				.AddConstructor()
+					.AddParameter("value", "TValue")
+					.Commit()
+				// TODO Other ctor
 				.Commit();
+
 
 			return this;
 		}
