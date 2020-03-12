@@ -19,7 +19,7 @@ namespace TypeRight
 				// TODO output help?
 				return;
 			}
-			
+
 
 			// TODO 
 			//  - More Logging?  Arg parameter
@@ -31,7 +31,7 @@ namespace TypeRight
 			{
 				string dir = new FileInfo(Path.Combine(typeof(Program).Assembly.Location)).DirectoryName;
 				projectPath = Path.GetFullPath(Path.Combine(dir, projectPath));
-			}			
+			}
 
 			if (!File.Exists(projectPath))
 			{
@@ -47,10 +47,29 @@ namespace TypeRight
 
 			if (!BuildHelper.NeedsScriptGeneration(projectPath))
 			{
-				Console.WriteLine("Script generation skipped: done by extension");
+				Console.WriteLine("Script generation skipped: generation in progress");
 				return;
 			}
 
+			try
+			{
+				BuildHelper.StartBuild(projectPath);
+				RunGeneration(args, projectPath);
+			}
+			catch (Exception e)
+			{
+
+				Console.WriteLine("Script generation failed: " + e.Message);
+			}
+			finally
+			{
+				BuildHelper.EndBuild(projectPath);
+			}
+
+		}
+
+		private static void RunGeneration(string[] args, string projectPath)
+		{
 			AnalyzerManager mgr = new AnalyzerManager();
 			ProjectAnalyzer projAnalyzer = mgr.GetProject(projectPath);
 
@@ -71,12 +90,9 @@ namespace TypeRight
 				{
 					Console.WriteLine(result.ErrorMessage);
 				}
-				
-			}
-			
-		}
-		
 
-		
+			}
+		}
+
 	}
 }

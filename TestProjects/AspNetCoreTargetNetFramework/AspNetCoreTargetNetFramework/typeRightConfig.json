@@ -1,0 +1,29 @@
+{
+	"Enabled": true,
+	"ClassNamespace": "ServerClasses",
+	"EnumNamespace": "ServerEnums",
+	"WebMethodNamespace": "WebMethods",
+	"ServerObjectsResultFilepath": "./Scripts/ServerObjects.ts",
+
+	"TemplateType": "module",
+	"modelBindingType": "singleParam",
+
+	"actionConfigurations": [
+		{
+			"fetchFunctionName": "callPost",
+			"fetchFilePath": "./Scripts/Communication.ts",
+			"parameters": [],
+			"returnType": "Promise<$returnType$>",
+			"imports": null,
+			"method": "default"
+		},
+		{
+			"fetchFunctionName": "callGet",
+			"fetchFilePath": "./Scripts/Communication.ts",
+			"parameters": [],
+			"returnType": "Promise<$returnType$>",
+			"imports": null,
+			"method": "get"
+		}
+	]
+}

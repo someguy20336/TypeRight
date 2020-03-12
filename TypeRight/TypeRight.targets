@@ -37,7 +37,7 @@
 		</Exec>
 
 		<Message Condition="$(ExecOutput) != ''" 
-				 Text="Error generating script: $(ExecOutput)" 
+				 Text="Message while generating scripts: $(ExecOutput)" 
 				 Importance="high">			
 		</Message>
 		
