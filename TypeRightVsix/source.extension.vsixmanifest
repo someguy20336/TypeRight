@@ -1,28 +1,28 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
-	<Metadata>
-		<Identity Id="TypeRight.83afc44c-da22-44a6-a850-472d688d83d2" Version="0.8.0.0" Language="en-US" Publisher="Dave W" />
-		<DisplayName>TypeRight</DisplayName>
-		<Description xml:space="preserve">.VS Extension to generate client scripts from server objects.  Use in combination with the Nuget package of the same name.</Description>
-		<MoreInfo>https://github.com/someguy20336/TypeRight</MoreInfo>
-		<Icon>Resources\TypeRightPackage.ico</Icon>
-		<PreviewImage>Resources\TypeRightPackage.ico</PreviewImage>
-		<Tags>Script Generation TypeScript MVC Actions C#</Tags>
-	</Metadata>
-	<Installation>
-		<InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[15.0,)" />
-		<InstallationTarget Version="[15.0,)" Id="Microsoft.VisualStudio.Pro" />
-	</Installation>
-	<Dependencies>
-		<Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.5,)" />
-	</Dependencies>
-	<Assets>
-		<Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
-		<Asset Type="Microsoft.VisualStudio.MefComponent" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%|" />
-	</Assets>
-	<Prerequisites>
-		<Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[15.8.27729.1,)" DisplayName="Visual Studio core editor" />
-		<Prerequisite Id="Microsoft.VisualStudio.Component.Roslyn.Compiler" Version="[15.6.27309.0,)" DisplayName="C# and Visual Basic Roslyn compilers" />
-		<Prerequisite Id="Microsoft.VisualStudio.Component.Roslyn.LanguageServices" Version="[15.8.27729.1,)" DisplayName="C# and Visual Basic" />
-	</Prerequisites>
+    <Metadata>
+        <Identity Id="TypeRight.83afc44c-da22-44a6-a850-472d688d83d2" Version="0.8.1.0" Language="en-US" Publisher="Dave W" />
+        <DisplayName>TypeRight</DisplayName>
+        <Description xml:space="preserve">.VS Extension to generate client scripts from server objects.  Use in combination with the Nuget package of the same name.</Description>
+        <MoreInfo>https://github.com/someguy20336/TypeRight</MoreInfo>
+        <Icon>Resources\TypeRightPackage.ico</Icon>
+        <PreviewImage>Resources\TypeRightPackage.ico</PreviewImage>
+        <Tags>Script Generation TypeScript MVC Actions C#</Tags>
+    </Metadata>
+    <Installation>
+        <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[15.0,)" />
+        <InstallationTarget Version="[15.0,)" Id="Microsoft.VisualStudio.Pro" />
+    </Installation>
+    <Dependencies>
+        <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.5,)" />
+    </Dependencies>
+    <Assets>
+        <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
+        <Asset Type="Microsoft.VisualStudio.MefComponent" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%|" />
+    </Assets>
+    <Prerequisites>
+        <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[15.8.27729.1,)" DisplayName="Visual Studio core editor" />
+        <Prerequisite Id="Microsoft.VisualStudio.Component.Roslyn.Compiler" Version="[15.6.27309.0,)" DisplayName="C# and Visual Basic Roslyn compilers" />
+        <Prerequisite Id="Microsoft.VisualStudio.Component.Roslyn.LanguageServices" Version="[15.8.27729.1,)" DisplayName="C# and Visual Basic" />
+    </Prerequisites>
 </PackageManifest>
