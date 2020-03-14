@@ -1,11 +1,10 @@
-﻿using TypeRight;
-using Microsoft.CodeAnalysis;
-using System;
+﻿using System;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.IO;
 using TypeRight.VsixContract;
 using TypeRightVsix.Shared;
+using System.Reflection;
 
 namespace TypeRightVsix.Imports
 {
@@ -23,14 +22,14 @@ namespace TypeRightVsix.Imports
 		/// <summary>
 		/// Gets the assembly path for this version
 		/// </summary>
-		public string AssemblyPath { get; }
+		public string AssemblyDirectory { get; }
 
 		/// <summary>
 		/// Gets or sets the engine provider
 		/// </summary>
 		[Import(typeof(IScriptGenerationAdapter))]
-		public IScriptGenerationAdapter ScriptGenerator { get; set; }
-
+		public IScriptGenerationAdapter ScriptGenerator { get; set; }		
+		
 		/// <summary>
 		/// Gets or sets the config manager
 		/// </summary>
@@ -45,32 +44,47 @@ namespace TypeRightVsix.Imports
 		/// <param name="nugetPath">The path to the nuget install</param>
 		public ImportedGenerator(string cacheBasePath, string version, string nugetPath)
 		{
+			Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
 			AssemblyVersion = version;
-			AssemblyPath = Path.Combine(nugetPath, "tools", "adapter");
+			string importDir = Path.Combine(nugetPath, "tools", "adapter");
+			string legacyDir = Path.Combine(nugetPath, "tools");
+
+
+#if DEBUG && !NUGET
+			// Use the test build
+			string solnDir = new FileInfo(VsHelper.Current.Dte.Solution.FullName).Directory.FullName;
+			string relativeBuildDir = @"..\..\TypeRight.Workspaces.VsixAdapter\bin\Debug\";
+			importDir = Path.GetFullPath(Path.Combine(solnDir, relativeBuildDir));
+#endif
+
+			if (Directory.Exists(importDir))
+			{
+				AssemblyDirectory = importDir;
+			}
+			else if (Directory.Exists(legacyDir))
+			{
+				AssemblyDirectory = legacyDir;
+			}
+			else
+			{
+				AssemblyDirectory = "";
+				TrySetNullImporters();
+				return;
+			}
+					   
+			// If we don't have this version locally cached, do that now
 			string cachePath = Path.Combine(cacheBasePath, AssemblyVersion);
 
-			// If we don't have this version locally cached, do that now
 #if DEBUG && !NUGET
 			if (Directory.Exists(cachePath))
 			{
 				Directory.Delete(cachePath);
 			}
-			// Use the test build
-			Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-			string solnDir = new FileInfo(Shared.VsHelper.Current.Dte.Solution.FullName).Directory.FullName;
-			string relativeBuildDir = @"..\..\TypeRight.Workspaces.Adapter\bin\Debug\";
-			AssemblyPath = Path.GetFullPath(Path.Combine(solnDir, relativeBuildDir));
 #endif
-			if (!Directory.Exists(AssemblyPath))
-			{
-				SetNullImporters();
-				return;
-			}
-
 			if (!Directory.Exists(cachePath))
 			{
 				Directory.CreateDirectory(cachePath);
-				DirectoryCopy(AssemblyPath, cachePath, true);
+				DirectoryCopy(AssemblyDirectory, cachePath, true);
 			}
 
 			// Import the files
@@ -83,16 +97,41 @@ namespace TypeRightVsix.Imports
 				}
 				catch (Exception)
 				{
-					SetNullImporters();
+					TryGetLegacy(cachePath);
 				}
 			}
+
+			TrySetNullImporters();
 		}
 
-		private void SetNullImporters()
+		private void TrySetNullImporters()
 		{
+			Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
 			VsHelper.SetStatusBar("Failed to load compatible version of TypeRight - you may need to update the Nuget package");
-			ScriptGenerator = new NullScriptGenerationAdapter();
-			ConfigManager = new NullConfigManager();
+			ScriptGenerator = ScriptGenerator ?? new NullScriptGenerationAdapter();
+			ConfigManager = ConfigManager ?? new NullConfigManager();
+		}
+
+		private void TryGetLegacy(string cachePath)
+		{
+			try
+			{
+				string genPath = Path.Combine(cachePath, "TypeRight.Workspaces.dll");
+				Assembly assembly = Assembly.LoadFrom(genPath);
+				Type type = assembly.GetType("TypeRight.Workspaces.Parsing.WorkspaceGenEngineProvider");
+				dynamic legacyGenerator = Activator.CreateInstance(type);
+				ScriptGenerator = new LegacyScriptGenerationAdapter(legacyGenerator);
+
+				string configPath = Path.Combine(cachePath, "TypeRight.dll");
+				assembly = Assembly.LoadFrom(configPath);
+				type = assembly.GetType("TypeRight.Configuration.ConfigManager");
+				dynamic legacyConfig = Activator.CreateInstance(type);
+				ConfigManager = new LegacyConfigManagerAdapter(legacyConfig);
+			}
+			catch (Exception)
+			{
+				// Will be set to null
+			}
 		}
 
 		private static void DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs)

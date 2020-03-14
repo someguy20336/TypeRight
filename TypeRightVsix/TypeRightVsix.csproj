@@ -94,6 +94,7 @@
     <DeployExtension>False</DeployExtension>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Imports\LegacyGeneratorAdapters.cs" />
     <Compile Include="Imports\NullImports.cs" />
     <Compile Include="TypeRightPackage.cs" />
     <Compile Include="Commands\AddConfigCommand.cs" />

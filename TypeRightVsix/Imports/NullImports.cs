@@ -13,18 +13,19 @@ namespace TypeRightVsix.Imports
 	{
 		public IScriptGenerationResult GenerateScripts(Workspace workspace, string projPath, bool force)
 		{
-			return new NullScriptGenerationResult()
+			return new ScriptGenerationResultAdapter()
 			{
 				ErrorMessage = "Unable to find compatible generator - you may need to update your Nuget package"
 			};
 		}
 	}
 
-	public class NullScriptGenerationResult : IScriptGenerationResult
+	public class ScriptGenerationResultAdapter : IScriptGenerationResult
 	{
-		public bool Success => false;
+		public bool Success { get; set; }
 
 		public string ErrorMessage { get; set; }
+
 	}
 
 	public class NullConfigManager : IConfigManager
