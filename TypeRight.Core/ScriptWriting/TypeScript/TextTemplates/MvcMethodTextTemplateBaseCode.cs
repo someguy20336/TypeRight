@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TypeRight.Configuration;
 using TypeRight.TypeProcessing;
 
@@ -11,15 +7,6 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
 {
 	partial class MvcMethodTextTemplateBase
 	{
-		/// <summary>
-		/// The function named used for "sucess"
-		/// </summary>
-		private const string SuccessFuncName = "success";
-		/// <summary>
-		/// The function name used for "fail"
-		/// </summary>
-		private const string FailFuncName = "fail";
-
 		protected ControllerModel ControllerInfo { get; private set; }
 
 		protected ControllerContext Context { get; private set; }
@@ -33,15 +20,6 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
 		{
 			ControllerInfo = model;
 			Context = context;
-		}
-
-		protected void AddBaseText(string indent)
-		{
-			StringBuilder cache = GenerationEnvironment;
-			//CurrentIndent
-			GenerationEnvironment = null;
-			cache.Append(TransformText());
-			GenerationEnvironment = cache;
 		}
 
 		/// <summary>
@@ -83,7 +61,7 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
 				actionParams.Add(paramText);
 			}
 
-			return $"{action.Name}({string.Join(", ", actionParams)}): { action.	ReturnType }";
+			return $"{action.Name}({string.Join(", ", actionParams)}): { action.ReturnType }";
 		}
 
 		/// <summary>
@@ -103,7 +81,7 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
 			{
 				return ", {}";
 			}
-			else if (bodyParams.Count == 1 && Context.ModelBinding == ModelBindingType.SingleParam)	// TODO: can i not?
+			else if (bodyParams.Count == 1 && Context.ModelBinding == ModelBindingType.SingleParam) // TODO: can i not?
 			{
 				// If we are only using a single parameter model binding (i.e. asp.net core), then the object itself should be the body
 				return ", " + bodyParams[0].Name;
@@ -143,7 +121,8 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
 			if (urlParams.Count > 0)
 			{
 				// TODO: need to escape?
-				urlParamQuery = "?" + string.Join("&", urlParams.Select(p => $"{p.Name}=${{{ p.Name}}}"));
+				// Null coalesce so we don't pass null or undefined into the URL - TS 3.7 though....
+				urlParamQuery = "?" + string.Join("&", urlParams.Select(p => $"{p.Name}=${{ { p.Name} ?? \"\" }}"));
 			}
 
 			// Add the route params
