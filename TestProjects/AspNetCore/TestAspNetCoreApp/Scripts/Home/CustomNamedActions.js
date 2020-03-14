@@ -45,7 +45,7 @@ export function TestClassActionResult(abort) {
  * @param id
  */
 export function TestGetMethod(id, abort) {
-    return callGet(`/api/TestWebApi?id=${id}`, abort);
+    return callGet(`/api/TestWebApi?id=${id ?? ""}`, abort);
 }
 /**
  *
@@ -53,6 +53,6 @@ export function TestGetMethod(id, abort) {
  * @param body
  */
 export function WithFromQuery(id, body, abort) {
-    return callPost(`/api/TestWebApi?id=${id}`, body, abort);
+    return callPost(`/api/TestWebApi?id=${id ?? ""}`, body, abort);
 }
 //# sourceMappingURL=CustomNamedActions.js.map
