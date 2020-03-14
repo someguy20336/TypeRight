@@ -1,6 +1,8 @@
 ﻿using TypeRight.CodeModel;
 using TypeRight.Workspaces.CodeModel;
 using Microsoft.CodeAnalysis;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace TypeRight.Workspaces.Parsing
 {
@@ -12,22 +14,15 @@ namespace TypeRight.Workspaces.Parsing
 		/// <summary>
 		/// The return type this applies to
 		/// </summary>
-		private string _appliesToReturnType;
-
-		/// <summary>
-		/// The method invocation forwarder
-		/// </summary>
-		private InvocationReturnForwardFilter _returnForwarder;
-
+		private HashSet<string> _appliesToReturnTypes;
+		
 		/// <summary>
 		/// Creates a new handler
 		/// </summary>
-		/// <param name="appliesToType">The full name of the type this applies to</param>
-		/// <param name="returnTypeForwarder">The invocation forwarder</param>
-		public ParseSyntaxForTypeMethodHandler(string appliesToType, InvocationReturnForwardFilter returnTypeForwarder)
+		/// <param name="appliesToTypes">The full name of the type this applies to</param>
+		public ParseSyntaxForTypeMethodHandler(params string[] appliesToTypes)
 		{
-			_appliesToReturnType = appliesToType;
-			_returnForwarder = returnTypeForwarder;
+			_appliesToReturnTypes = new HashSet<string>(appliesToTypes.Distinct());
 		}
 
 		/// <summary>
@@ -39,7 +34,7 @@ namespace TypeRight.Workspaces.Parsing
 		{
 			if (method.ReturnType is INamedTypeSymbol namedType)
 			{
-				return namedType.GetNormalizedMetadataName() == _appliesToReturnType;
+				return _appliesToReturnTypes.Contains(namedType.GetNormalizedMetadataName());
 			}
 			return false;
 		}
@@ -52,7 +47,7 @@ namespace TypeRight.Workspaces.Parsing
 		/// <returns>The return type</returns>
 		public override IType GetReturnType(ParseContext context, IMethodSymbol method)
 		{
-			MvcActionMethodWalker actionMethodWalker = new MvcActionMethodWalker(context, _returnForwarder);
+			MvcActionMethodWalker actionMethodWalker = new MvcActionMethodWalker(context);
 			return actionMethodWalker.GetReturnType(method);
 		}
 	}

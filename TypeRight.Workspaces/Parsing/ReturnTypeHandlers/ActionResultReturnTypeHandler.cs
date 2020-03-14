@@ -28,7 +28,14 @@ namespace TypeRight.Workspaces.Parsing
 				return false;
 			}
 
-			return returnType.ConstructedFrom == _targetType;
+			if (returnType.ConstructedFrom != _targetType)
+			{
+				return false;
+			}
+
+
+			var typeArg = returnType.TypeArguments[0];
+			return typeArg.SpecialType != SpecialType.System_Object;	// Objects are handled by parsing the syntax
 		}
 
 		public override IType GetReturnType(ParseContext context, IMethodSymbol method)
