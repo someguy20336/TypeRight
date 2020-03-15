@@ -1,8 +1,6 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TypeRight.TypeProcessing;
-using TypeRight.Tests.TestBuilders;
 using TypeRight.Tests.TestBuilders.TypeCollection;
 
 namespace TypeRight.Tests.TestsWithoutParsing

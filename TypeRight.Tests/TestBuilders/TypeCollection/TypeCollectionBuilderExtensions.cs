@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TypeRight.CodeModel;
 using TypeRight.CodeModel.Default;
-using TypeRight.TypeProcessing;
+using TypeRight.Tests.Testers;
 
 namespace TypeRight.Tests.TestBuilders.TypeCollection
 {
@@ -51,5 +47,7 @@ namespace TypeRight.Tests.TestBuilders.TypeCollection
 			attributable.Attributes.Add(new AttributeData(attrType, null, ctorArgs));
 			return attributable;
 		}
+
+		public static TypeCollectionTester BuildAndTest(this TypeCollectionBuilder builder) => new TypeCollectionTester(builder.Build());
 	}
 }
