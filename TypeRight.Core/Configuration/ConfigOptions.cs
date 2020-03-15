@@ -32,7 +32,7 @@ namespace TypeRight.Configuration
 		/// "multiParam" will create an object for the parameters.
 		/// </summary>
 		[JsonConverter(typeof(CamelCaseStringEnumConverter))]
-		public ModelBindingType ModelBindingType { get; set; } = ModelBindingType.MultiParam;
+		public ModelBindingType ModelBindingType { get; set; } = ModelBindingType.SingleParam;
 
 		/// <summary>
 		/// Gets or sets the action configurations to use
