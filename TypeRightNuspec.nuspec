@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
 	<metadata>
 		<id>TypeRight</id>
-		<version>0.11.1</version>
+		<version>0.12.0</version>
 		<title>TypeRight</title>
 		<authors>Dave W</authors>
 		<owners>Dave W</owners>
@@ -12,7 +12,7 @@
 			This package adds a build task to create the scripts.  For the best experience, also use the VS extension
 			with the same name.
 		</description>
-		<releaseNotes>Better support for web API and multiple request methods (GET, POST, PUT).  This version has breaking changes!  See the github page.</releaseNotes>
+		<releaseNotes>See the github page for most recent release notes</releaseNotes>
 		<copyright>Copyright 2019</copyright>
 		<projectUrl>https://github.com/someguy20336/TypeRight</projectUrl>
 		<icon>images\TypeRight64x64.png	</icon>
