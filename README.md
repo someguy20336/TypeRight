@@ -7,7 +7,15 @@ TypeRight is a simple tool that generates TypeScript files from your C# objects 
 
 This tool solves those problems by autogenerating those TypeScript files every time you build your project.
 
-See [the wiki](https://github.com/someguy20336/TypeRight/wiki/Quick-Start) for a quick start guide
+See [the wiki](https://github.com/someguy20336/TypeRight/wiki/Quick-Start) for a quick start guide.
+
+# Recent Updates
+
+**Version 0.12**
+- **Dropping Support for namespaces**.  This is a breaking change - scripts will only be generated using the module format. 
+- Supporting `ActionResult<T>` where `T` is an anonymous object (well, it would be an `object`, but you return an anonymous object)
+- [Json Schema for config](https://github.com/someguy20336/TypeRight/wiki/Configuration)
+
 
 
 
