@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using TypeRight.TypeProcessing;
@@ -14,6 +16,7 @@ namespace TypeRight.Configuration
 		/// <summary>
 		/// Gets or sets the request method this configuration applies to
 		/// </summary>
+		[JsonConverter(typeof(StringEnumConverter))]
 		public RequestMethod Method { get; set; }
 
 		/// <summary>

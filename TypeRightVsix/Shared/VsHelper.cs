@@ -128,7 +128,10 @@ namespace TypeRightVsix.Shared
 		/// <returns>True if installed</returns>
 		public static bool IsPackageInstalled(EnvDTE.Project proj)
 		{
-			
+#if DEBUG && !NUGET
+			return true;
+
+#else
 			IComponentModel componentModel = (IComponentModel)Package.GetGlobalService(typeof(SComponentModel));
 			IVsPackageInstallerServices installerServices = componentModel.GetService<IVsPackageInstallerServices>();
 
@@ -140,6 +143,7 @@ namespace TypeRightVsix.Shared
 			{
 				return false;
 			}
+#endif
 		}
 
 		/// <summary>

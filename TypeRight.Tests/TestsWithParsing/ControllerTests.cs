@@ -1,17 +1,15 @@
 ﻿using TypeRight.ScriptWriting.TypeScript;
-using TypeRight.Workspaces.Parsing;
 using TypeRight.Tests.TestBuilders;
 using TypeRight.Tests.Testers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using TypeRight.TypeProcessing;
-using TypeRight.TypeLocation;
+using System.Collections.Generic;
 
 namespace TypeRight.Tests.TestsWithParsing
 {
 	[TestClass]
 	public class ControllerTests
 	{
-		
+
 		private static TypeCollectionTester _packageTester;
 
 		/// <summary>
@@ -22,11 +20,11 @@ namespace TypeRight.Tests.TestsWithParsing
 		{
 
 			TestWorkspaceBuilder wkspBuilder = new TestWorkspaceBuilder();
-			
+
 			wkspBuilder.DefaultProject
 				.AddFakeTypeRight()
 				.AddFakeMvc()
-				
+
 				// Test class to use as return/param
 				.CreateClassBuilder("TestClass")
 					.AddScriptObjectAttribute()
@@ -112,7 +110,7 @@ namespace TypeRight.Tests.TestsWithParsing
 						.AddLineOfCode("return Json(gen.GenericProp);", 0)
 						.Commit()
 					.Commit()
-				
+
 				.CreateClassBuilder("WebApiController")
 					.WithControllerBaseClass()
 					.AddAttribute(MvcConstants.RouteAttributeFullName_AspNetCore)
@@ -127,6 +125,18 @@ namespace TypeRight.Tests.TestsWithParsing
 						.AddScriptActionAttribute()
 						.AddLineOfCode("return null;", 0)
 						.Commit()
+
+					// Action result with a class
+					.AddMethod("GetActionResultForTestClass", MvcConstants.ActionResult_AspNetCore + "<object>")
+						.AddScriptActionAttribute()
+						.AddLineOfCode($"return new {MvcConstants.ActionResult_AspNetCore}{"<object>"}(new TestClass());", 0)
+						.Commit()
+					// Action result with a class
+					.AddMethod("GetActionResultForAnonymous", MvcConstants.ActionResult_AspNetCore + "<object>")
+						.AddScriptActionAttribute()
+						.AddLineOfCode($"return new {MvcConstants.ActionResult_AspNetCore}{"<object>"}(new {{ prop = 1, thing = 4 }});", 0)
+						.Commit()
+
 					.Commit()
 
 				.CreateClassBuilder("AspNetWebApiController")
@@ -140,17 +150,17 @@ namespace TypeRight.Tests.TestsWithParsing
 						.Commit()
 					.Commit()
 			;
-			
+
 			_packageTester = wkspBuilder.GetPackageTester();
 		}
-		
+
 		[TestMethod]
 		public void Controllers_StringResult()
 		{
 			_packageTester.TestControllerWithName("SimpleController")
 				.TestActionWithName("StringResult")
 				.ReturnTypeTypescriptNameIs("string");
-			
+
 		}
 
 		[TestMethod]
@@ -281,6 +291,28 @@ namespace TypeRight.Tests.TestsWithParsing
 			_packageTester.TestControllerWithName("WebApiController")
 				.TestActionWithName("GetStringActionResult")
 				.ReturnTypeTypescriptNameIs("string");
+		}
+
+		[TestMethod]
+		public void WebApi_ActionResultObject_GetsType()
+		{
+			_packageTester.TestControllerWithName("WebApiController")
+				.TestActionWithName("GetActionResultForTestClass")
+				.ReturnTypeTypescriptNameIs($"{FakeTypePrefixer.Prefix}.TestClass");
+		}
+
+		[TestMethod]
+		public void WebApi_ActionResultAnonymousObject_GetsType()
+		{
+			Dictionary<string, string> expected = new Dictionary<string, string>
+			{
+				{ "prop", TypeScriptHelper.NumericTypeName },
+				{ "thing", TypeScriptHelper.NumericTypeName }
+			};
+
+			_packageTester.TestControllerWithName("WebApiController")
+				.TestActionWithName("GetActionResultForAnonymous")
+				.ReturnTypeTypescriptNameIs(TypeScriptHelper.BuildAnonymousType(expected));
 		}
 	}
 }

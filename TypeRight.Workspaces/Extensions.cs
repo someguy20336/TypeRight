@@ -1,12 +1,30 @@
 ﻿using Microsoft.CodeAnalysis;
 
-namespace TypeRight.Workspaces.CodeModel
+namespace TypeRight.Workspaces
 {
-	/// <summary>
-	/// Helpers for types
-	/// </summary>
-	static class TypeHelpers
+	public static class Extensions
 	{
+		/// <summary>
+		/// Gets whether the given type symbol has the given base type
+		/// </summary>
+		/// <param name="typeSymbol"></param>
+		/// <param name="type"></param>
+		/// <returns></returns>
+		public static bool HasBaseType(this ITypeSymbol typeSymbol, INamedTypeSymbol type)
+		{
+			var baseType = typeSymbol.BaseType;
+			while (baseType != null)
+			{
+				if (type.Equals(baseType))
+				{
+					return true;
+				}
+				baseType = baseType.BaseType;
+			}
+
+			return false;
+		}
+
 		/// <summary>
 		/// Gets the normalized metadata name, with type parameters
 		/// </summary>
@@ -27,6 +45,5 @@ namespace TypeRight.Workspaces.CodeModel
 
 			return name;
 		}
-
 	}
 }

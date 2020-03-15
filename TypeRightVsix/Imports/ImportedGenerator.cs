@@ -69,6 +69,7 @@ namespace TypeRightVsix.Imports
 			{
 				AssemblyDirectory = "";
 				TrySetNullImporters();
+				ShowFailedToLoadMessage();
 				return;
 			}
 					   
@@ -106,8 +107,6 @@ namespace TypeRightVsix.Imports
 
 		private void TrySetNullImporters()
 		{
-			Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-			VsHelper.SetStatusBar("Failed to load compatible version of TypeRight - you may need to update the Nuget package");
 			ScriptGenerator = ScriptGenerator ?? new NullScriptGenerationAdapter();
 			ConfigManager = ConfigManager ?? new NullConfigManager();
 		}
@@ -130,8 +129,15 @@ namespace TypeRightVsix.Imports
 			}
 			catch (Exception)
 			{
-				// Will be set to null
+				Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+				ShowFailedToLoadMessage();
 			}
+		}
+
+		private void ShowFailedToLoadMessage()
+		{
+			Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+			VsHelper.SetStatusBar("Failed to load compatible version of TypeRight");
 		}
 
 		private static void DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs)
