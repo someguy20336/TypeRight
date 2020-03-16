@@ -54,7 +54,7 @@
 			<Group guid="guidTypeRightPackageCmdSet" id="ContextMenuGroup" priority="0x0600">
 				<Parent guid="guidTypeRightPackageCmdSet" id="ContextMenu" />
 			</Group>
-    </Groups>
+		</Groups>
 
 		<!--Buttons section. -->
 		<!--This section defines the elements the user can interact with, like a menu command or a button
@@ -74,38 +74,41 @@
 					<ButtonText>Add Config File</ButtonText>
 				</Strings>
 			</Button>
-		  <Button guid="guidTypeRightPackageCmdSet" id="cmdidGenerateScriptsCommand" priority="0x0100" type="Button">
-        <Parent guid="guidTypeRightPackageCmdSet" id="ContextMenuGroup" />
+			<Button guid="guidTypeRightPackageCmdSet" id="cmdidGenerateScriptsCommand" priority="0x0100" type="Button">
+				<Parent guid="guidTypeRightPackageCmdSet" id="ContextMenuGroup" />
 				<CommandFlag>DynamicVisibility</CommandFlag>
-        <Strings>
-          <ButtonText>Generate Scripts</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="guidTypeRightPackageCmdSet" id="cmdidAddAttributesReference" priority="0x0100" type="Button">
-        <Parent guid="guidTypeRightPackageCmdSet" id="ContextMenuGroup" />
+				<Strings>
+					<ButtonText>Generate Scripts</ButtonText>
+				</Strings>
+			</Button>
+			<Button guid="guidTypeRightPackageCmdSet" id="cmdidAddAttributesReference" priority="0x0100" type="Button">
+				<Parent guid="guidTypeRightPackageCmdSet" id="ContextMenuGroup" />
 				<CommandFlag>DynamicVisibility</CommandFlag>
-        <Strings>
-          <ButtonText>Install Nuget Package</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="guidTypeRightPackageCmdSet" id="cmdidClearCacheCommand" priority="0x0100" type="Button">
-        <Parent guid="guidTypeRightPackageCmdSet" id="ContextMenuGroup" />
-        <Strings>
-          <ButtonText>Clear Cache</ButtonText>
-        </Strings>
-      </Button>
-    </Buttons>
+				<Strings>
+					<ButtonText>Install Nuget Package</ButtonText>
+				</Strings>
+			</Button>
+			<Button guid="guidTypeRightPackageCmdSet" id="cmdidProjInfoCommand" priority="0x0100" type="Button">
+				<Parent guid="guidTypeRightPackageCmdSet" id="ContextMenuGroup" />
+				<CommandFlag>DynamicVisibility</CommandFlag>
+				<Strings>
+					<ButtonText>Project Info</ButtonText>
+				</Strings>
+			</Button>
+		</Buttons>
 
 		<!--The bitmaps section is used to define the bitmaps that are used for the commands.-->
 		<!--<Bitmaps>
-			--><!--  The bitmap id is defined in a way that is a little bit different from the others:
+			-->
+		<!--  The bitmap id is defined in a way that is a little bit different from the others:
             the declaration starts with a guid for the bitmap strip, then there is the resource id of the
             bitmap strip containing the bitmaps and then there are the numeric ids of the elements used
             inside a button definition. An important aspect of this declaration is that the element id
-            must be the actual index (1-based) of the bitmap inside the bitmap strip. --><!--
+            must be the actual index (1-based) of the bitmap inside the bitmap strip. -->
+		<!--
     
     </Bitmaps>-->
-  </Commands>
+	</Commands>
 
 	<Symbols>
 		<!-- This is the package guid. -->
@@ -119,7 +122,7 @@
 			<IDSymbol value="256" name="cmdidGenerateScriptsCommand" />
 			<IDSymbol value="4129" name="cmdidAddConfigCommand" />
 			<IDSymbol value="4130" name="cmdidAddAttributesReference" />
-			<IDSymbol value="4131" name="cmdidClearCacheCommand" />
+			<IDSymbol value="4131" name="cmdidProjInfoCommand" />
 		</GuidSymbol>
-  </Symbols>
+	</Symbols>
 </CommandTable>

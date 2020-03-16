@@ -25,6 +25,11 @@ namespace TypeRightVsix.Imports
 		public string AssemblyDirectory { get; }
 
 		/// <summary>
+		/// Gets the cache Path for this generator
+		/// </summary>
+		public string CachePath { get; }
+
+		/// <summary>
 		/// Gets or sets the engine provider
 		/// </summary>
 		[Import(typeof(IScriptGenerationAdapter))]
@@ -74,22 +79,22 @@ namespace TypeRightVsix.Imports
 			}
 					   
 			// If we don't have this version locally cached, do that now
-			string cachePath = Path.Combine(cacheBasePath, AssemblyVersion);
+			CachePath = Path.Combine(cacheBasePath, AssemblyVersion);
 
 #if DEBUG && !NUGET
-			if (Directory.Exists(cachePath))
+			if (Directory.Exists(CachePath))
 			{
-				Directory.Delete(cachePath);
+				Directory.Delete(CachePath);
 			}
 #endif
-			if (!Directory.Exists(cachePath))
+			if (!Directory.Exists(CachePath))
 			{
-				Directory.CreateDirectory(cachePath);
-				DirectoryCopy(AssemblyDirectory, cachePath, true);
+				Directory.CreateDirectory(CachePath);
+				DirectoryCopy(AssemblyDirectory, CachePath, true);
 			}
 
 			// Import the files
-			DirectoryCatalog catalog = new DirectoryCatalog(cachePath, "TypeRight*.dll");
+			DirectoryCatalog catalog = new DirectoryCatalog(CachePath, "TypeRight*.dll");
 			using (CompositionContainer container = new CompositionContainer(catalog, true))
 			{
 				try
@@ -98,7 +103,7 @@ namespace TypeRightVsix.Imports
 				}
 				catch (Exception)
 				{
-					TryGetLegacy(cachePath);
+					TryGetLegacy();
 				}
 			}
 
@@ -111,17 +116,17 @@ namespace TypeRightVsix.Imports
 			ConfigManager = ConfigManager ?? new NullConfigManager();
 		}
 
-		private void TryGetLegacy(string cachePath)
+		private void TryGetLegacy()
 		{
 			try
 			{
-				string genPath = Path.Combine(cachePath, "TypeRight.Workspaces.dll");
+				string genPath = Path.Combine(CachePath, "TypeRight.Workspaces.dll");
 				Assembly assembly = Assembly.LoadFrom(genPath);
 				Type type = assembly.GetType("TypeRight.Workspaces.Parsing.WorkspaceGenEngineProvider");
 				dynamic legacyGenerator = Activator.CreateInstance(type);
 				ScriptGenerator = new LegacyScriptGenerationAdapter(legacyGenerator);
 
-				string configPath = Path.Combine(cachePath, "TypeRight.dll");
+				string configPath = Path.Combine(CachePath, "TypeRight.dll");
 				assembly = Assembly.LoadFrom(configPath);
 				type = assembly.GetType("TypeRight.Configuration.ConfigManager");
 				dynamic legacyConfig = Activator.CreateInstance(type);
