@@ -91,7 +91,7 @@ namespace TypeRightVsix
 			AddConfigCommand.Initialize(this);
 			GenerateScriptsCommand.Initialize(this);
 			InstallNugetPackageCommand.Initialize(this);
-			ClearCacheCommand.Initialize(this);
+			ProjectInfoCommand.Initialize(this);
 			await base.InitializeAsync(cancellationToken, progress);
 		}
 
