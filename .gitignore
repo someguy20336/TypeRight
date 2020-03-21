@@ -270,3 +270,4 @@ __pycache__/
 /TypeRight.Core/ScriptWriting/TypeScript/TextTemplates/MvcMethodTextTemplateBase.cs
 /TypeRight.Core/ScriptWriting/TypeScript/TextTemplates/NamespaceMvcMethodTextTemplate.cs
 /TypeRight.Core/ScriptWriting/TypeScript/TextTemplates/NamespaceTypeTextTemplate.cs
+MigrationBackup
