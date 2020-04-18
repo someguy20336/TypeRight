@@ -125,16 +125,27 @@ namespace TypeRight.Tests.TestsWithParsing
 						.AddScriptActionAttribute()
 						.AddLineOfCode("return null;", 0)
 						.Commit()
-
+					
 					// Action result with a class
 					.AddMethod("GetActionResultForTestClass", MvcConstants.ActionResult_AspNetCore + "<object>")
 						.AddScriptActionAttribute()
 						.AddLineOfCode($"return new {MvcConstants.ActionResult_AspNetCore}{"<object>"}(new TestClass());", 0)
 						.Commit()
+
 					// Action result with a class
 					.AddMethod("GetActionResultForAnonymous", MvcConstants.ActionResult_AspNetCore + "<object>")
 						.AddScriptActionAttribute()
 						.AddLineOfCode($"return new {MvcConstants.ActionResult_AspNetCore}{"<object>"}(new {{ prop = 1, thing = 4 }});", 0)
+						.Commit()
+
+					// Tasks
+					.AddMethod("GetTaskResult", "System.Threading.Tasks.Task<string>")
+						.AddScriptActionAttribute()
+						.AddLineOfCode("return null;", 0)
+						.Commit()
+					.AddMethod("GetTaskResultClass", "System.Threading.Tasks.Task<TestClass>")
+						.AddScriptActionAttribute()
+						.AddLineOfCode("return null;", 0)
 						.Commit()
 
 					.Commit()
@@ -313,6 +324,22 @@ namespace TypeRight.Tests.TestsWithParsing
 			_packageTester.TestControllerWithName("WebApiController")
 				.TestActionWithName("GetActionResultForAnonymous")
 				.ReturnTypeTypescriptNameIs(TypeScriptHelper.BuildAnonymousType(expected));
+		}
+
+		[TestMethod]
+		public void WebApi_Task_GetsType()
+		{
+			_packageTester.TestControllerWithName("WebApiController")
+				.TestActionWithName("GetTaskResult")
+				.ReturnTypeTypescriptNameIs(TypeScriptHelper.StringTypeName);
+		}
+
+		[TestMethod]
+		public void WebApi_Task_GetsClassType()
+		{
+			_packageTester.TestControllerWithName("WebApiController")
+				.TestActionWithName("GetTaskResultClass")
+				.ReturnTypeTypescriptNameIs($"{FakeTypePrefixer.Prefix}.TestClass");
 		}
 	}
 }

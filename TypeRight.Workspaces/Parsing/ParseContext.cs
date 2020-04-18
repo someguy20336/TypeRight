@@ -33,6 +33,9 @@ namespace TypeRight.Workspaces.Parsing
 			Compilation = comp;
 			DocumentationProvider = documentationProvider;
 
+			// Task<T>
+			_returnTypeHandlers.Add(new TaskReturnTypeHandler(this));
+
 			// ActionResult<T>
 			_returnTypeHandlers.Add(new ActionResultReturnTypeHandler(this));
 
