@@ -103,12 +103,20 @@ namespace TypeRight.Tests.Testers
 					FetchFilePath = @".\FolderM\FolderN\AjaxFunc.ts",
 					FetchFunctionName = "TestAjax",
 					Imports = new List<ImportDefinition>(),
-					Method = RequestMethod.Default,
+					Method = RequestMethod.Default.Name,
 					Parameters = new List<ActionParameter>()
 					{
 						new ActionParameter() {Name = "success", Type = "(result: $returnType$) => void", Optional = true},
 						new ActionParameter() {Name = "fail", Type = "(result: any) => void", Optional = true }
 					},
+					ReturnType = "void"
+				},
+				new ActionConfig()
+				{
+					FetchFilePath = @".\FolderM\FolderN\AjaxFunc.ts",
+					FetchFunctionName = "callDelete",
+					Imports = new List<ImportDefinition>(),
+					Method = "DELETE",
 					ReturnType = "void"
 				}
 			};

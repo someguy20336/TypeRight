@@ -44,6 +44,9 @@ namespace TypeRight
 		public static string HttpPutAttributeFullName_AspNetCore => ToAspNetCoreFullName(HttpPutAttributeName);
 		public static string HttpPutAttributeFullName_AspNet => ToAspNetFullName(HttpPutAttributeName);
 
+
+		public const string HttpDeleteAttributeName = "HttpDeleteAttribute";
+
 		public const string JsonResultName = "JsonResult";
 		public static string JsonResult_AspNetCore => ToAspNetCoreFullName(JsonResultName);
 		public static string JsonResult_AspNet => ToAspNetFullName(JsonResultName);

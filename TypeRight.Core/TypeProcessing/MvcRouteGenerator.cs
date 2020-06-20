@@ -46,7 +46,7 @@ namespace TypeRight.TypeProcessing
 				{
 					routeTemplate += "/";
 				}
-				routeTemplate += GetActionTemplate(actionInfo);
+				routeTemplate += actionTemplate;
 			}
 
 			return routeTemplate;
@@ -55,31 +55,7 @@ namespace TypeRight.TypeProcessing
 
 		private string GetActionTemplate(MvcActionInfo actionInfo)
 		{
-			if (actionInfo.RequestMethod == RequestMethod.Get)
-			{
-				var getAttribute = actionInfo.Attributes.FirstOrDefault(attr => MvcTypeFilters.HttpGetTypeFilter.Evaluate(attr.AttributeType));
-				if (getAttribute.ConstructorArguments.Count > 0)
-				{
-					return getAttribute.ConstructorArguments[0] as string;
-				}
-			}
-			else if (actionInfo.RequestMethod == RequestMethod.Post)
-			{
-				var postAttr = actionInfo.Attributes.FirstOrDefault(attr => MvcTypeFilters.HttpPostTypeFilter.Evaluate(attr.AttributeType));
-				if (postAttr.ConstructorArguments.Count > 0)
-				{
-					return postAttr.ConstructorArguments[0] as string;
-				}
-			}
-			else if (actionInfo.RequestMethod == RequestMethod.Put)
-			{
-				var putAttr = actionInfo.Attributes.FirstOrDefault(attr => MvcTypeFilters.HttpPutTypeFilter.Evaluate(attr.AttributeType));
-				if (putAttr.ConstructorArguments.Count > 0)
-				{
-					return putAttr.ConstructorArguments[0] as string;
-				}
-			}
-			return "";
+			return actionInfo.RequestMethod.GetActionTemplate(actionInfo);
 		}
 
 		public static MvcRouteGenerator CreateGenerator(MvcControllerInfo controllerInfo)

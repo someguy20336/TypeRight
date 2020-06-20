@@ -22,8 +22,8 @@ namespace TypeRight.ScriptWriting
 		public FetchFunctionDescriptor Resolve(MvcActionInfo actionInfo)
 		{
 			ActionConfig selected = null;
-			selected = _actionConfigs.FirstOrDefault(ac => ac.Method == actionInfo.RequestMethod);
-			selected = selected ?? _actionConfigs.First(ac => ac.Method == RequestMethod.Default);
+			selected = _actionConfigs.FirstOrDefault(ac => ac.Method.ToUpper() == actionInfo.RequestMethod.Name);
+			selected = selected ?? _actionConfigs.First(ac => ac.Method.ToUpper() == RequestMethod.Default.Name);
 
 			return ActionConfigToDescriptor(selected);
 		}

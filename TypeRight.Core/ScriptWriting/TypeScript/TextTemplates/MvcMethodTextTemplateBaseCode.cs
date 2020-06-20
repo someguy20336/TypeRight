@@ -93,7 +93,7 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
 		/// <returns></returns>
 		private string BuildWebServiceParams(ControllerActionModel action)
 		{
-			if (action.RequestMethod == RequestMethod.Get)
+			if (!action.RequestMethod.HasBody)
 			{
 				return "";
 			}

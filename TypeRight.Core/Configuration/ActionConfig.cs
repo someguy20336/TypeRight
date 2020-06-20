@@ -16,8 +16,7 @@ namespace TypeRight.Configuration
 		/// <summary>
 		/// Gets or sets the request method this configuration applies to
 		/// </summary>
-		[JsonConverter(typeof(StringEnumConverter))]
-		public RequestMethod Method { get; set; }
+		public string Method { get; set; }
 
 		/// <summary>
 		/// Gets or sets the name of the function to use for fetching data

@@ -162,7 +162,7 @@ namespace TypeRight.Tests.TestsWithParsing
 				FetchFilePath = @".\FolderM\FolderN\AjaxFuncGet.ts",
 				FetchFunctionName = "callGet",
 				Imports = null,
-				Method = RequestMethod.Get,
+				Method = "GET",
 				Parameters = null,
 				ReturnType = "void"
 			});
@@ -172,7 +172,7 @@ namespace TypeRight.Tests.TestsWithParsing
 				FetchFilePath = @".\FolderM\FolderN\AjaxFuncPost.ts",
 				FetchFunctionName = "callPost",
 				Imports = null,
-				Method = RequestMethod.Post,
+				Method = "POST",
 				Parameters = null,
 				ReturnType = "void"
 			});
