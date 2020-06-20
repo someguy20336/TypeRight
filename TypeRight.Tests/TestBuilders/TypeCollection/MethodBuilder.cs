@@ -27,10 +27,15 @@ namespace TypeRight.Tests.TestBuilders.TypeCollection
 			_returnType = returnType;
 		}
 
-		public MethodBuilder AddParameter(string paramName, IType type)
+		public MethodBuilder AddParameter(string paramName, IType type, bool optional = false)
 		{
-			_parameters.Add(new MethodParameter(paramName, type));
+			_parameters.Add(new MethodParameter(paramName, type, optional));
 			return this;
+		}
+
+		public MethodBuilder AddParameter(string paramName, Type returnType, bool optional = false)
+		{
+			return AddParameter(paramName, TypeCollectionBuilder.GetNamedType(returnType), optional);
 		}
 
 		public MethodBuilder AddScriptActionAttribute()

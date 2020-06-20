@@ -27,12 +27,18 @@ namespace TypeRight.Workspaces.CodeModel
 		/// </summary>
 		public IEnumerable<IAttributeData> Attributes { get; }
 
+		/// <summary>
+		/// Gets whether this parameter is an optional parameter
+		/// </summary>
+		public bool IsOptional { get; }
+
 		public RoslynMethodParameter(IParameterSymbol parameter, string comments, ParseContext context)
 		{
 			Name = parameter.Name;
 			Comments = comments;
 			ParameterType = RoslynType.CreateType(parameter.Type, context);
 			Attributes = RoslynAttributeData.FromSymbol(parameter, context);
+			IsOptional = parameter.IsOptional;
 		}
 
 	}

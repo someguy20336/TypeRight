@@ -1,9 +1,9 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using TypeRight.Tests.TestBuilders.TypeCollection;
 using TypeRight.TypeProcessing;
 
-namespace TypeRight.Tests.TestBuilders.TypeCollection
+namespace TypeRight.Tests
 {
 	[TestClass]
 	public class RouteGeneratorTests

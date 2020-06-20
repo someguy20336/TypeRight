@@ -1,12 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TypeRight.ScriptWriting.TypeScript;
-using TypeRight.TypeProcessing;
-using TypeRight.Tests.TestBuilders;
 using TypeRight.Tests.TestBuilders.TypeCollection;
 
 namespace TypeRight.Tests.TestsWithoutParsing

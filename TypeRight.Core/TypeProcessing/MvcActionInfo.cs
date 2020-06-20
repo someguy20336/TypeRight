@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using TypeRight.TypeFilters;
-using TypeRight.Configuration;
 
 namespace TypeRight.TypeProcessing
 {
@@ -123,11 +122,17 @@ namespace TypeRight.TypeProcessing
 		/// </summary>
 		public IEnumerable<IAttributeData> Attributes { get; }
 
+		/// <summary>
+		/// Gets whether the parameter is optional
+		/// </summary>
+		public bool IsOptional { get; }
+
 		internal MvcActionParameter(IMethodParameter methodParameter, TypeTable table)
 		{
 			Name = methodParameter.Name;
 			Type = table.LookupType(methodParameter.ParameterType);
 			Attributes = methodParameter.Attributes;
+			IsOptional = methodParameter.IsOptional;
 		}
 	}
 }
