@@ -41,4 +41,9 @@ namespace TypeRight.TypeFilters
 			return action.Attributes.Any(attr => _attributeFilter.Evaluate(attr.AttributeType));
 		}
 	}
+
+	public class AcceptAllActionFilter : ActionFilter
+	{
+		public override bool Evaluate(MvcActionInfo action) => true;
+	}
 }

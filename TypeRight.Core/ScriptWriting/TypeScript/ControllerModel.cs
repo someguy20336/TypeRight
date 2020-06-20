@@ -41,7 +41,7 @@ namespace TypeRight.ScriptWriting.TypeScript
 
 		public string FetchFunctionName { get; set; }
 
-		public RequestMethod RequestMethod { get; set; }
+		public IRequestMethod RequestMethod { get; set; }
 	}
 
 	public class ActionParameterModel

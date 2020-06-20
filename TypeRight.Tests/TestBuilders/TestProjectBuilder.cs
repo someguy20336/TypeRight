@@ -129,6 +129,21 @@ namespace TypeRight.Tests.TestBuilders
 					.Commit()
 				.Commit();
 
+			// HTTP DELETE
+			CreateClassBuilder(MvcConstants.HttpDeleteAttributeName, MvcConstants.AspNetCoreNamespace)
+			.AddBaseClass("System.Attribute")
+			.AddConstructor()
+					.AddParameter("template", "string")
+					.Commit()
+			.Commit();
+
+			CreateClassBuilder(MvcConstants.HttpDeleteAttributeName, MvcConstants.AspNetNamespace)
+				.AddBaseClass("System.Attribute")
+				.AddConstructor()
+					.AddParameter("template", "string")
+					.Commit()
+				.Commit();
+
 			// From body
 			CreateClassBuilder(MvcConstants.FromBodyAttributeName, MvcConstants.AspNetCoreNamespace)
 				.AddBaseClass("System.Attribute")

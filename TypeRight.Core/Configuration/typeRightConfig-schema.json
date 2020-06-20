@@ -59,7 +59,7 @@
 				"method": {
 					"type": "string",
 					"description": "The request method this configuration aplies to",
-					"enum": [ "default", "POST", "GET", "PUT" ]
+					"enum": [ "default", "POST", "GET", "PUT", "DELETE" ]
 				},
 				"fetchFunctionName": {
 					"type": "string",

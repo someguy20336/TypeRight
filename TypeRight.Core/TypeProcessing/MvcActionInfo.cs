@@ -10,9 +10,8 @@ namespace TypeRight.TypeProcessing
 	/// </summary>
 	public class MvcActionInfo
 	{
-		private static ActionFilter s_postActionFilter = new ActionHasAttributeFilter(MvcTypeFilters.HttpPostTypeFilter);
-		private static ActionFilter s_getActionFilter = new ActionHasAttributeFilter(MvcTypeFilters.HttpGetTypeFilter);
-		private static ActionFilter s_putActionFilter = new ActionHasAttributeFilter(MvcTypeFilters.HttpPutTypeFilter);
+
+		private IRequestMethod _method;
 
 		/// <summary>
 		/// Gets the method behind this action info
@@ -54,26 +53,23 @@ namespace TypeRight.TypeProcessing
 		/// </summary>
 		public IEnumerable<IAttributeData> Attributes => Method.Attributes;
 
-		public RequestMethod RequestMethod
+		public IRequestMethod RequestMethod
 		{
 			get
 			{
-				if (s_getActionFilter.Evaluate(this))
+				if (_method == null)
 				{
-					return RequestMethod.Get;
+					foreach (IRequestMethod testMethod in TypeProcessing.RequestMethod.RequestMethods)
+					{
+						if (testMethod.ActionFilter.Evaluate(this))
+						{
+							_method = testMethod;
+							break;
+						}
+					}
 				}
-				else if (s_postActionFilter.Evaluate(this))
-				{
-					return RequestMethod.Post;
-				}
-				else if (s_putActionFilter.Evaluate(this))
-				{
-					return RequestMethod.Put;
-				}
-				else
-				{
-					return RequestMethod.Default;
-				}
+
+				return _method;
 			}
 		}
 

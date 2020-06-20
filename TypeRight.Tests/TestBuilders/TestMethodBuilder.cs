@@ -36,7 +36,7 @@ namespace TypeRight.Tests.TestBuilders
 				Name = paramName,
 				Type = type,
 				Comments = comments,
-				Attributes = new List<AttributeInfo>() { new AttributeInfo() { AttributeTypeName = attribute } }
+				Attributes = string.IsNullOrEmpty(attribute) ? new List<AttributeInfo>() : new List<AttributeInfo>() { new AttributeInfo() { AttributeTypeName = attribute } }
 			});
 			return this;
 		}
