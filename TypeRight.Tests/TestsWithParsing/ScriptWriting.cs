@@ -370,7 +370,7 @@ export function NoFromBodyParams(): void {
  * @param fromBody 
  */
 export function QueryParameterWithBody(fromQuery: string, fromBody: DefaultResult.TestClass): void {
-	TestAjax(`/TestParamAttributes/QueryParameterWithBody?fromQuery=${fromQuery}`, fromBody);
+	TestAjax(`/TestParamAttributes/QueryParameterWithBody?fromQuery=${ fromQuery ?? """" }`, fromBody);
 }
 
 /**
@@ -425,7 +425,7 @@ export function GetThing(thingId: string): void {
  * @param body 
  */
 export function PutThingWithQuery(thingId: string, query: string, body: boolean): void {
-	TestAjax(`/api/RoutedApi/thing/${thingId}/put?query=${query}`, body);
+	TestAjax(`/api/RoutedApi/thing/${thingId}/put?query=${ query ?? """" }`, body);
 }
 
 "

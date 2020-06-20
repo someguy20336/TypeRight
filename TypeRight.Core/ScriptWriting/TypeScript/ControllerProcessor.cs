@@ -35,8 +35,25 @@ namespace TypeRight.ScriptWriting.TypeScript
 
 		private ControllerActionModel CreateActionModel(MvcActionInfo actionInfo)
 		{
-			FetchFunctionDescriptor fetchDescriptor = _context.FetchFunctionResolver.Resolve(actionInfo);
-			
+			FetchFunctionDescriptor fetchDescriptor = _context.FetchFunctionResolver.Resolve(actionInfo);			
+			string routeTemplate = _controllerInfo.GetActionUrlTemplate(actionInfo);
+
+			return new ControllerActionModel()
+			{
+				RouteTemplate = routeTemplate,
+				SummaryComments = actionInfo.SummaryComments,
+				ReturnsComments = actionInfo.ReturnsComments,
+				ParameterComments = actionInfo.ParameterComments,
+				FetchFunctionName = fetchDescriptor.FunctionName,
+				Parameters = CompileParameters(actionInfo, fetchDescriptor, routeTemplate),
+				Name = actionInfo.Name,
+				ReturnType = ReplaceTokens(fetchDescriptor.ReturnType, actionInfo),
+				RequestMethod = actionInfo.RequestMethod
+			};
+		}
+
+		private IEnumerable<ActionParameterModel> CompileParameters(MvcActionInfo actionInfo, FetchFunctionDescriptor fetchDescriptor, string routeTemplate)
+		{
 			var fetchParameters = fetchDescriptor.AdditionalParameters.Select(p => new ActionParameterModel()
 			{
 				ActionParameterSourceType = ActionParameterSourceType.Fetch,
@@ -46,20 +63,13 @@ namespace TypeRight.ScriptWriting.TypeScript
 				IsOptional = p.Optional
 			});
 
-			string routeTemplate = _controllerInfo.GetActionUrlTemplate(actionInfo);
-			var parameters = actionInfo.Parameters.Select(param => CreateActionParameterModel(actionInfo, param, routeTemplate)).Union(fetchParameters);
-			return new ControllerActionModel()
-			{
-				RouteTemplate = routeTemplate,
-				SummaryComments = actionInfo.SummaryComments,
-				ReturnsComments = actionInfo.ReturnsComments,
-				ParameterComments = actionInfo.ParameterComments,
-				FetchFunctionName = fetchDescriptor.FunctionName,
-				Parameters = parameters,
-				Name = actionInfo.Name,
-				ReturnType = ReplaceTokens(fetchDescriptor.ReturnType, actionInfo),
-				RequestMethod = actionInfo.RequestMethod
-			};
+
+			var methodRequiredParameters = actionInfo.Parameters.Where(p => !p.IsOptional).Select(p => CreateActionParameterModel(actionInfo, p, routeTemplate));
+			var userRequiredParameters = fetchParameters.Where(p => !p.IsOptional);
+			var methodOptionalParameters = actionInfo.Parameters.Where(p => p.IsOptional).Select(p => CreateActionParameterModel(actionInfo, p, routeTemplate));
+			var userOptionalParameters = fetchParameters.Where(p => p.IsOptional);
+
+			return methodRequiredParameters.Union(userRequiredParameters).Union(methodOptionalParameters).Union(userOptionalParameters);			
 		}
 
 		private ActionParameterModel CreateActionParameterModel(MvcActionInfo actionInfo, MvcActionParameter actionParameter, string routeTemplate)
@@ -94,7 +104,8 @@ namespace TypeRight.ScriptWriting.TypeScript
 			{
 				ActionParameterSourceType = sourceType,
 				Name = actionParameter.Name,
-				ParameterType = actionParameter.Type.FormatType(_typeFormatter)
+				ParameterType = actionParameter.Type.FormatType(_typeFormatter),
+				IsOptional = actionParameter.IsOptional
 			};
 		}
 

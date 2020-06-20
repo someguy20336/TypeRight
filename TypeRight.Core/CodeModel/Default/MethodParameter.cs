@@ -14,12 +14,15 @@ namespace TypeRight.CodeModel.Default
 
 		public IEnumerable<IAttributeData> Attributes { get; }
 
-		public MethodParameter(string name, IType parameterType, string comments = "", IEnumerable<IAttributeData> attributes = null)
+		public bool IsOptional { get; }
+
+		public MethodParameter(string name, IType parameterType, bool optional = false, string comments = "", IEnumerable<IAttributeData> attributes = null)
 		{
 			Name = name;
 			ParameterType = parameterType;
 			Comments = comments;
 			Attributes = attributes ?? new List<AttributeData>();
+			IsOptional = optional;
 		}
 	}
 }

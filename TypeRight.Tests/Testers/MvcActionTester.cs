@@ -92,5 +92,20 @@ namespace TypeRight.Tests.Testers
 			Assert.AreEqual(expected, _actionModel.RouteTemplate);
 			return this;
 		}
+
+		/// <summary>
+		/// Tests that the parameter at the specified index has the expected name and optional flag
+		/// </summary>
+		/// <param name="index"></param>
+		/// <param name="expectedParamName"></param>
+		/// <param name="expectedOptional"></param>
+		/// <returns></returns>
+		public MvcActionModelTester ParameterAtIndexIs(int index, string expectedParamName, bool expectedOptional)
+		{
+			var paramList = _actionModel.Parameters.ToList();
+			Assert.AreEqual(expectedParamName, paramList[index].Name);
+			Assert.AreEqual(expectedOptional, paramList[index].IsOptional);
+			return this;
+		}
 	}
 }

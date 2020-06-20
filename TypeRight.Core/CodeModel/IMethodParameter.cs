@@ -26,5 +26,10 @@ namespace TypeRight.CodeModel
 		/// Gets the attribues for this parameter
 		/// </summary>
 		IEnumerable<IAttributeData> Attributes { get; }
+
+		/// <summary>
+		/// Gets whether this parameter is an optional parameter
+		/// </summary>
+		bool IsOptional { get; }
 	}
 }
