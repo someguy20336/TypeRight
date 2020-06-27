@@ -46,7 +46,7 @@
 					},
 					"description": "The items to import from the provided path"
 				},
-				"path" {
+				"path": {
 					"type": "string",
 					"description": "The relative of the file to import from."
 				}
