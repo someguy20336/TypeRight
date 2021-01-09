@@ -27,8 +27,8 @@
 		<!-- Build tool -->
 		<file src=".\TypeRight\TypeRight.targets" target="build" />
 		<!--<file src=".\TypeRight\bin\Release\netcoreapp2.2\publish\*.dll" target="tools" />-->
-		<file src=".\TypeRight\bin\Release\netcoreapp3.1\publish\*.pdb" target="tools" />
-		<file src=".\TypeRight\bin\Release\netcoreapp3.1\publish\TypeRight.exe" target="tools" />
+		<file src=".\TypeRight\bin\Release\net5.0\publish\*.pdb" target="tools" />
+		<file src=".\TypeRight\bin\Release\net5.0\publish\TypeRight.exe" target="tools" />
 		
 		<!-- Bridge -->
 		<file src=".\TypeRight.Workspaces.VsixAdapter\bin\Release\*.dll" target="tools\adapter" />
