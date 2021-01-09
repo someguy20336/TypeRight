@@ -52,6 +52,7 @@ namespace TypeRight
 
 			try
 			{
+				Console.WriteLine($"Generating scripts for project path: {projectPath}");
 				BuildHelper.StartBuild(projectPath);
 				RunGeneration(args, projectPath);
 			}
@@ -59,6 +60,7 @@ namespace TypeRight
 			{
 
 				Console.WriteLine("Script generation failed: " + e.Message);
+				Console.WriteLine(e.StackTrace);
 			}
 			finally
 			{
@@ -70,7 +72,7 @@ namespace TypeRight
 		private static void RunGeneration(string[] args, string projectPath)
 		{
 			AnalyzerManager mgr = new AnalyzerManager();
-			ProjectAnalyzer projAnalyzer = mgr.GetProject(projectPath);
+			IProjectAnalyzer projAnalyzer = mgr.GetProject(projectPath);
 
 			using (Workspace workspace = projAnalyzer.GetWorkspace(true))
 			{

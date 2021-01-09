@@ -19,7 +19,7 @@
 		</PropertyGroup>
 
 		<PropertyGroup Condition="$(TypeRightTesting) == true">
-			<ExeRelativePath>.\bin\Debug\netcoreapp3.1\publish\TypeRight.exe</ExeRelativePath>
+			<ExeRelativePath>.\bin\Debug\net5.0\publish\TypeRight.exe</ExeRelativePath>
 		</PropertyGroup>
 
 		<PropertyGroup Condition="$(TypeRightTesting) != true">
