@@ -29,8 +29,7 @@ namespace TypeRight
 			string projectPath = args[0];
 			if (!Path.IsPathRooted(projectPath))
 			{
-				string dir = new FileInfo(Path.Combine(typeof(Program).Assembly.Location)).DirectoryName;
-				projectPath = Path.GetFullPath(Path.Combine(dir, projectPath));
+				projectPath = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, projectPath));
 			}
 
 			if (!File.Exists(projectPath))
