@@ -20,6 +20,10 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="3.7.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.9" />
   </ItemGroup>
 
@@ -38,7 +42,7 @@
 
   <ItemGroup>
     <Reference Include="TypeRight.Attributes">
-      <HintPath>..\..\..\TypeRight.Attributes\bin\Debug\netstandard2.0\TypeRight.Attributes.dll</HintPath>
+      <HintPath>..\..\..\..\src\TypeRight.Attributes\bin\Debug\netstandard2.0\TypeRight.Attributes.dll</HintPath>
     </Reference>
   </ItemGroup>
 

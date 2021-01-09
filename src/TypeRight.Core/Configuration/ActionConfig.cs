@@ -1,22 +1,24 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using TypeRight.TypeProcessing;
 
 namespace TypeRight.Configuration
 {
-	
+
 	/// <summary>
 	/// Configuration for action methods
 	/// </summary>
 	public class ActionConfig
 	{
+		private string _method;
+
 		/// <summary>
 		/// Gets or sets the request method this configuration applies to
 		/// </summary>
-		public string Method { get; set; }
+		public string Method
+		{
+			get => string.IsNullOrEmpty(_method) ? RequestMethod.Default.Name : _method;
+			set => _method = value;
+		}
 
 		/// <summary>
 		/// Gets or sets the name of the function to use for fetching data
