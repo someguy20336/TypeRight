@@ -7,7 +7,7 @@ SET VisualStudioVersion=14.0
 SET MsBuildDir=%ProgramFiles(x86)%\MSBuild\%VisualStudioVersion%\Bin
 SET MsBuildDir=%ProgramFiles(x86)%\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin
 
-"%MsBuildDir%\msbuild" ..\..\TestProjects\AspNetCoreTargetNetFramework\AspNetCoreTargetNetFramework\AspNetCoreTargetNetFramework.csproj /property:VisualStudioVersion=%VisualStudioVersion% /target:Build /fileLogger
+"%MsBuildDir%\msbuild" ..\TestProjects\AspNetCoreTargetNetFramework\AspNetCoreTargetNetFramework\Nuget_AspNetCoreTargetNetFramework.csproj /property:VisualStudioVersion=%VisualStudioVersion% /target:Build /fileLogger
 
 ECHO Build Complete!
 PAUSE

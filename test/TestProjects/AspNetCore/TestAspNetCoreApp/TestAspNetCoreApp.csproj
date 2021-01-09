@@ -46,5 +46,5 @@
     <TypeScriptCompile Include="Scripts\CallServiceStuff.ts" />
   </ItemGroup>
 
-	<Import Project="..\..\..\TypeRight\TypeRight.targets" />
+	<Import Project="..\..\..\..\src\TypeRight\TypeRight.targets" />
 </Project>
