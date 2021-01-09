@@ -11,7 +11,6 @@ using System.Collections.Generic;
 using TypeRight;
 using TypeRightVsix.Imports;
 using System.Threading;
-using System.Threading.Tasks;
 using TypeRight.VsixContract;
 
 namespace TypeRightVsix
@@ -76,8 +75,8 @@ namespace TypeRightVsix
 		}
 
 
-#region Package Members
-		
+		#region Package Members
+
 		protected async override System.Threading.Tasks.Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
 		{
 			ScriptGenAssemblyCache.TryClearCache();
@@ -140,7 +139,7 @@ namespace TypeRightVsix
 				BuildHelper.EndBuild(project.FullName);
 			}
 		}
-		
-#endregion
+
+		#endregion
 	}
 }
