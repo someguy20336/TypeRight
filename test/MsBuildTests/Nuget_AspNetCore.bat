@@ -5,6 +5,8 @@ DEL ..\TestProjects\Nuget_AspNetCore\TestAspNetCoreApp\Scripts\CustomGroup.* /Q
 DEL ..\TestProjects\Nuget_AspNetCore\TestAspNetCoreApp\Scripts\Home\Models.* /Q
 DEL ..\TestProjects\Nuget_AspNetCore\TestAspNetCoreApp\Scripts\Home\HomeActions.* /Q
 
+nuget install TypeRightDebug -DependencyVersion Highest -SolutionDirectory ..\TestProjects\Nuget_AspNetCore
+
 dotnet build ..\TestProjects\Nuget_AspNetCore\TestAspNetCoreApp\TestAspNetCoreApp.csproj --force -v n
 
 ECHO Build Complete!
