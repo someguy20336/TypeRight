@@ -55,7 +55,7 @@ export function TestClassActionResult(abort?: AbortSignal): Promise<CustomGroup.
  * @param id 
  */
 export function TestGetMethod(id: string, abort?: AbortSignal): Promise<string> {
-	return callGet(`/api/TestWebApi?id=${id}`, abort);
+	return callGet(`/api/TestWebApi?id=${ id ?? "" }`, abort);
 }
 
 /**
@@ -64,6 +64,6 @@ export function TestGetMethod(id: string, abort?: AbortSignal): Promise<string> 
  * @param body 
  */
 export function WithFromQuery(id: string, body: Models.CustomGroupObj3, abort?: AbortSignal): Promise<CustomGroup.CustomGroupObject1> {
-	return callPost(`/api/TestWebApi?id=${id}`, body, abort);
+	return callPost(`/api/TestWebApi?id=${ id ?? "" }`, body, abort);
 }
 

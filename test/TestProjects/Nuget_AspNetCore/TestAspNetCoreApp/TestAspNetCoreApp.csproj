@@ -20,7 +20,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.9" />
-    <PackageReference Include="TypeRightDebug" Version="0.10.0" />
+    <PackageReference Include="TypeRightDebug" Version="1.0.3" />
   </ItemGroup>
 
   <ItemGroup>

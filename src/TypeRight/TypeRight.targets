@@ -11,7 +11,7 @@
 	
 	<Target
 		Name="ScriptGeneration"
-		BeforeTargets="CompileTypeScript">
+		BeforeTargets="CompileTypeScript;CoreCompile;PreComputeCompileTypeScriptWithTSConfig">
 
 		<PropertyGroup>
 			<TypeRightExe />
@@ -23,7 +23,7 @@
 		</PropertyGroup>
 
 		<PropertyGroup Condition="$(TypeRightTesting) != true">
-			<ExeRelativePath Condition="$(TypeRightTesting) != true">..\tools\TypeRight.exe</ExeRelativePath>
+			<ExeRelativePath>..\tools\TypeRight.exe</ExeRelativePath>
 		</PropertyGroup>
 
 		<CombinePath BasePath="$(MSBuildThisFileDirectory)" Paths="$(ExeRelativePath)">

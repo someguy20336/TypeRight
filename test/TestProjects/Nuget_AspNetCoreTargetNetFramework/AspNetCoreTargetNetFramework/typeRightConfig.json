@@ -1,8 +1,5 @@
 {
 	"Enabled": true,
-	"ClassNamespace": "ServerClasses",
-	"EnumNamespace": "ServerEnums",
-	"WebMethodNamespace": "WebMethods",
 	"ServerObjectsResultFilepath": "./Scripts/ServerObjects.ts",
 
 	"TemplateType": "module",

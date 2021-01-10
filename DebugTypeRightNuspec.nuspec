@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
 	<metadata>
 		<id>TypeRightDebug</id>
-		<version>0.11.0</version>
+		<version>1.0.3</version>
 		<title>TypeRight</title>
 		<authors>Dave W</authors>
 		<owners>Dave W</owners>
@@ -19,18 +19,16 @@
 	</metadata>
 	<files>
 		<!-- Attributes reference -->
-		<file src=".\TypeRight.Attributes\bin\Release\netstandard2.0\TypeRight.Attributes.dll" target="lib\netstandard2.0" />
-		<file src=".\TypeRight.Attributes\bin\Release\netstandard2.0\TypeRight.Attributes.xml" target="lib\netstandard2.0" />
+		<file src=".\src\TypeRight.Attributes\bin\Release\netstandard2.0\TypeRight.Attributes.dll" target="lib\netstandard2.0" />
+		<file src=".\src\TypeRight.Attributes\bin\Release\netstandard2.0\TypeRight.Attributes.xml" target="lib\netstandard2.0" />
 		
 		<!-- Build tool -->
-		<file src=".\TypeRight\TypeRight.targets" target="build\TypeRightDebug.targets" />
-		<!--<file src=".\TypeRight\bin\Release\netcoreapp2.2\publish\*.dll" target="tools" />-->
-		<file src=".\TypeRight\bin\Release\netcoreapp3.1\publish\*.pdb" target="tools" />
-		<file src=".\TypeRight\bin\Release\netcoreapp3.1\publish\TypeRight.exe" target="tools" />
+		<file src=".\src\TypeRight\TypeRight.targets" target="build\TypeRightDebug.targets" />
+		<file src=".\src\TypeRight\bin\Release\net5.0\publish\*.*" target="tools" />
 		
 		<!-- Bridge -->
-		<file src=".\TypeRight.Workspaces.VsixAdapter\bin\Release\*.dll" target="tools\adapter" />
-		<file src=".\TypeRight.Workspaces.VsixAdapter\bin\Release\*.pdb" target="tools\adapter" />
+		<file src=".\src\TypeRight.Workspaces.VsixAdapter\bin\Release\*.dll" target="tools\adapter" />
+		<file src=".\src\TypeRight.Workspaces.VsixAdapter\bin\Release\*.pdb" target="tools\adapter" />
 		
 		<!-- Content -->
 		<file src=".\Icons\TypeRight64x64.png" target="images\"></file>
