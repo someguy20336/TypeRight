@@ -3,19 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TypeRightVsix", "TypeRightVsix\TypeRightVsix.csproj", "{19A3AC50-EDEE-4B95-808C-C9D64A8D80EB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TypeRightVsix", "src\TypeRightVsix\TypeRightVsix.csproj", "{19A3AC50-EDEE-4B95-808C-C9D64A8D80EB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TypeRight.Attributes", "TypeRight.Attributes\TypeRight.Attributes.csproj", "{F87074AD-ED17-4792-9981-22CF0F093098}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TypeRight.Attributes", "src\TypeRight.Attributes\TypeRight.Attributes.csproj", "{F87074AD-ED17-4792-9981-22CF0F093098}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TypeRight.Core", "TypeRight.Core\TypeRight.Core.csproj", "{7574657D-76BD-4B4F-B566-A4D830AA9FCB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TypeRight.Core", "src\TypeRight.Core\TypeRight.Core.csproj", "{7574657D-76BD-4B4F-B566-A4D830AA9FCB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TypeRight.Workspaces", "TypeRight.Workspaces\TypeRight.Workspaces.csproj", "{1240CF38-D6A6-48D1-B392-CD94266D27BD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TypeRight.Workspaces", "src\TypeRight.Workspaces\TypeRight.Workspaces.csproj", "{1240CF38-D6A6-48D1-B392-CD94266D27BD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TypeRight", "TypeRight\TypeRight.csproj", "{DAE83799-C1EB-4D01-878E-75A9FF4889A0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TypeRight", "src\TypeRight\TypeRight.csproj", "{DAE83799-C1EB-4D01-878E-75A9FF4889A0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TypeRight.Tests", "TypeRight.Tests\TypeRight.Tests.csproj", "{86FA2628-AE16-4BED-99AB-BECB91FDE318}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TypeRight.Tests", "test\TypeRight.Tests\TypeRight.Tests.csproj", "{86FA2628-AE16-4BED-99AB-BECB91FDE318}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TypeRight.Workspaces.VsixAdapter", "TypeRight.Workspaces.VsixAdapter\TypeRight.Workspaces.VsixAdapter.csproj", "{AC6C53F4-FB54-48AB-8E96-1AA1AE93CBA8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TypeRight.Workspaces.VsixAdapter", "src\TypeRight.Workspaces.VsixAdapter\TypeRight.Workspaces.VsixAdapter.csproj", "{AC6C53F4-FB54-48AB-8E96-1AA1AE93CBA8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{389EA361-B44E-4CCF-88F7-3C193FF06EF8}"
 	ProjectSection(SolutionItems) = preProject
@@ -23,9 +23,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		TypeRightNuspec.nuspec = TypeRightNuspec.nuspec
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TypeRight.VsixContract", "TypeRight.VsixContract\TypeRight.VsixContract.csproj", "{B878F149-9BD3-437D-802C-D26481F5B055}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TypeRight.VsixContract", "src\TypeRight.VsixContract\TypeRight.VsixContract.csproj", "{B878F149-9BD3-437D-802C-D26481F5B055}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TypeRight.Build", "TypeRight.Build\TypeRight.Build.csproj", "{E423CC6B-3E41-4C30-8CA4-C6974CE8584B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TypeRight.Build", "src\TypeRight.Build\TypeRight.Build.csproj", "{E423CC6B-3E41-4C30-8CA4-C6974CE8584B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Vsix", "Vsix", "{50180D7A-7C03-4681-882B-D22FBB6A019A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{36E3404F-F368-42EE-9219-3A982563009C}"
+	ProjectSection(SolutionItems) = preProject
+		test\MsBuildTests\AspNet.bat = test\MsBuildTests\AspNet.bat
+		test\MsBuildTests\AspNetCore.bat = test\MsBuildTests\AspNetCore.bat
+		test\MsBuildTests\Nuget_AspNetCore.bat = test\MsBuildTests\Nuget_AspNetCore.bat
+		test\MsBuildTests\Nuget_AspNetCore_Target_Net_Framework.bat = test\MsBuildTests\Nuget_AspNetCore_Target_Net_Framework.bat
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -186,6 +196,12 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{19A3AC50-EDEE-4B95-808C-C9D64A8D80EB} = {50180D7A-7C03-4681-882B-D22FBB6A019A}
+		{86FA2628-AE16-4BED-99AB-BECB91FDE318} = {36E3404F-F368-42EE-9219-3A982563009C}
+		{AC6C53F4-FB54-48AB-8E96-1AA1AE93CBA8} = {50180D7A-7C03-4681-882B-D22FBB6A019A}
+		{B878F149-9BD3-437D-802C-D26481F5B055} = {50180D7A-7C03-4681-882B-D22FBB6A019A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {51F1BF5C-4F4F-4F9A-9119-DB47FB3F2DD0}

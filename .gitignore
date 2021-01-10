@@ -271,3 +271,5 @@ __pycache__/
 /TypeRight.Core/ScriptWriting/TypeScript/TextTemplates/NamespaceMvcMethodTextTemplate.cs
 /TypeRight.Core/ScriptWriting/TypeScript/TextTemplates/NamespaceTypeTextTemplate.cs
 MigrationBackup
+/test/**/*.js
+/test/**/*.js.map

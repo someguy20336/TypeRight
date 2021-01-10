@@ -1,0 +1,94 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>TypeRight.snk</AssemblyOriginatorKeyFile>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+    <FileVersion>2.0.0.0</FileVersion>
+    <Version>0.9.0</Version>
+    <RootNamespace>TypeRight</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="ScriptWriting\TypeScript\PartialTextTemplates\TypeScriptClassTextTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>TypeScriptClassTextTemplate.tt</DependentUpon>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="System.CodeDom" Version="4.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TypeRight.Attributes\TypeRight.Attributes.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="ScriptWriting\TypeScript\PartialTextTemplates\EnumTextTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>EnumTextTemplate.cs</LastGenOutput>
+    </None>
+    <None Update="ScriptWriting\TypeScript\PartialTextTemplates\TypeScriptClassTextTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>TypeScriptClassTextTemplate.cs</LastGenOutput>
+    </None>
+    <None Update="ScriptWriting\TypeScript\PartialTextTemplates\TypeScriptInterfaceTextTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>TypeScriptInterfaceTextTemplate.cs</LastGenOutput>
+    </None>
+    <None Update="ScriptWriting\TypeScript\TextTemplates\ModuleMvcMethodTextTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>ModuleMvcMethodTextTemplate.cs</LastGenOutput>
+    </None>
+    <None Update="ScriptWriting\TypeScript\TextTemplates\ModuleTypeTextTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>ModuleTypeTextTemplate.cs</LastGenOutput>
+    </None>
+    <None Update="ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>MvcMethodTextTemplateBase.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="ScriptWriting\TypeScript\PartialTextTemplates\EnumTextTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>EnumTextTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Update="ScriptWriting\TypeScript\PartialTextTemplates\TypeScriptClassTextTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>TypeScriptClassTextTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Update="ScriptWriting\TypeScript\PartialTextTemplates\TypeScriptInterfaceTextTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>TypeScriptInterfaceTextTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Update="ScriptWriting\TypeScript\TextTemplates\ModuleMvcMethodTextTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ModuleMvcMethodTextTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Update="ScriptWriting\TypeScript\TextTemplates\ModuleTypeTextTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ModuleTypeTextTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Update="ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>MvcMethodTextTemplateBase.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+</Project>

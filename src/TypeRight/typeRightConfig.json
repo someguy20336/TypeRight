@@ -1,0 +1,21 @@
+﻿{
+	// Set this to false to disable automatic generation
+	"Enabled": true,
+
+	// This is the template you would like to use.  Choose from "module" or "namespace".  Module is the recommended approach,
+	// But you can see more details on project page
+	"TemplateType": "module",
+
+	// This is the relative path (from the csproj root) to the output file for classes, interfaces, and enums
+	"ServerObjectsResultFilepath": "./Scripts/ServerObjects.ts",
+
+	// Customize the AJAX function used by controllers here
+	"AjaxFunctionName": "",
+	"AjaxFunctionModulePath": "",
+
+	// Valid values here are singleParam and multiParam.  singleParam is recommended, at least for ASP.NET Core projects, but it might
+	// depend on how you make the requests.  See the GitHub project for more details
+	"modelBindingType": "singleParam"
+
+
+}

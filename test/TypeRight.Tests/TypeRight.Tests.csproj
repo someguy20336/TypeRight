@@ -1,0 +1,59 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="2.9.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.3" />
+    <PackageReference Include="MSTest.TestAdapter" Version="2.1.2" />
+    <PackageReference Include="MSTest.TestFramework" Version="2.1.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\TypeRight.Attributes\TypeRight.Attributes.csproj" />
+    <ProjectReference Include="..\..\src\TypeRight.Core\TypeRight.Core.csproj" />
+    <ProjectReference Include="..\..\src\TypeRight.Workspaces\TypeRight.Workspaces.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="TestBuilders\InterfaceBuilder.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>InterfaceBuilder.cs</LastGenOutput>
+    </None>
+    <None Update="TestBuilders\TestClassBuilder.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>TestClassBuilder.cs</LastGenOutput>
+    </None>
+    <None Update="TestBuilders\TestEnumBuilder.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>TestEnumBuilder.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+  <ItemGroup>
+	  <Compile Update="TestBuilders\InterfaceBuilder.cs">
+		  <DesignTime>True</DesignTime>
+		  <AutoGen>True</AutoGen>
+		  <DependentUpon>InterfaceBuilder.tt</DependentUpon>
+	  </Compile>
+    <Compile Update="TestBuilders\TestClassBuilder.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>TestClassBuilder.tt</DependentUpon>
+    </Compile>
+    <Compile Update="TestBuilders\TestEnumBuilder.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>TestEnumBuilder.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+</Project>

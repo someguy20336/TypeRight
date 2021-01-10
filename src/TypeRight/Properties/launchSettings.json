@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "AspNetCore - Command Line": {
+      "commandName": "Project",
+      "commandLineArgs": "\"..\\..\\..\\..\\..\\test\\TestProjects\\AspNetCore\\TestAspNetCoreApp\\TestAspNetCoreApp.csproj\""
+    }
+  }
+}

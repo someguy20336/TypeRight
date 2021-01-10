@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>TypeRight</RootNamespace>
+    <AssemblyName>TypeRight</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Buildalyzer.Workspaces" Version="3.1.1" />
+    <PackageReference Include="Microsoft.CodeAnalysis" Version="3.8.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TypeRight.Attributes\TypeRight.Attributes.csproj" />
+    <ProjectReference Include="..\TypeRight.Build\TypeRight.Build.csproj" />
+    <ProjectReference Include="..\TypeRight.Core\TypeRight.Core.csproj" />
+    <ProjectReference Include="..\TypeRight.Workspaces\TypeRight.Workspaces.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="TypeRight.targets">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

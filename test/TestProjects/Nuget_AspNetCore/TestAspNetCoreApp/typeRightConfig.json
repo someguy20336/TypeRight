@@ -1,0 +1,52 @@
+{
+	"enabled": true,
+	"classNamespace": "",
+	"enumNamespace": "",
+	"webMethodNamespace": "WebMethods",
+	"serverObjectsResultFilepath": "./Scripts/ServerObjects.ts",
+	"templateType": "module",
+	"modelBindingType": "singleParam",
+	"actionConfigurations": [
+		{
+			"fetchFunctionName": "callPost",
+			"fetchFilePath": "./Scripts/CallServiceStuff.ts",
+			"parameters": [
+				{
+					"name": "abort",
+					"type": "AbortSignal",
+					"optional": true
+				}
+			],
+			"returnType": "Promise<$returnType$>",
+			"imports": null
+		},
+		{
+			"fetchFunctionName": "callGet",
+			"fetchFilePath": "./Scripts/CallServiceStuff.ts",
+			"method": "GET",
+			"parameters": [
+				{
+					"name": "abort",
+					"type": "AbortSignal",
+					"optional": true
+				}
+			],
+			"returnType": "Promise<$returnType$>",
+			"imports": null
+		},
+		{
+			"fetchFunctionName": "callPut",
+			"fetchFilePath": "./Scripts/CallServiceStuff.ts",
+			"method": "PUT",
+			"parameters": [
+				{
+					"name": "abort",
+					"type": "AbortSignal",
+					"optional": true
+				}
+			],
+			"returnType": "Promise<$returnType$>",
+			"imports": null
+		}
+	]
+}
