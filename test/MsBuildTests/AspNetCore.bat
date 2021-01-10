@@ -1,9 +1,12 @@
 @ECHO off
 
-REM Set up visual studio variables *DJW With a copy of VS 2015 only, this doesn't work
-REM if "%FrameworkDir%"=="" call SetVSVars.cmd
+DEL ..\TestProjects\AspNetCore\TestAspNetCoreApp\Scripts\ServerObjects.* /Q
+DEL ..\TestProjects\AspNetCore\TestAspNetCoreApp\Scripts\CustomGroup.* /Q
+DEL ..\TestProjects\AspNetCore\TestAspNetCoreApp\Scripts\Home\Models.* /Q
+DEL ..\TestProjects\AspNetCore\TestAspNetCoreApp\Scripts\Home\HomeActions.* /Q
 
 dotnet build ..\TestProjects\AspNetCore\TestProject.sln --force -v n
 
 ECHO Build Complete!
-PAUSE
+
+if NOT "%1" == "1" PAUSE
