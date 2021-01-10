@@ -2,8 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
-    <TypeScriptToolsVersion>3.7</TypeScriptToolsVersion>
-	<TypeRightTesting>true</TypeRightTesting>
+    <TypeScriptToolsVersion>3.1</TypeScriptToolsVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,11 +19,8 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="3.7.2">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-    </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.9" />
+    <PackageReference Include="TypeRightDebug" Version="1.0.3" />
   </ItemGroup>
 
   <ItemGroup>
@@ -41,14 +37,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="TypeRight.Attributes">
-      <HintPath>..\..\..\..\src\TypeRight.Attributes\bin\Debug\netstandard2.0\TypeRight.Attributes.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
-  <ItemGroup>
     <TypeScriptCompile Include="Scripts\CallServiceStuff.ts" />
   </ItemGroup>
 
-	<Import Project="..\..\..\..\src\TypeRight\TypeRight.targets" />
 </Project>

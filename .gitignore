@@ -273,3 +273,4 @@ __pycache__/
 MigrationBackup
 /test/**/*.js
 /test/**/*.js.map
+/test/LocalNugetRepo
