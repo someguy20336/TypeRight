@@ -1,15 +1,12 @@
 ﻿using TypeRight.CodeModel;
-using TypeRight.TypeLocation;
 using TypeRight.ScriptWriting;
-using TypeRight.ScriptWriting.TypeScript;
 using TypeRight.TypeProcessing;
-using TypeRight.Tests.HelperClasses;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
 
 namespace TypeRight.Tests.Testers
 {
-	class ReferenceTypeTester
+	public class ReferenceTypeTester
 	{
 		private INamedType NamedType => _namedObjectType.NamedType;
 

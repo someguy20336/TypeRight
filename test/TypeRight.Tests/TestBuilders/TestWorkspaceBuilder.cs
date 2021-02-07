@@ -1,8 +1,5 @@
-﻿using TypeRight.Configuration;
-using TypeRight.TypeLocation;
-using TypeRight.TypeFilters;
+﻿using TypeRight.TypeLocation;
 using TypeRight.Workspaces.Parsing;
-using TypeRight.Tests.HelperClasses;
 using TypeRight.Tests.Testers;
 using Microsoft.CodeAnalysis;
 using System.Collections.Generic;
@@ -10,7 +7,7 @@ using TypeRight.TypeProcessing;
 
 namespace TypeRight.Tests.TestBuilders
 {
-	class TestWorkspaceBuilder
+	public class TestWorkspaceBuilder
 	{
 		public const string TestProjectDir = @"C:\FolderA\FolderB";
 
