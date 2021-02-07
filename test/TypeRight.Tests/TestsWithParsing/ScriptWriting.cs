@@ -43,7 +43,7 @@ namespace TypeRight.Tests.TestsWithParsing
 					
 				// Display name attribute
 				.CreateClassBuilder("SimpleController")
-					.WithControllerBaseClass()
+					.WithControllerBaseClass(false)
 					.AddMethod("Json", "FakeJsonResultLikeClass")
 						.AddParameter("data", "object")
 						.AddLineOfCode("return null;", 0)
@@ -53,12 +53,12 @@ namespace TypeRight.Tests.TestsWithParsing
 						.AddScriptActionAttribute()
 						.AddLineOfCode("return \"Hi\";", 0)
 						.Commit()
-					.AddMethod("SimpleParameter_Json", MvcConstants.JsonResult_AspNetCore)
+					.AddMethod("SimpleParameter_Json", MvcConstants.JsonResult_AspNet)
 						.AddScriptActionAttribute()
 						.AddParameter("testParam", "TestClass")
 						.AddLineOfCode("return Json(testParam);", 0)
 						.Commit()
-					.AddMethod("GenericPropReturn_Json", MvcConstants.JsonResult_AspNetCore)
+					.AddMethod("GenericPropReturn_Json", MvcConstants.JsonResult_AspNet)
 						.AddScriptActionAttribute()
 						.AddLineOfCode("TestGenericClass<TestClass> gen = new TestGenericClass<TestClass>();", 0)
 						.AddLineOfCode("return Json(gen.GenericProp);", 0)
@@ -151,7 +151,7 @@ export function GenericPropReturn_Json(success?: (result: DefaultResult.TestClas
  * @param testParam 
  */
 export function SimpleParameter_Json(testParam: DefaultResult.TestClass, success?: (result: DefaultResult.TestClass) => void, fail?: (result: any) => void): void {
-	TestAjax(`/Simple/SimpleParameter_Json`, { testParam: testParam }, success, fail);
+	TestAjax(`/Simple/SimpleParameter_Json`, testParam, success, fail);
 }
 
 /**
@@ -208,7 +208,7 @@ export function GenericPropReturn_Json(success?: (result: DefaultResult.TestClas
  * @param testParam 
  */
 export function SimpleParameter_Json(testParam: DefaultResult.TestClass, success?: (result: DefaultResult.TestClass) => void, fail?: (result: any) => void): void {
-	TestAjax(`/Simple/SimpleParameter_Json`, { testParam: testParam }, success, fail);
+	TestAjax(`/Simple/SimpleParameter_Json`, testParam, success, fail);
 }
 
 /**
@@ -255,7 +255,7 @@ export function GenericPropReturn_Json(): Promise<DefaultResult.TestClass> {
  * @param testParam 
  */
 export function SimpleParameter_Json(testParam: DefaultResult.TestClass): Promise<DefaultResult.TestClass> {
-	return TestAjax(`/Simple/SimpleParameter_Json`, { testParam: testParam });
+	return TestAjax(`/Simple/SimpleParameter_Json`, testParam);
 }
 
 /**
@@ -316,7 +316,7 @@ export function GenericPropReturn_Json(randomString: string, abortSignal?: Abort
  * @param testParam 
  */
 export function SimpleParameter_Json(testParam: DefaultResult.TestClass, randomString: string, abortSignal?: AbortSignal): DefaultResult.TestClass {
-	return TestAjax(`/Simple/SimpleParameter_Json`, { testParam: testParam }, randomString, abortSignal);
+	return TestAjax(`/Simple/SimpleParameter_Json`, testParam, randomString, abortSignal);
 }
 
 /**
@@ -339,7 +339,6 @@ export function StringResult(randomString: string, abortSignal?: AbortSignal): s
 			var actionConfig = s_packageTester.GetDefaultActionConfig();
 			actionConfig[0].Parameters = new List<ActionParameter>();   // clear out for simplicity
 			ControllerContext context = s_packageTester.GetDefaultControllerContext(actionConfig);
-			context.ModelBinding = ModelBindingType.SingleParam;
 			s_packageTester.AssertControllerScriptText("TestParamAttributesController",
 				context,
 			#region ScriptText	
@@ -393,7 +392,6 @@ export function TestingParamFilter(fromBody: string): void {
 			var actionConfig = s_packageTester.GetDefaultActionConfig();
 			actionConfig[0].Parameters = new List<ActionParameter>();   // clear out for simplicity
 			ControllerContext context = s_packageTester.GetDefaultControllerContext(actionConfig);
-			context.ModelBinding = ModelBindingType.SingleParam;
 			s_packageTester.AssertControllerScriptText("RoutedApiController",
 				context,
 			#region ScriptText	

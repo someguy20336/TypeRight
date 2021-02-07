@@ -43,6 +43,8 @@ namespace TypeRight.TypeProcessing
 
 		public string ControllerName => Name.Substring(0, Name.Length - "Controller".Length);
 
+		public bool IsAspNetCore { get; }
+
 		/// <summary>
 		/// Creates a new the MVC controllers info
 		/// </summary>
@@ -60,6 +62,17 @@ namespace TypeRight.TypeProcessing
 					MvcActionInfo action = new MvcActionInfo(method, typeTable);
 					_actions.Add(action);
 				}
+			}
+
+			var baseType = NamedType.BaseType;
+			while (baseType != null)
+			{
+				if (baseType.FullName == MvcConstants.ControllerBaseFullName_AspNetCore)
+				{
+					IsAspNetCore = true;
+					break;
+				}
+				baseType = baseType.BaseType;
 			}
 		}
 

@@ -89,8 +89,7 @@ namespace TypeRight.Tests.Testers
 				ServerObjectsResultFilepath = new Uri(@"C:\FolderA\FolderB\FolderC\FolderD\ServerObjects.ts"),
 				OutputPath = @"C:\FolderA\FolderB\FolderX\FolderY\SomeController.ts",
 
-				FetchFunctionResolver = resolver,
-				ModelBinding = ModelBindingType.MultiParam, // TODO stop this
+				FetchFunctionResolver = resolver
 			};
 		}
 

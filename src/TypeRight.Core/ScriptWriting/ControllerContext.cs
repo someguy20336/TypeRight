@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using TypeRight.Configuration;
-using TypeRight.TypeFilters;
 
 namespace TypeRight.ScriptWriting
 {
@@ -17,8 +14,6 @@ namespace TypeRight.ScriptWriting
 		public Uri ServerObjectsResultFilepath { get; set; }
 				
 		public FetchFunctionResolver FetchFunctionResolver { get; set; }
-
-		public ModelBindingType ModelBinding { get; set; }
 
 	}
 }

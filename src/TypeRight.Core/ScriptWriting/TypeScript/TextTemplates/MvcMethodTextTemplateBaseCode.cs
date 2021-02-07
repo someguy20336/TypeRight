@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using TypeRight.Configuration;
-using TypeRight.TypeProcessing;
 
 namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
 {
@@ -81,15 +80,14 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
 			{
 				return ", {}";
 			}
-			else if (bodyParams.Count == 1 && Context.ModelBinding == ModelBindingType.SingleParam) // TODO: can i not?
+			else if (bodyParams.Count > 1)
 			{
-				// If we are only using a single parameter model binding (i.e. asp.net core), then the object itself should be the body
-				return ", " + bodyParams[0].Name;
+				throw new InvalidOperationException("More than one body parameter is not supported: " + string.Join(", ", bodyParams.Select(b => b.Name)));
 			}
 			else
 			{
-				IEnumerable<string> multiParam = bodyParams.Select(p => $"{p.Name}: {p.Name}");  // Transform to param1: param1
-				return $", {{ {string.Join(", ", multiParam)} }}";
+				// If we are only using a single parameter model binding (i.e. asp.net core), then the object itself should be the body
+				return ", " + bodyParams[0].Name;
 			}
 		}
 

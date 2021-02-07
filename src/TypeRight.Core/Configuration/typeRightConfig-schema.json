@@ -14,12 +14,6 @@
 			"default": "./Scripts/ServerObjects.ts",
 			"description": "The default relative output path for any class marked with 'ScriptObject'.  This can be overridden with the 'ScriptObjects' attribute."
 		},
-		"modelBindingType": {
-			"type": "string",
-			"description": "",
-			"default": "multiParam",
-			"enum": [ "multiParam", "singleParam" ]
-		},
 		"actionConfigurations": {
 			"type": "array",
 			"description": "Array of action configurations.  Use these to configure how web APIs get called.",

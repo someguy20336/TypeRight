@@ -27,14 +27,6 @@ namespace TypeRight.Configuration
 		public string ServerObjectsResultFilepath { get; set; }
 		
 		/// <summary>
-		/// Gets the model binding style to use.  This affects how MVC actions are invoked. The options can be singleParam or multiParam
-		/// "singleParam" should generally be used for ASP.NET Core applications since there is only one FromBody parameter allowed.  
-		/// "multiParam" will create an object for the parameters.
-		/// </summary>
-		[JsonConverter(typeof(CamelCaseStringEnumConverter))]
-		public ModelBindingType ModelBindingType { get; set; } = ModelBindingType.SingleParam;
-
-		/// <summary>
 		/// Gets or sets the action configurations to use
 		/// </summary>
 		public List<ActionConfig> ActionConfigurations { get; set; }
