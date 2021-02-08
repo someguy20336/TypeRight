@@ -11,6 +11,11 @@ See [the wiki](https://github.com/someguy20336/TypeRight/wiki/Quick-Start) for a
 
 # Recent Updates
 
+**Version 1.0.0**
+- **Dropping support for the multi-param binding**
+- Upgrade to .net 5
+- Misc other things
+
 **Version 0.12**
 - **Dropping Support for namespaces**.  This is a breaking change - scripts will only be generated using the module format. 
 - Supporting `ActionResult<T>` where `T` is an anonymous object (well, it would be an `object`, but you return an anonymous object)
