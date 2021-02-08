@@ -46,6 +46,7 @@ namespace TypeRight
 
 
 		public const string HttpDeleteAttributeName = "HttpDeleteAttribute";
+		public const string HttpPatchAttributeName = "HttpPatchAttribute";
 
 		public const string JsonResultName = "JsonResult";
 		public static string JsonResult_AspNetCore => ToAspNetCoreFullName(JsonResultName);

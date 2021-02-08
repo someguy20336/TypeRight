@@ -15,7 +15,9 @@ namespace TypeRight.Tests.TestBuilders.TypeCollection
 				.RegisterExternalType(MvcConstants.AreaAttribute, MvcConstants.AspNetCoreNamespace)
 				.RegisterExternalType(MvcConstants.HttpGetAttributeName, MvcConstants.AspNetCoreNamespace)
 				.RegisterExternalType(MvcConstants.HttpPostAttributeName, MvcConstants.AspNetCoreNamespace)
-				.RegisterExternalType(MvcConstants.HttpPutAttributeName, MvcConstants.AspNetCoreNamespace);
+				.RegisterExternalType(MvcConstants.HttpPutAttributeName, MvcConstants.AspNetCoreNamespace)
+				.RegisterExternalType(MvcConstants.HttpPatchAttributeName, MvcConstants.AspNetCoreNamespace)
+				;
 		}
 
 		public static TypeCollectionBuilder AddAspNetTypes(this TypeCollectionBuilder builder)
@@ -26,6 +28,7 @@ namespace TypeRight.Tests.TestBuilders.TypeCollection
 				.RegisterExternalType(MvcConstants.HttpGetAttributeName, MvcConstants.AspNetNamespace)
 				.RegisterExternalType(MvcConstants.HttpPostAttributeName, MvcConstants.AspNetNamespace)
 				.RegisterExternalType(MvcConstants.HttpPutAttributeName, MvcConstants.AspNetNamespace)
+				.RegisterExternalType(MvcConstants.HttpPatchAttributeName, MvcConstants.AspNetNamespace)
 			;
 		}
 
