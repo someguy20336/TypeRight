@@ -116,13 +116,6 @@ namespace TypeRight.Tests.Testers
 			};
 		}
 
-		public TypeCollectionTester AssertControllerScriptText(string controllerName, string expectedText)
-		{
-
-			ControllerContext context = GetDefaultControllerContext();
-
-			return AssertControllerScriptText(controllerName, context, expectedText);
-		}
 
 		public TypeCollectionTester AssertControllerScriptText(string controllerName, ControllerContext context, string expectedText)
 		{
