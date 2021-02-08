@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TypeRight.Tests.TestBuilders
 {
-	class AttributeInfo
+	public class AttributeInfo
 	{
 		public string AttributeTypeName { get; set; }
 

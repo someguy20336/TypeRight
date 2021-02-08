@@ -97,7 +97,6 @@ namespace TypeRight
 					OutputPath = outputPath,
 					ServerObjectsResultFilepath = new Uri(resultAbsolute.LocalPath),
 					TypeCollection = typeCollection,
-					ModelBinding = configOptions.ModelBindingType,
 
 					// Fetch Function
 					FetchFunctionResolver = fetchResolver

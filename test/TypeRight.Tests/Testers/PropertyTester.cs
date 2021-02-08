@@ -1,14 +1,12 @@
 ﻿using TypeRight.CodeModel;
 using TypeRight.ScriptWriting;
-using TypeRight.ScriptWriting.TypeScript;
 using TypeRight.TypeProcessing;
-using TypeRight.Tests.HelperClasses;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
 namespace TypeRight.Tests.Testers
 {
-	class PropertyTester
+	public class PropertyTester
 	{
 		private ExtractedProperty _property;
 

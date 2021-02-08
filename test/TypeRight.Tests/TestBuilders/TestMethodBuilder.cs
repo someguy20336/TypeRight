@@ -7,7 +7,7 @@ using TypeRight.Attributes;
 
 namespace TypeRight.Tests.TestBuilders
 {
-	class TestMethodBuilder : IAttributable
+	public class TestMethodBuilder : IAttributable
 	{
 		private TestClassBuilder _parent;
 		private string _returnType = "";

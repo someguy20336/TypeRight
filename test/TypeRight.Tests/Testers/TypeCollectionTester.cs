@@ -1,21 +1,16 @@
 ﻿using TypeRight.Configuration;
-using TypeRight.TypeLocation;
 using TypeRight.ScriptWriting;
 using TypeRight.ScriptWriting.TypeScript;
-using TypeRight.TypeFilters;
 using TypeRight.TypeProcessing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TypeRight.Tests.TestBuilders;
-using TypeRight.Tests.HelperClasses;
 
 namespace TypeRight.Tests.Testers
 {
-	class TypeCollectionTester
+	public class TypeCollectionTester
 	{
 		private ExtractedTypeCollection _typeCollection;
 
@@ -89,8 +84,7 @@ namespace TypeRight.Tests.Testers
 				ServerObjectsResultFilepath = new Uri(@"C:\FolderA\FolderB\FolderC\FolderD\ServerObjects.ts"),
 				OutputPath = @"C:\FolderA\FolderB\FolderX\FolderY\SomeController.ts",
 
-				FetchFunctionResolver = resolver,
-				ModelBinding = ModelBindingType.MultiParam, // TODO stop this
+				FetchFunctionResolver = resolver
 			};
 		}
 
@@ -104,7 +98,7 @@ namespace TypeRight.Tests.Testers
 					FetchFunctionName = "TestAjax",
 					Imports = new List<ImportDefinition>(),
 					Method = RequestMethod.Default.Name,
-					Parameters = new List<ActionParameter>()
+					Parameters = new List<ActionParameter>()		// TODO: this is dupliated in ControllerWritingTestsBase... don't
 					{
 						new ActionParameter() {Name = "success", Type = "(result: $returnType$) => void", Optional = true},
 						new ActionParameter() {Name = "fail", Type = "(result: any) => void", Optional = true }

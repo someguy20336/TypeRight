@@ -177,7 +177,6 @@ namespace TypeRight.Tests.TestsWithParsing
 				ReturnType = "void"
 			});
 			var context = s_packageTester.GetDefaultControllerContext(actionConfig);
-			context.ModelBinding = ModelBindingType.SingleParam;
 
 			return s_packageTester.TestControllerWithName(name, context);
 		}

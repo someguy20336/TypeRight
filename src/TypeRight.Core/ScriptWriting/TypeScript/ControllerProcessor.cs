@@ -35,7 +35,7 @@ namespace TypeRight.ScriptWriting.TypeScript
 
 		private ControllerActionModel CreateActionModel(MvcActionInfo actionInfo)
 		{
-			FetchFunctionDescriptor fetchDescriptor = _context.FetchFunctionResolver.Resolve(actionInfo);			
+			FetchFunctionDescriptor fetchDescriptor = _context.FetchFunctionResolver.Resolve(actionInfo);
 			string routeTemplate = _controllerInfo.GetActionUrlTemplate(actionInfo);
 
 			return new ControllerActionModel()
@@ -69,14 +69,16 @@ namespace TypeRight.ScriptWriting.TypeScript
 			var methodOptionalParameters = actionInfo.Parameters.Where(p => p.IsOptional).Select(p => CreateActionParameterModel(actionInfo, p, routeTemplate));
 			var userOptionalParameters = fetchParameters.Where(p => p.IsOptional);
 
-			return methodRequiredParameters.Union(userRequiredParameters).Union(methodOptionalParameters).Union(userOptionalParameters);			
+			return methodRequiredParameters.Union(userRequiredParameters).Union(methodOptionalParameters).Union(userOptionalParameters);
 		}
 
 		private ActionParameterModel CreateActionParameterModel(MvcActionInfo actionInfo, MvcActionParameter actionParameter, string routeTemplate)
 		{
 			ActionParameterSourceType sourceType = ActionParameterSourceType.Body;
 
-			if (_context.ModelBinding == ModelBindingType.SingleParam)
+			// Note - this isn't great, but is how it has always worked.
+			// consider improving the asp.net stuff... or just cutting it out
+			if (_controllerInfo.IsAspNetCore)
 			{
 				var bodyFilter = new ParameterHasAttributeFilter(new IsOfTypeFilter(MvcConstants.FromBodyAttributeFullName_AspNetCore));
 				var queryFilter = new ParameterHasAttributeFilter(new IsOfTypeFilter(MvcConstants.FromQueryAttributeFullName_AspNetCore));
@@ -98,7 +100,7 @@ namespace TypeRight.ScriptWriting.TypeScript
 					sourceType = ActionParameterSourceType.Ignored;
 				}
 			}
-			
+
 
 			return new ActionParameterModel()
 			{
@@ -124,7 +126,7 @@ namespace TypeRight.ScriptWriting.TypeScript
 
 			string funcKey = "fetch-" + fetchDescriptor.FetchModulePath;
 			if (!Imports.ContainsImportPath(funcKey))
-			{				
+			{
 				Imports.AddImport(funcKey, new ImportStatement(_context.OutputPath, fetchDescriptor.FetchModulePath, false));
 			}
 			ImportStatement ajaxImport = Imports.GetImportAtPath(funcKey);
@@ -175,6 +177,6 @@ namespace TypeRight.ScriptWriting.TypeScript
 
 			}
 		}
-		
+
 	}
 }

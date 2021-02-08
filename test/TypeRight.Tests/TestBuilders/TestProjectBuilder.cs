@@ -1,15 +1,9 @@
 ﻿using Microsoft.CodeAnalysis;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TypeRight.Attributes;
-using TypeRight.TypeProcessing;
 
 namespace TypeRight.Tests.TestBuilders
 {
-	class TestProjectBuilder
+	public class TestProjectBuilder
 	{
 		public const string DefaultNamespace = "Test";
 

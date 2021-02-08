@@ -1,15 +1,10 @@
-﻿using TypeRight.TypeLocation;
-using TypeRight.TypeProcessing;
+﻿using TypeRight.TypeProcessing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TypeRight.Tests.Testers
 {
-	class EnumTester
+	public class EnumTester
 	{
 		private ExtractedEnumType _enumInfo;
 

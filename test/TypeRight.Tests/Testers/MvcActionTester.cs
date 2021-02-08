@@ -1,19 +1,12 @@
-﻿using TypeRight.CodeModel;
-using TypeRight.TypeLocation;
-using TypeRight.ScriptWriting;
+﻿using TypeRight.ScriptWriting;
 using TypeRight.ScriptWriting.TypeScript;
 using TypeRight.TypeProcessing;
-using TypeRight.Tests.HelperClasses;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TypeRight.Tests.Testers
 {
-	class MvcActionTester
+	public class MvcActionTester
 	{
 		private MvcActionInfo _method;
 		private MvcControllerInfo _controllerInfo;
@@ -51,7 +44,7 @@ namespace TypeRight.Tests.Testers
 
 
 
-	class MvcActionModelTester
+	public class MvcActionModelTester
 	{
 		private ControllerActionModel _actionModel;
 

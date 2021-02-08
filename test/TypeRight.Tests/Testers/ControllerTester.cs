@@ -11,7 +11,7 @@ using TypeRight.ScriptWriting.TypeScript;
 
 namespace TypeRight.Tests.Testers
 {
-	class ControllerTester
+	public class ControllerTester
 	{
 		private MvcControllerInfo _controllerInfo;
 		private ControllerModel _controllerModel;

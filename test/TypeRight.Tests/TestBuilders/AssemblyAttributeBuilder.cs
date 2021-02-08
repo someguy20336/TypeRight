@@ -1,11 +1,10 @@
 ﻿using Microsoft.CodeAnalysis.Text;
-using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace TypeRight.Tests.TestBuilders
 {
-	class AssemblyAttributeBuilder : IAttributable
+	public class AssemblyAttributeBuilder : IAttributable
 	{
 		private string _fileName;
 		private TestProjectBuilder _parentBuilder;
