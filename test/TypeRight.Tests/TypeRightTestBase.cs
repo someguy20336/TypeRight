@@ -24,5 +24,11 @@ namespace TypeRight.Tests
 			return WorkspaceBuilder.DefaultProject
 				.CreateClassBuilder(name, ns);
 		}
+
+		protected InterfaceBuilder AddInterface(string name, string ns = "Test")
+		{
+			return WorkspaceBuilder.DefaultProject
+				.CreateInterfaceBuilder(name, ns);
+		}
 	}
 }

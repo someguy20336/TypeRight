@@ -18,8 +18,8 @@ namespace TypeRight.Tests.Types
 				.AddProperty("GenericProp", "T")
 				.Commit();
 
-			AssertThatTheDefaultClass()
-				.ClassNameIs($"{TestClassName}<T>");
+			AssertThatTheDefaultReferenceType()
+				.ClassNameIs($"{TestRefTypeName}<T>");
 		}
 
 		[TestMethod]
@@ -30,7 +30,7 @@ namespace TypeRight.Tests.Types
 				.AddProperty("GenericProp", "T")
 				.Commit();
 
-			AssertThatTheDefaultClass()
+			AssertThatTheDefaultReferenceType()
 				.HasGenericParameter("T");
 		}
 
@@ -42,7 +42,7 @@ namespace TypeRight.Tests.Types
 				.AddProperty("Prop", "T")
 				.Commit();
 
-			AssertThatTheDefaultClass()
+			AssertThatTheDefaultReferenceType()
 				.TestPropertyWithName("Prop")
 				.IsGenericType()
 				.TypescriptNameIs("T");
@@ -62,7 +62,7 @@ namespace TypeRight.Tests.Types
 				.AddBaseClass("BaseClass<T>")
 				.Commit();
 
-			AssertThatTheDefaultClass()
+			AssertThatTheDefaultReferenceType()
 				.BaseClassNameIs($"BaseClass<T>");
 		}
 
@@ -79,7 +79,7 @@ namespace TypeRight.Tests.Types
 				.AddGenericParameter("T")
 				.Commit();
 
-			AssertThatTheDefaultClass()
+			AssertThatTheDefaultReferenceType()
 				.DoesNotHaveBaseClass()
 				.TestPropertyWithName("IsStillExtracted")
 				.TypescriptNameIs("T");
@@ -96,7 +96,7 @@ namespace TypeRight.Tests.Types
 				.AddProperty("ExtractedGenericProp", $"ExtractedGeneric<int>")
 				.Commit();
 			
-			AssertThatTheDefaultClass()
+			AssertThatTheDefaultReferenceType()
 				.TestPropertyWithName("ExtractedGenericProp")
 				.TypescriptNameIs($"{FakeTypePrefixer.Prefix}.ExtractedGeneric<number>");
 		}
@@ -112,7 +112,7 @@ namespace TypeRight.Tests.Types
 				.AddBaseClass("BaseClass<bool>")
 				.Commit();
 
-			AssertThatTheDefaultClass()
+			AssertThatTheDefaultReferenceType()
 				.BaseClassNameIs($"BaseClass<boolean>");
 		}
 
@@ -128,7 +128,7 @@ namespace TypeRight.Tests.Types
 				.AddBaseClass("NonExtractedGeneric<string>")
 				.Commit();
 
-			AssertThatTheDefaultClass()
+			AssertThatTheDefaultReferenceType()
 				.TestPropertyWithName("IsStillExtracted")
 				.TypescriptNameIs(TypeScriptHelper.StringTypeName);
 		}

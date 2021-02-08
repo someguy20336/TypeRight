@@ -1,21 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TypeRight.Tests.TestBuilders;
+﻿using TypeRight.Tests.TestBuilders;
 using TypeRight.Tests.Testers;
 
 namespace TypeRight.Tests.Types
 {
 	public abstract class TypesTestBase : TypeRightTestBase
 	{
-		protected string TestClassName => "TestClass";
+		protected string TestRefTypeName => "TestReferenceType";
 
 
 		protected TestClassBuilder AddDefaultExtractedClass()
 		{
-			return AddClass(TestClassName).AddScriptObjectAttribute();
+			return AddClass(TestRefTypeName).AddScriptObjectAttribute();
 		}
 
 		protected TestClassBuilder AddExtractedClass(string name)
@@ -23,10 +18,20 @@ namespace TypeRight.Tests.Types
 			return AddClass(name).AddScriptObjectAttribute();
 		}
 
-		protected ReferenceTypeTester AssertThatTheDefaultClass()
+		protected InterfaceBuilder AddDefaultExtractedInterface()
+		{
+			return AddExtractedInterface(TestRefTypeName);
+		}
+
+		protected InterfaceBuilder AddExtractedInterface(string name)
+		{
+			return AddInterface(name).AddScriptObjectAttribute();
+		}
+
+		protected ReferenceTypeTester AssertThatTheDefaultReferenceType()
 		{
 			var packageTester = WorkspaceBuilder.GetPackageTester();
-			return packageTester.TestReferenceTypeWithName(TestClassName);
+			return packageTester.TestReferenceTypeWithName(TestRefTypeName);
 		}
 	}
 }
