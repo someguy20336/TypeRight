@@ -30,8 +30,19 @@ namespace TypeRight.Tests.Types
 
 		protected ReferenceTypeTester AssertThatTheDefaultReferenceType()
 		{
+			return AssertThatTheReferenceTypeWithName(TestRefTypeName);
+		}
+
+		protected ReferenceTypeTester AssertThatTheReferenceTypeWithName(string name, int? typeArgCnt = null)
+		{
 			var packageTester = WorkspaceBuilder.GetPackageTester();
-			return packageTester.TestReferenceTypeWithName(TestRefTypeName);
+			return packageTester.TestReferenceTypeWithName(name, typeArgCnt);
+		}
+
+		protected void AssertScriptTextIs(string expected)
+		{
+			var packageTester = WorkspaceBuilder.GetPackageTester();
+			packageTester.AssertScriptText(expected);
 		}
 	}
 }
