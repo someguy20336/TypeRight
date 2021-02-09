@@ -19,7 +19,7 @@ namespace TypeRight.Tests.Types
 				.Commit();
 
 			AssertThatTheDefaultReferenceType()
-				.ClassNameIs($"{TestRefTypeName}<T>");
+				.ClassNameIs($"{TestTypeName}<T>");
 		}
 
 		[TestMethod]

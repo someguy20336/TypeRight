@@ -37,7 +37,7 @@ namespace TypeRight.Tests.Testers
 			return new ReferenceTypeTester(extrType, _typeFormatter);
 		}
 
-		public EnumTester TestEnumsWithName(string name)
+		public EnumTester TestEnumWithName(string name)
 		{
 			return new EnumTester(_typeCollection.GetEnumTypes().Where(en => en.Name == name).FirstOrDefault());
 		}

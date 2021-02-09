@@ -30,5 +30,11 @@ namespace TypeRight.Tests
 			return WorkspaceBuilder.DefaultProject
 				.CreateInterfaceBuilder(name, ns);
 		}
+
+		protected TestEnumBuilder AddEnum(string name)
+		{
+			return WorkspaceBuilder.DefaultProject
+				.CreateEnumBuilder(name);
+		}
 	}
 }

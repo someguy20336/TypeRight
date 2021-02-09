@@ -5,12 +5,22 @@ namespace TypeRight.Tests.Types
 {
 	public abstract class TypesTestBase : TypeRightTestBase
 	{
-		protected string TestRefTypeName => "TestReferenceType";
+		protected string TestTypeName => "TestType";
 
+		protected TestEnumBuilder AddDefaultExtractedEnum()
+		{
+			return AddExtractedEnum(TestTypeName);
+		}
+
+		protected TestEnumBuilder AddExtractedEnum(string name)
+		{
+			return AddEnum(name)
+				.AddScriptEnumAttribute();
+		}
 
 		protected TestClassBuilder AddDefaultExtractedClass()
 		{
-			return AddClass(TestRefTypeName).AddScriptObjectAttribute();
+			return AddClass(TestTypeName).AddScriptObjectAttribute();
 		}
 
 		protected TestClassBuilder AddExtractedClass(string name)
@@ -20,7 +30,7 @@ namespace TypeRight.Tests.Types
 
 		protected InterfaceBuilder AddDefaultExtractedInterface()
 		{
-			return AddExtractedInterface(TestRefTypeName);
+			return AddExtractedInterface(TestTypeName);
 		}
 
 		protected InterfaceBuilder AddExtractedInterface(string name)
@@ -30,7 +40,13 @@ namespace TypeRight.Tests.Types
 
 		protected ReferenceTypeTester AssertThatTheDefaultReferenceType()
 		{
-			return AssertThatTheReferenceTypeWithName(TestRefTypeName);
+			return AssertThatTheReferenceTypeWithName(TestTypeName);
+		}
+
+		protected EnumTester AssertThatTheDefaultEnumType()
+		{
+			var packageTester = WorkspaceBuilder.GetPackageTester();
+			return packageTester.TestEnumWithName(TestTypeName);
 		}
 
 		protected ReferenceTypeTester AssertThatTheReferenceTypeWithName(string name, int? typeArgCnt = null)
