@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using TypeRight.Configuration;
+using TypeRight.ScriptWriting;
 using TypeRight.Tests.TestBuilders;
 using TypeRight.Tests.Testers;
 
@@ -11,6 +12,7 @@ namespace TypeRight.Tests.Controllers
 	{
 		private List<ImportDefinition> _importDefinitions;
 		private List<ActionParameter> _actionParams;
+		private List<ActionConfig> _addlActionConfigs;
 
 		private string _scriptReturnType;
 
@@ -28,6 +30,7 @@ namespace TypeRight.Tests.Controllers
 
 			_importDefinitions = new List<ImportDefinition>();
 			_actionParams = new List<ActionParameter>();
+			_addlActionConfigs = new List<ActionConfig>();
 			_scriptReturnType = "";
 
 			WorkspaceBuilder.DefaultProject
@@ -71,13 +74,27 @@ namespace TypeRight.Tests.Controllers
 			_actionParams = actionParameters.ToList();
 		}
 
+		protected void GivenActionConfig(ActionConfig config)
+		{
+			_addlActionConfigs.Add(config);
+		}
+
 		protected void GivenScriptReturnType(string returnType) => _scriptReturnType = returnType;
 
 		protected MvcActionTester AssertThatThisControllerAction(string actionName)
 		{
-			var packageTester = CreateTester();
+			return AssertThatThisController().TestActionWithName(actionName);
+		}
 
-			return packageTester.TestControllerWithName(ControllerFullName).TestActionWithName(actionName);		// TODO controller context...
+		protected MvcActionModelTester AssertThatThisControllerActionModel(string actionName)
+		{
+			return AssertThatThisController().TestActionModelWithName(actionName);
+		}
+
+		protected ControllerTester AssertThatThisController()
+		{
+			var packageTester = CreateTester();
+			return packageTester.TestControllerWithName(ControllerFullName, CreateContext(packageTester));
 		}
 
 		protected void AssertControllerGeneratedText(string expectedText)
@@ -85,7 +102,14 @@ namespace TypeRight.Tests.Controllers
 			ControllerBuilder.Commit();
 
 			var packageTester = WorkspaceBuilder.GetPackageTester();
-			var actionConfig = packageTester.GetDefaultActionConfig();
+			var context = CreateContext(packageTester);
+
+			packageTester.AssertControllerScriptText(ControllerFullName, context, expectedText);
+		}
+
+		private ControllerContext CreateContext(TypeCollectionTester tester)
+		{
+			var actionConfig = tester.GetDefaultActionConfig();
 			actionConfig[0].Imports.AddRange(_importDefinitions);
 			actionConfig[0].Parameters = _actionParams;
 
@@ -94,9 +118,9 @@ namespace TypeRight.Tests.Controllers
 				actionConfig[0].ReturnType = _scriptReturnType;
 			}
 
-			var context = packageTester.GetDefaultControllerContext(actionConfig);
+			actionConfig.AddRange(_addlActionConfigs);
 
-			packageTester.AssertControllerScriptText(ControllerFullName, context, expectedText);
+			return tester.GetDefaultControllerContext(actionConfig);
 		}
 
 		private TypeCollectionTester CreateTester()
