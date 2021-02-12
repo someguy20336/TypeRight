@@ -1,4 +1,5 @@
-﻿using TypeRight.Tests.TestBuilders;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using TypeRight.Tests.TestBuilders;
 
 namespace TypeRight.Tests
 {
@@ -7,6 +8,7 @@ namespace TypeRight.Tests
 
 		protected TestWorkspaceBuilder WorkspaceBuilder { get; private set; }
 
+		[TestInitialize]
 		public virtual void TestInitialize()
 		{
 			WorkspaceBuilder = new TestWorkspaceBuilder();
@@ -21,6 +23,18 @@ namespace TypeRight.Tests
 		{
 			return WorkspaceBuilder.DefaultProject
 				.CreateClassBuilder(name, ns);
+		}
+
+		protected InterfaceBuilder AddInterface(string name, string ns = "Test")
+		{
+			return WorkspaceBuilder.DefaultProject
+				.CreateInterfaceBuilder(name, ns);
+		}
+
+		protected TestEnumBuilder AddEnum(string name)
+		{
+			return WorkspaceBuilder.DefaultProject
+				.CreateEnumBuilder(name);
 		}
 	}
 }

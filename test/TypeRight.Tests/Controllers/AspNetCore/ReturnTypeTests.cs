@@ -1,16 +1,13 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TypeRight.ScriptWriting.TypeScript;
+using TypeRight.Tests.TestBuilders;
 using TypeRight.Tests.Testers;
 
 namespace TypeRight.Tests.Controllers.AspNetCore
 {
 	[TestClass]
-	public class WebApiReturnTypeTests : ControllerTestsBase
+	public class ReturnTypeTests : ControllerTestsBase
 	{
 
 		protected override bool IsAspNetCore => true;
@@ -94,6 +91,68 @@ namespace TypeRight.Tests.Controllers.AspNetCore
 
 			AssertThatThisControllerAction("GetTaskResultClass")
 				.ReturnTypeTypescriptNameIs($"{FakeTypePrefixer.Prefix}.TestClass");
+		}
+
+
+
+		[TestMethod]
+		public void AnonymousTypes_Simple()
+		{
+			AddControllerAction("SimpleAnonymousType", MvcConstants.JsonResult_AspNetCore)
+				.AddLineOfCode("return Json(new { stringProp = \"Hi\", intProp = 1 });", 0)
+				.Commit();
+
+			Dictionary<string, string> expected = new Dictionary<string, string>
+			{
+				{ "stringProp", TypeScriptHelper.StringTypeName },
+				{ "intProp", TypeScriptHelper.NumericTypeName }
+			};
+
+			AssertThatThisControllerAction("SimpleAnonymousType")
+				.ReturnTypeTypescriptNameIs(TypeScriptHelper.BuildAnonymousType(expected));
+
+		}
+
+		[TestMethod]
+		public void AnonymousTypes_WithExtractedObject()
+		{
+			AddControllerAction("AnonymousTypeWithExtracted", "object")
+				.AddLineOfCode("TestClass test = new TestClass();", 0)
+				.AddLineOfCode("return new { testClassProp = test, intProp = 1 };", 0)
+				.Commit();
+
+			Dictionary<string, string> expected = new Dictionary<string, string>
+			{
+				{ "testClassProp", $"{FakeTypePrefixer.Prefix}.TestClass" },
+				{ "intProp", TypeScriptHelper.NumericTypeName }
+			};
+
+			AssertThatThisControllerAction("AnonymousTypeWithExtracted")
+				.ReturnTypeTypescriptNameIs(TypeScriptHelper.BuildAnonymousType(expected));
+
+		}
+
+		[TestMethod]
+		public void AnonymousTypes_WithNonExtractedObject()
+		{
+			AddClass("NotExtracted")
+				.AddProperty("DontCare", "int")
+				.Commit();
+
+			AddControllerAction("AnonymousTypeWithNonExtracted", MvcConstants.JsonResult_AspNetCore)
+				.AddLineOfCode("NotExtracted test = new NotExtracted();", 0)
+				.AddLineOfCode("return Json(new { testClassProp = test, intProp = 1 });", 0)
+				.Commit();
+
+			Dictionary<string, string> expected = new Dictionary<string, string>
+			{
+				{ "testClassProp", "any" },
+				{ "intProp", TypeScriptHelper.NumericTypeName }
+			};
+
+			AssertThatThisControllerAction("AnonymousTypeWithNonExtracted")
+				.ReturnTypeTypescriptNameIs(TypeScriptHelper.BuildAnonymousType(expected));
+
 		}
 	}
 }

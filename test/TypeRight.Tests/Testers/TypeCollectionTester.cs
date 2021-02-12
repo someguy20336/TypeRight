@@ -37,7 +37,7 @@ namespace TypeRight.Tests.Testers
 			return new ReferenceTypeTester(extrType, _typeFormatter);
 		}
 
-		public EnumTester TestEnumsWithName(string name)
+		public EnumTester TestEnumWithName(string name)
 		{
 			return new EnumTester(_typeCollection.GetEnumTypes().Where(en => en.Name == name).FirstOrDefault());
 		}
@@ -116,13 +116,6 @@ namespace TypeRight.Tests.Testers
 			};
 		}
 
-		public TypeCollectionTester AssertControllerScriptText(string controllerName, string expectedText)
-		{
-
-			ControllerContext context = GetDefaultControllerContext();
-
-			return AssertControllerScriptText(controllerName, context, expectedText);
-		}
 
 		public TypeCollectionTester AssertControllerScriptText(string controllerName, ControllerContext context, string expectedText)
 		{

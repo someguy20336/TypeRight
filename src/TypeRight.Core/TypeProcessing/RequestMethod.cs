@@ -32,6 +32,7 @@ namespace TypeRight.TypeProcessing
 			new RequestMethod("GET", MvcConstants.HttpGetAttributeName, false),
 			new RequestMethod("POST", MvcConstants.HttpPostAttributeName, true),
 			new RequestMethod("PUT", MvcConstants.HttpPutAttributeName, true),
+			new RequestMethod("PATCH", MvcConstants.HttpPatchAttributeName, true),
 			new RequestMethod("DELETE", MvcConstants.HttpDeleteAttributeName, false),
 			new DefaultRequestMethod()
 		};
