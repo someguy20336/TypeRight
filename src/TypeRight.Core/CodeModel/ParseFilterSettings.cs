@@ -1,8 +1,7 @@
 ﻿using TypeRight.Attributes;
 using TypeRight.TypeFilters;
-using TypeRight.TypeProcessing;
 
-namespace TypeRight.TypeLocation
+namespace TypeRight.CodeModel
 {
 	/// <summary>
 	/// Settings for the different parse filters

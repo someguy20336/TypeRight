@@ -1,6 +1,4 @@
-﻿using TypeRight.CodeModel;
-
-namespace TypeRight.TypeLocation
+﻿namespace TypeRight.CodeModel
 {
 	public interface ITypeVisitor
 	{

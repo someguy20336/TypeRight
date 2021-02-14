@@ -1,13 +1,10 @@
 ﻿using TypeRight.Configuration;
-using TypeRight.TypeLocation;
 using TypeRight.ScriptWriting;
-using TypeRight.ScriptWriting.TypeScript;
-using TypeRight.TypeFilters;
 using TypeRight.TypeProcessing;
 using System;
 using System.IO;
 using System.Linq;
-using System.Collections.Generic;
+using TypeRight.CodeModel;
 
 namespace TypeRight
 {

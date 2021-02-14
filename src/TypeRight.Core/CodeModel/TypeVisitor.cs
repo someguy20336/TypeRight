@@ -1,8 +1,6 @@
-﻿using TypeRight.CodeModel;
-using System.Collections.Generic;
-using TypeRight.TypeProcessing;
+﻿using TypeRight.TypeProcessing;
 
-namespace TypeRight.TypeLocation
+namespace TypeRight.CodeModel
 {
 	/// <summary>
 	/// An object that visits types to perform filtering and manipulation for a package

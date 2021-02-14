@@ -1,9 +1,9 @@
-﻿using TypeRight.TypeLocation;
-using TypeRight.Workspaces.Parsing;
+﻿using TypeRight.Workspaces.Parsing;
 using TypeRight.Tests.Testers;
 using Microsoft.CodeAnalysis;
 using System.Collections.Generic;
 using TypeRight.TypeProcessing;
+using TypeRight.CodeModel;
 
 namespace TypeRight.Tests.TestBuilders
 {

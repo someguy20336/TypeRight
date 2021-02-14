@@ -4,7 +4,6 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using TypeRight.Attributes;
-using TypeRight.TypeLocation;
 
 namespace TypeRight.Workspaces.Parsing
 {

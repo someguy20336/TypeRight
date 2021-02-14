@@ -1,4 +1,4 @@
-﻿namespace TypeRight.TypeLocation
+﻿namespace TypeRight.CodeModel
 {
 	/// <summary>
 	/// An object that iterates types with the given visitor

@@ -1,11 +1,6 @@
-﻿using TypeRight.TypeLocation;
-using TypeRight.ScriptWriting;
+﻿using TypeRight.ScriptWriting;
 using TypeRight.TypeProcessing;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TypeRight.ScriptWriting.TypeScript;
 
