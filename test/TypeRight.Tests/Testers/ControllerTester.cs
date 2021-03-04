@@ -8,8 +8,8 @@ namespace TypeRight.Tests.Testers
 {
 	public class ControllerTester
 	{
-		private MvcControllerInfo _controllerInfo;
-		private ControllerModel _controllerModel;
+		private readonly MvcControllerInfo _controllerInfo;
+		private readonly ControllerModel _controllerModel;
 
 		private readonly TypeFormatter _typeFormatter;
 

@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using TypeRight.Configuration;
 using TypeRight.TypeFilters;
 using TypeRight.TypeProcessing;
@@ -11,9 +9,10 @@ namespace TypeRight.ScriptWriting.TypeScript
 	public class ControllerProcessor
 	{
 		private TypeFormatter _typeFormatter;
-		private ControllerContext _context;
+		private readonly ControllerContext _context;
+		private readonly MvcControllerInfo _controllerInfo;
+
 		public ImportManager Imports { get; private set; }
-		private MvcControllerInfo _controllerInfo;
 
 		public ControllerProcessor(MvcControllerInfo controllerInfo, ControllerContext context)
 		{
@@ -25,11 +24,12 @@ namespace TypeRight.ScriptWriting.TypeScript
 		public ControllerModel CreateModel(TypeFormatter formatter)
 		{
 			_typeFormatter = formatter;
-			ControllerModel controllerModel = new ControllerModel();
-
-			controllerModel.Name = _controllerInfo.Name;
-			controllerModel.Actions = _controllerInfo.Actions.Select(ac => CreateActionModel(ac));
-			controllerModel.Imports = Imports.GetImports();
+			ControllerModel controllerModel = new ControllerModel
+			{
+				Name = _controllerInfo.Name,
+				Actions = _controllerInfo.Actions.Select(ac => CreateActionModel(ac)),
+				Imports = Imports.GetImports()
+			};
 			return controllerModel;
 		}
 

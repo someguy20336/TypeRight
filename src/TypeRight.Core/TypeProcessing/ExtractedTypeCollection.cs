@@ -9,10 +9,10 @@ namespace TypeRight.TypeProcessing
 	/// </summary>
 	public class ExtractedTypeCollection : IEnumerable<ExtractedType>
 	{
-		private TypeTable _typeTable;
-		private ProcessorSettings _settings;
+		private readonly TypeTable _typeTable;
+		private readonly ProcessorSettings _settings;
 		private List<MvcControllerInfo> _controllers;
-		private Dictionary<string, INamedType> _controllerTypes = new Dictionary<string, INamedType>();
+		private readonly Dictionary<string, INamedType> _controllerTypes = new Dictionary<string, INamedType>();
 
 		/// <summary>
 		/// Creates a new extracted type collection from the given package
