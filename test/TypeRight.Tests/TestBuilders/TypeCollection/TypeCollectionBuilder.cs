@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TypeRight.CodeModel;
 using TypeRight.CodeModel.Default;
 using TypeRight.TypeProcessing;
@@ -12,7 +10,7 @@ namespace TypeRight.Tests.TestBuilders.TypeCollection
 	/// <summary>
 	/// Builds a type collection
 	/// </summary>
-	internal class TypeCollectionBuilder
+	public class TypeCollectionBuilder
 	{
 
 		public const string DefaultNamespace = "Test.TypeCollection";

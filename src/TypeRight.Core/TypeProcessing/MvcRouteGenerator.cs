@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using TypeRight.ScriptWriting;
 using TypeRight.TypeFilters;
 using TypeRight.TypeProcessing.RouteGenerators;
 
@@ -11,12 +8,13 @@ namespace TypeRight.TypeProcessing
 	{
 		public const string ConventionalBaseRouteTemplate = "/[controller]/[action]";
 		public const string ConventionalBaseRouteTemplateWithArea = "/[area]/[controller]/[action]";
+		private readonly ControllerContext _context;
 
-		protected MvcControllerInfo Controller { get; }
+		protected MvcControllerInfo Controller => _context.Controller;
 
-		protected MvcRouteGenerator(MvcControllerInfo controllerInfo)
+		protected MvcRouteGenerator(ControllerContext context)
 		{
-			Controller = controllerInfo;
+			_context = context;
 		}
 
 		public string GenerateRouteTemplate(MvcActionInfo actionInfo)
@@ -58,29 +56,14 @@ namespace TypeRight.TypeProcessing
 			return actionInfo.RequestMethod.GetActionTemplate(actionInfo);
 		}
 
-		public static MvcRouteGenerator CreateGenerator(MvcControllerInfo controllerInfo)
+		public static MvcRouteGenerator CreateGenerator(ControllerContext context)
 		{
 			TypeFilter aspNetCoreFilter = new IsOfTypeFilter(MvcConstants.ControllerBaseFullName_AspNetCore);
 
+			var controllerInfo = context.Controller;
 			return aspNetCoreFilter.Evaluate(controllerInfo.NamedType) 
-				? new AspNetCoreRouteGenerator(controllerInfo) 
-				: (MvcRouteGenerator)new AspNetRouteGenerator(controllerInfo);
-		}
-
-		private string CreateBaseRoute(string routeTemplate, string controllerName, string area)
-		{
-			string template = routeTemplate.Replace("[area]", area).Replace("[controller]", controllerName);
-
-			if (!template.StartsWith("/"))
-			{
-				template = "/" + template;
-			}
-			if (!template.EndsWith("/"))
-			{
-				template += "/";
-			}
-
-			return template;
+				? new AspNetCoreRouteGenerator(context) 
+				: (MvcRouteGenerator)new AspNetRouteGenerator(context);
 		}
 
 		protected abstract string GetBaseRouteTemplate();

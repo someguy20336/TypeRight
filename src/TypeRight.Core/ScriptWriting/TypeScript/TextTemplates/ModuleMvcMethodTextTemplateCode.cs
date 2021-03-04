@@ -10,8 +10,6 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
 {
 	partial class ModuleMvcMethodTextTemplate : IControllerTextTemplate
 	{
-		private ControllerContext _context;
-
 		private MvcMethodTextTemplateBase _innerTemplate;
 
 		private ControllerModel _model;
@@ -22,12 +20,10 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
 		/// <param name="controllerInfo">The controller info</param>
 		/// <param name="context">The script write context</param>
 		/// <returns>the script text</returns>
-		public string GetText(MvcControllerInfo controllerInfo, ControllerContext context)
+		public string GetText(ControllerContext context)
 		{
-			_context = context;
-
 			// This is kinda weird..
-			ControllerProcessor controllerProcessor = new ControllerProcessor(controllerInfo, context);
+			ControllerProcessor controllerProcessor = new ControllerProcessor(context);
 			TypeFormatter formatter = new TypeScriptTypeFormatter(context.TypeCollection, new ModuleTypePrefixResolver(controllerProcessor.Imports));
 			_model = controllerProcessor.CreateModel(formatter);
 

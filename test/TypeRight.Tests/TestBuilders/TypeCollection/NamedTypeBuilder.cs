@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TypeRight.CodeModel;
 using TypeRight.CodeModel.Default;
 
 namespace TypeRight.Tests.TestBuilders.TypeCollection
 {
-	internal class NamedTypeBuilder : IBuilderWithPropertyList, IAttributable
+	public class NamedTypeBuilder : IBuilderWithPropertyList, IAttributable
 	{
 		private string _name;
 		private string _namespace = TypeCollectionBuilder.DefaultNamespace;

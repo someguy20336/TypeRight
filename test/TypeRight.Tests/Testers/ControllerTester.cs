@@ -1,5 +1,4 @@
 ﻿using TypeRight.ScriptWriting;
-using TypeRight.TypeProcessing;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TypeRight.ScriptWriting.TypeScript;
@@ -8,21 +7,21 @@ namespace TypeRight.Tests.Testers
 {
 	public class ControllerTester
 	{
-		private readonly MvcControllerInfo _controllerInfo;
 		private readonly ControllerModel _controllerModel;
 
 		private readonly TypeFormatter _typeFormatter;
+		private readonly ControllerContext _context;
 
-		public ControllerTester(MvcControllerInfo controller, TypeFormatter typeFormatter, ControllerContext context)
+		public ControllerTester(TypeFormatter typeFormatter, ControllerContext context)
 		{
-			_controllerInfo = controller;
-			_controllerModel = new ControllerProcessor(controller, context).CreateModel(typeFormatter);
+			_controllerModel = new ControllerProcessor(context).CreateModel(typeFormatter);
 			_typeFormatter = typeFormatter;
+			_context = context;
 		}
 
 		public MvcActionTester TestActionWithName(string name)
 		{
-			return new MvcActionTester(_controllerInfo, _controllerInfo.Actions.Where(m => m.Name == name).First(), _typeFormatter);
+			return new MvcActionTester(_context, _context.Controller.Actions.Where(m => m.Name == name).First(), _typeFormatter);
 		}
 
 		public MvcActionModelTester TestActionModelWithName(string name)

@@ -10,14 +10,13 @@ namespace TypeRight.ScriptWriting.TypeScript
 	{
 		private TypeFormatter _typeFormatter;
 		private readonly ControllerContext _context;
-		private readonly MvcControllerInfo _controllerInfo;
+		protected MvcControllerInfo ControllerInfo => _context.Controller;
 
 		public ImportManager Imports { get; private set; }
 
-		public ControllerProcessor(MvcControllerInfo controllerInfo, ControllerContext context)
+		public ControllerProcessor(ControllerContext context)
 		{
 			_context = context;
-			_controllerInfo = controllerInfo;
 			CompileImports();
 		}
 
@@ -26,8 +25,8 @@ namespace TypeRight.ScriptWriting.TypeScript
 			_typeFormatter = formatter;
 			ControllerModel controllerModel = new ControllerModel
 			{
-				Name = _controllerInfo.Name,
-				Actions = _controllerInfo.Actions.Select(ac => CreateActionModel(ac)),
+				Name = ControllerInfo.Name,
+				Actions = ControllerInfo.Actions.Select(ac => CreateActionModel(ac)),
 				Imports = Imports.GetImports()
 			};
 			return controllerModel;
@@ -36,7 +35,7 @@ namespace TypeRight.ScriptWriting.TypeScript
 		private ControllerActionModel CreateActionModel(MvcActionInfo actionInfo)
 		{
 			FetchFunctionDescriptor fetchDescriptor = _context.FetchFunctionResolver.Resolve(actionInfo);
-			string routeTemplate = _controllerInfo.GetActionUrlTemplate(actionInfo);
+			string routeTemplate = MvcRouteGenerator.CreateGenerator(_context).GenerateRouteTemplate(actionInfo);
 
 			return new ControllerActionModel()
 			{
@@ -78,7 +77,7 @@ namespace TypeRight.ScriptWriting.TypeScript
 
 			// Note - this isn't great, but is how it has always worked.
 			// consider improving the asp.net stuff... or just cutting it out
-			if (_controllerInfo.IsAspNetCore)
+			if (ControllerInfo.IsAspNetCore)
 			{
 				var bodyFilter = new ParameterHasAttributeFilter(new IsOfTypeFilter(MvcConstants.FromBodyAttributeFullName_AspNetCore));
 				var queryFilter = new ParameterHasAttributeFilter(new IsOfTypeFilter(MvcConstants.FromQueryAttributeFullName_AspNetCore));
@@ -114,7 +113,7 @@ namespace TypeRight.ScriptWriting.TypeScript
 		private void CompileImports()
 		{
 			Imports = new ImportManager(_context.OutputPath);
-			foreach (MvcActionInfo actionInfo in _controllerInfo.Actions)
+			foreach (MvcActionInfo actionInfo in ControllerInfo.Actions)
 			{
 				CompileActionImport(actionInfo);
 			}
