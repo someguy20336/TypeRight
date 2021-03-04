@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System.Collections.Generic;
-using TypeRight.Configuration.Json;
 
 namespace TypeRight.Configuration
 {
@@ -19,7 +18,9 @@ namespace TypeRight.Configuration
 		/// Gets or sets whether script generation is enabled
 		/// </summary>
 		public bool Enabled { get; set; }
-		
+
+		public string BaseUrl { get; set; }
+
 		/// <summary>
 		/// Gets or sets the filepath of the generated result for the
 		/// classes and enums
@@ -38,7 +39,8 @@ namespace TypeRight.Configuration
 		{
 			Enabled = true;
 			ServerObjectsResultFilepath = "./Scripts/ServerObjects.ts";
-			
+
+			BaseUrl = "";
 			ActionConfigurations = new List<ActionConfig>();
 		}
 	}

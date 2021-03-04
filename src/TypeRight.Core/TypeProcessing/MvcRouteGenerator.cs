@@ -31,25 +31,38 @@ namespace TypeRight.TypeProcessing
 				.Replace("[controller]", Controller.ControllerName)
 				.Replace("[action]", actionInfo.Name);
 
-			if (!routeTemplate.StartsWith("/"))
-			{
-				routeTemplate = "/" + routeTemplate;
-			}
-
 			// Append HttpGet, Post, etc route name
 			string actionTemplate = GetActionTemplate(actionInfo);
 			if (!string.IsNullOrEmpty(actionTemplate))
 			{
-				if (!routeTemplate.EndsWith("/"))
-				{
-					routeTemplate += "/";
-				}
+				routeTemplate = AppendSlashIfNecessary(routeTemplate);
 				routeTemplate += actionTemplate;
 			}
 
-			return routeTemplate;
+			return PrependBasePath(routeTemplate);
 		}
 
+		private string PrependBasePath(string url)
+		{
+			string baseUrl = !string.IsNullOrEmpty(_context.BaseUrl) ? _context.BaseUrl : "/";
+			baseUrl = AppendSlashIfNecessary(baseUrl);
+
+			url = baseUrl + url.TrimStart('/');
+			if (!url.StartsWith("/"))
+			{
+				url = "/" + url;
+			}
+			return url;
+		}
+
+		private string AppendSlashIfNecessary(string path)
+		{
+			if (!path.EndsWith("/"))
+			{
+				path += "/";
+			}
+			return path;
+		}
 
 		private string GetActionTemplate(MvcActionInfo actionInfo)
 		{

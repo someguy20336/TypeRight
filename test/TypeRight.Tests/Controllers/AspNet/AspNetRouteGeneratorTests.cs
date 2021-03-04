@@ -28,7 +28,7 @@ namespace TypeRight.Tests.Controllers.AspNet
 		}
 
 		[TestMethod]
-		public void DotNet_Area_FromRouteArea_RoutedByConvention()
+		public void Area_FromRouteArea_RoutedByConvention()
 		{
 			Controller.AddAttribute(MvcConstants.RouteAreaAttributeFullName_AspNet, "ThingsArea");
 
@@ -49,6 +49,16 @@ namespace TypeRight.Tests.Controllers.AspNet
 		{
 			Controller.AddAttribute(MvcConstants.RouteAttributeFullName_AspNet, "api/Things");
 			Action.AddAttribute(MvcConstants.ToAspNetFullName(MvcConstants.HttpPatchAttributeName), "GetThings");
+
+			AssertRouteEquals("/api/Things/GetThings");
+		}
+
+		[TestMethod]
+		public void BaseUrl_IsPrepended()
+		{
+			GivenBaseUrl("api");
+			Controller.AddAttribute(MvcConstants.RouteAttributeFullName_AspNet, "Things");
+			Action.AddAttribute(MvcConstants.HttpGetAttributeFullName_AspNet, "GetThings");
 
 			AssertRouteEquals("/api/Things/GetThings");
 		}

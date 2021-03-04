@@ -91,15 +91,17 @@ namespace TypeRight
 				string outputPath = controller.GetControllerResultPath();
 				ControllerContext context = new ControllerContext()
 				{
-					OutputPath = outputPath,
+					OutputPath = outputPath,		// TODO: calculate from controller?
 					ServerObjectsResultFilepath = new Uri(resultAbsolute.LocalPath),
 					TypeCollection = typeCollection,
+					Controller = controller,
+					BaseUrl = configOptions.BaseUrl,
 
 					// Fetch Function
 					FetchFunctionResolver = fetchResolver
 				};
 
-				string controllerScript = scriptGen.CreateControllerTextTemplate().GetText(controller, context);
+				string controllerScript = scriptGen.CreateControllerTextTemplate().GetText(context);
 				File.WriteAllText(outputPath, controllerScript);
 			}
 

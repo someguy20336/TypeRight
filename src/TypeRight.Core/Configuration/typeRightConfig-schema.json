@@ -9,6 +9,10 @@
 			"type": "boolean",
 			"description": "Set to true to enable automatic script generation on build"
 		},
+		"baseUrl": {
+			"type": "string",
+			"description": "The base URL for generating MVC actions for this project.  Generally used when this project is a sub-application of another project."
+		},
 		"serverObjectsResultFilepath": {
 			"type": "string",
 			"default": "./Scripts/ServerObjects.ts",
