@@ -14,8 +14,10 @@ jobs:
       with:
         dotnet-version: 5.0.x
     - name: Restore dependencies
-      run: dotnet restore TypeRight.sln
-    - name: Build
-      run: dotnet build TypeRight.sln --no-restore
+      run: dotnet restore
+    - name: Build Core TypeRight
+      run: dotnet build ./src/TypeRight/TypeRight.csproj --no-restore
+    - name: Build Tests Project
+      run: dotnet build ./test/TypeRight.Tests/TypeRight.Tests.csproj --no-restore
     - name: Test
-      run: dotnet test TypeRight.sln --no-build --verbosity normal
+      run: dotnet test --no-build --verbosity normal
