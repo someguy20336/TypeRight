@@ -7,4 +7,4 @@ dotnet publish "..\src\TypeRight\TypeRight.csproj" /p:DeployOnBuild=true /p:Publ
 rmdir /Q /S nugetpkgs
 call nuget pack "..\DebugTypeRightNuspec.nuspec" -OutputDirectory nugetpkgs
 
-for %%a in (nugetpkgs\*.nupkg) do call nuget add nugetpkgs\TypeRightDebug.1.0.3.nupkg -Source .\LocalNugetRepo
+for %%a in (nugetpkgs\*.nupkg) do call nuget add nugetpkgs\TypeRightDebug.1.0.3.nupkg -Source .\TestProjects\LocalNugetRepo
