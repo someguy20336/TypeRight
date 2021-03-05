@@ -4,6 +4,7 @@ dotnet build "..\src\TypeRight.Attributes\TypeRight.Attributes.csproj" -c Releas
 dotnet build "..\src\TypeRight.Workspaces.VsixAdapter\TypeRight.Workspaces.VsixAdapter.csproj" -c Release
 dotnet publish "..\src\TypeRight\TypeRight.csproj" /p:DeployOnBuild=true /p:PublishProfile=Release
 
+rmdir /S /Q %UserProfile%\.nuget\packages\typerightdebug
 rmdir /Q /S nugetpkgs
 call nuget pack "..\DebugTypeRightNuspec.nuspec" -OutputDirectory nugetpkgs
 

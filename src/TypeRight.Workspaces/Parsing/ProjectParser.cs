@@ -16,7 +16,7 @@ namespace TypeRight.Workspaces.Parsing
 		/// <summary>
 		/// The current workspace
 		/// </summary>
-		private Workspace _workspace;
+		private readonly Workspace _workspace;
 		
 		/// <summary>
 		/// The path of the project currently being processed

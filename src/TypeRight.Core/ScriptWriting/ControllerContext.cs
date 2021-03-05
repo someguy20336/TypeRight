@@ -1,4 +1,5 @@
 ﻿using System;
+using TypeRight.TypeProcessing;
 
 namespace TypeRight.ScriptWriting
 {
@@ -14,6 +15,10 @@ namespace TypeRight.ScriptWriting
 		public Uri ServerObjectsResultFilepath { get; set; }
 				
 		public FetchFunctionResolver FetchFunctionResolver { get; set; }
+
+		public MvcControllerInfo Controller { get; set; }
+
+		public string BaseUrl { get; set; }
 
 	}
 }

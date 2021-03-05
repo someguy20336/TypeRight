@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using TypeRight.CodeModel;
+using TypeRight.ScriptWriting;
 
 namespace TypeRight.TypeProcessing.RouteGenerators
 {
@@ -11,7 +9,7 @@ namespace TypeRight.TypeProcessing.RouteGenerators
 	/// </summary>
 	class AspNetCoreRouteGenerator : MvcRouteGenerator
 	{
-		public AspNetCoreRouteGenerator(MvcControllerInfo controllerInfo) : base(controllerInfo)
+		public AspNetCoreRouteGenerator(ControllerContext context) : base(context)
 		{
 		}
 

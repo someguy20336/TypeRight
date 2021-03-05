@@ -24,7 +24,7 @@ namespace TypeRight.Tests.Testers
 
 			// TODO not hardcode?
 			_scriptWriter = new ModuleTemplate();
-			
+
 			// TODO any way to define this?  Or maybe an option when getting type name
 			_typeFormatter = new TypeScriptTypeFormatter(_typeCollection, new FakeTypePrefixer());
 		}
@@ -45,7 +45,8 @@ namespace TypeRight.Tests.Testers
 		public ControllerTester TestControllerWithName(string name, ControllerContext context = null)
 		{
 			context = context ?? GetDefaultControllerContext();
-			return new ControllerTester(_typeCollection.GetMvcControllers().Where(c => c.Name == name).FirstOrDefault(), _typeFormatter, context);
+			context.Controller = _typeCollection.GetMvcControllers().Where(c => c.Name == name).FirstOrDefault();
+			return new ControllerTester(_typeFormatter, context);
 		}
 
 		public TypeCollectionTester TestScriptText()
@@ -119,11 +120,8 @@ namespace TypeRight.Tests.Testers
 
 		public TypeCollectionTester AssertControllerScriptText(string controllerName, ControllerContext context, string expectedText)
 		{
-
-			string scriptText = _scriptWriter.CreateControllerTextTemplate().GetText(
-				_typeCollection.GetMvcControllers().Where(c => c.Name == controllerName).First(),
-				context
-				).Trim();
+			context.Controller = _typeCollection.GetMvcControllers().Where(c => c.Name == controllerName).First();
+			string scriptText = _scriptWriter.CreateControllerTextTemplate().GetText(context).Trim();
 
 			expectedText = expectedText.Trim();
 			Assert.AreEqual(expectedText, scriptText);

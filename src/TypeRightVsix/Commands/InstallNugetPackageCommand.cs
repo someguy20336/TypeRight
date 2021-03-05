@@ -44,10 +44,9 @@ namespace TypeRightVsix.Commands
 		/// <param name="package">Owner package, not null.</param>
 		private InstallNugetPackageCommand(Package package)
 		{
-			this._package = package ?? throw new ArgumentNullException("package");
+			this._package = package ?? throw new ArgumentNullException(nameof(package));
 
-			OleMenuCommandService commandService = this.ServiceProvider.GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
-			if (commandService != null)
+			if (this.ServiceProvider.GetService(typeof(IMenuCommandService)) is OleMenuCommandService commandService)
 			{
 				var menuCommandID = new CommandID(CommandSet, CommandId);
 				var menuItem = new OleMenuCommand(this.MenuItemCallback, menuCommandID);

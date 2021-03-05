@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using TypeRight.Configuration;
 using TypeRight.TypeFilters;
 using TypeRight.TypeProcessing;
@@ -11,32 +9,33 @@ namespace TypeRight.ScriptWriting.TypeScript
 	public class ControllerProcessor
 	{
 		private TypeFormatter _typeFormatter;
-		private ControllerContext _context;
-		public ImportManager Imports { get; private set; }
-		private MvcControllerInfo _controllerInfo;
+		private readonly ControllerContext _context;
+		protected MvcControllerInfo ControllerInfo => _context.Controller;
 
-		public ControllerProcessor(MvcControllerInfo controllerInfo, ControllerContext context)
+		public ImportManager Imports { get; private set; }
+
+		public ControllerProcessor(ControllerContext context)
 		{
 			_context = context;
-			_controllerInfo = controllerInfo;
 			CompileImports();
 		}
 
 		public ControllerModel CreateModel(TypeFormatter formatter)
 		{
 			_typeFormatter = formatter;
-			ControllerModel controllerModel = new ControllerModel();
-
-			controllerModel.Name = _controllerInfo.Name;
-			controllerModel.Actions = _controllerInfo.Actions.Select(ac => CreateActionModel(ac));
-			controllerModel.Imports = Imports.GetImports();
+			ControllerModel controllerModel = new ControllerModel
+			{
+				Name = ControllerInfo.Name,
+				Actions = ControllerInfo.Actions.Select(ac => CreateActionModel(ac)),
+				Imports = Imports.GetImports()
+			};
 			return controllerModel;
 		}
 
 		private ControllerActionModel CreateActionModel(MvcActionInfo actionInfo)
 		{
 			FetchFunctionDescriptor fetchDescriptor = _context.FetchFunctionResolver.Resolve(actionInfo);
-			string routeTemplate = _controllerInfo.GetActionUrlTemplate(actionInfo);
+			string routeTemplate = MvcRouteGenerator.CreateGenerator(_context).GenerateRouteTemplate(actionInfo);
 
 			return new ControllerActionModel()
 			{
@@ -78,7 +77,7 @@ namespace TypeRight.ScriptWriting.TypeScript
 
 			// Note - this isn't great, but is how it has always worked.
 			// consider improving the asp.net stuff... or just cutting it out
-			if (_controllerInfo.IsAspNetCore)
+			if (ControllerInfo.IsAspNetCore)
 			{
 				var bodyFilter = new ParameterHasAttributeFilter(new IsOfTypeFilter(MvcConstants.FromBodyAttributeFullName_AspNetCore));
 				var queryFilter = new ParameterHasAttributeFilter(new IsOfTypeFilter(MvcConstants.FromQueryAttributeFullName_AspNetCore));
@@ -114,7 +113,7 @@ namespace TypeRight.ScriptWriting.TypeScript
 		private void CompileImports()
 		{
 			Imports = new ImportManager(_context.OutputPath);
-			foreach (MvcActionInfo actionInfo in _controllerInfo.Actions)
+			foreach (MvcActionInfo actionInfo in ControllerInfo.Actions)
 			{
 				CompileActionImport(actionInfo);
 			}

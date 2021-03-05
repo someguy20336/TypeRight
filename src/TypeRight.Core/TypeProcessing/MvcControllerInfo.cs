@@ -76,12 +76,6 @@ namespace TypeRight.TypeProcessing
 			}
 		}
 
-		public string GetActionUrlTemplate(MvcActionInfo action)
-		{
-			var resolver = MvcRouteGenerator.CreateGenerator(this);
-			return resolver.GenerateRouteTemplate(action);
-		}
-
 		/// <summary>
 		/// Gets the result path for a controller
 		/// </summary>

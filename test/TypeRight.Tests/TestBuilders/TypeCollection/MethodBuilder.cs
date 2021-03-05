@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TypeRight.Attributes;
 using TypeRight.CodeModel;
 using TypeRight.CodeModel.Default;
 
 namespace TypeRight.Tests.TestBuilders.TypeCollection
 {
-	internal class MethodBuilder : IAttributable
+	public class MethodBuilder : IAttributable
 	{
 		private NamedTypeBuilder _parent;
 		private IType _returnType;
