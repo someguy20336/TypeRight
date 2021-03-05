@@ -58,7 +58,7 @@ namespace TypeRightVsix.Imports
 #if DEBUG && !NUGET
 			// Use the test build
 			string solnDir = new FileInfo(VsHelper.Current.Dte.Solution.FullName).Directory.FullName;
-			string relativeBuildDir = @"..\..\TypeRight.Workspaces.VsixAdapter\bin\Debug\";
+			string relativeBuildDir = @"..\..\..\src\TypeRight.Workspaces.VsixAdapter\bin\Debug\";
 			importDir = Path.GetFullPath(Path.Combine(solnDir, relativeBuildDir));
 #endif
 
