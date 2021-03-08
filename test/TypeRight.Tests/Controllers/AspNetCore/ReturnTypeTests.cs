@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using TypeRight.ScriptWriting.TypeScript;
 using TypeRight.Tests.TestBuilders;
 using TypeRight.Tests.Testers;
@@ -91,6 +92,17 @@ namespace TypeRight.Tests.Controllers.AspNetCore
 
 			AssertThatThisControllerAction("GetTaskResultClass")
 				.ReturnTypeTypescriptNameIs($"{FakeTypePrefixer.Prefix}.TestClass");
+		}
+
+		[TestMethod]
+		public void WebApi_TaskOfActionResultOfT_GetsT()
+		{
+			AddControllerAction("GetTaskResultClass", $"{typeof(Task).FullName}<{MvcConstants.ActionResult_AspNetCore}<string>>")
+				.AddLineOfCode("return null;", 0)
+				.Commit();
+
+			AssertThatThisControllerAction("GetTaskResultClass")
+				.ReturnTypeTypescriptNameIs($"string");
 		}
 
 
