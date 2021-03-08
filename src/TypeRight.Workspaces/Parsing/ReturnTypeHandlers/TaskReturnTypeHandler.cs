@@ -1,10 +1,6 @@
 ﻿using Microsoft.CodeAnalysis;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using TypeRight.CodeModel;
-using TypeRight.Workspaces.CodeModel;
 
 namespace TypeRight.Workspaces.Parsing
 {
@@ -12,17 +8,14 @@ namespace TypeRight.Workspaces.Parsing
 	{
 
 		private INamedTypeSymbol _targetType;
-		private ParseContext _context;
 
 		public TaskReturnTypeHandler(ParseContext context)
 		{
-			_context = context;
 			_targetType = context.Compilation.GetTypeByMetadataName(typeof(Task<>).FullName);
 		}
-		public override bool CanHandleMethodSymbol(IMethodSymbol method)
+		public override bool CanHandleType(ITypeSymbol currentType, IMethodSymbol method)
 		{
-			INamedTypeSymbol returnType = method.ReturnType as INamedTypeSymbol;
-			if (returnType == null)
+			if (!(currentType is INamedTypeSymbol returnType))
 			{
 				return false;
 			}
@@ -37,12 +30,11 @@ namespace TypeRight.Workspaces.Parsing
 			return typeArg.SpecialType != SpecialType.System_Object;    // Objects are handled by parsing the syntax
 		}
 
-		public override IType GetReturnType(ParseContext context, IMethodSymbol method)
+		public override IType GetReturnType(ParseContext context, ITypeSymbol currentType, IMethodSymbol method)
 		{
-			INamedTypeSymbol returnType = method.ReturnType as INamedTypeSymbol;
+			INamedTypeSymbol returnType = currentType as INamedTypeSymbol;
 			ITypeSymbol type = returnType.TypeArguments[0];
-			// TODO What if action result?  Maybe just handle later..
-			return RoslynType.CreateType(type, context);
+			return context.GetMethodReturnType(type, method);
 		}
 	}
 }

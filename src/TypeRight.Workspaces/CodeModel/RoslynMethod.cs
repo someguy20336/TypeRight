@@ -42,8 +42,7 @@ namespace TypeRight.Workspaces.CodeModel
 			// Return Type
 			_returnType = new Lazy<IType>(() =>
 			{
-				MethodReturnTypeHandler handler = context.GetMethodReturnTypeHandler(methodSymbol);
-				IType returnType = handler.GetReturnType(context, methodSymbol);
+				IType returnType = context.GetMethodReturnType(methodSymbol);
 				return returnType;
 			});
 
