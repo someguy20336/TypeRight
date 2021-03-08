@@ -95,14 +95,25 @@ namespace TypeRight.Tests.Controllers.AspNetCore
 		}
 
 		[TestMethod]
-		public void WebApi_TaskOfActionResultOfT_GetsT()
+		public void WebApi_TaskOfActionResultOfString_GetsString()
 		{
-			AddControllerAction("GetTaskResultClass", $"{typeof(Task).FullName}<{MvcConstants.ActionResult_AspNetCore}<string>>")
+			AddControllerAction("TestMethod", $"{typeof(Task).FullName}<{MvcConstants.ActionResult_AspNetCore}<string>>")
 				.AddLineOfCode("return null;", 0)
 				.Commit();
 
-			AssertThatThisControllerAction("GetTaskResultClass")
+			AssertThatThisControllerAction("TestMethod")
 				.ReturnTypeTypescriptNameIs($"string");
+		}
+
+		[TestMethod]
+		public void WebApi_TaskOfActionResultOfObject_ParsesSyntaxAndGetsTestClass()
+		{
+			AddControllerAction("TestMethod", $"{typeof(Task).FullName}<{MvcConstants.ActionResult_AspNetCore}<object>>")
+				.AddLineOfCode("return new TestClass();", 0)
+				.Commit();
+
+			AssertThatThisControllerAction("TestMethod")
+				.ReturnTypeTypescriptNameIs($"{FakeTypePrefixer.Prefix}.TestClass");
 		}
 
 
