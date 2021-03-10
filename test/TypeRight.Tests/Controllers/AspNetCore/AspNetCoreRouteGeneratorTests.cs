@@ -84,5 +84,15 @@ namespace TypeRight.Tests.Controllers.AspNetCore
 
 			AssertRouteEquals("/api/ThingsManagement/Things");
 		}
+
+		[TestMethod]
+		public void ApiVersion_IsResolved()
+		{
+			Controller.AddAttribute(MvcConstants.RouteAttributeFullName_AspNetCore, "api/v{v:apiVersion}/[controller]")
+				.AddAttribute(MvcConstants.ApiVersionAttributeFullName_AspNetCore, "1.0");
+
+
+			AssertRouteEquals("/api/v1.0/Things");
+		}
 	}
 }

@@ -18,6 +18,10 @@
 			"default": "./Scripts/ServerObjects.ts",
 			"description": "The default relative output path for any class marked with 'ScriptObject'.  This can be overridden with the 'ScriptObjects' attribute."
 		},
+		"queryParams": {
+			"type": [ "object", "string" ],
+			"additionalProperties": { "type": "string"}
+		},
 		"actionConfigurations": {
 			"type": "array",
 			"description": "Array of action configurations.  Use these to configure how web APIs get called.",

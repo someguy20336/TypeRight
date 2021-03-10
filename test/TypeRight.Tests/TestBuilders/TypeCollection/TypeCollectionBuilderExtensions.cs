@@ -17,6 +17,7 @@ namespace TypeRight.Tests.TestBuilders.TypeCollection
 				.RegisterExternalType(MvcConstants.HttpPostAttributeName, MvcConstants.AspNetCoreNamespace)
 				.RegisterExternalType(MvcConstants.HttpPutAttributeName, MvcConstants.AspNetCoreNamespace)
 				.RegisterExternalType(MvcConstants.HttpPatchAttributeName, MvcConstants.AspNetCoreNamespace)
+				.RegisterExternalType(MvcConstants.ApiVersionAttributeFullName_AspNetCore)
 				;
 		}
 
@@ -29,6 +30,7 @@ namespace TypeRight.Tests.TestBuilders.TypeCollection
 				.RegisterExternalType(MvcConstants.HttpPostAttributeName, MvcConstants.AspNetNamespace)
 				.RegisterExternalType(MvcConstants.HttpPutAttributeName, MvcConstants.AspNetNamespace)
 				.RegisterExternalType(MvcConstants.HttpPatchAttributeName, MvcConstants.AspNetNamespace)
+				.RegisterExternalType(MvcConstants.ApiVersionAttributeFullName_AspNet)
 			;
 		}
 

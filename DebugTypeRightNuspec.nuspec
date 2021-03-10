@@ -26,9 +26,9 @@
 		<file src=".\src\TypeRight\TypeRight.targets" target="build\TypeRightDebug.targets" />
 		<file src=".\src\TypeRight\bin\Release\net5.0\publish\*.*" target="tools" />
 		
-		<!-- Bridge -->
-		<file src=".\src\TypeRight.Workspaces.VsixAdapter\bin\Release\*.dll" target="tools\adapter" />
-		<file src=".\src\TypeRight.Workspaces.VsixAdapter\bin\Release\*.pdb" target="tools\adapter" />
+		<!-- Adapter -->
+		<file src=".\src\TypeRight.Workspaces.VsixAdapter\bin\Release\net472\*.dll" target="tools\adapter" />
+		<file src=".\src\TypeRight.Workspaces.VsixAdapter\bin\Release\net472\*.pdb" target="tools\adapter" />
 		
 		<!-- Content -->
 		<file src=".\Icons\TypeRight64x64.png" target="images\"></file>

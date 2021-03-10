@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using TypeRight.Tests.TestBuilders;
+using System.Collections.Specialized;
 
 namespace TypeRight.Tests.Testers
 {
@@ -44,19 +45,13 @@ namespace TypeRight.Tests.Testers
 
 		public ControllerTester TestControllerWithName(string name, ControllerContext context = null)
 		{
-			context = context ?? GetDefaultControllerContext();
-			context.Controller = _typeCollection.GetMvcControllers().Where(c => c.Name == name).FirstOrDefault();
+			context = context ?? GetDefaultControllerContext(name);
 			return new ControllerTester(_typeFormatter, context);
 		}
 
 		public TypeCollectionTester TestScriptText()
 		{
-			TypeWriteContext context = new TypeWriteContext()
-			{
-				IncludedTypes = _typeCollection,
-				TypeCollection = _typeCollection,
-				OutputPath = TestWorkspaceBuilder.DefaultResultPath
-			};
+			TypeWriteContext context = new TypeWriteContext(_typeCollection, _typeCollection, TestWorkspaceBuilder.DefaultResultPath);
 			string scriptText = _scriptWriter.CreateTypeTemplate().GetText(context);
 			Assert.IsFalse(string.IsNullOrEmpty(scriptText));
 			return this;
@@ -64,29 +59,24 @@ namespace TypeRight.Tests.Testers
 
 		public TypeCollectionTester AssertScriptText(string expectedText)
 		{
-			TypeWriteContext context = new TypeWriteContext()
-			{
-				IncludedTypes = _typeCollection,
-				TypeCollection = _typeCollection,
-				OutputPath = TestWorkspaceBuilder.DefaultResultPath,
-			};
+			TypeWriteContext context = new TypeWriteContext(_typeCollection, _typeCollection, TestWorkspaceBuilder.DefaultResultPath);
 			string scriptText = _scriptWriter.CreateTypeTemplate().GetText(context).Trim();
 			expectedText = expectedText.Trim();
 			Assert.AreEqual(expectedText, scriptText);
 			return this;
 		}
 
-		public ControllerContext GetDefaultControllerContext(List<ActionConfig> actionConfig = null)
+		public ControllerContext GetDefaultControllerContext(string controllerName, List<ActionConfig> actionConfig = null, NameValueCollection queryParams = null)
 		{
 			FetchFunctionResolver resolver = new FetchFunctionResolver(new Uri(@"C:\FolderA\FolderB\Project.csproj"), actionConfig ?? GetDefaultActionConfig());
-			return new ControllerContext()
-			{
-				TypeCollection = _typeCollection,
-				ServerObjectsResultFilepath = new Uri(@"C:\FolderA\FolderB\FolderC\FolderD\ServerObjects.ts"),
-				OutputPath = @"C:\FolderA\FolderB\FolderX\FolderY\SomeController.ts",
-
-				FetchFunctionResolver = resolver
-			};
+			return new ControllerContext(
+				_typeCollection.GetMvcControllers().Where(c => c.Name == controllerName).FirstOrDefault(),
+				@"C:\FolderA\FolderB\FolderX\FolderY\SomeController.ts",
+				_typeCollection,
+				new Uri(@"C:\FolderA\FolderB\FolderC\FolderD\ServerObjects.ts"),
+				resolver,
+				queryParams: queryParams
+				);
 		}
 
 		public List<ActionConfig> GetDefaultActionConfig()
@@ -118,9 +108,8 @@ namespace TypeRight.Tests.Testers
 		}
 
 
-		public TypeCollectionTester AssertControllerScriptText(string controllerName, ControllerContext context, string expectedText)
+		public TypeCollectionTester AssertControllerScriptText(ControllerContext context, string expectedText)
 		{
-			context.Controller = _typeCollection.GetMvcControllers().Where(c => c.Name == controllerName).First();
 			string scriptText = _scriptWriter.CreateControllerTextTemplate().GetText(context).Trim();
 
 			expectedText = expectedText.Trim();

@@ -1,7 +1,7 @@
 ﻿using Microsoft.CodeAnalysis;
 using System.Collections.Generic;
 using System.Linq;
-using TypeRight.TypeProcessing;
+using TypeRight.CodeModel;
 
 namespace TypeRight.Workspaces.Parsing
 {
@@ -59,10 +59,20 @@ namespace TypeRight.Workspaces.Parsing
 		/// </summary>
 		/// <param name="methodSymbol">The method symbol</param>
 		/// <returns>The matching return type handler</returns>
-		public MethodReturnTypeHandler GetMethodReturnTypeHandler(IMethodSymbol methodSymbol)
+		public IType GetMethodReturnType(IMethodSymbol methodSymbol)
 		{
-			return _returnTypeHandlers.FirstOrDefault(h => h.CanHandleMethodSymbol(methodSymbol));
+			return GetMethodReturnType(methodSymbol.ReturnType, methodSymbol);
 		}
-		
+
+		/// <summary>
+		/// Gets the return type handler for a given metho
+		/// </summary>
+		/// <param name="currentType">The current type being processed</param>
+		/// <param name="methodSymbol">The method symbol</param>
+		/// <returns>The matching return type handler</returns>
+		public IType GetMethodReturnType(ITypeSymbol currentType, IMethodSymbol methodSymbol)
+		{
+			return _returnTypeHandlers.FirstOrDefault(h => h.CanHandleType(currentType, methodSymbol)).GetReturnType(this, currentType, methodSymbol);
+		}
 	}
 }

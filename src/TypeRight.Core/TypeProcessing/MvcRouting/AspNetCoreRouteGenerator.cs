@@ -1,8 +1,9 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using TypeRight.CodeModel;
 using TypeRight.ScriptWriting;
 
-namespace TypeRight.TypeProcessing.RouteGenerators
+namespace TypeRight.TypeProcessing.MvcRouting
 {
 	/// <summary>
 	/// Route generator for ASP net Core controllers
@@ -29,6 +30,14 @@ namespace TypeRight.TypeProcessing.RouteGenerators
 			);
 
 			return routeAttr != null ? routeAttr.ConstructorArguments.FirstOrDefault() as string : "";
+		}
+
+		protected override List<RouteParameterResolver> GetParameterResolvers()
+		{
+			var list = base.GetParameterResolvers();
+			list.Add(ApiVersionRouteParameterResolver.AspNetCore);
+
+			return list;
 		}
 	}
 }

@@ -13,17 +13,19 @@ namespace TypeRight.Workspaces.Parsing
 		/// <summary>
 		/// Determines whether this handler can handle the given method
 		/// </summary>
+		/// <param name="currentType">The current type to evaluate</param>
 		/// <param name="method">The method to check</param>
 		/// <returns>True if this method can be handled by this object</returns>
-		public abstract bool CanHandleMethodSymbol(IMethodSymbol method);
+		public abstract bool CanHandleType(ITypeSymbol currentType, IMethodSymbol method);
 
 		/// <summary>
 		/// Gets the return type for the method
 		/// </summary>
 		/// <param name="context">The parse context</param>
+		/// <param name="currentType">The current return type to evaluate</param>
 		/// <param name="method">The method symbol</param>
 		/// <returns>The return type for the method</returns>
-		public abstract IType GetReturnType(ParseContext context, IMethodSymbol method);
+		public abstract IType GetReturnType(ParseContext context, ITypeSymbol currentType, IMethodSymbol method);
 	}
 
 	/// <summary>
@@ -31,25 +33,16 @@ namespace TypeRight.Workspaces.Parsing
 	/// </summary>
 	public class DefaultMethodReturnTypeHandler : MethodReturnTypeHandler
 	{
-		/// <summary>
-		/// Determines whether this handler can handle the given method
-		/// </summary>
-		/// <param name="method">The method to check</param>
-		/// <returns>True if this method can be handled by this object</returns>
-		public override bool CanHandleMethodSymbol(IMethodSymbol method)
+		/// <inheritdoc/>
+		public override bool CanHandleType(ITypeSymbol currentType, IMethodSymbol method)
 		{
 			return true;
 		}
 
-		/// <summary>
-		/// Gets the return type for the method
-		/// </summary>
-		/// <param name="context">The parse context</param>
-		/// <param name="method">The method symbol</param>
-		/// <returns>The return type for the method</returns>
-		public override IType GetReturnType(ParseContext context, IMethodSymbol method)
+		/// <inheritdoc/>
+		public override IType GetReturnType(ParseContext context, ITypeSymbol currentType, IMethodSymbol method)
 		{
-			return RoslynType.CreateType(method.ReturnType, context);
+			return RoslynType.CreateType(currentType, context);
 		}
 	}
 }

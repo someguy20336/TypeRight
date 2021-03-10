@@ -58,7 +58,7 @@ namespace TypeRightVsix.Imports
 #if DEBUG && !NUGET
 			// Use the test build
 			string solnDir = new FileInfo(VsHelper.Current.Dte.Solution.FullName).Directory.FullName;
-			string relativeBuildDir = @"..\..\..\src\TypeRight.Workspaces.VsixAdapter\bin\Debug\";
+			string relativeBuildDir = @"..\..\..\src\TypeRight.Workspaces.VsixAdapter\bin\Debug\net472";
 			importDir = Path.GetFullPath(Path.Combine(solnDir, relativeBuildDir));
 #endif
 
@@ -84,7 +84,7 @@ namespace TypeRightVsix.Imports
 #if DEBUG && !NUGET
 			if (Directory.Exists(CachePath))
 			{
-				Directory.Delete(CachePath);
+				Directory.Delete(CachePath, true);
 			}
 #endif
 			if (!Directory.Exists(CachePath))

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 
 namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
@@ -114,14 +115,15 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
 		private string GetUrl(ControllerActionModel action)
 		{
 			var urlParams = action.Parameters.Where(p => p.ActionParameterSourceType == ActionParameterSourceType.Query).ToList();
+			
+			NameValueCollection queryParams = new NameValueCollection(Context.QueryParameters);
 
-			string urlParamQuery = "";
-			if (urlParams.Count > 0)
+			foreach (var p in urlParams)
 			{
-				// TODO: need to escape?
-				// Null coalesce so we don't pass null or undefined into the URL - TS 3.7 though....
-				urlParamQuery = "?" + string.Join("&", urlParams.Select(p => $"{p.Name}=${{ { p.Name} ?? \"\" }}"));
+				queryParams.Add(p.Name, $"${{ { p.Name} ?? \"\" }}");
 			}
+
+			string urlParamQuery = queryParams.ToQueryString();
 
 			// Add the route params
 			string route = action.RouteTemplate;

@@ -1,6 +1,8 @@
 ﻿using TypeRight.CodeModel;
 using System.Collections.Generic;
 using System.Collections;
+using TypeRight.TypeFilters;
+using TypeRight.Attributes;
 
 namespace TypeRight.TypeProcessing
 {
@@ -9,6 +11,8 @@ namespace TypeRight.TypeProcessing
 	/// </summary>
 	public class ExtractedTypeCollection : IEnumerable<ExtractedType>
 	{
+		private static TypeFilter s_mvcActionFilter = new IsOfTypeFilter(typeof(ScriptActionAttribute).FullName);
+
 		private readonly TypeTable _typeTable;
 		private readonly ProcessorSettings _settings;
 		private List<MvcControllerInfo> _controllers;
@@ -67,7 +71,7 @@ namespace TypeRight.TypeProcessing
 				_controllers = new List<MvcControllerInfo>();
 				foreach (INamedType controllerType in _controllerTypes.Values)
 				{
-					MvcControllerInfo controllerInfo = new MvcControllerInfo(controllerType, _settings.MvcActionFilter, _typeTable);
+					MvcControllerInfo controllerInfo = new MvcControllerInfo(controllerType, s_mvcActionFilter, _typeTable);
 					if (controllerInfo.Actions.Count > 0)
 					{
 						_controllers.Add(controllerInfo);

@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.CodeAnalysis;
+﻿using Microsoft.CodeAnalysis;
 using TypeRight.CodeModel;
-using TypeRight.TypeProcessing;
-using TypeRight.Workspaces.CodeModel;
 
 namespace TypeRight.Workspaces.Parsing
 {
@@ -20,10 +13,9 @@ namespace TypeRight.Workspaces.Parsing
 			_targetType = context.Compilation.GetTypeByMetadataName(MvcConstants.ActionResult_AspNetCore + "`1");
 		}
 
-		public override bool CanHandleMethodSymbol(IMethodSymbol method)
+		public override bool CanHandleType(ITypeSymbol currentType, IMethodSymbol method)
 		{
-			INamedTypeSymbol returnType = method.ReturnType as INamedTypeSymbol;
-			if (returnType == null)
+			if (!(currentType is INamedTypeSymbol returnType))
 			{
 				return false;
 			}
@@ -38,10 +30,10 @@ namespace TypeRight.Workspaces.Parsing
 			return typeArg.SpecialType != SpecialType.System_Object;	// Objects are handled by parsing the syntax
 		}
 
-		public override IType GetReturnType(ParseContext context, IMethodSymbol method)
+		public override IType GetReturnType(ParseContext context, ITypeSymbol currentType, IMethodSymbol method)
 		{
-			INamedTypeSymbol returnType = method.ReturnType as INamedTypeSymbol;
-			return RoslynType.CreateType(returnType.TypeArguments[0], context);
+			INamedTypeSymbol returnType = currentType as INamedTypeSymbol;
+			return context.GetMethodReturnType(returnType.TypeArguments[0], method);
 		}
 	}
 }

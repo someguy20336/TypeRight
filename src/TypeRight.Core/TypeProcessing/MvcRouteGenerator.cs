@@ -1,6 +1,7 @@
-﻿using TypeRight.ScriptWriting;
+﻿using System.Collections.Generic;
+using TypeRight.ScriptWriting;
 using TypeRight.TypeFilters;
-using TypeRight.TypeProcessing.RouteGenerators;
+using TypeRight.TypeProcessing.MvcRouting;
 
 namespace TypeRight.TypeProcessing
 {
@@ -27,10 +28,6 @@ namespace TypeRight.TypeProcessing
 				routeTemplate = string.IsNullOrEmpty(area) ? ConventionalBaseRouteTemplate : ConventionalBaseRouteTemplateWithArea;
 			}
 
-			routeTemplate = routeTemplate.Replace("[area]", area)
-				.Replace("[controller]", Controller.ControllerName)
-				.Replace("[action]", actionInfo.Name);
-
 			// Append HttpGet, Post, etc route name
 			string actionTemplate = GetActionTemplate(actionInfo);
 			if (!string.IsNullOrEmpty(actionTemplate))
@@ -39,7 +36,18 @@ namespace TypeRight.TypeProcessing
 				routeTemplate += actionTemplate;
 			}
 
-			return PrependBasePath(routeTemplate);
+			routeTemplate = PrependBasePath(routeTemplate);
+
+			routeTemplate = routeTemplate.Replace("[area]", area);	// Not a great option for this yet...
+
+			foreach (var resolver in GetParameterResolvers())
+			{
+				routeTemplate = resolver.TryResolve(routeTemplate, Controller, actionInfo);
+			}
+			
+
+			return routeTemplate;
+
 		}
 
 		private string PrependBasePath(string url)
@@ -77,6 +85,15 @@ namespace TypeRight.TypeProcessing
 			return aspNetCoreFilter.Evaluate(controllerInfo.NamedType) 
 				? new AspNetCoreRouteGenerator(context) 
 				: (MvcRouteGenerator)new AspNetRouteGenerator(context);
+		}
+
+		protected virtual List<RouteParameterResolver> GetParameterResolvers()
+		{
+			return new List<RouteParameterResolver>()
+			{
+				new DelegateRouteParameterResolver((r, c, a) => r.Replace("[controller]", c.ControllerName)),
+				new DelegateRouteParameterResolver((r, c, a) => r.Replace("[action]", a.Name))
+			};
 		}
 
 		protected abstract string GetBaseRouteTemplate();

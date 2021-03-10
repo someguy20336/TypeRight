@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
 	<metadata>
 		<id>TypeRight</id>
-		<version>1.0.0</version>
+		<version>1.1.0</version>
 		<title>TypeRight</title>
 		<authors>Dave W</authors>
 		<owners>Dave W</owners>
@@ -28,9 +28,9 @@
 		<file src=".\src\TypeRight\TypeRight.targets" target="build" />
 		<file src=".\src\TypeRight\bin\Release\net5.0\publish\*.*" target="tools" />
 		
-		<!-- Bridge -->
-		<file src=".\src\TypeRight.Workspaces.VsixAdapter\bin\Release\*.dll" target="tools\adapter" />
-		<file src=".\src\TypeRight.Workspaces.VsixAdapter\bin\Release\*.pdb" target="tools\adapter" />
+		<!-- Adapter -->
+		<file src=".\src\TypeRight.Workspaces.VsixAdapter\bin\Release\net472\*.dll" target="tools\adapter" />
+		<file src=".\src\TypeRight.Workspaces.VsixAdapter\bin\Release\net472\*.pdb" target="tools\adapter" />
 		
 		<!-- Content -->
 		<file src=".\Icons\TypeRight64x64.png" target="images\"></file>

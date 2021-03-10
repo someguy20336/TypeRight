@@ -2,12 +2,16 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TypeRight.TypeFilters;
+using TypeRight.Attributes;
 
 namespace TypeRight.TypeProcessing
 {
 	internal class TypeTable : IEnumerable<ExtractedType>
 	{
 		private ProcessorSettings _settings;
+
+		private static TypeFilter s_enumDisplayNameFilter = new HasInterfaceOfTypeFilter(typeof(IEnumDisplayNameProvider).FullName);
 
 		/// <summary>
 		/// Index of types that are string types in Typescript
@@ -203,7 +207,7 @@ namespace TypeRight.TypeProcessing
 			{
 				_extractedTypes.Add(
 					metadataName,
-					new ExtractedEnumType(type, _settings.DisplayNameFilter, targetPath)
+					new ExtractedEnumType(type, s_enumDisplayNameFilter, targetPath)
 					);
 			}
 			else // class

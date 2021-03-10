@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using System.IO;
-using System.Xml.Serialization;
 
 namespace TypeRight.Configuration
 {
@@ -42,6 +41,16 @@ namespace TypeRight.Configuration
 			{
 				return JsonConvert.DeserializeObject<ConfigOptions>(File.ReadAllText(filePath));
 			}
+		}
+
+		/// <summary>
+		/// Parses a config file from the given json
+		/// </summary>
+		/// <param name="json">The json</param>
+		/// <returns>The config file object</returns>
+		public static ConfigOptions ParseFromJson(string json)
+		{
+			return JsonConvert.DeserializeObject<ConfigOptions>(json);
 		}
 
 		/// <summary>

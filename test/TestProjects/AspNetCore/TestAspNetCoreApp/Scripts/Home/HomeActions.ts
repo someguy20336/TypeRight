@@ -10,7 +10,7 @@ import * as Models from "./Models";
  * @param model 
  */
 export function AnonTypeWithDictionaryProperty(model: Models.CustomGroupObj3, abort?: AbortSignal): Promise<{ listObj: CustomGroup.CustomGroupObject1[] }> {
-	return callPost(`/Home/AnonTypeWithDictionaryProperty`, model, abort);
+	return callPost(`/Home/AnonTypeWithDictionaryProperty?param1=val1&param2=val2`, model, abort);
 }
 
 /**
@@ -18,7 +18,7 @@ export function AnonTypeWithDictionaryProperty(model: Models.CustomGroupObj3, ab
  * @param model 
  */
 export function FunctionWithModel(model: ServerObjects.ASimpleModel, abort?: AbortSignal): Promise<ServerObjects.ASimpleModel> {
-	return callPost(`/Home/FunctionWithModel`, model, abort);
+	return callPost(`/Home/FunctionWithModel?param1=val1&param2=val2`, model, abort);
 }
 
 /**
@@ -26,14 +26,14 @@ export function FunctionWithModel(model: ServerObjects.ASimpleModel, abort?: Abo
  * @param model 
  */
 export function MultipleFromStuff(model: ServerObjects.ASimpleModel, abort?: AbortSignal): Promise<ServerObjects.ASimpleModel> {
-	return callPost(`/Home/MultipleFromStuff`, model, abort);
+	return callPost(`/Home/MultipleFromStuff?param1=val1&param2=val2`, model, abort);
 }
 
 /**
  * 
  */
 export function NoFromBodyParams(abort?: AbortSignal): Promise<ServerObjects.ASimpleModel> {
-	return callPost(`/Home/NoFromBodyParams`, {}, abort);
+	return callPost(`/Home/NoFromBodyParams?param1=val1&param2=val2`, {}, abort);
 }
 
 /**
@@ -41,13 +41,13 @@ export function NoFromBodyParams(abort?: AbortSignal): Promise<ServerObjects.ASi
  * @param model 
  */
 export function OtherFunctionWithModel(model: CustomGroup.CustomGroupObject1, abort?: AbortSignal): Promise<CustomGroup.CustomGroupObject1> {
-	return callPost(`/Home/OtherFunctionWithModel`, model, abort);
+	return callPost(`/Home/OtherFunctionWithModel?param1=val1&param2=val2`, model, abort);
 }
 
 /**
  * 
  */
 export function TestJson(abort?: AbortSignal): Promise<ServerObjects.NetStandardClass> {
-	return callPost(`/Home/TestJson`, {}, abort);
+	return callPost(`/Home/TestJson?param1=val1&param2=val2`, {}, abort);
 }
 

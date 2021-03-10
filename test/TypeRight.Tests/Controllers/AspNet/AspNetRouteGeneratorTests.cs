@@ -63,5 +63,15 @@ namespace TypeRight.Tests.Controllers.AspNet
 			AssertRouteEquals("/api/Things/GetThings");
 		}
 
+		[TestMethod]
+		public void ApiVersion_IsResolved()
+		{
+			Controller.AddAttribute(MvcConstants.RouteAttributeFullName_AspNet, "api/v{v:apiVersion}/[controller]")
+				.AddAttribute(MvcConstants.ApiVersionAttributeFullName_AspNet, "1.0");
+
+
+			AssertRouteEquals("/api/v1.0/Things");
+		}
+
 	}
 }

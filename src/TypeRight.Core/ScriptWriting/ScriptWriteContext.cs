@@ -10,12 +10,20 @@ namespace TypeRight.ScriptWriting
 		/// <summary>
 		/// Gets or sets the output path
 		/// </summary>
-		public string OutputPath { get; set; }
+		public string OutputPath { get; private set; }
 
 		/// <summary>
 		/// Gets or sets the type collection
 		/// </summary>
-		public ExtractedTypeCollection TypeCollection { get; set; }
+		public ExtractedTypeCollection TypeCollection { get; private set; }
 
+		public ScriptWriteContext(
+			ExtractedTypeCollection extractedTypes,
+			string outputPath
+			)
+		{
+			OutputPath = outputPath;
+			TypeCollection = extractedTypes;
+		}
 	}
 }
