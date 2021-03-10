@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using TypeRight.Configuration.Json;
 
 namespace TypeRight.Configuration
 {
@@ -11,8 +13,8 @@ namespace TypeRight.Configuration
 	public class ConfigOptions
 	{
 		[JsonProperty("$schema")]
-		public string Schema { get; set; } 
-			= "https://raw.githubusercontent.com/someguy20336/TypeRight/v0.12/TypeRight.Core/Configuration/typeRightConfig-schema.json";
+		public string Schema { get; set; }
+			= "https://raw.githubusercontent.com/someguy20336/TypeRight/v1.1.0/src/TypeRight.Core/Configuration/typeRightConfig-schema.json";
 
 		/// <summary>
 		/// Gets or sets whether script generation is enabled
@@ -20,6 +22,9 @@ namespace TypeRight.Configuration
 		public bool Enabled { get; set; }
 
 		public string BaseUrl { get; set; }
+
+		[JsonConverter(typeof(QueryParamJsonConverter))]
+		public NameValueCollection QueryParams { get; set; }
 
 		/// <summary>
 		/// Gets or sets the filepath of the generated result for the
