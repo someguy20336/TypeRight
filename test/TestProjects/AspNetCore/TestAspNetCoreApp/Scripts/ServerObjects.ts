@@ -45,7 +45,7 @@ export interface GenericModel<T> {
 	Prop1: T;
 }
 
-/**  */
+/** Start some doc here */
 export interface NetStandardClass {
 	/**  */
 	HelloThere: number;

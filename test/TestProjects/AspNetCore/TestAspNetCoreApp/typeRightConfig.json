@@ -1,11 +1,11 @@
 {
+	"$schema": "https://raw.githubusercontent.com/someguy20336/TypeRight/v1.1.0/src/TypeRight.Core/Configuration/typeRightConfig-schema.json",
 	"enabled": true,
-	"classNamespace": "",
-	"enumNamespace": "",
-	"webMethodNamespace": "WebMethods",
 	"serverObjectsResultFilepath": "./Scripts/ServerObjects.ts",
-	"templateType": "module",
-	"modelBindingType": "singleParam",
+	"queryParams": {
+		"param1": "val1",
+		"param2": "val2"
+	},
 	"actionConfigurations": [
 		{
 			"fetchFunctionName": "callPost",
