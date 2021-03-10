@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TypeRight
+﻿namespace TypeRight
 {
 	public static class MvcConstants
 	{
 		public const string AspNetNamespace = "System.Web.Mvc";
 		public const string AspNetCoreNamespace = "Microsoft.AspNetCore.Mvc";
+
+		public const string ApiVersionAttributeName = "ApiVersionAttribute";
+		public static string ApiVersionAttributeFullName_AspNetCore = ToAspNetCoreFullName(ApiVersionAttributeName);
+		public static string ApiVersionAttributeFullName_AspNet = $"Microsoft.Web.Http.{ApiVersionAttributeName}";
 
 		public const string RouteAttributeName = "RouteAttribute";
 		public static string RouteAttributeFullName_AspNet => ToAspNetFullName(RouteAttributeName);

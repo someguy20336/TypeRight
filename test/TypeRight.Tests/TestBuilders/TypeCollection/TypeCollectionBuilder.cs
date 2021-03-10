@@ -73,5 +73,11 @@ namespace TypeRight.Tests.TestBuilders.TypeCollection
 			_externalTypes.Add(fullName, new NamedType(name, fullName));
 			return this;
 		}
+
+		public TypeCollectionBuilder RegisterExternalType(string fullName)
+		{
+			var split = fullName.Split(".");
+			return RegisterExternalType(split.Last(), string.Join(".", split.Take(split.Length - 1)));
+		}
 	}
 }
