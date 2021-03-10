@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using TypeRight.Configuration;
-using TypeRight.TypeFilters;
 using TypeRight.TypeProcessing;
 
 namespace TypeRight.ScriptWriting

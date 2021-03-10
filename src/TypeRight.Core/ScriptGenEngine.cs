@@ -73,12 +73,11 @@ namespace TypeRight
 			// Write the object script text
 			foreach (var typeGroup in typeCollection.GroupBy(t => t.TargetPath))
 			{
-				TypeWriteContext scriptContext = new TypeWriteContext()
-				{
-					IncludedTypes = typeGroup,
-					OutputPath = typeGroup.Key,
-					TypeCollection = typeCollection
-				};
+				TypeWriteContext scriptContext = new TypeWriteContext(
+					typeGroup,
+					typeCollection,
+					typeGroup.Key
+					);
 				string scriptText = scriptGen.CreateTypeTemplate().GetText(scriptContext);
 				File.WriteAllText(typeGroup.Key, scriptText);
 			}
@@ -88,21 +87,18 @@ namespace TypeRight
 
 			foreach (MvcControllerInfo controller in typeCollection.GetMvcControllers())
 			{
-				string outputPath = controller.GetControllerResultPath();
-				ControllerContext context = new ControllerContext()
-				{
-					OutputPath = outputPath,		// TODO: calculate from controller?
-					ServerObjectsResultFilepath = new Uri(resultAbsolute.LocalPath),
-					TypeCollection = typeCollection,
-					Controller = controller,
-					BaseUrl = configOptions.BaseUrl,
-
-					// Fetch Function
-					FetchFunctionResolver = fetchResolver
-				};
+				ControllerContext context = new ControllerContext(
+					controller,
+					controller.GetControllerResultPath(),
+					typeCollection,
+					new Uri(resultAbsolute.LocalPath),
+					fetchResolver,
+					configOptions.BaseUrl,
+					configOptions.QueryParams
+					);
 
 				string controllerScript = scriptGen.CreateControllerTextTemplate().GetText(context);
-				File.WriteAllText(outputPath, controllerScript);
+				File.WriteAllText(context.OutputPath, controllerScript);
 			}
 
 			return new ScriptGenerationResult(true, null);

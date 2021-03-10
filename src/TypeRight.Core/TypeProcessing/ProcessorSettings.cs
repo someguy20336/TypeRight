@@ -1,7 +1,4 @@
-﻿using TypeRight.Attributes;
-using TypeRight.TypeFilters;
-
-namespace TypeRight.TypeProcessing
+﻿namespace TypeRight.TypeProcessing
 {
 	/// <summary>
 	/// Settings to use while processing found types

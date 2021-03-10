@@ -40,17 +40,15 @@ namespace TypeRight.Tests.Controllers
 			Controller.BuildAsController();
 			var collection = _builder.Build();
 			var controller = collection.GetMvcControllers().First();
-			var routeGen = MvcRouteGenerator.CreateGenerator(new ControllerContext()
-			{
-				Controller = controller,
-				BaseUrl = _basePath,
-
-				// Not required... but kind of weird
-				FetchFunctionResolver = null,
-				OutputPath = "",
-				ServerObjectsResultFilepath = null,
-				TypeCollection = null
-			});
+			var routeGen = MvcRouteGenerator.CreateGenerator(new ControllerContext(
+				controller,
+				// TODO the amount of nulls here is kind of weird
+				"",
+				null,
+				null,
+				null,
+				_basePath
+				));
 			Assert.AreEqual(expectedRoute, routeGen.GenerateRouteTemplate(controller.Actions.First()));
 		}
 	}

@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using TypeRight.Configuration;
 using TypeRight.ScriptWriting;
@@ -13,6 +14,7 @@ namespace TypeRight.Tests.Controllers
 		private List<ImportDefinition> _importDefinitions;
 		private List<ActionParameter> _actionParams;
 		private List<ActionConfig> _addlActionConfigs;
+		private NameValueCollection _queryParams;
 
 		private string _scriptReturnType;
 
@@ -32,6 +34,7 @@ namespace TypeRight.Tests.Controllers
 			_actionParams = new List<ActionParameter>();
 			_addlActionConfigs = new List<ActionConfig>();
 			_scriptReturnType = "";
+			_queryParams = new NameValueCollection();
 
 			WorkspaceBuilder.DefaultProject
 				.AddFakeMvc();
@@ -79,6 +82,11 @@ namespace TypeRight.Tests.Controllers
 			_addlActionConfigs.Add(config);
 		}
 
+		protected void GivenQueryParameter(string key, string value)
+		{
+			_queryParams.Add(key, value);
+		}
+
 		protected void GivenScriptReturnType(string returnType) => _scriptReturnType = returnType;
 
 		protected MvcActionTester AssertThatThisControllerAction(string actionName)
@@ -104,7 +112,7 @@ namespace TypeRight.Tests.Controllers
 			var packageTester = WorkspaceBuilder.GetPackageTester();
 			var context = CreateContext(packageTester);
 
-			packageTester.AssertControllerScriptText(ControllerFullName, context, expectedText);
+			packageTester.AssertControllerScriptText(context, expectedText);
 		}
 
 		private ControllerContext CreateContext(TypeCollectionTester tester)
@@ -120,7 +128,7 @@ namespace TypeRight.Tests.Controllers
 
 			actionConfig.AddRange(_addlActionConfigs);
 
-			return tester.GetDefaultControllerContext(actionConfig);
+			return tester.GetDefaultControllerContext(ControllerFullName, actionConfig, _queryParams);
 		}
 
 		private TypeCollectionTester CreateTester()

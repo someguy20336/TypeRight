@@ -67,7 +67,7 @@ namespace TypeRight.Tests.TestsWithoutParsing
 			};
 			var actionConfig = tester.GetDefaultActionConfig();
 			actionConfig.First().Parameters = actionParameters;
-			var context = tester.GetDefaultControllerContext(actionConfig);
+			var context = tester.GetDefaultControllerContext("TestController", actionConfig);
 
 			// Required user param comes before optional ones
 			tester.TestControllerWithName("TestController", context)
