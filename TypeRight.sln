@@ -28,8 +28,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TypeRight.VsixContract", "src\TypeRight.VsixContract\TypeRight.VsixContract.csproj", "{B878F149-9BD3-437D-802C-D26481F5B055}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TypeRight.Build", "src\TypeRight.Build\TypeRight.Build.csproj", "{E423CC6B-3E41-4C30-8CA4-C6974CE8584B}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Vsix", "Vsix", "{50180D7A-7C03-4681-882B-D22FBB6A019A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{36E3404F-F368-42EE-9219-3A982563009C}"
@@ -44,11 +42,16 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "TypeRight.VsixContract.Mess
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TypeRight.VsixContractV2", "src\TypeRight.VsixContractV2\TypeRight.VsixContractV2.csproj", "{12A4926C-06E3-4CEB-AAB7-91D1DBE496A6}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "TypeRight.Shared", "src\TypeRight.Shared\TypeRight.Shared.shproj", "{AD8168E6-3ED3-41EA-978A-AC7DAE564B18}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		src\TypeRight.Shared\TypeRight.Shared.projitems*{19a3ac50-edee-4b95-808c-c9d64a8d80eb}*SharedItemsImports = 4
 		src\TypeRight.VsixContract.Messages\TypeRight.VsixContract.Messages.projitems*{19a3ac50-edee-4b95-808c-c9d64a8d80eb}*SharedItemsImports = 4
 		src\TypeRight.VsixContract.Messages\TypeRight.VsixContract.Messages.projitems*{21bcbe4c-3509-4e42-b2a0-5b848c8a75d8}*SharedItemsImports = 13
 		src\TypeRight.VsixContract.Messages\TypeRight.VsixContract.Messages.projitems*{ac6c53f4-fb54-48ab-8e96-1aa1ae93cba8}*SharedItemsImports = 5
+		src\TypeRight.Shared\TypeRight.Shared.projitems*{ad8168e6-3ed3-41ea-978a-ac7dae564b18}*SharedItemsImports = 13
+		src\TypeRight.Shared\TypeRight.Shared.projitems*{dae83799-c1eb-4d01-878e-75a9ff4889a0}*SharedItemsImports = 5
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug Local Nuget|Any CPU = Debug Local Nuget|Any CPU
@@ -189,22 +192,6 @@ Global
 		{B878F149-9BD3-437D-802C-D26481F5B055}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B878F149-9BD3-437D-802C-D26481F5B055}.Release|x86.ActiveCfg = Release|Any CPU
 		{B878F149-9BD3-437D-802C-D26481F5B055}.Release|x86.Build.0 = Release|Any CPU
-		{E423CC6B-3E41-4C30-8CA4-C6974CE8584B}.Debug Local Nuget|Any CPU.ActiveCfg = Debug|Any CPU
-		{E423CC6B-3E41-4C30-8CA4-C6974CE8584B}.Debug Local Nuget|Any CPU.Build.0 = Debug|Any CPU
-		{E423CC6B-3E41-4C30-8CA4-C6974CE8584B}.Debug Local Nuget|x86.ActiveCfg = Debug|Any CPU
-		{E423CC6B-3E41-4C30-8CA4-C6974CE8584B}.Debug Local Nuget|x86.Build.0 = Debug|Any CPU
-		{E423CC6B-3E41-4C30-8CA4-C6974CE8584B}.Debug Nuget|Any CPU.ActiveCfg = Debug|Any CPU
-		{E423CC6B-3E41-4C30-8CA4-C6974CE8584B}.Debug Nuget|Any CPU.Build.0 = Debug|Any CPU
-		{E423CC6B-3E41-4C30-8CA4-C6974CE8584B}.Debug Nuget|x86.ActiveCfg = Debug|Any CPU
-		{E423CC6B-3E41-4C30-8CA4-C6974CE8584B}.Debug Nuget|x86.Build.0 = Debug|Any CPU
-		{E423CC6B-3E41-4C30-8CA4-C6974CE8584B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E423CC6B-3E41-4C30-8CA4-C6974CE8584B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E423CC6B-3E41-4C30-8CA4-C6974CE8584B}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{E423CC6B-3E41-4C30-8CA4-C6974CE8584B}.Debug|x86.Build.0 = Debug|Any CPU
-		{E423CC6B-3E41-4C30-8CA4-C6974CE8584B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E423CC6B-3E41-4C30-8CA4-C6974CE8584B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E423CC6B-3E41-4C30-8CA4-C6974CE8584B}.Release|x86.ActiveCfg = Release|Any CPU
-		{E423CC6B-3E41-4C30-8CA4-C6974CE8584B}.Release|x86.Build.0 = Release|Any CPU
 		{12A4926C-06E3-4CEB-AAB7-91D1DBE496A6}.Debug Local Nuget|Any CPU.ActiveCfg = Debug|Any CPU
 		{12A4926C-06E3-4CEB-AAB7-91D1DBE496A6}.Debug Local Nuget|Any CPU.Build.0 = Debug|Any CPU
 		{12A4926C-06E3-4CEB-AAB7-91D1DBE496A6}.Debug Local Nuget|x86.ActiveCfg = Debug|Any CPU

@@ -5,6 +5,7 @@
     <RootNamespace>TypeRight.Workspaces</RootNamespace>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>TypeRightWorskspacesKey.snk</AssemblyOriginatorKeyFile>
+    <AssemblyVersion>1.1.0.0</AssemblyVersion>
   </PropertyGroup>
 
   <ItemGroup>
