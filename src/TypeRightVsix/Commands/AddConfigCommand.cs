@@ -123,7 +123,7 @@ namespace TypeRightVsix.Commands
 					&& !ConfigProcessing.ConfigExistsForProject(proj))
 				{
 
-					string configPath = ScriptGenAssemblyCache.GetForProj(proj)?.ConfigManager.GetConfigFilepath(proj.FullName);
+					string configPath = ScriptGenAssemblyCache.GetForProj(proj)?.GetConfigFilepath(proj.FullName);
 					if (string.IsNullOrEmpty(configPath))
 					{
 						VsShellUtilities.ShowMessageBox(
@@ -139,7 +139,7 @@ namespace TypeRightVsix.Commands
 
 					if (!File.Exists(configPath))
 					{
-						ScriptGenAssemblyCache.GetForProj(proj).ConfigManager.CreateNew(configPath);
+						ScriptGenAssemblyCache.GetForProj(proj).CreateNewConfigFile(configPath);
 					}
 					proj.ProjectItems.AddFromFile(configPath);
 

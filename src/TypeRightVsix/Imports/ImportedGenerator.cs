@@ -5,6 +5,9 @@ using System.IO;
 using TypeRight.VsixContract;
 using TypeRightVsix.Shared;
 using System.Reflection;
+using TypeRight.VsixContractV2;
+using Microsoft.CodeAnalysis;
+using TypeRight.VsixContract.Messages;
 
 namespace TypeRightVsix.Imports
 {
@@ -13,6 +16,14 @@ namespace TypeRightVsix.Imports
 	/// </summary>
 	class ImportedGenerator
 	{
+		[Import(typeof(IMessageRouter), AllowDefault = true)]
+		private IMessageRouter _messageRouter = null;
+
+		[Import(typeof(IScriptGenerationAdapter), AllowDefault = true)]
+		private IScriptGenerationAdapter _scriptGenerator;
+
+		[Import(typeof(IConfigManager), AllowDefault = true)]
+		private IConfigManager _configManager;
 
 		/// <summary>
 		/// Gets the assembly version for this generator
@@ -28,19 +39,7 @@ namespace TypeRightVsix.Imports
 		/// Gets the cache Path for this generator
 		/// </summary>
 		public string CachePath { get; }
-
-		/// <summary>
-		/// Gets or sets the engine provider
-		/// </summary>
-		[Import(typeof(IScriptGenerationAdapter))]
-		public IScriptGenerationAdapter ScriptGenerator { get; set; }		
-		
-		/// <summary>
-		/// Gets or sets the config manager
-		/// </summary>
-		[Import(typeof(IConfigManager))]
-		public IConfigManager ConfigManager { get; set; }
-
+				
 		/// <summary>
 		/// Creates a new imported generator
 		/// </summary>
@@ -90,7 +89,7 @@ namespace TypeRightVsix.Imports
 			if (!Directory.Exists(CachePath))
 			{
 				Directory.CreateDirectory(CachePath);
-				DirectoryCopy(AssemblyDirectory, CachePath, true);
+				FileUtils.DirectoryCopy(AssemblyDirectory, CachePath, true);
 			}
 
 			// Import the files
@@ -112,8 +111,8 @@ namespace TypeRightVsix.Imports
 
 		private void TrySetNullImporters()
 		{
-			ScriptGenerator = ScriptGenerator ?? new NullScriptGenerationAdapter();
-			ConfigManager = ConfigManager ?? new NullConfigManager();
+			_scriptGenerator = _scriptGenerator ?? new NullScriptGenerationAdapter();
+			_configManager = _configManager ?? new NullConfigManager();
 		}
 
 		private void TryGetLegacy()
@@ -124,13 +123,13 @@ namespace TypeRightVsix.Imports
 				Assembly assembly = Assembly.LoadFrom(genPath);
 				Type type = assembly.GetType("TypeRight.Workspaces.Parsing.WorkspaceGenEngineProvider");
 				dynamic legacyGenerator = Activator.CreateInstance(type);
-				ScriptGenerator = new LegacyScriptGenerationAdapter(legacyGenerator);
+				_scriptGenerator = new LegacyScriptGenerationAdapter(legacyGenerator);
 
 				string configPath = Path.Combine(CachePath, "TypeRight.dll");
 				assembly = Assembly.LoadFrom(configPath);
 				type = assembly.GetType("TypeRight.Configuration.ConfigManager");
 				dynamic legacyConfig = Activator.CreateInstance(type);
-				ConfigManager = new LegacyConfigManagerAdapter(legacyConfig);
+				_configManager = new LegacyConfigManagerAdapter(legacyConfig);
 			}
 			catch (Exception)
 			{
@@ -145,42 +144,32 @@ namespace TypeRightVsix.Imports
 			VsHelper.SetStatusBar("Failed to load compatible version of TypeRight");
 		}
 
-		private static void DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs)
+		public GenerateScriptsResponse GenerateScripts(Workspace workspace, string projPath, bool force)
 		{
-			// Get the subdirectories for the specified directory.
-			DirectoryInfo dir = new DirectoryInfo(sourceDirName);
+			GenerateScriptsRequest message = new GenerateScriptsRequest(workspace, projPath, force);
+			var result = _messageRouter.Send(message);
+			return GenerateScriptsResponse.Read(result);
+		}
 
-			if (!dir.Exists)
-			{
-				throw new DirectoryNotFoundException(
-					"Source directory does not exist or could not be found: "
-					+ sourceDirName);
-			}
+		public string GetConfigFilepath(string projPath)
+		{
+			GetConfigFilePathRequest message = new GetConfigFilePathRequest(projPath);
+			var result = _messageRouter.Send(message);
+			return GetConfigFilePathResponse.Read(result).FilePath;
+		}
 
-			DirectoryInfo[] dirs = dir.GetDirectories();
-			// If the destination directory doesn't exist, create it.
-			if (!Directory.Exists(destDirName))
-			{
-				Directory.CreateDirectory(destDirName);
-			}
+		public void CreateNewConfigFile(string configPath)
+		{
+			AddNewConfigFileRequest message = new AddNewConfigFileRequest(configPath);
+			_messageRouter.Send(message);
+			// return AddNewConfigFileResponse.Read(result);
+		}
 
-			// Get the files in the directory and copy them to the new location.
-			FileInfo[] files = dir.GetFiles();
-			foreach (FileInfo file in files)
-			{
-				string temppath = Path.Combine(destDirName, file.Name);
-				file.CopyTo(temppath, false);
-			}
-
-			// If copying subdirectories, copy them and their contents to new location.
-			if (copySubDirs)
-			{
-				foreach (DirectoryInfo subdir in dirs)
-				{
-					string temppath = Path.Combine(destDirName, subdir.Name);
-					DirectoryCopy(subdir.FullName, temppath, copySubDirs);
-				}
-			}
+		public bool IsEnabledForProject(string projPath)
+		{
+			IsEnabledForProjectRequest message = new IsEnabledForProjectRequest(projPath);
+			var result = _messageRouter.Send(message);
+			return IsEnabledForProjectResponse.Read(result).IsEnabled;
 		}
 	}
 }

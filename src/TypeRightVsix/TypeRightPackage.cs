@@ -112,8 +112,7 @@ namespace TypeRightVsix
 					BuildHelper.StartBuild(proj.FullName);
 					try
 					{
-						IScriptGenerationAdapter adapter = ScriptGenAssemblyCache.GetForProj(proj).ScriptGenerator;
-						adapter.GenerateScripts(workspace, proj.FullName, false);
+						ScriptGenAssemblyCache.GetForProj(proj).GenerateScripts(workspace, proj.FullName, false);
 					}
 					catch (Exception e)
 					{

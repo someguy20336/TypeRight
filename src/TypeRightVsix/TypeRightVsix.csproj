@@ -99,6 +99,7 @@
     </Compile>
     <Compile Include="Imports\LegacyGeneratorAdapters.cs" />
     <Compile Include="Imports\NullImports.cs" />
+    <Compile Include="Shared\FileUtils.cs" />
     <Compile Include="TypeRightPackage.cs" />
     <Compile Include="Commands\AddConfigCommand.cs" />
     <Compile Include="Commands\ProjectInfoCommand.cs" />
@@ -167,6 +168,10 @@
       <Project>{e423cc6b-3e41-4c30-8ca4-c6974ce8584b}</Project>
       <Name>TypeRight.Build</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TypeRight.VsixContractV2\TypeRight.VsixContractV2.csproj">
+      <Project>{12a4926c-06e3-4ceb-aab7-91d1dbe496a6}</Project>
+      <Name>TypeRight.VsixContractV2</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TypeRight.VsixContract\TypeRight.VsixContract.csproj">
       <Project>{b878f149-9bd3-437d-802c-d26481f5b055}</Project>
       <Name>TypeRight.VsixContract</Name>
@@ -189,6 +194,7 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
+  <Import Project="..\TypeRight.VsixContract.Messages\TypeRight.VsixContract.Messages.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />
   <PropertyGroup>

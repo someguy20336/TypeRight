@@ -1,8 +1,8 @@
 ﻿using Microsoft.CodeAnalysis;
-using System.ComponentModel.Composition;
 using System.Linq;
 using TypeRight.Workspaces.Parsing;
-using TypeRight.VsixContract;
+using TypeRight.VsixContract.Messages;
+using TypeRight.VsixContractV2;
 
 namespace TypeRight.Workspaces.VsixAdapter
 {
@@ -10,8 +10,7 @@ namespace TypeRight.Workspaces.VsixAdapter
 	/// <summary>
 	/// Provides a workspace generation engine object
 	/// </summary>
-	[Export(typeof(IScriptGenerationAdapter))]
-	public class WorkspaceGenerationAdapter : IScriptGenerationAdapter
+	public class ScriptGenerationAdapter
 	{
 		/// <summary>
 		/// Creates the script generation engine
@@ -19,8 +18,12 @@ namespace TypeRight.Workspaces.VsixAdapter
 		/// <param name="workspace">The workspace</param>
 		/// <param name="projPath">The project path</param>
 		/// <returns>The script generation engine</returns>
-		public IScriptGenerationResult GenerateScripts(Workspace workspace, string projPath, bool force)
+		public static IResponse GenerateScripts(IRequest request)
 		{
+			GenerateScriptsRequest message = GenerateScriptsRequest.Read(request);
+			Workspace workspace = message.Workspace;
+			string projPath = message.ProjectPath;
+
 			// Can i just use proj path in package builder?
 			ProjectId mainProjId = workspace.CurrentSolution.Projects
 						.Where(pr => pr.FilePath == projPath && pr.SupportsCompilation).FirstOrDefault()?.Id;
@@ -28,14 +31,11 @@ namespace TypeRight.Workspaces.VsixAdapter
 			var result = new ScriptGenEngine().GenerateScripts(new ScriptGenerationParameters()
 			{
 				ProjectPath = projPath,
-				TypeIterator = parser
+				TypeIterator = parser,
+				Force = message.Force
 			});
 
-			return new ScriptGenerationResultAdapter()
-			{
-				ErrorMessage = result.ErrorMessage,
-				Success = result.Success
-			};
+			return new GenerateScriptsResponse(result.Success, result.ErrorMessage);
 		}
 	}
 

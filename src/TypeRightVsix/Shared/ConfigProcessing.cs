@@ -41,7 +41,7 @@ namespace TypeRightVsix.Shared
 		public static bool IsGenEnabledForProject(Project proj)
 		{
 			ThreadHelper.ThrowIfNotOnUIThread();
-			return ScriptGenAssemblyCache.GetForProj(proj)?.ConfigManager.IsEnabled(proj.FullName) ?? false;
+			return ScriptGenAssemblyCache.GetForProj(proj)?.IsEnabledForProject(proj.FullName) ?? false;
 		}
 
 		/// <summary>
@@ -51,7 +51,7 @@ namespace TypeRightVsix.Shared
 		public static bool ConfigExistsForProject(Project proj)
 		{
 			ThreadHelper.ThrowIfNotOnUIThread();
-			string configPath = ScriptGenAssemblyCache.GetForProj(proj)?.ConfigManager.GetConfigFilepath(proj.FullName);
+			string configPath = ScriptGenAssemblyCache.GetForProj(proj)?.GetConfigFilepath(proj.FullName);
 			if (string.IsNullOrEmpty(configPath))
 			{
 				return false;
