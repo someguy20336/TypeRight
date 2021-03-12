@@ -82,6 +82,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
+    <DeployExtension>True</DeployExtension>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -100,7 +101,7 @@
     <Compile Include="Imports\ImportedToolV1.cs" />
     <Compile Include="Imports\ImportedToolV2.cs" />
     <Compile Include="Imports\LegacyGeneratorAdapters.cs" />
-    <Compile Include="Imports\NullImportdTool.cs" />
+    <Compile Include="Imports\NullImportedTool.cs" />
     <Compile Include="Imports\ToolImporter.cs" />
     <Compile Include="Shared\FileUtils.cs" />
     <Compile Include="TypeRightPackage.cs" />

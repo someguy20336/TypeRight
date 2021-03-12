@@ -1,6 +1,7 @@
 ﻿using EnvDTE;
 using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.IO;
 
 namespace TypeRightVsix.Imports
@@ -36,6 +37,26 @@ namespace TypeRightVsix.Imports
 			{
 				return importer.TryImport();
 			});
+		}
+
+		public static ImportedToolBase LoadFromDirectory(string vers, string dir)
+		{
+			var importer = new SpecifiedDirectoryImporter(vers, dir, CacheBasePath);
+			if (!importer.ShouldTryImport())
+			{
+				return null;        // Or null importer?
+			}
+			return s_imports.GetOrAdd(importer.Version, (dontcare) =>
+			{
+				return importer.TryImport();
+			});
+		}
+
+		public static IEnumerable<ImportedToolBase> GetAllLoaded() => s_imports.Values;
+		public static ImportedToolBase GetVersion(string version)
+		{
+			s_imports.TryGetValue(version, out var val);
+			return val;
 		}
 
 		private static ToolImporter GetImporter(Project proj)

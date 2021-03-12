@@ -8,10 +8,12 @@ namespace TypeRightVsix.Imports
 	/// </summary>
 	internal abstract class ImportedToolBase
 	{
+		public string Name => GetType().Name;
+
 		/// <summary>
 		/// Gets the assembly version for this generator
 		/// </summary>
-		public string AssemblyVersion { get; }
+		public string Version { get; }
 
 		/// <summary>
 		/// Gets the assembly path for this version
@@ -25,7 +27,7 @@ namespace TypeRightVsix.Imports
 				
 		public ImportedToolBase(string cachePath, string version, string assemDir)
 		{
-			AssemblyVersion = version;
+			Version = version;
 			CachePath = cachePath;
 			AssemblyDirectory = assemDir;
 		}

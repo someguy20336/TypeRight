@@ -92,7 +92,7 @@
 				<Parent guid="guidTypeRightPackageCmdSet" id="ContextMenuGroup" />
 				<CommandFlag>DynamicVisibility</CommandFlag>
 				<Strings>
-					<ButtonText>Project Info</ButtonText>
+					<ButtonText>Debug Info</ButtonText>
 				</Strings>
 			</Button>
 		</Buttons>
