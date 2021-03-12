@@ -97,15 +97,18 @@
     <Compile Include="Dialogs\ProjectInformation.xaml.cs">
       <DependentUpon>ProjectInformation.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Imports\ImportedToolV1.cs" />
+    <Compile Include="Imports\ImportedToolV2.cs" />
     <Compile Include="Imports\LegacyGeneratorAdapters.cs" />
-    <Compile Include="Imports\NullImports.cs" />
+    <Compile Include="Imports\NullImportdTool.cs" />
+    <Compile Include="Imports\ToolImporter.cs" />
     <Compile Include="Shared\FileUtils.cs" />
     <Compile Include="TypeRightPackage.cs" />
     <Compile Include="Commands\AddConfigCommand.cs" />
     <Compile Include="Commands\ProjectInfoCommand.cs" />
     <Compile Include="Commands\InstallNugetPackageCommand.cs" />
     <Compile Include="Commands\GenerateScriptsCommand.cs" />
-    <Compile Include="Imports\ImportedGenerator.cs" />
+    <Compile Include="Imports\ImportedToolBase.cs" />
     <Compile Include="Imports\ScriptGenAssemblyCache.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Shared\ConfigProcessing.cs" />
