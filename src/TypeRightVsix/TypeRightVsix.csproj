@@ -94,6 +94,7 @@
     <DeployExtension>False</DeployExtension>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Commands\UpgradeConfigCommand.cs" />
     <Compile Include="Dialogs\ProjectInformationDialog.cs" />
     <Compile Include="Dialogs\ProjectInformation.xaml.cs">
       <DependentUpon>ProjectInformation.xaml</DependentUpon>
@@ -106,7 +107,7 @@
     <Compile Include="Shared\FileUtils.cs" />
     <Compile Include="TypeRightPackage.cs" />
     <Compile Include="Commands\AddConfigCommand.cs" />
-    <Compile Include="Commands\ProjectInfoCommand.cs" />
+    <Compile Include="Commands\DebugInfoCommand.cs" />
     <Compile Include="Commands\InstallNugetPackageCommand.cs" />
     <Compile Include="Commands\GenerateScriptsCommand.cs" />
     <Compile Include="Imports\ImportedToolBase.cs" />

@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using System.IO;
 
 namespace TypeRight.Configuration
@@ -60,7 +61,15 @@ namespace TypeRight.Configuration
 		/// <param name="configPath">The path of the config file</param>
 		public static void Save(ConfigOptions config, string configPath)
 		{
-			File.WriteAllText(configPath, JsonConvert.SerializeObject(config, Formatting.Indented));
+			JsonSerializerSettings settings = new JsonSerializerSettings()
+			{
+				Formatting = Formatting.Indented,
+				ContractResolver = new DefaultContractResolver
+				{
+					NamingStrategy = new CamelCaseNamingStrategy()
+				}
+			};
+			File.WriteAllText(configPath, JsonConvert.SerializeObject(config, settings));
 		}
 
 		/// <summary>

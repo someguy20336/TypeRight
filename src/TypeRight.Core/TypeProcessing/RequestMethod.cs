@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using TypeRight.TypeFilters;
 
@@ -15,7 +16,7 @@ namespace TypeRight.TypeProcessing
 
 	internal class DefaultRequestMethod : IRequestMethod
 	{
-		public string Name { get; } = "DEFAULT";
+		public string Name { get; } = "default";
 
 		public bool HasBody { get; } = true;  // Just.... default i guess.
 
@@ -37,7 +38,7 @@ namespace TypeRight.TypeProcessing
 			new DefaultRequestMethod()
 		};
 
-		public static IRequestMethod Default => GetByName("DEFAULT");
+		public static IRequestMethod Default => GetByName("default");
 		public static IRequestMethod Get => GetByName("GET");
 		public static IRequestMethod Post => GetByName("POST");
 
@@ -70,7 +71,7 @@ namespace TypeRight.TypeProcessing
 		public static IRequestMethod GetByName(string name)
 		{
 			name = name.ToUpper();
-			return RequestMethods.FirstOrDefault(r => r.Name == name);
+			return RequestMethods.FirstOrDefault(r => r.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
 		}
 	}
 }

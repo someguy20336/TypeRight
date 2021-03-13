@@ -37,5 +37,25 @@ namespace TypeRight.Workspaces.VsixAdapter
 			ConfigParser.Save(configOpts, message.ConfigPath);
 			return new AddNewConfigFileResponse();
 		}
+
+		public static IResponse CanUpgradeConfig(IRequest request)
+		{
+			CanUpgradeConfigRequest message = CanUpgradeConfigRequest.Read(request);
+			var config = ConfigParser.ParseFromFile(message.ConfigPath);
+			var currentVers = new ConfigOptions();
+
+			return new CanUpgradeConfigResponse(config.Schema != currentVers.Schema);
+		}
+
+		public static IResponse UpgradeConfig(IRequest request)
+		{
+			UpgradeConfigRequest message = UpgradeConfigRequest.Read(request);
+			var config = ConfigParser.ParseFromFile(message.ConfigPath);
+			var currentVers = new ConfigOptions();
+			config.Schema = currentVers.Schema;
+			ConfigParser.Save(config, message.ConfigPath);
+
+			return new UpgradeConfigResponse();
+		}
 	}
 }

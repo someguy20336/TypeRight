@@ -10,9 +10,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)AddNewConfigFile.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CanUpgradeConfig.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GenerateScripts.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GetConfigFilePath.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IsEnabledForProject.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MessageBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UpgradeConfig.cs" />
   </ItemGroup>
 </Project>

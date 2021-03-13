@@ -1,10 +1,4 @@
-﻿//------------------------------------------------------------------------------
-// <copyright file="AddAttrRefCommand.cs" company="Company">
-//     Copyright (c) Company.  All rights reserved.
-// </copyright>
-//------------------------------------------------------------------------------
-
-using System;
+﻿using System;
 using System.ComponentModel.Design;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
@@ -65,11 +59,14 @@ namespace TypeRightVsix.Commands
 			ThreadHelper.ThrowIfNotOnUIThread();
 			OleMenuCommand button = (OleMenuCommand)sender;
 			button.Enabled = false;
+			button.Visible = false;
 
 			if (!VsHelper.GetSelectedItemsOfType<Project>().Any())
 			{
 				return;
 			}
+
+			button.Visible = true;
 						
 			foreach (Project proj in VsHelper.GetSelectedItemsOfType<Project>())
 			{

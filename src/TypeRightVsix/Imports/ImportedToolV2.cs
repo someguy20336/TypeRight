@@ -14,7 +14,6 @@ namespace TypeRightVsix.Imports
 			_messageRouter = router;
 		}
 
-
 		public override GenerateScriptsResponse GenerateScripts(Workspace workspace, string projPath, bool force)
 		{
 			GenerateScriptsRequest message = new GenerateScriptsRequest(workspace, projPath, force);
@@ -41,6 +40,24 @@ namespace TypeRightVsix.Imports
 			IsEnabledForProjectRequest message = new IsEnabledForProjectRequest(projPath);
 			var result = _messageRouter.Send(message);
 			return IsEnabledForProjectResponse.Read(result).IsEnabled;
+		}
+
+		public override bool CanUpgradeConfig(string configPath)
+		{
+			if (!_messageRouter.SupportsMessageType(UpgradeConfigRequest.MessageTypeValue))
+			{
+				return false;
+			}
+
+			CanUpgradeConfigRequest message = new CanUpgradeConfigRequest(configPath);
+			var result = _messageRouter.Send(message);
+			return CanUpgradeConfigResponse.Read(result).CanUpgrade;
+		}
+
+		public override void UpgradeConfig(string configPath)
+		{
+			UpgradeConfigRequest message = new UpgradeConfigRequest(configPath);
+			_messageRouter.Send(message);
 		}
 	}
 }

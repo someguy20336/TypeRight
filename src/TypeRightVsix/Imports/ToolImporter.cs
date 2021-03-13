@@ -8,7 +8,6 @@ using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using TypeRight.VsixContract;
 using TypeRight.VsixContractV2;
 using TypeRightVsix.Shared;
@@ -28,14 +27,14 @@ namespace TypeRightVsix.Imports
 			CacheBasePath = cacheBasePath;
 		}
 
-		public abstract bool ShouldTryImport();
+		public abstract bool CanImport();
 
 
 		public ImportedToolBase TryImport()
 		{
 			ThreadHelper.ThrowIfNotOnUIThread();
 
-			if (!ShouldTryImport())
+			if (!CanImport())
 			{
 				return NotApplicable();
 			}
@@ -136,7 +135,7 @@ namespace TypeRightVsix.Imports
 
 		protected override string GetImportFromDirectory() => Path.Combine(_pkg.InstallPath, "tools", "adapter");
 
-		public override bool ShouldTryImport() => _pkg != null;
+		public override bool CanImport() => _pkg != null;
 
 		/// <summary>
 		/// Gets the package metatdata installed for the given project
@@ -166,7 +165,7 @@ namespace TypeRightVsix.Imports
 		}
 		protected override string GetImportFromDirectory() => _dir;
 
-		public override bool ShouldTryImport() => true;
+		public override bool CanImport() => true;
 	}
 
 	internal class DebugDirectoryImporter : SpecifiedDirectoryImporter

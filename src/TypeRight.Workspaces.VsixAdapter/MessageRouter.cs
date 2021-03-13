@@ -16,7 +16,9 @@ namespace TypeRight.Workspaces.VsixAdapter
 			{  GenerateScriptsRequest.MessageTypeValue, req => ScriptGenerationAdapter.GenerateScripts(req) },
 			{  AddNewConfigFileRequest.MessageTypeValue, req => Configuration.CreateNew(req) },
 			{  IsEnabledForProjectRequest.MessageTypeValue, req => Configuration.IsEnabled(req) },
-			{  GetConfigFilePathRequest.MessageTypeValue, req => Configuration.GetConfigFilepath(req) }
+			{  GetConfigFilePathRequest.MessageTypeValue, req => Configuration.GetConfigFilepath(req) },
+			{  CanUpgradeConfigRequest.MessageTypeValue, req => Configuration.CanUpgradeConfig(req) },
+			{  UpgradeConfigRequest.MessageTypeValue, req => Configuration.UpgradeConfig(req) },
 		};
 
 

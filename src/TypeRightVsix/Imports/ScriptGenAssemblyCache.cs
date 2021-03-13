@@ -29,9 +29,9 @@ namespace TypeRightVsix.Imports
 		public static ImportedToolBase GetForProj(Project proj)
 		{
 			var importer = GetImporter(proj);
-			if (!importer.ShouldTryImport())
+			if (!importer.CanImport())
 			{
-				return null;		// Or null importer?
+				return new NullImportedTool(CacheBasePath, "", "");	
 			}
 			return s_imports.GetOrAdd(importer.Version, (dontcare) =>
 			{
@@ -42,9 +42,9 @@ namespace TypeRightVsix.Imports
 		public static ImportedToolBase LoadFromDirectory(string vers, string dir)
 		{
 			var importer = new SpecifiedDirectoryImporter(vers, dir, CacheBasePath);
-			if (!importer.ShouldTryImport())
+			if (!importer.CanImport())
 			{
-				return null;        // Or null importer?
+				return new NullImportedTool(CacheBasePath, "", "");
 			}
 			return s_imports.GetOrAdd(importer.Version, (dontcare) =>
 			{

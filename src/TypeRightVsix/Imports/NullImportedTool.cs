@@ -11,6 +11,7 @@ namespace TypeRightVsix.Imports
 		{
 		}
 
+
 		public override void CreateNewConfigFile(string configPath)
 		{
 		}
@@ -31,6 +32,12 @@ namespace TypeRightVsix.Imports
 		}
 
 		public override bool IsEnabledForProject(string projPath) => false;
+
+
+		public override bool CanUpgradeConfig(string configPath) => false;
+		public override void UpgradeConfig(string configPath)
+		{
+		}
 	}
 
 

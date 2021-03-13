@@ -1,14 +1,7 @@
-﻿//------------------------------------------------------------------------------
-// <copyright file="AddConfigCommand.cs" company="Company">
-//     Copyright (c) Company.  All rights reserved.
-// </copyright>
-//------------------------------------------------------------------------------
-
-using System;
+﻿using System;
 using System.ComponentModel.Design;
 using Microsoft.VisualStudio.Shell;
 using EnvDTE;
-using System.Linq;
 using TypeRightVsix.Shared;
 using System.IO;
 using TypeRightVsix.Imports;

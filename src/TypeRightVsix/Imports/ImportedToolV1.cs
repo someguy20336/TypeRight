@@ -16,6 +16,7 @@ namespace TypeRightVsix.Imports
 			_config = config;
 		}
 
+
 		public override void CreateNewConfigFile(string configPath)
 		{
 			_config.CreateNew(configPath);
@@ -35,6 +36,12 @@ namespace TypeRightVsix.Imports
 		public override bool IsEnabledForProject(string projPath)
 		{
 			return _config.IsEnabled(projPath);
+		}
+
+		public override bool CanUpgradeConfig(string configPath) => false;
+		public override void UpgradeConfig(string configPath)
+		{
+			throw new System.NotImplementedException();
 		}
 	}
 }

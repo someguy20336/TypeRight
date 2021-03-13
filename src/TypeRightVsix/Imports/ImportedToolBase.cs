@@ -39,5 +39,9 @@ namespace TypeRightVsix.Imports
 		public abstract void CreateNewConfigFile(string configPath);
 
 		public abstract bool IsEnabledForProject(string projPath);
+
+		public abstract bool CanUpgradeConfig(string configPath);
+
+		public abstract void UpgradeConfig(string configPath);
 	}
 }
