@@ -1,6 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFramework>net472</TargetFramework>
+		<AssemblyVersion>1.1.0.0</AssemblyVersion>
+		<SignAssembly>true</SignAssembly>
+		<AssemblyOriginatorKeyFile>Key.snk</AssemblyOriginatorKeyFile>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -30,7 +33,9 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\TypeRight.Attributes\TypeRight.Attributes.csproj" />
 	  <ProjectReference Include="..\TypeRight.Core\TypeRight.Core.csproj" />
-	  <ProjectReference Include="..\TypeRight.VsixContract\TypeRight.VsixContract.csproj" />
+	  <ProjectReference Include="..\TypeRight.VsixContractV2\TypeRight.VsixContractV2.csproj" />
 	  <ProjectReference Include="..\TypeRight.Workspaces\TypeRight.Workspaces.csproj" />
 	</ItemGroup>
+
+	<Import Project="..\TypeRight.VsixContract.Messages\TypeRight.VsixContract.Messages.projitems" Label="Shared" />
 </Project>

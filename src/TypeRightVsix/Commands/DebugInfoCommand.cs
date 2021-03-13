@@ -1,18 +1,9 @@
-﻿//------------------------------------------------------------------------------
-// <copyright file="ClearCacheCommand.cs" company="Company">
-//     Copyright (c) Company.  All rights reserved.
-// </copyright>
-//------------------------------------------------------------------------------
-
-using System;
+﻿using System;
 using System.ComponentModel.Design;
-using System.Globalization;
 using System.Linq;
 using EnvDTE;
 using Microsoft.VisualStudio.Shell;
-using Microsoft.VisualStudio.Shell.Interop;
 using TypeRightVsix.Dialogs;
-using TypeRightVsix.Imports;
 using TypeRightVsix.Shared;
 
 namespace TypeRightVsix.Commands
@@ -20,7 +11,7 @@ namespace TypeRightVsix.Commands
 	/// <summary>
 	/// Command handler
 	/// </summary>
-	internal sealed class ProjectInfoCommand
+	internal sealed class DebugInfoCommand
 	{
 		/// <summary>
 		/// Command ID.
@@ -38,11 +29,11 @@ namespace TypeRightVsix.Commands
 		private readonly Package package;
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="ProjectInfoCommand"/> class.
+		/// Initializes a new instance of the <see cref="DebugInfoCommand"/> class.
 		/// Adds our command handlers for menu (commands must exist in the command table file)
 		/// </summary>
 		/// <param name="package">Owner package, not null.</param>
-		private ProjectInfoCommand(Package package)
+		private DebugInfoCommand(Package package)
 		{
 			if (package == null)
 			{
@@ -79,7 +70,7 @@ namespace TypeRightVsix.Commands
 		/// <summary>
 		/// Gets the instance of the command.
 		/// </summary>
-		public static ProjectInfoCommand Instance
+		public static DebugInfoCommand Instance
 		{
 			get;
 			private set;
@@ -102,7 +93,7 @@ namespace TypeRightVsix.Commands
 		/// <param name="package">Owner package, not null.</param>
 		public static void Initialize(Package package)
 		{
-			Instance = new ProjectInfoCommand(package);
+			Instance = new DebugInfoCommand(package);
 		}
 
 		/// <summary>

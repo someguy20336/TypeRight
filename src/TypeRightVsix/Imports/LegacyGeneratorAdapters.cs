@@ -50,4 +50,13 @@ namespace TypeRightVsix.Imports
 			return options?.Enabled ?? false;
 		}
 	}
+
+
+	public class ScriptGenerationResultAdapter : IScriptGenerationResult
+	{
+		public bool Success { get; set; }
+
+		public string ErrorMessage { get; set; }
+
+	}
 }

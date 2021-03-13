@@ -5,6 +5,7 @@
     <TargetFramework>net5.0</TargetFramework>
     <RootNamespace>TypeRight</RootNamespace>
     <AssemblyName>TypeRight</AssemblyName>
+    <AssemblyVersion>1.1.0.0</AssemblyVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,7 +15,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TypeRight.Attributes\TypeRight.Attributes.csproj" />
-    <ProjectReference Include="..\TypeRight.Build\TypeRight.Build.csproj" />
     <ProjectReference Include="..\TypeRight.Core\TypeRight.Core.csproj" />
     <ProjectReference Include="..\TypeRight.Workspaces\TypeRight.Workspaces.csproj" />
   </ItemGroup>
@@ -24,5 +24,7 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+
+  <Import Project="..\TypeRight.Shared\TypeRight.Shared.projitems" Label="Shared" />
 
 </Project>

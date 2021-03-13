@@ -36,7 +36,6 @@ namespace TypeRightVsix
 	[InstalledProductRegistration("#110", "#112", "1.0", IconResourceID = 400)] // Info on this package for Help/About
 	[Guid(TypeRightPackage.PackageGuidString)]
 	[ProvideAutoLoad(UIContextGuids80.SolutionExists, PackageAutoLoadFlags.BackgroundLoad)]
-	[SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "pkgdef, VS and vsixmanifest are valid VS terms")]
 	[ProvideMenuResource("Menus.ctmenu", 1)]
 	public sealed class TypeRightPackage : AsyncPackage
 	{
@@ -90,8 +89,9 @@ namespace TypeRightVsix
 			AddConfigCommand.Initialize(this);
 			GenerateScriptsCommand.Initialize(this);
 			InstallNugetPackageCommand.Initialize(this);
-			ProjectInfoCommand.Initialize(this);
+			DebugInfoCommand.Initialize(this);
 			await base.InitializeAsync(cancellationToken, progress);
+		    await UpgradeConfigCommand.InitializeAsync(this);
 		}
 
 
@@ -109,11 +109,11 @@ namespace TypeRightVsix
 			{
 				foreach (EnvDTE.Project proj in enabledProj)
 				{
+					
 					BuildHelper.StartBuild(proj.FullName);
 					try
 					{
-						IScriptGenerationAdapter adapter = ScriptGenAssemblyCache.GetForProj(proj).ScriptGenerator;
-						adapter.GenerateScripts(workspace, proj.FullName, false);
+						ScriptGenAssemblyCache.GetForProj(proj).GenerateScripts(workspace, proj.FullName, false);
 					}
 					catch (Exception e)
 					{

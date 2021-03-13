@@ -1,14 +1,7 @@
-﻿//------------------------------------------------------------------------------
-// <copyright file="AddConfigCommand.cs" company="Company">
-//     Copyright (c) Company.  All rights reserved.
-// </copyright>
-//------------------------------------------------------------------------------
-
-using System;
+﻿using System;
 using System.ComponentModel.Design;
 using Microsoft.VisualStudio.Shell;
 using EnvDTE;
-using System.Linq;
 using TypeRightVsix.Shared;
 using System.IO;
 using TypeRightVsix.Imports;
@@ -123,7 +116,7 @@ namespace TypeRightVsix.Commands
 					&& !ConfigProcessing.ConfigExistsForProject(proj))
 				{
 
-					string configPath = ScriptGenAssemblyCache.GetForProj(proj)?.ConfigManager.GetConfigFilepath(proj.FullName);
+					string configPath = ScriptGenAssemblyCache.GetForProj(proj)?.GetConfigFilepath(proj.FullName);
 					if (string.IsNullOrEmpty(configPath))
 					{
 						VsShellUtilities.ShowMessageBox(
@@ -139,7 +132,7 @@ namespace TypeRightVsix.Commands
 
 					if (!File.Exists(configPath))
 					{
-						ScriptGenAssemblyCache.GetForProj(proj).ConfigManager.CreateNew(configPath);
+						ScriptGenAssemblyCache.GetForProj(proj).CreateNewConfigFile(configPath);
 					}
 					proj.ProjectItems.AddFromFile(configPath);
 

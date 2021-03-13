@@ -76,13 +76,13 @@
 					"description": "The return type for the fetch function.  Can use the token $returnType$ to use the return type of the action. Example: Promise<$returnType$>"
 				},
 				"imports": {
-					"type": "array",
+					"type": [ "array", "null" ],
 					"items": {
 						"$ref": "#/definitions/importDefinition"
 					}
 				},
 				"parameters": {
-					"type": "array",
+					"type": [ "array", "null" ],
 					"items": {
 						"$ref": "#/definitions/actionParameter"
 					}

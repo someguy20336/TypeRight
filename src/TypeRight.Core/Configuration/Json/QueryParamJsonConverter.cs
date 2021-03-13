@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 
 namespace TypeRight.Configuration.Json
@@ -61,7 +62,19 @@ namespace TypeRight.Configuration.Json
 
 		public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
 		{
-			throw new NotImplementedException();
+			var col = value as NameValueCollection;
+			if (col == null || col.Count == 0)
+			{
+				writer.WriteNull();
+			}
+
+			Dictionary<string, string> queryParams = new Dictionary<string, string>();
+			foreach (string key in col.Keys)
+			{
+				queryParams.Add(key, col.Get(key));
+			}
+
+			serializer.Serialize(writer, queryParams);
 		}
 	}
 }

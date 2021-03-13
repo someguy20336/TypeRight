@@ -58,5 +58,47 @@
 			</Grid>
 
 		</Grid>
+
+
+		<TextBlock FontSize="12pt">Loaded Versions</TextBlock>
+		<ListView x:Name="lstImports" HorizontalAlignment="Stretch">
+			<ListView.ItemTemplate>
+				<DataTemplate>
+					<Grid HorizontalAlignment="Stretch">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="100"/>
+							<ColumnDefinition Width="*"/>
+						</Grid.ColumnDefinitions>
+						<TextBlock Grid.Column="0" Text="{Binding Version}" />
+						<TextBlock Grid.Column="1" Text="{Binding Name}" />
+					</Grid>
+				</DataTemplate>
+			</ListView.ItemTemplate>
+		</ListView>
+
+		<StackPanel x:Name="pnlDebugActions" Visibility="Hidden">
+			<Button x:Name="btnGenScripts" Click="btnGenScripts_Click">Generate Scripts With Selected</Button>
+			<TextBlock Margin="0,10,0,0" FontSize="12pt">Maunally Load Version</TextBlock>
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="100"/>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="100"/>
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+				</Grid.RowDefinitions>
+
+				<Label Grid.Row="0" Grid.Column="0" Margin="0,0,10,0">Name</Label>
+				<Label Grid.Row="0" Grid.Column="1" Margin="0,0,10,0">Directory</Label>
+				
+				<TextBox x:Name="txtMnlName" Grid.Row="1" Grid.Column="0" Margin="0,0,10,0"></TextBox>
+				<TextBox x:Name="txtMnlDir" Grid.Row="1" Grid.Column="1" Margin="0,0,10,0"></TextBox>
+				<Button Grid.Row="1" x:Name="btnManualLoad" Click="btnManualLoad_Click" Grid.Column="2">Load</Button>
+			</Grid>
+		</StackPanel>
+		
+		
 	</StackPanel>
 </UserControl>

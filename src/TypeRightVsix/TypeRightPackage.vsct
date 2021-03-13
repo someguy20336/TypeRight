@@ -51,6 +51,9 @@
 			<Group guid="guidTypeRightPackageCmdSet" id="SolExpMenu" priority="0x0200">
 				<Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_PROJNODE" />
 			</Group>
+			<Group guid="guidTypeRightPackageCmdSet" id="SolExpMenu" priority="0x0200">
+				<Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_ITEMNODE" />
+			</Group>
 			<Group guid="guidTypeRightPackageCmdSet" id="ContextMenuGroup" priority="0x0600">
 				<Parent guid="guidTypeRightPackageCmdSet" id="ContextMenu" />
 			</Group>
@@ -92,7 +95,14 @@
 				<Parent guid="guidTypeRightPackageCmdSet" id="ContextMenuGroup" />
 				<CommandFlag>DynamicVisibility</CommandFlag>
 				<Strings>
-					<ButtonText>Project Info</ButtonText>
+					<ButtonText>Debug Info</ButtonText>
+				</Strings>
+			</Button>
+			<Button guid="guidTypeRightPackageCmdSet" id="cmdidUpgradeConfigCommand" priority="0x0100" type="Button">
+				<Parent guid="guidTypeRightPackageCmdSet" id="ContextMenuGroup" />
+				<CommandFlag>DynamicVisibility</CommandFlag>
+				<Strings>
+					<ButtonText>Upgrade Config</ButtonText>
 				</Strings>
 			</Button>
 		</Buttons>
@@ -123,6 +133,7 @@
 			<IDSymbol value="4129" name="cmdidAddConfigCommand" />
 			<IDSymbol value="4130" name="cmdidAddAttributesReference" />
 			<IDSymbol value="4131" name="cmdidProjInfoCommand" />
+			<IDSymbol value="4132" name="cmdidUpgradeConfigCommand" />
 		</GuidSymbol>
 	</Symbols>
 </CommandTable>

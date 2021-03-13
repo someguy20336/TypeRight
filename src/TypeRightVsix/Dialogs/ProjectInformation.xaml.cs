@@ -1,22 +1,14 @@
 ﻿using EnvDTE;
+using Microsoft.VisualStudio.Shell;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Windows.Threading;
 using TypeRightVsix.Imports;
+using TypeRightVsix.Shared;
 
 namespace TypeRightVsix.Dialogs
 {
@@ -26,15 +18,17 @@ namespace TypeRightVsix.Dialogs
 	public partial class ProjectInformation : UserControl
 	{
 		private DispatcherTimer _messageTimer;
+		private readonly Project _proj;
+
 		public ProjectInformation(Project proj)
 		{
 			InitializeComponent();
-			Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+			ThreadHelper.ThrowIfNotOnUIThread();
 			txtProjectName.Text = proj.Name;
 
 			var imported = ScriptGenAssemblyCache.GetForProj(proj);
 
-			lblVersion.Content = imported.AssemblyVersion;
+			lblVersion.Content = imported.Version;
 
 			AddLink(lnkFromDirectory, imported.AssemblyDirectory);
 			AddLink(lnkCachedPath, imported.CachePath);
@@ -45,6 +39,14 @@ namespace TypeRightVsix.Dialogs
 			_messageTimer.Tick += _messageTimer_Tick; ;
 
 			Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
+
+			AddCurrentImports();
+
+#if DEBUG
+			pnlDebugActions.Visibility = Visibility.Visible;
+#endif
+
+			_proj = proj;
 		}
 
 		private void _messageTimer_Tick(object sender, EventArgs e)
@@ -106,5 +108,33 @@ namespace TypeRightVsix.Dialogs
 			_messageTimer.Start();
 		}
 
+		private void AddCurrentImports()
+		{
+			lstImports.Items.Clear();
+			foreach (var vers in ScriptGenAssemblyCache.GetAllLoaded())
+			{
+				lstImports.Items.Add(vers);
+			}
+		}
+
+		private void btnGenScripts_Click(object sender, RoutedEventArgs e)
+		{
+			ThreadHelper.ThrowIfNotOnUIThread();
+			if (lstImports.SelectedItem is ImportedToolBase item)
+			{
+				item.GenerateScripts(VsHelper.Current.GetCurrentWorkspace(), _proj.FullName, true);
+			}
+		}
+
+		private void btnManualLoad_Click(object sender, RoutedEventArgs e)
+		{
+			if (!string.IsNullOrEmpty(txtMnlName.Text) && !string.IsNullOrEmpty(txtMnlDir.Text))
+			{
+				ScriptGenAssemblyCache.LoadFromDirectory(txtMnlName.Text, txtMnlDir.Text);
+				AddCurrentImports();
+				txtMnlDir.Clear();
+				txtMnlName.Clear();
+			}
+		}
 	}
 }

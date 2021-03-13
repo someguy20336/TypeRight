@@ -1,10 +1,4 @@
-﻿//------------------------------------------------------------------------------
-// <copyright file="GenerateScriptsCommand.cs" company="Company">
-//     Copyright (c) Company.  All rights reserved.
-// </copyright>
-//------------------------------------------------------------------------------
-
-using System;
+﻿using System;
 using System.ComponentModel.Design;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
@@ -62,9 +56,11 @@ namespace TypeRightVsix.Commands
 			ThreadHelper.ThrowIfNotOnUIThread();
 			OleMenuCommand button = (OleMenuCommand)sender;
 			button.Enabled = false;
+			button.Visible = false;
 
 			foreach (EnvDTE.Project proj in VsHelper.GetSelectedItemsOfType<EnvDTE.Project>())
 			{
+				button.Visible = true;
 				if (!VsHelper.IsSolutionItemsFolder(proj)
 					&& VsHelper.IsPackageInstalled(proj)
 					&& ConfigProcessing.ConfigExistsForProject(proj))
@@ -119,8 +115,7 @@ namespace TypeRightVsix.Commands
 			{
 				if (ConfigProcessing.ConfigExistsForProject(proj))
 				{
-					var engine = Imports.ScriptGenAssemblyCache.GetForProj(proj).ScriptGenerator;
-					var result = engine.GenerateScripts(currentWorkspace, proj.FullName, true);
+					var result = Imports.ScriptGenAssemblyCache.GetForProj(proj).GenerateScripts(currentWorkspace, proj.FullName, true);
 					// Show a message box to prove we were here
 					if (!result.Success)
 					{
