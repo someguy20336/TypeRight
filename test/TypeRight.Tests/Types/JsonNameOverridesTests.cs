@@ -68,5 +68,6 @@ namespace TypeRight.Tests.Types
 
 		}
 
+		// TODO: test case for actual generated script
 	}
 }

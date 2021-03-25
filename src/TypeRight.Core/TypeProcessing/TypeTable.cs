@@ -7,7 +7,7 @@ using TypeRight.Attributes;
 
 namespace TypeRight.TypeProcessing
 {
-	internal class TypeTable : IEnumerable<ExtractedType>
+	internal class TypeTable : IEnumerable<ExtractedType>   // TODO: should this be renamed to more of a "context" thing?
 	{
 		internal ProcessorSettings Settings { get; }
 

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace TypeRight.CodeModel.Default
 {
@@ -11,6 +10,8 @@ namespace TypeRight.CodeModel.Default
 		public IType PropertyType { get; }
 
 		public string Comments { get; }
+
+		public IEnumerable<IAttributeData> Attributes => Array.Empty<IAttributeData>();
 
 		public Property(string name, IType propertyType, string comments = "")
 		{
