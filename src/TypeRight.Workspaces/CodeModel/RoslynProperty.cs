@@ -2,12 +2,15 @@
 using TypeRight.Workspaces.Parsing;
 using Microsoft.CodeAnalysis;
 using System;
+using System.Collections.Generic;
 
 namespace TypeRight.Workspaces.CodeModel
 {
-	class RoslynProperty : IProperty
+	internal class RoslynProperty : IProperty
 	{
 		private Lazy<IType> _propType;
+
+		private Lazy<IEnumerable<IAttributeData>> _lazyAttributes;
 
 		/// <summary>
 		/// Gets the name of the property
@@ -24,6 +27,8 @@ namespace TypeRight.Workspaces.CodeModel
 		/// </summary>
 		public string Comments { get; }
 
+		public IEnumerable<IAttributeData> Attributes => _lazyAttributes.Value;
+
 		public RoslynProperty(IPropertySymbol propSymbol, ParseContext context)
 		{
 			Name = propSymbol.Name;
@@ -31,6 +36,11 @@ namespace TypeRight.Workspaces.CodeModel
 			_propType = new Lazy<IType>(() =>
 			{
 				return RoslynType.CreateType(propSymbol.Type, context);
+			});
+
+			_lazyAttributes = new Lazy<IEnumerable<IAttributeData>>(() =>
+			{
+				return RoslynAttributeData.FromSymbol(propSymbol, context);
 			});
 			Comments = context.DocumentationProvider.GetDocumentationForSymbol(propSymbol).Summary;
 		}

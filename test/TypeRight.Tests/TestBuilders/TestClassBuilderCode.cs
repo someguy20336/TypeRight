@@ -1,12 +1,6 @@
-﻿using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.Text;
-using System;
+﻿using Microsoft.CodeAnalysis.Text;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TypeRight.Attributes;
-using TypeRight.TypeProcessing;
 
 namespace TypeRight.Tests.TestBuilders
 {

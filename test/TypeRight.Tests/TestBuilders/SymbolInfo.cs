@@ -2,7 +2,7 @@
 
 namespace TypeRight.Tests.TestBuilders
 {
-	public class SymbolInfo
+	public class SymbolInfo : IAttributable
 	{
 		public string Name { get; set; }
 
@@ -10,7 +10,7 @@ namespace TypeRight.Tests.TestBuilders
 
 		public string Comments { get; set; }
 
-		public List<AttributeInfo> Attributes { get; set; }
+		public List<AttributeInfo> Attributes { get; set; } = new List<AttributeInfo>();
 
 	}
 

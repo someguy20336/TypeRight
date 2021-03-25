@@ -34,7 +34,14 @@ namespace TypeRight.Tests.TestBuilders
 			builder.Properties.Add(new SymbolInfo() { Name = name, Type = type, Comments = comments });
 			return builder;
 		}
-		
+
+		public static IAttributable AddPropertyAndBuildAttributes<T>(this T builder, string name, string type, string comments = "") where T : IBuilderWithTypeNameProperties
+		{
+			var symb = new SymbolInfo() { Name = name, Type = type, Comments = comments };
+			builder.Properties.Add(symb);
+			return symb;
+		}
+
 		public static string GetAttributeText<T>(this T builder) where T : IAttributable
 		{
 			if (builder.Attributes.Count == 0)

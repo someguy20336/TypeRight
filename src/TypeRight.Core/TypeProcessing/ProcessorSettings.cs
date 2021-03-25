@@ -1,4 +1,6 @@
-﻿namespace TypeRight.TypeProcessing
+﻿using TypeRight.ScriptWriting;
+
+namespace TypeRight.TypeProcessing
 {
 	/// <summary>
 	/// Settings to use while processing found types
@@ -14,6 +16,8 @@
 		/// Gets or sets the default result path
 		/// </summary>
 		public string DefaultResultPath { get; set; }
+
+		public PropertyNamingStrategy NamingStrategy { get; set; } = PropertyNamingStrategy.Default;
 
 	}
 }

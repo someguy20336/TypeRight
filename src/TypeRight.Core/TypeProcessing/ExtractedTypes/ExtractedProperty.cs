@@ -22,10 +22,13 @@ namespace TypeRight.TypeProcessing
 		/// </summary>
 		public string Name { get; }
 
+		public string OutputName { get; set; }
+
 		internal ExtractedProperty(IProperty property, TypeTable typeTable)
 		{
 			Name = property.Name;
 			Comments = property.Comments;
+			OutputName = typeTable.Settings.NamingStrategy.GetName(property);
 			Type = typeTable.LookupType(property.PropertyType);  
 		}
 	}

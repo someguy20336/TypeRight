@@ -9,7 +9,7 @@ namespace TypeRight.TypeProcessing
 {
 	internal class TypeTable : IEnumerable<ExtractedType>
 	{
-		private ProcessorSettings _settings;
+		internal ProcessorSettings Settings { get; }
 
 		private static TypeFilter s_enumDisplayNameFilter = new HasInterfaceOfTypeFilter(typeof(IEnumDisplayNameProvider).FullName);
 
@@ -58,7 +58,7 @@ namespace TypeRight.TypeProcessing
 
 		public TypeTable(ProcessorSettings settings)
 		{
-			_settings = settings;
+			Settings = settings;
 		}
 
 		public bool ContainsNamedType(INamedType namedType)
@@ -66,15 +66,6 @@ namespace TypeRight.TypeProcessing
 			return _extractedTypes.ContainsKey(namedType.ConstructedFromType.FullName);
 		}
 
-
-		public ExtractedType FindUserTypeByName(string metadataName)
-		{
-			if (_extractedTypes.ContainsKey(metadataName))
-			{
-				return _extractedTypes[metadataName];
-			}
-			return null;
-		}
 
 		public TypeDescriptor LookupType(IType type)
 		{
@@ -172,30 +163,15 @@ namespace TypeRight.TypeProcessing
 		}
 
 
-		public ExtractedType LookupExtractedType(IType type)
-		{
-			if (type is INamedType namedType)
-			{
-				string metadataName = namedType.ConstructedFromType.FullName;
-				if (_extractedTypes.ContainsKey(metadataName))
-				{
-					return _extractedTypes[metadataName];
-				}
-			}
-
-			return null;
-		}
-
-
 		public void AddNamedType(INamedType type, string targetPath = null)
 		{
 			if (string.IsNullOrEmpty(targetPath))
 			{
-				targetPath = _settings.DefaultResultPath;
+				targetPath = Settings.DefaultResultPath;
 			}
 			else
 			{
-				targetPath = PathUtils.ResolveRelativePath(_settings.ProjectPath, targetPath);
+				targetPath = PathUtils.ResolveRelativePath(Settings.ProjectPath, targetPath);
 			}
 
 			string metadataName = type.ConstructedFromType.FullName;
