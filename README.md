@@ -11,11 +11,9 @@ See [the wiki](https://github.com/someguy20336/TypeRight/wiki/Quick-Start) for a
 
 # Recent Updates
 
+- [Version 1.2.0](https://github.com/someguy20336/TypeRight/releases/tag/v1.2.0)
 - [Version 1.1.0](https://github.com/someguy20336/TypeRight/releases/tag/v1.1.0)
 - [Version 1.0.0](https://github.com/someguy20336/TypeRight/releases/tag/v1.0.0)
-- [Version 0.12](https://github.com/someguy20336/TypeRight/releases/tag/v0.12)
-
-
 
 # Dev Info
 
