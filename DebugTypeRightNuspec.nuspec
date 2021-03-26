@@ -16,6 +16,10 @@
 		<icon>images\TypeRight64x64.png	</icon>
 		<tags>TypeScript Generator MVC C# classes</tags>
 		<license type="expression">MIT</license>
+
+		<dependencies>
+			<group targetFramework=".NETStandard2.0" />
+		</dependencies>
 	</metadata>
 	<files>
 		<!-- Attributes reference -->
