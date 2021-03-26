@@ -8,6 +8,14 @@ import * as Models from "./Models";
  * 
  * @param id 
  */
+export function FromRoute_TestOverrideMultParamTypesMethod(id: number | boolean | string, abort?: AbortSignal): Promise<string> {
+	return callGet(`/api/TestWebApi/${id}?param1=val1&param2=val2`, abort);
+}
+
+/**
+ * 
+ * @param id 
+ */
 export function GetRandoGroupObject(id: string, abort?: AbortSignal): Promise<CustomGroup.CustomGroupObject1> {
 	return callPost(`/api/TestWebApi?param1=val1&param2=val2`, id, abort);
 }

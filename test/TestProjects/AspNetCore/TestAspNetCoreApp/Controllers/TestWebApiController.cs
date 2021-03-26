@@ -77,5 +77,13 @@ namespace TestAspNetCoreApp.Controllers
 		{
 			return "";
 		}
+
+		[HttpGet("{id}"), ScriptAction]
+		public string FromRoute_TestOverrideMultParamTypesMethod(
+		   [ScriptParamTypes(typeof(int), typeof(bool), typeof(string))] string id
+		   )
+		{
+			return "";
+		}
 	}
 }
