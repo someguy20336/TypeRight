@@ -13,8 +13,7 @@ namespace TypeRight.TypeProcessing
 	{
 		private static TypeFilter s_mvcActionFilter = new IsOfTypeFilter(typeof(ScriptActionAttribute).FullName);
 
-		private readonly TypeTable _typeTable;
-		private readonly ProcessorSettings _settings;
+		private readonly TypeFactory _typeFactory;
 		private List<MvcControllerInfo> _controllers;
 		private readonly Dictionary<string, INamedType> _controllerTypes = new Dictionary<string, INamedType>();
 
@@ -24,8 +23,7 @@ namespace TypeRight.TypeProcessing
 		/// <param name="settings">The settings</param>
 		public ExtractedTypeCollection(ProcessorSettings settings)
 		{
-			_settings = settings ?? new ProcessorSettings();
-			_typeTable = new TypeTable(settings);
+			_typeFactory = new TypeFactory(settings);
 
 		}
 
@@ -36,9 +34,9 @@ namespace TypeRight.TypeProcessing
 		/// <param name="targetPath">The optional target path, relative to the root of the project</param>
 		public void RegisterType(INamedType namedType, string targetPath = null)
 		{
-			if (!_typeTable.ContainsNamedType(namedType))
+			if (!_typeFactory.ContainsNamedType(namedType))
 			{
-				_typeTable.AddNamedType(namedType, targetPath);
+				_typeFactory.RegisterNamedType(namedType, targetPath);
 			}
 		}
 
@@ -71,7 +69,7 @@ namespace TypeRight.TypeProcessing
 				_controllers = new List<MvcControllerInfo>();
 				foreach (INamedType controllerType in _controllerTypes.Values)
 				{
-					MvcControllerInfo controllerInfo = new MvcControllerInfo(controllerType, s_mvcActionFilter, _typeTable);
+					MvcControllerInfo controllerInfo = new MvcControllerInfo(controllerType, s_mvcActionFilter, _typeFactory);
 					if (controllerInfo.Actions.Count > 0)
 					{
 						_controllers.Add(controllerInfo);
@@ -86,7 +84,7 @@ namespace TypeRight.TypeProcessing
 		/// <returns></returns>
 		public IEnumerator<ExtractedType> GetEnumerator()
 		{
-			return _typeTable.GetEnumerator();
+			return _typeFactory.RegisteredTypes.GetEnumerator();
 		}
 
 		IEnumerator IEnumerable.GetEnumerator()

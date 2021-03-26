@@ -1,52 +1,55 @@
 {
-	"$schema": "https://raw.githubusercontent.com/someguy20336/TypeRight/v1.1.0/src/TypeRight.Core/Configuration/typeRightConfig-schema.json",
-	"enabled": true,
-	"serverObjectsResultFilepath": "./Scripts/ServerObjects.ts",
-	"queryParams": {
-		"param1": "val1",
-		"param2": "val2"
-	},
-	"actionConfigurations": [
-		{
-			"fetchFunctionName": "callPost",
-			"fetchFilePath": "./Scripts/CallServiceStuff.ts",
-			"parameters": [
-				{
-					"name": "abort",
-					"type": "AbortSignal",
-					"optional": true
-				}
-			],
-			"returnType": "Promise<$returnType$>",
-			"imports": null
-		},
-		{
-			"fetchFunctionName": "callGet",
-			"fetchFilePath": "./Scripts/CallServiceStuff.ts",
-			"method": "GET",
-			"parameters": [
-				{
-					"name": "abort",
-					"type": "AbortSignal",
-					"optional": true
-				}
-			],
-			"returnType": "Promise<$returnType$>",
-			"imports": null
-		},
-		{
-			"fetchFunctionName": "callPut",
-			"fetchFilePath": "./Scripts/CallServiceStuff.ts",
-			"method": "PUT",
-			"parameters": [
-				{
-					"name": "abort",
-					"type": "AbortSignal",
-					"optional": true
-				}
-			],
-			"returnType": "Promise<$returnType$>",
-			"imports": null
-		}
-	]
+  "$schema": "https://raw.githubusercontent.com/someguy20336/TypeRight/v1.2.0/src/TypeRight.Core/Configuration/typeRightConfig-schema.json",
+  "enabled": true,
+  "baseUrl": "",
+  "propNameCasingConverter": "none",
+  "queryParams": {
+    "param1": "val1",
+    "param2": "val2"
+  },
+  "serverObjectsResultFilepath": "./Scripts/ServerObjects.ts",
+  "actionConfigurations": [
+    {
+      "method": "default",
+      "fetchFunctionName": "callPost",
+      "fetchFilePath": "./Scripts/CallServiceStuff.ts",
+      "parameters": [
+        {
+          "name": "abort",
+          "type": "AbortSignal",
+          "optional": true
+        }
+      ],
+      "returnType": "Promise<$returnType$>",
+      "imports": null
+    },
+    {
+      "method": "GET",
+      "fetchFunctionName": "callGet",
+      "fetchFilePath": "./Scripts/CallServiceStuff.ts",
+      "parameters": [
+        {
+          "name": "abort",
+          "type": "AbortSignal",
+          "optional": true
+        }
+      ],
+      "returnType": "Promise<$returnType$>",
+      "imports": null
+    },
+    {
+      "method": "PUT",
+      "fetchFunctionName": "callPut",
+      "fetchFilePath": "./Scripts/CallServiceStuff.ts",
+      "parameters": [
+        {
+          "name": "abort",
+          "type": "AbortSignal",
+          "optional": true
+        }
+      ],
+      "returnType": "Promise<$returnType$>",
+      "imports": null
+    }
+  ]
 }

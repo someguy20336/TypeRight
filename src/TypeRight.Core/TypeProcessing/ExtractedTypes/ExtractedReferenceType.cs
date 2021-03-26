@@ -17,7 +17,7 @@ namespace TypeRight.TypeProcessing
 		/// </summary>
 		public IEnumerable<ExtractedProperty> Properties => GetOrCreateProperties();
 
-		internal TypeTable TypeTable { get; private set; }
+		internal TypeFactory TypeFactory { get; private set; }
 
 		private TypeDescriptor _baseType;
 
@@ -36,9 +36,9 @@ namespace TypeRight.TypeProcessing
 		/// </summary>
 		public IEnumerable<NamedReferenceTypeDescriptor> Interfaces => GetOrCreateInterfaces();
 
-		internal ExtractedReferenceType(INamedType namedType, TypeTable typeTable, string targetPath) : base(namedType, targetPath)
+		internal ExtractedReferenceType(INamedType namedType, TypeFactory typeFactory, string targetPath) : base(namedType, targetPath)
 		{
-			TypeTable = typeTable;
+			TypeFactory = typeFactory;
 		}
 		
 		/// <summary>
@@ -66,9 +66,9 @@ namespace TypeRight.TypeProcessing
 
 				while (testBaseType != null && _baseType == null)
 				{
-					if (TypeTable.ContainsNamedType(testBaseType))
+					if (TypeFactory.ContainsNamedType(testBaseType))
 					{
-						_baseType = TypeTable.LookupType(testBaseType);
+						_baseType = TypeFactory.LookupType(testBaseType);
 					}
 					testBaseType = testBaseType.BaseType;
 				}
@@ -85,9 +85,9 @@ namespace TypeRight.TypeProcessing
 				List<NamedReferenceTypeDescriptor> interfaces = new List<NamedReferenceTypeDescriptor>();
 				foreach (INamedType namedType in NamedType.Interfaces)
 				{
-					if (TypeTable.ContainsNamedType(namedType))
+					if (TypeFactory.ContainsNamedType(namedType))
 					{
-						interfaces.Add(TypeTable.LookupType(namedType) as NamedReferenceTypeDescriptor);
+						interfaces.Add(TypeFactory.LookupType(namedType) as NamedReferenceTypeDescriptor);
 					}
 				}
 

@@ -21,7 +21,7 @@ namespace TypeRight.TypeProcessing
 		/// <summary>
 		/// The type table
 		/// </summary>
-		private TypeTable _typeTable;
+		private TypeFactory _typeTable;
 
 		/// <summary>
 		/// the type arg
@@ -39,7 +39,7 @@ namespace TypeRight.TypeProcessing
 		/// </summary>
 		/// <param name="type">The type</param>
 		/// <param name="typeTable">The type table</param>
-		internal ArrayTypeDescriptor(IArrayType type, TypeTable typeTable) : base(type)
+		internal ArrayTypeDescriptor(IArrayType type, TypeFactory typeTable) : base(type)
 		{
 			_arrayType = type;
 			_typeTable = typeTable;

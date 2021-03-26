@@ -7,7 +7,7 @@ using TypeRight.Attributes;
 
 namespace TypeRight.TypeProcessing
 {
-	internal class TypeTable : IEnumerable<ExtractedType>
+	internal class TypeFactory
 	{
 		private ProcessorSettings _settings;
 
@@ -56,7 +56,9 @@ namespace TypeRight.TypeProcessing
 		private TypeDescriptor _booleanType;
 		private TypeDescriptor _dateTimeType;
 
-		public TypeTable(ProcessorSettings settings)
+		public IEnumerable<ExtractedType> RegisteredTypes => _extractedTypes.Values;
+
+		public TypeFactory(ProcessorSettings settings)
 		{
 			_settings = settings;
 		}
@@ -66,15 +68,6 @@ namespace TypeRight.TypeProcessing
 			return _extractedTypes.ContainsKey(namedType.ConstructedFromType.FullName);
 		}
 
-
-		public ExtractedType FindUserTypeByName(string metadataName)
-		{
-			if (_extractedTypes.ContainsKey(metadataName))
-			{
-				return _extractedTypes[metadataName];
-			}
-			return null;
-		}
 
 		public TypeDescriptor LookupType(IType type)
 		{
@@ -172,22 +165,14 @@ namespace TypeRight.TypeProcessing
 		}
 
 
-		public ExtractedType LookupExtractedType(IType type)
+		public void RegisterNamedType(INamedType type, string targetPath = null)
 		{
-			if (type is INamedType namedType)
-			{
-				string metadataName = namedType.ConstructedFromType.FullName;
-				if (_extractedTypes.ContainsKey(metadataName))
-				{
-					return _extractedTypes[metadataName];
-				}
-			}
-
-			return null;
+			string metadataName = type.ConstructedFromType.FullName;
+			ExtractedType extractedType = CreateExtractedType(type, targetPath);
+			_extractedTypes.Add(metadataName, extractedType);
 		}
 
-
-		public void AddNamedType(INamedType type, string targetPath = null)
+		public ExtractedType CreateExtractedType(INamedType type, string targetPath = null)
 		{
 			if (string.IsNullOrEmpty(targetPath))
 			{
@@ -198,32 +183,24 @@ namespace TypeRight.TypeProcessing
 				targetPath = PathUtils.ResolveRelativePath(_settings.ProjectPath, targetPath);
 			}
 
-			string metadataName = type.ConstructedFromType.FullName;
 			if (type.Flags.IsInterface)  // Interface
 			{
-				_extractedTypes.Add(metadataName, new ExtractedInterfaceType(type, this, targetPath));
+				return new ExtractedInterfaceType(type, this, targetPath);
 			}
 			else if (type.Flags.IsEnum)
 			{
-				_extractedTypes.Add(
-					metadataName,
-					new ExtractedEnumType(type, s_enumDisplayNameFilter, targetPath)
-					);
+				return new ExtractedEnumType(type, s_enumDisplayNameFilter, targetPath);
 			}
 			else // class
 			{
-				_extractedTypes.Add(metadataName, new ExtractedClassType(type, this, targetPath));
+				return new ExtractedClassType(type, this, targetPath);
 			}
 		}
-		
-		public IEnumerator<ExtractedType> GetEnumerator()
+
+		public ExtractedProperty CreateExtractedProperty(IProperty property)
 		{
-			return _extractedTypes.Values.GetEnumerator();
+			return new ExtractedProperty(property, _settings.NamingStrategy, this);
 		}
 
-		IEnumerator IEnumerable.GetEnumerator()
-		{
-			return GetEnumerator();
-		}
 	}
 }

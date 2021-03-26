@@ -1,19 +1,15 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TypeRight.Configuration;
+using TypeRight.ScriptWriting;
 
 namespace TypeRight.Tests.Configuration
 {
 	[TestClass]
-	public class QueryParamsConfigReadingTests
+	public class ConfigReadingTests
 	{
 
 		[TestMethod]
-		public void NullValue_ConvertedToEmptyNameValCollection()
+		public void QueryParams_NullValue_ConvertedToEmptyNameValCollection()
 		{
 			var config = ConfigParser.ParseFromJson(@"
 {
@@ -25,7 +21,7 @@ namespace TypeRight.Tests.Configuration
 		}
 
 		[TestMethod]
-		public void EmptyStringValue_ConvertedToEmptyNameValCollection()
+		public void QueryParams_EmptyStringValue_ConvertedToEmptyNameValCollection()
 		{
 			var config = ConfigParser.ParseFromJson(@"
 {
@@ -37,7 +33,7 @@ namespace TypeRight.Tests.Configuration
 		}
 
 		[TestMethod]
-		public void StringValue_Single_ConvertedToNameValCollection()
+		public void QueryParams_StringValue_Single_ConvertedToNameValCollection()
 		{
 			var config = ConfigParser.ParseFromJson(@"
 {
@@ -49,7 +45,7 @@ namespace TypeRight.Tests.Configuration
 		}
 
 		[TestMethod]
-		public void StringValue_Multi_ConvertedToNameValCollection()
+		public void QueryParams_StringValue_Multi_ConvertedToNameValCollection()
 		{
 			var config = ConfigParser.ParseFromJson(@"
 {
@@ -62,7 +58,7 @@ namespace TypeRight.Tests.Configuration
 		}
 
 		[TestMethod]
-		public void Object_StringValue_ConvertedToNameValueCollection()
+		public void QueryParams_Object_StringValue_ConvertedToNameValueCollection()
 		{
 			var config = ConfigParser.ParseFromJson(@"
 {
@@ -76,7 +72,7 @@ namespace TypeRight.Tests.Configuration
 		}
 
 		[TestMethod]
-		public void Object_NumericValue_ConvertedToNameValueCollection()
+		public void QueryParams_Object_NumericValue_ConvertedToNameValueCollection()
 		{
 			var config = ConfigParser.ParseFromJson(@"
 {
@@ -90,7 +86,7 @@ namespace TypeRight.Tests.Configuration
 		}
 
 		[TestMethod]
-		public void Object_NullValue_ConvertedToNameValueCollection()
+		public void QueryParams_Object_NullValue_ConvertedToNameValueCollection()
 		{
 			var config = ConfigParser.ParseFromJson(@"
 {
@@ -104,7 +100,7 @@ namespace TypeRight.Tests.Configuration
 		}
 
 		[TestMethod]
-		public void Object_BooleanValue_ConvertedToNameValueCollection()
+		public void QueryParams_Object_BooleanValue_ConvertedToNameValueCollection()
 		{
 			var config = ConfigParser.ParseFromJson(@"
 {
@@ -118,7 +114,7 @@ namespace TypeRight.Tests.Configuration
 		}
 
 		[TestMethod]
-		public void Object_MultipleProperties_ConvertedToNameValueCollection()
+		public void QueryParams_Object_MultipleProperties_ConvertedToNameValueCollection()
 		{
 			var config = ConfigParser.ParseFromJson(@"
 {
@@ -131,6 +127,42 @@ namespace TypeRight.Tests.Configuration
 ");
 
 			Assert.AreEqual(3, config.QueryParams.Count);
+		}
+
+		[TestMethod]
+		public void Casing_Camel_IsSerialized()
+		{
+			var config = ConfigParser.ParseFromJson(@"
+{
+	""propNameCasingConverter"": ""camel""
+}
+");
+
+			Assert.AreEqual(PropertyNamingStrategyType.Camel, config.PropNameCasingConverter);
+		}
+
+		[TestMethod]
+		public void Casing_None_IsSerialized()
+		{
+			var config = ConfigParser.ParseFromJson(@"
+{
+	""propNameCasingConverter"": ""none""
+}
+");
+
+			Assert.AreEqual(PropertyNamingStrategyType.None, config.PropNameCasingConverter);
+		}
+
+		[TestMethod]
+		public void Casing_Null_IsSerialized()
+		{
+			var config = ConfigParser.ParseFromJson(@"
+{
+	""propNameCasingConverter"": null
+}
+");
+
+			Assert.AreEqual(PropertyNamingStrategyType.None, config.PropNameCasingConverter);
 		}
 	}
 }

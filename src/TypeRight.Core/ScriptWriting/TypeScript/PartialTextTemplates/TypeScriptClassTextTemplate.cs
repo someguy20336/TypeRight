@@ -18,7 +18,7 @@ namespace TypeRight.ScriptWriting.TypeScript.PartialTextTemplates
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\Users\dwhel\source\repos\TypeRight\TypeRight.Core\ScriptWriting\TypeScript\PartialTextTemplates\TypeScriptClassTextTemplate.tt"
+    #line 1 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\PartialTextTemplates\TypeScriptClassTextTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
     internal partial class TypeScriptClassTextTemplate : TypeScriptClassTextTemplateBase
     {
@@ -30,27 +30,27 @@ namespace TypeRight.ScriptWriting.TypeScript.PartialTextTemplates
         {
             this.Write("/** ");
             
-            #line 6 "C:\Users\dwhel\source\repos\TypeRight\TypeRight.Core\ScriptWriting\TypeScript\PartialTextTemplates\TypeScriptClassTextTemplate.tt"
+            #line 6 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\PartialTextTemplates\TypeScriptClassTextTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_type.Comments));
             
             #line default
             #line hidden
             this.Write(" */\r\nexport interface ");
             
-            #line 7 "C:\Users\dwhel\source\repos\TypeRight\TypeRight.Core\ScriptWriting\TypeScript\PartialTextTemplates\TypeScriptClassTextTemplate.tt"
+            #line 7 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\PartialTextTemplates\TypeScriptClassTextTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(GetClassDeclaration()));
             
             #line default
             #line hidden
             
-            #line 7 "C:\Users\dwhel\source\repos\TypeRight\TypeRight.Core\ScriptWriting\TypeScript\PartialTextTemplates\TypeScriptClassTextTemplate.tt"
+            #line 7 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\PartialTextTemplates\TypeScriptClassTextTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(GetExtendsType()));
             
             #line default
             #line hidden
             this.Write(" {\r\n");
             
-            #line 8 "C:\Users\dwhel\source\repos\TypeRight\TypeRight.Core\ScriptWriting\TypeScript\PartialTextTemplates\TypeScriptClassTextTemplate.tt"
+            #line 8 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\PartialTextTemplates\TypeScriptClassTextTemplate.tt"
  
 foreach (var prop in _type.Properties) { 
 
@@ -59,28 +59,28 @@ foreach (var prop in _type.Properties) {
             #line hidden
             this.Write("\t/** ");
             
-            #line 11 "C:\Users\dwhel\source\repos\TypeRight\TypeRight.Core\ScriptWriting\TypeScript\PartialTextTemplates\TypeScriptClassTextTemplate.tt"
+            #line 11 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\PartialTextTemplates\TypeScriptClassTextTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(prop.Comments));
             
             #line default
             #line hidden
             this.Write(" */\r\n\t");
             
-            #line 12 "C:\Users\dwhel\source\repos\TypeRight\TypeRight.Core\ScriptWriting\TypeScript\PartialTextTemplates\TypeScriptClassTextTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(prop.Name));
+            #line 12 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\PartialTextTemplates\TypeScriptClassTextTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(prop.OutputName));
             
             #line default
             #line hidden
             this.Write(": ");
             
-            #line 12 "C:\Users\dwhel\source\repos\TypeRight\TypeRight.Core\ScriptWriting\TypeScript\PartialTextTemplates\TypeScriptClassTextTemplate.tt"
+            #line 12 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\PartialTextTemplates\TypeScriptClassTextTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(GetPropertyType(prop)));
             
             #line default
             #line hidden
             this.Write(";\r\n");
             
-            #line 13 "C:\Users\dwhel\source\repos\TypeRight\TypeRight.Core\ScriptWriting\TypeScript\PartialTextTemplates\TypeScriptClassTextTemplate.tt"
+            #line 13 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\PartialTextTemplates\TypeScriptClassTextTemplate.tt"
 
 }
 

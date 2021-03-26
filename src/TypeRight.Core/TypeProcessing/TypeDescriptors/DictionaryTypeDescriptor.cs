@@ -12,7 +12,7 @@ namespace TypeRight.TypeProcessing
 		/// <summary>
 		/// The type table
 		/// </summary>
-		private TypeTable _typeTable;
+		private TypeFactory _typeTable;
 
 		private INamedType _dictType;
 
@@ -35,7 +35,7 @@ namespace TypeRight.TypeProcessing
 		/// </summary>
 		/// <param name="type">The type</param>
 		/// <param name="table">The type table</param>
-		internal DictionaryTypeDescriptor(INamedType type, TypeTable table) : base(type)
+		internal DictionaryTypeDescriptor(INamedType type, TypeFactory table) : base(type)
 		{
 			_typeTable = table;
 			_dictType = type;

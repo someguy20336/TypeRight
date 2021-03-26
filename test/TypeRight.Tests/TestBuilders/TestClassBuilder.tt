@@ -21,6 +21,7 @@ foreach (var property in Properties) {
 		///<summary>
 		///<#= property.Comments #>
 		///</summary>
+		<#= property.GetAttributeText() #>
 		public <#= property.Type #> <#= property.Name #> { get; set; }
 <#
 }

@@ -60,5 +60,11 @@ namespace TypeRight.Tests.Testers
 			Assert.AreEqual(typescriptName, _property.Type.FormatType(_typeFormatter));
 			return this;
 		}
+
+		public PropertyTester OutputNameIs(string expected)
+		{
+			Assert.AreEqual(expected, _property.OutputName);
+			return this;
+		}
 	}
 }

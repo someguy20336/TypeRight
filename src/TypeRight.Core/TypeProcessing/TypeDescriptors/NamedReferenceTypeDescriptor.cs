@@ -11,7 +11,7 @@ namespace TypeRight.TypeProcessing
 	public class NamedReferenceTypeDescriptor : ExtractedTypeDescriptor
 	{
 
-		private TypeTable _typeTable;
+		private TypeFactory _typeFactory;
 		private IReadOnlyList<TypeDescriptor> _typeArgs;
 
 		/// <summary>
@@ -23,18 +23,18 @@ namespace TypeRight.TypeProcessing
 		/// Creates the named reference type descriptor
 		/// </summary>
 		/// <param name="type"></param>
-		/// <param name="table"></param>
+		/// <param name="typeFactory"></param>
 		/// <param name="targetPath">The target path of the type</param>
-		internal NamedReferenceTypeDescriptor(INamedType type, TypeTable table, string targetPath) : base(type, targetPath)
+		internal NamedReferenceTypeDescriptor(INamedType type, TypeFactory typeFactory, string targetPath) : base(type, targetPath)
 		{
-			_typeTable = table;
+			_typeFactory = typeFactory;
 		}
 
 		private IReadOnlyList<TypeDescriptor> GetOrCreateTypeArguments()
 		{
 			if (_typeArgs == null)
 			{
-				_typeArgs = NamedType.TypeArguments.Select(arg => _typeTable.LookupType(arg)).ToList().AsReadOnly();
+				_typeArgs = NamedType.TypeArguments.Select(arg => _typeFactory.LookupType(arg)).ToList().AsReadOnly();
 			}
 			return _typeArgs;
 		}

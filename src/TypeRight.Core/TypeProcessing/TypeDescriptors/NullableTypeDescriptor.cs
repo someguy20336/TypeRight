@@ -16,7 +16,7 @@ namespace TypeRight.TypeProcessing
 		/// <summary>
 		/// The type table
 		/// </summary>
-		private TypeTable _typeTable;
+		private TypeFactory _typeFactory;
 
 		/// <summary>
 		/// The named type
@@ -32,11 +32,11 @@ namespace TypeRight.TypeProcessing
 		/// Creates a nullable type descriptor
 		/// </summary>
 		/// <param name="namedType"></param>
-		/// <param name="typeTable"></param>
-		internal NullableTypeDescriptor(INamedType namedType, TypeTable typeTable) : base(namedType)
+		/// <param name="typeFactory"></param>
+		internal NullableTypeDescriptor(INamedType namedType, TypeFactory typeFactory) : base(namedType)
 		{
 			_namedType = namedType;
-			_typeTable = typeTable;
+			_typeFactory = typeFactory;
 		}
 
 		/// <summary>
@@ -47,7 +47,7 @@ namespace TypeRight.TypeProcessing
 		{
 			if (_typeArg == null)
 			{
-				_typeArg = _typeTable.LookupType(_namedType.TypeArguments[0]);
+				_typeArg = _typeFactory.LookupType(_namedType.TypeArguments[0]);
 			}
 			return _typeArg;
 		}

@@ -8,8 +8,8 @@ namespace TypeRight.TypeProcessing
 	public class ExtractedClassType : ExtractedReferenceType
 	{
 		
-		internal ExtractedClassType(INamedType namedType,TypeTable typeTable, string targetPath) 
-			: base(namedType, typeTable, targetPath)
+		internal ExtractedClassType(INamedType namedType, TypeFactory factory, string targetPath) 
+			: base(namedType, factory, targetPath)
 		{
 		}
 
@@ -19,7 +19,7 @@ namespace TypeRight.TypeProcessing
 		/// <returns></returns>
 		protected override PropertyRetrieveStrategy GetPropertyRetrieveStrategy()
 		{
-			return new ClassPropertyRetrieveStrategy(TypeTable);
+			return new ClassPropertyRetrieveStrategy(TypeFactory);
 		}
 		
 	}

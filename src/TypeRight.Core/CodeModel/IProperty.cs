@@ -1,4 +1,6 @@
-﻿namespace TypeRight.CodeModel
+﻿using System.Collections.Generic;
+
+namespace TypeRight.CodeModel
 {
 	/// <summary>
 	/// Represents a property that will extracted to a script
@@ -19,5 +21,7 @@
 		/// Gets the comments for this property
 		/// </summary>
 		string Comments { get; }
+
+		IEnumerable<IAttributeData> Attributes { get; }
 	}
 }

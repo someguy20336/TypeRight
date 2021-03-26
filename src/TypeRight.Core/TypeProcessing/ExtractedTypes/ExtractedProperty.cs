@@ -1,4 +1,5 @@
 ﻿using TypeRight.CodeModel;
+using TypeRight.ScriptWriting;
 
 namespace TypeRight.TypeProcessing
 {
@@ -22,11 +23,14 @@ namespace TypeRight.TypeProcessing
 		/// </summary>
 		public string Name { get; }
 
-		internal ExtractedProperty(IProperty property, TypeTable typeTable)
+		public string OutputName { get; set; }
+
+		internal ExtractedProperty(IProperty property, PropertyNamingStrategy namingStrategy, TypeFactory typeFactory)
 		{
 			Name = property.Name;
 			Comments = property.Comments;
-			Type = typeTable.LookupType(property.PropertyType);  
+			OutputName = namingStrategy.GetName(property);
+			Type = typeFactory.LookupType(property.PropertyType);  
 		}
 	}
 }

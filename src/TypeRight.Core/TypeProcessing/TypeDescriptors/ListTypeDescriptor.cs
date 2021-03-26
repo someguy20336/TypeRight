@@ -1,5 +1,4 @@
-﻿using System;
-using TypeRight.CodeModel;
+﻿using TypeRight.CodeModel;
 using TypeRight.ScriptWriting;
 
 namespace TypeRight.TypeProcessing
@@ -10,7 +9,7 @@ namespace TypeRight.TypeProcessing
 	public class ListTypeDescriptor : TypeDescriptor
 	{
 		private INamedType _listType;
-		private TypeTable _typeTable;
+		private TypeFactory _typeFactory;
 		private TypeDescriptor _typeArg;
 
 		/// <summary>
@@ -22,11 +21,11 @@ namespace TypeRight.TypeProcessing
 		/// Creates a new list type descriptor
 		/// </summary>
 		/// <param name="type"></param>
-		/// <param name="typeTable"></param>
-		internal ListTypeDescriptor(INamedType type, TypeTable typeTable) : base(type)
+		/// <param name="typeFactory"></param>
+		internal ListTypeDescriptor(INamedType type, TypeFactory typeFactory) : base(type)
 		{
 			_listType = type;
-			_typeTable = typeTable;
+			_typeFactory = typeFactory;
 		}
 
 		private TypeDescriptor GetOrCreateTypeArg()
@@ -35,7 +34,7 @@ namespace TypeRight.TypeProcessing
 			{
 				if (_listType.TypeArguments.Count > 0)
 				{
-					_typeArg = _typeTable.LookupType(_listType.TypeArguments[0]);
+					_typeArg = _typeFactory.LookupType(_listType.TypeArguments[0]);
 				}
 				else
 				{

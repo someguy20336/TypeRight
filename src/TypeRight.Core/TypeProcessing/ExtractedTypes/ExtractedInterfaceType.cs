@@ -8,8 +8,8 @@ namespace TypeRight.TypeProcessing
 	public class ExtractedInterfaceType : ExtractedReferenceType
 	{
 
-		internal ExtractedInterfaceType(INamedType namedType, TypeTable typeTable, string targetPath) 
-			: base(namedType, typeTable, targetPath)
+		internal ExtractedInterfaceType(INamedType namedType, TypeFactory factory, string targetPath) 
+			: base(namedType, factory, targetPath)
 		{
 		}
 
@@ -19,7 +19,7 @@ namespace TypeRight.TypeProcessing
 		/// <returns></returns>
 		protected override PropertyRetrieveStrategy GetPropertyRetrieveStrategy()
 		{
-			return new InterfacePropertyRetrieveStrategy(TypeTable);
+			return new InterfacePropertyRetrieveStrategy(TypeFactory);
 		}
 		
 	}

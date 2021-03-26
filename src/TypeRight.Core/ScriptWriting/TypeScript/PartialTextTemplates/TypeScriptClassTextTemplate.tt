@@ -9,7 +9,7 @@ export interface <#= GetClassDeclaration() #><#= GetExtendsType() #> {
 foreach (var prop in _type.Properties) { 
 #>
 	/** <#= prop.Comments #> */
-	<#= prop.Name #>: <#= GetPropertyType(prop) #>;
+	<#= prop.OutputName #>: <#= GetPropertyType(prop) #>;
 <#
 }
 #>

@@ -22,6 +22,12 @@ namespace TypeRight.Tests.TestBuilders
 			return new TestClassBuilder(this, name, @namespace);
 		}
 
+		public TestClassBuilder CreateClassBuilder(string fullName)
+		{
+			Utils.SplitFullName(fullName, out string @namespace, out string name);
+			return new TestClassBuilder(this, name, @namespace);
+		}
+
 		public InterfaceBuilder CreateInterfaceBuilder(string name, string @namespace = DefaultNamespace)
 		{
 			return new InterfaceBuilder(this, name, DefaultNamespace);
@@ -56,6 +62,24 @@ namespace TypeRight.Tests.TestBuilders
 				.AddProperty(nameof(IEnumDisplayNameProvider.DisplayName), "string")
 				.AddProperty(nameof(IEnumDisplayNameProvider.Abbreviation), "string")
 				.Commit();
+
+			return this;
+		}
+
+		public TestProjectBuilder AddFakeJson()
+		{
+			CreateClassBuilder(KnownTypes.SystemTextJsonPropertyName)
+				.AddBaseClass("System.Attribute")
+				.AddConstructor()
+					.AddParameter("name", "string")
+					.Commit()
+				.Commit();
+
+			CreateClassBuilder(KnownTypes.NewtonsoftJsonPropertyName_v12)
+				.AddBaseClass("System.Attribute")
+				.AddProperty(nameof(Newtonsoft.Json.Serialization.JsonProperty.PropertyName), "string")
+				.Commit();
+
 
 			return this;
 		}
