@@ -24,7 +24,7 @@ namespace TypeRight.Tests.Testers
 		public MvcActionTester ParameterTypeIs(string paramName, string typescriptName)
 		{
 			MvcActionParameter parameter = _method.Parameters.Where(p => p.Name == paramName).First();
-			Assert.AreEqual(typescriptName, parameter.Type.FormatType(_typeFormatter));
+			Assert.AreEqual(typescriptName, parameter.Types.First().FormatType(_typeFormatter));
 			return this;
 		}
 
