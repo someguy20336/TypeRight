@@ -251,5 +251,51 @@ export function MultipleTypes(multTypes: string | number): void {{
 			#endregion
 				);
 		}
+
+		[TestMethod]
+		public void ParamTypes_FromRoute_GeneratesWithTypes()
+		{
+			var attrs = new List<AttributeInfo>()
+			{
+				new AttributeInfo()
+				{
+					AttributeTypeName = KnownTypes.ScriptParamTypesAttributeName,
+					CtorArguments = new List<string>()
+					{
+						"typeof(string)",
+						"typeof(int)"
+					}
+				}
+			};
+
+			ControllerBuilder
+				.AddMethod("Action", MvcConstants.JsonResult_AspNetCore)
+					.AddScriptActionAttribute()
+					.AddAttribute(MvcConstants.HttpGetAttributeFullName_AspNetCore)
+						.AddConstructorArg("\"{id}\"")
+						.Commit()
+					.AddParameter("id", "string", "", attrs)
+					.Commit()
+			;
+
+			AssertControllerGeneratedText(
+			#region ScriptText	
+				@$"
+import {{ TestAjax }} from ""../../FolderM/FolderN/AjaxFunc"";
+
+
+/**
+ * 
+ * @param id 
+ */
+export function Action(id: string | number): void {{
+	TestAjax(`/{ControllerName}/Action/${{id}}`);
+}}
+
+
+"
+			#endregion
+				);
+		}
 	}
 }
