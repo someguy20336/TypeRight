@@ -106,7 +106,7 @@ namespace TypeRight.Tests.TestBuilders
 			string attrs = "";
 			if (parameter.Attributes.Count > 0)
 			{
-				attrs = $"[{ string.Join(", ", parameter.Attributes.Select(attr => attr.AttributeTypeName)) }]";
+				attrs = $"[{ string.Join(", ", parameter.Attributes.Select(attr => attr.ToFormattedString())) }]";
 			}
 			return $"{ attrs }{parameter.Type} {parameter.Name}";
 		}

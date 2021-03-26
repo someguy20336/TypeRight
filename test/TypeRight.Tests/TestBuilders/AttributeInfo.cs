@@ -7,9 +7,9 @@ namespace TypeRight.Tests.TestBuilders
 	{
 		public string AttributeTypeName { get; set; }
 
-		public List<string> CtorArguments { get; set; }
+		public List<string> CtorArguments { get; set; } = new List<string>();
 
-		public Dictionary<string, string> NamedArguments { get; set; }
+		public Dictionary<string, string> NamedArguments { get; set; } = new Dictionary<string, string>();
 
 		public string ToFormattedString()
 		{

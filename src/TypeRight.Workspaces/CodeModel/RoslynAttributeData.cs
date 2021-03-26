@@ -48,11 +48,13 @@ namespace TypeRight.Workspaces.CodeModel
 					value = new RoslynNamedType(typedConstant.Value as INamedTypeSymbol, context);
 					break;
 
+				case TypedConstantKind.Array:
+					value = typedConstant.Values.Select(v => GetTypedConstantValue(v, context)).ToArray();
+					break;
 				case TypedConstantKind.Error:
 				case TypedConstantKind.Enum:
 				//TODO what does this give?
-				case TypedConstantKind.Array:
-				// TODO: what about array args? Currently don't need it
+
 				default:
 					value = null;
 					break;

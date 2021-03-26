@@ -105,7 +105,7 @@ namespace TypeRight.ScriptWriting.TypeScript
 			{
 				ActionParameterSourceType = sourceType,
 				Name = actionParameter.Name,
-				ParameterType = actionParameter.Type.FormatType(_typeFormatter),
+				ParameterType = string.Join(" | ", actionParameter.Types.Select(t => t.FormatType(_typeFormatter))),
 				IsOptional = actionParameter.IsOptional
 			};
 		}
@@ -150,7 +150,10 @@ namespace TypeRight.ScriptWriting.TypeScript
 			Imports.TryAddToImports(action.ReturnType);
 			foreach (var param in action.Parameters)
 			{
-				Imports.TryAddToImports(param.Type);
+				foreach (var type in param.Types)
+				{
+					Imports.TryAddToImports(type);
+				}
 			}
 
 

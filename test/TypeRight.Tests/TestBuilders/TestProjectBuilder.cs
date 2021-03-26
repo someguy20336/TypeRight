@@ -60,6 +60,9 @@ namespace TypeRight.Tests.TestBuilders
 
 			CreateClassBuilder(KnownTypes.ScriptParamTypesAttributeName)
 				.AddBaseClass("System.Attribute")
+				.AddConstructor()
+					.AddParameter("types", "params Type[]")
+					.Commit()
 				.Commit();
 
 			CreateInterfaceBuilder(typeof(IEnumDisplayNameProvider).Name, typeRightNamespace)

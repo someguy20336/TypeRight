@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using TypeRight.Configuration;
+using TypeRight.Tests.TestBuilders;
 
 namespace TypeRight.Tests.Controllers.AspNetCore
 {
@@ -150,6 +151,99 @@ import {{ TestAjax }} from ""../../FolderM/FolderN/AjaxFunc"";
  */
 export function QueryParameterWithBody(fromQuery: string, fromBody: DefaultResult.TestClass): void {{
 	TestAjax(`/{ControllerName}/QueryParameterWithBody?fromQuery=${{ fromQuery ?? """" }}`, fromBody);
+}}
+
+
+"
+			#endregion
+				);
+		}
+
+		[TestMethod]
+		public void ParamTypes_SingleOverrideTypeSpecified_GeneratesWithType()
+		{
+			var attrs = new List<AttributeInfo>()
+			{
+				new AttributeInfo()
+				{
+					AttributeTypeName = KnownTypes.ScriptParamTypesAttributeName,
+					CtorArguments = new List<string>()
+					{
+						"typeof(int)"
+					}
+				},
+				new AttributeInfo()
+				{
+					AttributeTypeName = MvcConstants.FromQueryAttributeFullName_AspNetCore,
+				},
+			};
+
+			ControllerBuilder
+				.AddMethod("Action", MvcConstants.JsonResult_AspNetCore)
+					.AddScriptActionAttribute()
+					.AddParameter("p", "string", "", attrs)
+					.Commit()
+			;
+
+			AssertControllerGeneratedText(
+			#region ScriptText	
+				@$"
+import {{ TestAjax }} from ""../../FolderM/FolderN/AjaxFunc"";
+
+
+/**
+ * 
+ * @param p 
+ */
+export function Action(p: number): void {{
+	TestAjax(`/{ControllerName}/Action?p=${{ p ?? """" }}`, {{}});
+}}
+
+
+"
+			#endregion
+				);
+		}
+
+		[TestMethod]
+		public void ParamTypes_MultipleTypesSpecified_GeneratesWithTypes()
+		{
+			var attrs = new List<AttributeInfo>()
+			{
+				new AttributeInfo()
+				{
+					AttributeTypeName = KnownTypes.ScriptParamTypesAttributeName,
+					CtorArguments = new List<string>()
+					{
+						"typeof(string)",
+						"typeof(int)"
+					}
+				},
+				new AttributeInfo()
+				{
+					AttributeTypeName = MvcConstants.FromQueryAttributeFullName_AspNetCore,
+				},
+			};
+
+			ControllerBuilder
+				.AddMethod("MultipleTypes", MvcConstants.JsonResult_AspNetCore)
+					.AddScriptActionAttribute()
+					.AddParameter("multTypes", "string", "", attrs)
+					.Commit()
+			;
+
+			AssertControllerGeneratedText(
+			#region ScriptText	
+				@$"
+import {{ TestAjax }} from ""../../FolderM/FolderN/AjaxFunc"";
+
+
+/**
+ * 
+ * @param multTypes 
+ */
+export function MultipleTypes(multTypes: string | number): void {{
+	TestAjax(`/{ControllerName}/MultipleTypes?multTypes=${{ multTypes ?? """" }}`, {{}});
 }}
 
 

@@ -31,12 +31,21 @@ namespace TypeRight.Tests.TestBuilders
 
 		public TestMethodBuilder AddParameter(string paramName, string type, string comments = "", string attribute = "")
 		{
+			var attrs = string.IsNullOrEmpty(attribute)
+				? new List<AttributeInfo>()
+				: new List<AttributeInfo>() { new AttributeInfo() { AttributeTypeName = attribute } };
+			
+			return AddParameter(paramName, type, comments, attrs);
+		}
+
+		public TestMethodBuilder AddParameter(string paramName, string type, string comments, List<AttributeInfo> attributes)
+		{
 			_parameters.Add(new SymbolInfo()
 			{
 				Name = paramName,
 				Type = type,
 				Comments = comments,
-				Attributes = string.IsNullOrEmpty(attribute) ? new List<AttributeInfo>() : new List<AttributeInfo>() { new AttributeInfo() { AttributeTypeName = attribute } }
+				Attributes = attributes ?? new List<AttributeInfo>()
 			});
 			return this;
 		}
