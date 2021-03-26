@@ -4,7 +4,6 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>TypeRight.snk</AssemblyOriginatorKeyFile>
-    <AssemblyVersion>1.1.0.0</AssemblyVersion>
     <FileVersion>1.0.0.0</FileVersion>
     <RootNamespace>TypeRight</RootNamespace>
   </PropertyGroup>
@@ -90,4 +89,5 @@
     </Compile>
   </ItemGroup>
 
+	<Import Project="..\..\TypeRightVersion.targets"/>
 </Project>

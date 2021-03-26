@@ -5,7 +5,6 @@
     <TargetFramework>net5.0</TargetFramework>
     <RootNamespace>TypeRight</RootNamespace>
     <AssemblyName>TypeRight</AssemblyName>
-    <AssemblyVersion>1.1.0.0</AssemblyVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -26,5 +25,6 @@
   </ItemGroup>
 
   <Import Project="..\TypeRight.Shared\TypeRight.Shared.projitems" Label="Shared" />
+	<Import Project="..\..\TypeRightVersion.targets"/>
 
 </Project>

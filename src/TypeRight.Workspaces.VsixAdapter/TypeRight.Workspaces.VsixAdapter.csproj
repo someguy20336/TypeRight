@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFramework>net472</TargetFramework>
-		<AssemblyVersion>1.1.0.0</AssemblyVersion>
 		<SignAssembly>true</SignAssembly>
 		<AssemblyOriginatorKeyFile>Key.snk</AssemblyOriginatorKeyFile>
 	</PropertyGroup>
@@ -38,4 +37,5 @@
 	</ItemGroup>
 
 	<Import Project="..\TypeRight.VsixContract.Messages\TypeRight.VsixContract.Messages.projitems" Label="Shared" />
+	<Import Project="..\..\TypeRightVersion.targets"/>
 </Project>

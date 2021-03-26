@@ -24,6 +24,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		DebugTypeRightNuspec.nuspec = DebugTypeRightNuspec.nuspec
 		TypeRightNuspec.nuspec = TypeRightNuspec.nuspec
+		TypeRightVersion.targets = TypeRightVersion.targets
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TypeRight.VsixContract", "src\TypeRight.VsixContract\TypeRight.VsixContract.csproj", "{B878F149-9BD3-437D-802C-D26481F5B055}"
@@ -40,7 +41,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{36E3404F
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "TypeRight.VsixContract.Messages", "src\TypeRight.VsixContract.Messages\TypeRight.VsixContract.Messages.shproj", "{21BCBE4C-3509-4E42-B2A0-5B848C8A75D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TypeRight.VsixContractV2", "src\TypeRight.VsixContractV2\TypeRight.VsixContractV2.csproj", "{12A4926C-06E3-4CEB-AAB7-91D1DBE496A6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TypeRight.VsixContractV2", "src\TypeRight.VsixContractV2\TypeRight.VsixContractV2.csproj", "{12A4926C-06E3-4CEB-AAB7-91D1DBE496A6}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "TypeRight.Shared", "src\TypeRight.Shared\TypeRight.Shared.shproj", "{AD8168E6-3ED3-41EA-978A-AC7DAE564B18}"
 EndProject

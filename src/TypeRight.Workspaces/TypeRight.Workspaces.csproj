@@ -1,11 +1,10 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>TypeRight.Workspaces</RootNamespace>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>TypeRightWorskspacesKey.snk</AssemblyOriginatorKeyFile>
-    <AssemblyVersion>1.1.0.0</AssemblyVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -17,4 +16,5 @@
     <ProjectReference Include="..\TypeRight.Core\TypeRight.Core.csproj" />
   </ItemGroup>
 
+	<Import Project="..\..\TypeRightVersion.targets"/>
 </Project>
