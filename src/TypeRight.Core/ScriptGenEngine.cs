@@ -60,7 +60,8 @@ namespace TypeRight
 			ProcessorSettings processorSettings = new ProcessorSettings()
 			{
 				DefaultResultPath = resultAbsolute.LocalPath,
-				ProjectPath = projUri.LocalPath
+				ProjectPath = projUri.LocalPath,
+				NamingStrategy = PropertyNamingStrategy.Create(configOptions.PropNameCasingConverter)
 			};
 
 			// At this point we are good

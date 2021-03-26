@@ -40,7 +40,7 @@ namespace TypeRight.Configuration
 			}
 			else
 			{
-				return JsonConvert.DeserializeObject<ConfigOptions>(File.ReadAllText(filePath));
+				return ParseFromJson(File.ReadAllText(filePath));
 			}
 		}
 

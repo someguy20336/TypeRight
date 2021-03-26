@@ -3,6 +3,7 @@ using Newtonsoft.Json.Serialization;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using TypeRight.Configuration.Json;
+using TypeRight.ScriptWriting;
 
 namespace TypeRight.Configuration
 {
@@ -14,7 +15,7 @@ namespace TypeRight.Configuration
 	{
 		[JsonProperty("$schema")]
 		public string Schema { get; set; }
-			= "https://raw.githubusercontent.com/someguy20336/TypeRight/v1.1.0/src/TypeRight.Core/Configuration/typeRightConfig-schema.json";
+			= "https://raw.githubusercontent.com/someguy20336/TypeRight/v1.2.0/src/TypeRight.Core/Configuration/typeRightConfig-schema.json";
 
 		/// <summary>
 		/// Gets or sets whether script generation is enabled
@@ -22,6 +23,9 @@ namespace TypeRight.Configuration
 		public bool Enabled { get; set; }
 
 		public string BaseUrl { get; set; }
+
+		[JsonConverter(typeof(CamelCaseStringEnumConverter))]
+		public PropertyNamingStrategyType PropNameCasingConverter { get; set; }
 
 		[JsonConverter(typeof(QueryParamJsonConverter))]
 		public NameValueCollection QueryParams { get; set; }
