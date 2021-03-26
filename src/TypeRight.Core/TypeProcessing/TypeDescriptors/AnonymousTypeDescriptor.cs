@@ -11,7 +11,7 @@ namespace TypeRight.TypeProcessing
 	public class AnonymousTypeDescriptor : TypeDescriptor
 	{
 
-		private TypeTable _typeTable;
+		private TypeFactory _typeFactory;
 		private IReadOnlyList<ExtractedProperty> _props;
 		private INamedType _namedType;
 
@@ -20,17 +20,17 @@ namespace TypeRight.TypeProcessing
 		/// </summary>
 		public IReadOnlyList<ExtractedProperty> Properties => GetOrCreateProperties();
 
-		internal AnonymousTypeDescriptor(INamedType type, TypeTable table) : base(type)
+		internal AnonymousTypeDescriptor(INamedType type, TypeFactory typeFactory) : base(type)
 		{
 			_namedType = type;
-			_typeTable = table;
+			_typeFactory = typeFactory;
 		}
 
 		private IReadOnlyList<ExtractedProperty> GetOrCreateProperties()
 		{
 			if (_props == null)
 			{
-				_props = _namedType.Properties.Select(pr => new ExtractedProperty(pr, _typeTable)).ToList().AsReadOnly();
+				_props = _namedType.Properties.Select(pr => _typeFactory.CreateExtractedProperty(pr)).ToList().AsReadOnly();
 			}
 			return _props;
 		}

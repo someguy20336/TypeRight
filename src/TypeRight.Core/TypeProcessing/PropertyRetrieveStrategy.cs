@@ -10,11 +10,11 @@ namespace TypeRight.TypeProcessing
 	public abstract class PropertyRetrieveStrategy
 	{
 
-		internal TypeTable TypeTable { get; private set; }
+		internal TypeFactory TypeFactory { get; private set; }
 
-		internal PropertyRetrieveStrategy(TypeTable typeTable)
+		internal PropertyRetrieveStrategy(TypeFactory typeFactory)
 		{
-			TypeTable = typeTable;
+			TypeFactory = typeFactory;
 		}
 
 		/// <summary>
@@ -46,7 +46,7 @@ namespace TypeRight.TypeProcessing
 				}
 			}
 
-			return properties.Values.Select(prp => new ExtractedProperty(prp, TypeTable));
+			return properties.Values.Select(prp => TypeFactory.CreateExtractedProperty(prp));
 		}
 	}
 
@@ -56,7 +56,7 @@ namespace TypeRight.TypeProcessing
 	public class ClassPropertyRetrieveStrategy : PropertyRetrieveStrategy
 	{
 
-		internal ClassPropertyRetrieveStrategy(TypeTable typeTable) : base(typeTable)
+		internal ClassPropertyRetrieveStrategy(TypeFactory typeTable) : base(typeTable)
 		{
 		}
 
@@ -83,7 +83,7 @@ namespace TypeRight.TypeProcessing
 			nonExtractedClasses.Enqueue(cl);
 			while (cl.BaseType != null)
 			{
-				if (TypeTable.ContainsNamedType(cl.BaseType))
+				if (TypeFactory.ContainsNamedType(cl.BaseType))
 				{
 					return nonExtractedClasses;
 				}
@@ -103,7 +103,7 @@ namespace TypeRight.TypeProcessing
 	/// </summary>
 	public class InterfacePropertyRetrieveStrategy : PropertyRetrieveStrategy
 	{
-		internal InterfacePropertyRetrieveStrategy(TypeTable typeTable) : base(typeTable)
+		internal InterfacePropertyRetrieveStrategy(TypeFactory typeTable) : base(typeTable)
 		{
 		}
 
@@ -132,7 +132,7 @@ namespace TypeRight.TypeProcessing
 		{
 			foreach (INamedType baseInterface in namedType.Interfaces)
 			{
-				if (!TypeTable.ContainsNamedType(baseInterface))
+				if (!TypeFactory.ContainsNamedType(baseInterface))
 				{
 					typeQueue.Enqueue(baseInterface);
 					GetInterfacesToExtractCore(baseInterface, typeQueue);

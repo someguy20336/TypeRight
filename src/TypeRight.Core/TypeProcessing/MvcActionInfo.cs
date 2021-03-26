@@ -79,13 +79,13 @@ namespace TypeRight.TypeProcessing
 		/// Creates a new action info from the given method
 		/// </summary>
 		/// <param name="method">the method</param>
-		/// <param name="typeTable">The type table</param>
-		internal MvcActionInfo(IMethod method, TypeTable typeTable)
+		/// <param name="typeFactory">The type table</param>
+		internal MvcActionInfo(IMethod method, TypeFactory typeFactory)
 		{
 			Method = method;
-			ReturnType = typeTable.LookupType(method.ReturnType);
+			ReturnType = typeFactory.LookupType(method.ReturnType);
 			ParameterComments = method.Parameters.ToDictionary(param => param.Name, param => param.Comments);
-			Parameters = method.Parameters.Select(p => new MvcActionParameter(p, typeTable)).ToList().AsReadOnly();
+			Parameters = method.Parameters.Select(p => new MvcActionParameter(p, typeFactory)).ToList().AsReadOnly();
 		}
 
 		/// <summary>
@@ -123,10 +123,10 @@ namespace TypeRight.TypeProcessing
 		/// </summary>
 		public bool IsOptional { get; }
 
-		internal MvcActionParameter(IMethodParameter methodParameter, TypeTable table)
+		internal MvcActionParameter(IMethodParameter methodParameter, TypeFactory typeFactory)
 		{
 			Name = methodParameter.Name;
-			Type = table.LookupType(methodParameter.ParameterType);
+			Type = typeFactory.LookupType(methodParameter.ParameterType);
 			Attributes = methodParameter.Attributes;
 			IsOptional = methodParameter.IsOptional;
 		}

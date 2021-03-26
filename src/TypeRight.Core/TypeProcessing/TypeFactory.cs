@@ -7,9 +7,9 @@ using TypeRight.Attributes;
 
 namespace TypeRight.TypeProcessing
 {
-	internal class TypeTable : IEnumerable<ExtractedType>   // TODO: should this be renamed to more of a "context" thing?
+	internal class TypeFactory
 	{
-		internal ProcessorSettings Settings { get; }
+		private ProcessorSettings _settings;
 
 		private static TypeFilter s_enumDisplayNameFilter = new HasInterfaceOfTypeFilter(typeof(IEnumDisplayNameProvider).FullName);
 
@@ -56,9 +56,11 @@ namespace TypeRight.TypeProcessing
 		private TypeDescriptor _booleanType;
 		private TypeDescriptor _dateTimeType;
 
-		public TypeTable(ProcessorSettings settings)
+		public IEnumerable<ExtractedType> RegisteredTypes => _extractedTypes.Values;
+
+		public TypeFactory(ProcessorSettings settings)
 		{
-			Settings = settings;
+			_settings = settings;
 		}
 
 		public bool ContainsNamedType(INamedType namedType)
@@ -163,43 +165,42 @@ namespace TypeRight.TypeProcessing
 		}
 
 
-		public void AddNamedType(INamedType type, string targetPath = null)
+		public void RegisterNamedType(INamedType type, string targetPath = null)
+		{
+			string metadataName = type.ConstructedFromType.FullName;
+			ExtractedType extractedType = CreateExtractedType(type, targetPath);
+			_extractedTypes.Add(metadataName, extractedType);
+		}
+
+		public ExtractedType CreateExtractedType(INamedType type, string targetPath = null)
 		{
 			if (string.IsNullOrEmpty(targetPath))
 			{
-				targetPath = Settings.DefaultResultPath;
+				targetPath = _settings.DefaultResultPath;
 			}
 			else
 			{
-				targetPath = PathUtils.ResolveRelativePath(Settings.ProjectPath, targetPath);
+				targetPath = PathUtils.ResolveRelativePath(_settings.ProjectPath, targetPath);
 			}
 
-			string metadataName = type.ConstructedFromType.FullName;
 			if (type.Flags.IsInterface)  // Interface
 			{
-				_extractedTypes.Add(metadataName, new ExtractedInterfaceType(type, this, targetPath));
+				return new ExtractedInterfaceType(type, this, targetPath);
 			}
 			else if (type.Flags.IsEnum)
 			{
-				_extractedTypes.Add(
-					metadataName,
-					new ExtractedEnumType(type, s_enumDisplayNameFilter, targetPath)
-					);
+				return new ExtractedEnumType(type, s_enumDisplayNameFilter, targetPath);
 			}
 			else // class
 			{
-				_extractedTypes.Add(metadataName, new ExtractedClassType(type, this, targetPath));
+				return new ExtractedClassType(type, this, targetPath);
 			}
 		}
-		
-		public IEnumerator<ExtractedType> GetEnumerator()
+
+		public ExtractedProperty CreateExtractedProperty(IProperty property)
 		{
-			return _extractedTypes.Values.GetEnumerator();
+			return new ExtractedProperty(property, _settings.NamingStrategy, this);
 		}
 
-		IEnumerator IEnumerable.GetEnumerator()
-		{
-			return GetEnumerator();
-		}
 	}
 }

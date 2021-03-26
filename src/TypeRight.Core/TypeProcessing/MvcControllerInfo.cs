@@ -50,8 +50,8 @@ namespace TypeRight.TypeProcessing
 		/// </summary>
 		/// <param name="namedType">The named type for the controller</param>
 		/// <param name="actionFilter">The parse filter to use for the MVC action attribute</param>
-		/// <param name="typeTable">The type table</param>
-		internal MvcControllerInfo(INamedType namedType, TypeFilter actionFilter, TypeTable typeTable)
+		/// <param name="typeFactory">The type table</param>
+		internal MvcControllerInfo(INamedType namedType, TypeFilter actionFilter, TypeFactory typeFactory)
 		{
 			NamedType = namedType;
 			
@@ -59,7 +59,7 @@ namespace TypeRight.TypeProcessing
 			{
 				if (method.Attributes.Any(attrData => actionFilter.Evaluate(attrData.AttributeType)))
 				{
-					MvcActionInfo action = new MvcActionInfo(method, typeTable);
+					MvcActionInfo action = new MvcActionInfo(method, typeFactory);
 					_actions.Add(action);
 				}
 			}
