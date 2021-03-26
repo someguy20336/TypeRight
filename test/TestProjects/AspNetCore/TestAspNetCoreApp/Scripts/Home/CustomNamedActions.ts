@@ -61,6 +61,22 @@ export function TestGetMethod(id: string, abort?: AbortSignal): Promise<string> 
 /**
  * 
  * @param id 
+ */
+export function TestOverrideMultParamTypesMethod(id: number | boolean | string, abort?: AbortSignal): Promise<string> {
+	return callGet(`/api/TestWebApi?param1=val1&param2=val2&id=${ id ?? "" }`, abort);
+}
+
+/**
+ * 
+ * @param id 
+ */
+export function TestOverrideSingleParamTypeMethod(id: number, abort?: AbortSignal): Promise<string> {
+	return callGet(`/api/TestWebApi?param1=val1&param2=val2&id=${ id ?? "" }`, abort);
+}
+
+/**
+ * 
+ * @param id 
  * @param body 
  */
 export function WithFromQuery(id: string, body: Models.CustomGroupObj3, abort?: AbortSignal): Promise<CustomGroup.CustomGroupObject1> {
