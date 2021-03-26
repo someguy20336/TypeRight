@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using TypeRight.ScriptWriting;
 using TypeRight.Tests.TestBuilders;
 
 namespace TypeRight.Tests.Types
@@ -18,7 +19,7 @@ namespace TypeRight.Tests.Types
 		[TestMethod]
 		public void SystemTextJson_NameIsConverted()
 		{
-			TestClassBuilder builder = AddDefaultExtractedClass();
+			TestClassBuilder builder = AddExtractedClass("MyType");
 			
 			builder.AddPropertyAndBuildAttributes("PropName", "string")
 				.AddAttribute(KnownTypes.SystemTextJsonPropertyName)
@@ -27,47 +28,73 @@ namespace TypeRight.Tests.Types
 
 			builder.Commit();
 
-			AssertThatTheDefaultReferenceType()
-				.TestPropertyWithName("PropName")
-				.OutputNameIs("name");
+			AssertClassScriptTextIs(@"
+/**  */
+export interface MyType {
+	/**  */
+	name: string;
+}");
 
 		}
 
 		[TestMethod]
 		public void NewtonsoftJson_NameIsConverted()
 		{
-			TestClassBuilder builder = AddDefaultExtractedClass();
+			TestClassBuilder builder = AddExtractedClass("MyType");
 
 			builder.AddPropertyAndBuildAttributes("PropName", "string")
-				.AddAttribute(KnownTypes.NewtonsoftJsonPropertyName)
+				.AddAttribute(KnownTypes.NewtonsoftJsonPropertyName_v12)
 					.AddNamedArg("PropertyName", "\"name\"")
 					.Commit();
 
 			builder.Commit();
 
-			AssertThatTheDefaultReferenceType()
-				.TestPropertyWithName("PropName")
-				.OutputNameIs("name");
+			AssertClassScriptTextIs(@"
+/**  */
+export interface MyType {
+	/**  */
+	name: string;
+}");
 
 		}
 
 		[TestMethod]
 		public void NewtonsoftJson_NoOverride_NameIsNotConverted()
 		{
-			TestClassBuilder builder = AddDefaultExtractedClass();
+			TestClassBuilder builder = AddExtractedClass("MyType");
 
 			builder.AddPropertyAndBuildAttributes("PropName", "string")
-				.AddAttribute(KnownTypes.NewtonsoftJsonPropertyName)
+				.AddAttribute(KnownTypes.NewtonsoftJsonPropertyName_v12)
 					.Commit();
 
 			builder.Commit();
 
-			AssertThatTheDefaultReferenceType()
-				.TestPropertyWithName("PropName")
-				.OutputNameIs("PropName");
-
+			AssertClassScriptTextIs(@"
+/**  */
+export interface MyType {
+	/**  */
+	PropName: string;
+}");
 		}
 
-		// TODO: test case for actual generated script
+		[TestMethod]
+		public void DefaultCamelCase_PropNamesAreConverted()
+		{
+			WorkspaceBuilder.ProcessorSettings.NamingStrategy = PropertyNamingStrategy.Create(PropertyNamingStrategyType.Camel);
+			TestClassBuilder builder = AddExtractedClass("MyType");
+
+			builder.AddPropertyAndBuildAttributes("PropName", "string")
+				.AddAttribute(KnownTypes.NewtonsoftJsonPropertyName_v12)
+					.Commit();
+
+			builder.Commit();
+
+			AssertClassScriptTextIs(@"
+/**  */
+export interface MyType {
+	/**  */
+	propName: string;
+}");
+		}
 	}
 }

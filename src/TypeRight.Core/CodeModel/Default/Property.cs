@@ -11,13 +11,14 @@ namespace TypeRight.CodeModel.Default
 
 		public string Comments { get; }
 
-		public IEnumerable<IAttributeData> Attributes => Array.Empty<IAttributeData>();
+		public IEnumerable<IAttributeData> Attributes { get; }
 
-		public Property(string name, IType propertyType, string comments = "")
+		public Property(string name, IType propertyType, string comments = "", IEnumerable<IAttributeData> attrs = null)
 		{
 			Name = name;
 			PropertyType = propertyType;
 			Comments = comments;
+			Attributes = attrs ?? Array.Empty<IAttributeData>();
 		}
 	}
 }

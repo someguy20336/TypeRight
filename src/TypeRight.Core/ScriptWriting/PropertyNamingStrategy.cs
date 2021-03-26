@@ -60,7 +60,7 @@ namespace TypeRight.ScriptWriting
 				= new IsOfTypeFilter(KnownTypes.SystemTextJsonPropertyName);
 
 			private static readonly TypeFilter s_newtonsoftJsonAttributeFilter
-				= new IsOfTypeFilter(KnownTypes.NewtonsoftJsonPropertyName);
+				= new IsOfAnyTypeFilter(KnownTypes.NewtonsoftJsonPropertyName_v12, KnownTypes.NewtonsoftJsonPropertyName_pre_v12);
 
 			private readonly PropertyNamingStrategy _defaultStrategy;
 

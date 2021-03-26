@@ -1,7 +1,9 @@
 ﻿using NetStandardLib;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using TypeRight.Attributes;
 
@@ -22,6 +24,15 @@ namespace TestAspNetCoreApp.Models
 		/// Doc for prop 2
 		/// </summary>
 		public string PropTwo { get; set; }
+
+		[JsonPropertyName("overrideSysText")]
+        public int SystemTextJsonOverride { get; set; }
+
+		[JsonProperty(PropertyName = "overrideNewtonsoft")]
+        public int NewtonsoftOverride { get; set; }
+
+		[JsonProperty(Order = 1)]
+		public int NoNewtonsoftOverride { get; set; }
 	}
 
 	[ScriptObject]

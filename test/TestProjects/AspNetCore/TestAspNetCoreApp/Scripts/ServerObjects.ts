@@ -9,6 +9,12 @@ export interface ASimpleModel {
 	PropOne: number;
 	/** Doc for prop 2 */
 	PropTwo: string;
+	/**  */
+	overrideSysText: number;
+	/**  */
+	overrideNewtonsoft: number;
+	/**  */
+	NoNewtonsoftOverride: number;
 }
 
 /**  */

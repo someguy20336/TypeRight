@@ -75,7 +75,7 @@ namespace TypeRight.Tests.TestBuilders
 					.Commit()
 				.Commit();
 
-			CreateClassBuilder(KnownTypes.NewtonsoftJsonPropertyName)
+			CreateClassBuilder(KnownTypes.NewtonsoftJsonPropertyName_v12)
 				.AddBaseClass("System.Attribute")
 				.AddProperty(nameof(Newtonsoft.Json.Serialization.JsonProperty.PropertyName), "string")
 				.Commit();
