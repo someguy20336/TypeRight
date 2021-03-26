@@ -94,7 +94,7 @@ namespace TypeRight.TypeProcessing
 		/// <returns>Fancy</returns>
 		public override string ToString()
 		{
-			return $"{ReturnType.ToString()} {Name}({string.Join(",", Parameters.Select(p => p.ToString()))})";
+			return $"{ReturnType} {Name}({string.Join(",", Parameters.Select(p => p.ToString()))})";
 		}
 	}
 
@@ -103,6 +103,9 @@ namespace TypeRight.TypeProcessing
 	/// </summary>
 	public class MvcActionParameter
 	{
+		private static TypeFilter s_scriptParamTypes
+			= new IsOfTypeFilter(KnownTypes.ScriptParamTypesAttributeName);
+
 		/// <summary>
 		/// Gets the name of the parameter
 		/// </summary>
@@ -111,7 +114,7 @@ namespace TypeRight.TypeProcessing
 		/// <summary>
 		/// Gets the type descriptor for the parameter
 		/// </summary>
-		public TypeDescriptor Type { get; }
+		public IReadOnlyList<TypeDescriptor> Types { get; }
 
 		/// <summary>
 		/// Gets attributes for this action parameter
@@ -126,9 +129,28 @@ namespace TypeRight.TypeProcessing
 		internal MvcActionParameter(IMethodParameter methodParameter, TypeFactory typeFactory)
 		{
 			Name = methodParameter.Name;
-			Type = typeFactory.LookupType(methodParameter.ParameterType);
+			Types = CompileTypes(methodParameter, typeFactory);
 			Attributes = methodParameter.Attributes;
 			IsOptional = methodParameter.IsOptional;
+		}
+
+		private List<TypeDescriptor> CompileTypes(IMethodParameter methodParameter, TypeFactory typeFactory)
+		{
+			var attr = methodParameter.Attributes.FirstOrDefault(a => s_scriptParamTypes.Evaluate(a.AttributeType));
+			if (attr == null)
+			{
+				return new List<TypeDescriptor>()
+				{
+					typeFactory.LookupType(methodParameter.ParameterType)
+				};
+			}
+
+			object[] typeArgs = attr.ConstructorArguments[0] as object[];
+
+			return typeArgs
+				.OfType<INamedType>()
+				.Select(arg => typeFactory.LookupType(arg))
+				.ToList();
 		}
 	}
 }

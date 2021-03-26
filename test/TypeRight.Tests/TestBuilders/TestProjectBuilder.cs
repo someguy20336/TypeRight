@@ -58,6 +58,13 @@ namespace TypeRight.Tests.TestBuilders
 				.AddBaseClass("System.Attribute")
 				.Commit();
 
+			CreateClassBuilder(KnownTypes.ScriptParamTypesAttributeName)
+				.AddBaseClass("System.Attribute")
+				.AddConstructor()
+					.AddParameter("types", "params Type[]")
+					.Commit()
+				.Commit();
+
 			CreateInterfaceBuilder(typeof(IEnumDisplayNameProvider).Name, typeRightNamespace)
 				.AddProperty(nameof(IEnumDisplayNameProvider.DisplayName), "string")
 				.AddProperty(nameof(IEnumDisplayNameProvider.Abbreviation), "string")

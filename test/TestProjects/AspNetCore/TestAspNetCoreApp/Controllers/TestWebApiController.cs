@@ -61,5 +61,21 @@ namespace TestAspNetCoreApp.Controllers
 		{
 			return null;
 		}
+
+        [HttpGet, ScriptAction]
+        public string TestOverrideSingleParamTypeMethod(
+            [FromQuery, ScriptParamTypes(typeof(int))] string id
+            )
+        {
+            return "";
+        }
+
+		[HttpGet, ScriptAction]
+		public string TestOverrideMultParamTypesMethod(
+		   [FromQuery, ScriptParamTypes(typeof(int), typeof(bool), typeof(string))] string id
+		   )
+		{
+			return "";
+		}
 	}
 }
