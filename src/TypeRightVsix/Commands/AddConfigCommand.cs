@@ -112,8 +112,7 @@ namespace TypeRightVsix.Commands
 
 			foreach (Project proj in VsHelper.GetSelectedCsharpProjects())
 			{
-				if (!VsHelper.IsSolutionItemsFolder(proj) 
-					&& !ConfigProcessing.ConfigExistsForProject(proj))
+				if (!ConfigProcessing.ConfigExistsForProject(proj))
 				{
 
 					string configPath = ScriptGenAssemblyCache.GetForProj(proj)?.GetConfigFilepath(proj.FullName);

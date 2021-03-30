@@ -71,7 +71,7 @@ namespace TypeRightVsix.Commands
 						
 			foreach (Project proj in selProjs)
 			{
-				if (!VsHelper.IsSolutionItemsFolder(proj) && !VsHelper.IsPackageInstalled(proj))
+				if (!VsHelper.IsPackageInstalled(proj))
 				{
 					button.Enabled = true;
 				}
@@ -125,7 +125,7 @@ namespace TypeRightVsix.Commands
 
 			foreach (Project proj in VsHelper.GetSelectedCsharpProjects())
 			{
-				if (!VsHelper.IsSolutionItemsFolder(proj) && !VsHelper.IsPackageInstalled(proj))
+				if (!VsHelper.IsPackageInstalled(proj))
 				{
 					try
 					{

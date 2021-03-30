@@ -60,7 +60,7 @@ namespace TypeRightVsix.Commands
 
 			foreach (Project proj in VsHelper.GetSelectedCsharpProjects())
 			{
-				if (!VsHelper.IsSolutionItemsFolder(proj) && VsHelper.IsPackageInstalled(proj))
+				if (VsHelper.IsPackageInstalled(proj))
 				{
 					button.Visible = true;
 				}

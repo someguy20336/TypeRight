@@ -118,17 +118,6 @@ namespace TypeRightVsix.Shared
 		}
 
 		/// <summary>
-		/// Gets whether the given project is the solution items folder
-		/// </summary>
-		/// <param name="proj">The project</param>
-		/// <returns>True if it is the solution items folder</returns>
-		public static bool IsSolutionItemsFolder(EnvDTE.Project proj)
-		{
-			ThreadHelper.ThrowIfNotOnUIThread();
-			return proj.Kind == "{66A26720-8FB5-11D2-AA7E-00C04F688DDE}";  // ... I think
-		}
-
-		/// <summary>
 		/// Gets whether the client scrip generator package is installed for the given project
 		/// </summary>
 		/// <param name="proj">The project to check</param>

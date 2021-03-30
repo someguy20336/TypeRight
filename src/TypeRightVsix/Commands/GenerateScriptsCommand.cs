@@ -61,8 +61,7 @@ namespace TypeRightVsix.Commands
 			foreach (EnvDTE.Project proj in VsHelper.GetSelectedCsharpProjects())
 			{
 				button.Visible = true;
-				if (!VsHelper.IsSolutionItemsFolder(proj)
-					&& VsHelper.IsPackageInstalled(proj)
+				if (VsHelper.IsPackageInstalled(proj)
 					&& ConfigProcessing.ConfigExistsForProject(proj))
 				{
 					button.Enabled = true;
