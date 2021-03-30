@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="TypeRight.83afc44c-da22-44a6-a850-472d688d83d2" Version="1.0.0.0" Language="en-US" Publisher="Dave W" />
+        <Identity Id="TypeRight.83afc44c-da22-44a6-a850-472d688d83d2" Version="1.0.1.0" Language="en-US" Publisher="Dave W" />
         <DisplayName>TypeRight</DisplayName>
         <Description xml:space="preserve">.VS Extension to generate client scripts from server objects.  Use in combination with the Nuget package of the same name.</Description>
         <MoreInfo>https://github.com/someguy20336/TypeRight</MoreInfo>

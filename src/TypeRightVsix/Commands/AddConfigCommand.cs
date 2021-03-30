@@ -60,7 +60,7 @@ namespace TypeRightVsix.Commands
 			button.Visible = false;
 			button.Enabled = false;
 
-			foreach (Project proj in VsHelper.GetSelectedItemsOfType<Project>())
+			foreach (Project proj in VsHelper.GetSelectedCsharpProjects())
 			{
 				button.Visible = true;  // At least one project is selected...
 				if (!ConfigProcessing.ConfigExistsForProject(proj) && VsHelper.IsPackageInstalled(proj))
@@ -110,7 +110,7 @@ namespace TypeRightVsix.Commands
 		{
 			ThreadHelper.ThrowIfNotOnUIThread();
 
-			foreach (Project proj in VsHelper.GetSelectedItemsOfType<Project>())
+			foreach (Project proj in VsHelper.GetSelectedCsharpProjects())
 			{
 				if (!VsHelper.IsSolutionItemsFolder(proj) 
 					&& !ConfigProcessing.ConfigExistsForProject(proj))

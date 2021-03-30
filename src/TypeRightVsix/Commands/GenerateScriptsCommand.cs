@@ -58,7 +58,7 @@ namespace TypeRightVsix.Commands
 			button.Enabled = false;
 			button.Visible = false;
 
-			foreach (EnvDTE.Project proj in VsHelper.GetSelectedItemsOfType<EnvDTE.Project>())
+			foreach (EnvDTE.Project proj in VsHelper.GetSelectedCsharpProjects())
 			{
 				button.Visible = true;
 				if (!VsHelper.IsSolutionItemsFolder(proj)
@@ -111,7 +111,7 @@ namespace TypeRightVsix.Commands
 			ThreadHelper.ThrowIfNotOnUIThread();
 			Workspace currentWorkspace = VsHelper.Current.GetCurrentWorkspace();
 
-			foreach (EnvDTE.Project proj in VsHelper.GetSelectedItemsOfType<EnvDTE.Project>())
+			foreach (EnvDTE.Project proj in VsHelper.GetSelectedCsharpProjects())
 			{
 				if (ConfigProcessing.ConfigExistsForProject(proj))
 				{

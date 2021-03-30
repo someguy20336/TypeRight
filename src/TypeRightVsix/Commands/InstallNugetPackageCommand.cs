@@ -61,14 +61,15 @@ namespace TypeRightVsix.Commands
 			button.Enabled = false;
 			button.Visible = false;
 
-			if (!VsHelper.GetSelectedItemsOfType<Project>().Any())
+			var selProjs = VsHelper.GetSelectedCsharpProjects();
+			if (!selProjs.Any())
 			{
 				return;
 			}
 
 			button.Visible = true;
 						
-			foreach (Project proj in VsHelper.GetSelectedItemsOfType<Project>())
+			foreach (Project proj in selProjs)
 			{
 				if (!VsHelper.IsSolutionItemsFolder(proj) && !VsHelper.IsPackageInstalled(proj))
 				{
@@ -122,7 +123,7 @@ namespace TypeRightVsix.Commands
 			if (question == DialogResult.No)
 				return;
 
-			foreach (Project proj in VsHelper.GetSelectedItemsOfType<Project>())
+			foreach (Project proj in VsHelper.GetSelectedCsharpProjects())
 			{
 				if (!VsHelper.IsSolutionItemsFolder(proj) && !VsHelper.IsPackageInstalled(proj))
 				{

@@ -58,7 +58,7 @@ namespace TypeRightVsix.Commands
 			OleMenuCommand button = (OleMenuCommand)sender;
 			button.Visible = false;
 
-			foreach (Project proj in VsHelper.GetSelectedItemsOfType<Project>())
+			foreach (Project proj in VsHelper.GetSelectedCsharpProjects())
 			{
 				if (!VsHelper.IsSolutionItemsFolder(proj) && VsHelper.IsPackageInstalled(proj))
 				{
@@ -105,7 +105,7 @@ namespace TypeRightVsix.Commands
 		/// <param name="e">Event args.</param>
 		private void MenuItemCallback(object sender, EventArgs e)
 		{
-			ProjectInformationDialog dialog = new ProjectInformationDialog(VsHelper.GetSelectedItemsOfType<Project>().First());
+			ProjectInformationDialog dialog = new ProjectInformationDialog(VsHelper.GetSelectedCsharpProjects().First());
 			dialog.ShowModal();
 		}
 	}

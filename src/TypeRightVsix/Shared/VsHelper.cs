@@ -91,6 +91,13 @@ namespace TypeRightVsix.Shared
 			return item != null;
 		}
 
+		public static IEnumerable<EnvDTE.Project> GetSelectedCsharpProjects()
+		{
+			ThreadHelper.ThrowIfNotOnUIThread();
+			return GetSelectedItemsOfType<EnvDTE.Project>()
+				.Where(p => p.FullName.EndsWith(".csproj", StringComparison.OrdinalIgnoreCase));
+		}
+
 		/// <summary>
 		/// Gets selected items of the given type from the solution explorer
 		/// </summary>
