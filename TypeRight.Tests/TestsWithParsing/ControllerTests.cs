@@ -45,7 +45,7 @@ namespace TypeRight.Tests.TestsWithParsing
 
 				// Display name attribute
 				.CreateClassBuilder("SimpleController")
-					.WithControllerBaseClass()
+					.WithControllerBaseClass(false)
 
 					// Fake Json Method - not extracted
 					.AddMethod("Json", "FakeJsonResultLikeClass")
@@ -108,6 +108,10 @@ namespace TypeRight.Tests.TestsWithParsing
 						.AddScriptActionAttribute()
 						.AddLineOfCode("TestGenericClass<TestClass> gen = new TestGenericClass<TestClass>();", 0)
 						.AddLineOfCode("return Json(gen.GenericProp);", 0)
+						.Commit()
+					.AddMethod("JsonWithMethod", MvcConstants.JsonResult_AspNet)
+						.AddScriptActionAttribute()
+						.AddLineOfCode("return Json(ARandomMethod());", 0)
 						.Commit()
 					.Commit()
 
@@ -339,6 +343,15 @@ namespace TypeRight.Tests.TestsWithParsing
 		{
 			_packageTester.TestControllerWithName("WebApiController")
 				.TestActionWithName("GetTaskResultClass")
+				.ReturnTypeTypescriptNameIs($"{FakeTypePrefixer.Prefix}.TestClass");
+		}
+
+		
+		[TestMethod]
+		public void JsonResult_WithMethod_WorksApi_Task_GetsClassType()
+		{
+			_packageTester.TestControllerWithName("SimpleController")
+				.TestActionWithName("JsonWithMethod")
 				.ReturnTypeTypescriptNameIs($"{FakeTypePrefixer.Prefix}.TestClass");
 		}
 	}
