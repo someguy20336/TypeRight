@@ -18,7 +18,7 @@ namespace TypeRight.Tests.Controllers.AspNet
 
 
 		[TestMethod]
-		public void Controllers_StringResult()
+		public void StringResult_IsTypescriptString()
 		{
 			AddControllerAction("StringResult", "string")
 				.AddLineOfCode("return \"Hi\";", 0)
@@ -31,7 +31,7 @@ namespace TypeRight.Tests.Controllers.AspNet
 
 
 		[TestMethod]
-		public void Controllers_NewObjectResult()
+		public void NewObjectResult_IsExtractedType()
 		{
 			AddControllerAction("NewObjectResult", "TestClass")
 				.AddLineOfCode("return new TestClass();", 0)
@@ -42,7 +42,7 @@ namespace TypeRight.Tests.Controllers.AspNet
 		}
 
 		[TestMethod]
-		public void Controllers_NewObjectResult_Json()
+		public void JsonResult_NewObjectResult_IsExtractedType()
 		{
 			AddControllerAction("NewObjectResult_Json", MvcConstants.JsonResult_AspNet)
 				.AddLineOfCode("return Json(new TestClass());", 0)
@@ -54,7 +54,7 @@ namespace TypeRight.Tests.Controllers.AspNet
 		}
 
 		[TestMethod]
-		public void Controllers_VariableResult()
+		public void VariableResult_UsesVariableType()
 		{
 			AddControllerAction("VariableResult", "bool")
 				.AddLineOfCode("bool testVar = true;", 0)
@@ -66,7 +66,7 @@ namespace TypeRight.Tests.Controllers.AspNet
 		}
 
 		[TestMethod]
-		public void Controllers_VariableResult_Json()
+		public void JsonResult_VariableResult_UsesVariableType()
 		{
 			AddControllerAction("VariableResult_Json", MvcConstants.JsonResult_AspNet)
 				.AddLineOfCode("bool testVar = true;", 0)
@@ -79,7 +79,7 @@ namespace TypeRight.Tests.Controllers.AspNet
 		}
 
 		[TestMethod]
-		public void Controllers_StringConcatResult()
+		public void String_ConcatResult_IsStringType()
 		{
 			AddControllerAction("StringConcatResult", "string")
 				.AddLineOfCode("return \"Hello\" + \"World\";", 0)
@@ -90,7 +90,7 @@ namespace TypeRight.Tests.Controllers.AspNet
 		}
 
 		[TestMethod]
-		public void Controllers_MethodResult()
+		public void Method_IsMethodType()
 		{
 			ControllerBuilder
 				.AddMethod("ARandomMethod", "TestClass")  
@@ -105,8 +105,24 @@ namespace TypeRight.Tests.Controllers.AspNet
 				.ReturnTypeTypescriptNameIs($"{FakeTypePrefixer.Prefix}.TestClass");
 		}
 
+
 		[TestMethod]
-		public void Controllers_SimpleParameter_ParameterType_Json()
+		public void JsonResult_WithMethod_FindsReturnType()
+		{
+			AddControllerAction("TestAction", MvcConstants.JsonResult_AspNet)
+				.AddLineOfCode("return Json(AMethod());", 0)
+				.Commit();
+
+			ControllerBuilder.AddMethod("AMethod", "string")
+				.AddLineOfCode("return null;", 0)
+				.Commit();
+
+			AssertThatThisControllerAction("TestAction")
+				.ReturnTypeTypescriptNameIs($"string");
+		}
+
+		[TestMethod]
+		public void SimpleParameter_IsParameterType()
 		{
 			AddControllerAction("SimpleParameter_Json", MvcConstants.JsonResult_AspNet)
 				.AddParameter("testParam", "TestClass")
@@ -119,7 +135,7 @@ namespace TypeRight.Tests.Controllers.AspNet
 		}
 
 		[TestMethod]
-		public void Controllers_SimpleParameter_ReturnType_Json()
+		public void JsonResult_SimpleParameter_IsParameterType()
 		{
 			AddControllerAction("SimpleParameter_Json", MvcConstants.JsonResult_AspNet)
 				.AddParameter("testParam", "TestClass")
@@ -131,7 +147,7 @@ namespace TypeRight.Tests.Controllers.AspNet
 		}
 
 		[TestMethod]
-		public void Controllers_NotExtracted_Json()
+		public void NotExtracted_IsAnyType()
 		{
 			AddControllerAction("NotExtracted_Json", MvcConstants.JsonResult_AspNet)
 				.AddLineOfCode("return Json(new NotExtracted());", 0)
@@ -142,7 +158,7 @@ namespace TypeRight.Tests.Controllers.AspNet
 		}
 
 		[TestMethod]
-		public void Controllers_DictionaryParams()
+		public void Parameter_Dictionary_IsDictionaryType()
 		{
 			AddControllerAction("ComplexMethod", MvcConstants.JsonResult_AspNet)
 				.AddParameter("dateStringDict", "Dictionary<DateTime, string>")
@@ -161,7 +177,7 @@ namespace TypeRight.Tests.Controllers.AspNet
 		}
 
 		[TestMethod]
-		public void Controllers_GenericReturnType()
+		public void ClassWithGeneric_ReturnTypeIsGenertic()
 		{
 			AddControllerAction("ComplexMethod", MvcConstants.JsonResult_AspNet)
 				.AddParameter("dateStringDict", "Dictionary<DateTime, string>")
@@ -177,7 +193,7 @@ namespace TypeRight.Tests.Controllers.AspNet
 		}
 
 		[TestMethod]
-		public void Controllers_GenericPropReturnType()
+		public void GenericValue_ReturnTypeIsGenericType()
 		{
 			AddControllerAction("GenericPropReturn_Json", MvcConstants.JsonResult_AspNet)
 				.AddLineOfCode("TestGenericClass<TestClass> gen = new TestGenericClass<TestClass>();", 0)
@@ -187,5 +203,6 @@ namespace TypeRight.Tests.Controllers.AspNet
 			AssertThatThisControllerAction("GenericPropReturn_Json")
 				.ReturnTypeTypescriptNameIs($"{FakeTypePrefixer.Prefix}.TestClass");
 		}
+
 	}
 }

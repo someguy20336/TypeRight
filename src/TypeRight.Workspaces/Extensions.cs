@@ -1,4 +1,5 @@
 ﻿using Microsoft.CodeAnalysis;
+using System;
 
 namespace TypeRight.Workspaces
 {
@@ -12,6 +13,8 @@ namespace TypeRight.Workspaces
 		/// <returns></returns>
 		public static bool HasBaseType(this ITypeSymbol typeSymbol, INamedTypeSymbol type)
 		{
+			type = type ?? throw new ArgumentNullException(nameof(type));
+
 			var baseType = typeSymbol.BaseType;
 			while (baseType != null)
 			{

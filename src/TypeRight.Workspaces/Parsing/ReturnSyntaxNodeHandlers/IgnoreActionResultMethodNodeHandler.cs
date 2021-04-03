@@ -11,19 +11,21 @@ namespace TypeRight.Workspaces.Parsing.ReturnSyntaxNodeHandlers
 	/// </summary>
 	internal class IgnoreActionResultMethodNodeHandler : ReturnSyntaxNodeHandler
 	{
-		private INamedTypeSymbol _aspNetCoreActionResult;
+		private INamedTypeSymbol _actionResult;
 
 		public IgnoreActionResultMethodNodeHandler(ReturnSyntaxNodeHandlerContext handlerContext) : base(handlerContext)
 		{
-			_aspNetCoreActionResult = handlerContext.Context
-				.Compilation.GetTypeByMetadataName(MvcConstants.ToAspNetCoreFullName(MvcConstants.ActionResultName));
+			string aspNetCore = MvcConstants.ActionResult_AspNetCore;
+			string aspNet = MvcConstants.ToAspNetFullName(MvcConstants.ActionResultName);
 
-			// ASP NET?
+			Compilation compilation = handlerContext.Context.Compilation;
+			_actionResult = compilation.GetTypeByMetadataName(aspNetCore) ?? compilation.GetTypeByMetadataName(aspNet);
+
 		}
 
 		public override bool CanHandle(SyntaxNode node)
 		{
-			if (node is InvocationExpressionSyntax)
+			if (_actionResult != null && node is InvocationExpressionSyntax)
 			{
 				SymbolInfo symbInfo = Model.GetSymbolInfo(node);
 				if (!(symbInfo.Symbol is IMethodSymbol methodSymbol))
@@ -31,7 +33,7 @@ namespace TypeRight.Workspaces.Parsing.ReturnSyntaxNodeHandlers
 					return false;
 				}
 
-				if (methodSymbol.ReturnType.HasBaseType(_aspNetCoreActionResult))
+				if (methodSymbol.ReturnType.HasBaseType(_actionResult))
 				{
 					return true;
 				}
