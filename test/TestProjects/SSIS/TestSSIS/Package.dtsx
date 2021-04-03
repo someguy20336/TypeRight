@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="3/29/2021 5:59:19 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="BRAVEPC"
+  DTS:CreatorName="BRAVEPC\dwhel"
+  DTS:DTSID="{CE4A978B-14C6-4C2E-814B-6A8EA25479C3}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.157"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Package"
+  DTS:PackageType="5"
+  DTS:VersionGUID="{44FCC0BE-9DA1-4889-A093-25190C2479CE}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables />
+</DTS:Executable>
