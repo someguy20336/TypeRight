@@ -1,6 +1,8 @@
 ﻿using Microsoft.CodeAnalysis;
 using TypeRight.VsixContract.Messages;
 using TypeRight.VsixContract;
+using System;
+using System.Linq;
 
 namespace TypeRightVsix.Imports
 {
@@ -24,8 +26,19 @@ namespace TypeRightVsix.Imports
 
 		public override GenerateScriptsResponse GenerateScripts(Workspace workspace, string projPath, bool force)
 		{
-			var result = _scriptGenerationAdapter.GenerateScripts(workspace, projPath, force);
-			return new GenerateScriptsResponse(result.Success, result.ErrorMessage);
+			try
+			{
+				IScriptGenerationResult result = _scriptGenerationAdapter.GenerateScripts(workspace, projPath, force);
+				return new GenerateScriptsResponse(result.Success, result.ErrorMessage);
+			}
+			catch (Exception e)
+			{
+				string[] topStackTrace = e.StackTrace.Split(new[] { "\r\n" }, StringSplitOptions.None).Take(8).ToArray();
+
+				string message = e.Message + Environment.NewLine + Environment.NewLine
+					+ string.Join(Environment.NewLine, topStackTrace) + Environment.NewLine + "...";
+				return new GenerateScriptsResponse(false, message);
+			}
 		}
 
 		public override string GetConfigFilepath(string projPath)
