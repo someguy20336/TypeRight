@@ -24,10 +24,15 @@ namespace TypeRight.ScriptWriting
 		{
 			if (options.FetchConfig != null)
 			{
-				return new FetchConfigFetchFunctionResolver(projUri, options.FetchConfig);
+				return new FetchConfigFetchFunctionResolver(projUri, options.FetchConfig, options.QueryParams);
 			}
 
 			return new ActionConfigFetchFunctionResolver(projUri, options.ActionConfigurations, options.QueryParams);
+		}
+
+		protected string ResolveFilePath(string fetchFilePath)
+		{
+			return string.IsNullOrEmpty(fetchFilePath) ? null : new Uri(ProjUri, fetchFilePath).LocalPath;
 		}
 	}
 
@@ -37,7 +42,7 @@ namespace TypeRight.ScriptWriting
 		private IEnumerable<ActionConfig> _actionConfigs;
 		private readonly NameValueCollection _constantQueryParams;
 
-		public ActionConfigFetchFunctionResolver(Uri projUri, IEnumerable<ActionConfig> configOptions, NameValueCollection constantQueryParams = null)
+		public ActionConfigFetchFunctionResolver(Uri projUri, IEnumerable<ActionConfig> configOptions, NameValueCollection constantQueryParams)
 			: base(projUri)
 		{
 			_actionConfigs = configOptions;
@@ -77,13 +82,11 @@ namespace TypeRight.ScriptWriting
 				parameterResolvers.Add(new CustomParameterResolver(addlParam));
 			}
 
-			string fetchModulePath = string.IsNullOrEmpty(actionConfig.FetchFilePath) ? null : new Uri(ProjUri, actionConfig.FetchFilePath).LocalPath;
-
 			return new FetchFunctionDescriptor()
 			{
 				AdditionalImports = actionConfig.Imports ?? new List<ImportDefinition>(),
 				AdditionalParameters = addlParameters,
-				FetchModulePath = fetchModulePath,
+				FetchModulePath = ResolveFilePath(actionConfig.FetchFilePath),
 				FunctionName = actionConfig.FetchFunctionName,
 				ReturnType = string.IsNullOrEmpty(actionConfig.ReturnType) ? "void" : actionConfig.ReturnType,
 				FetchParameterResolvers = parameterResolvers
@@ -94,16 +97,43 @@ namespace TypeRight.ScriptWriting
 	public class FetchConfigFetchFunctionResolver : FetchFunctionResolver
 	{
 		private FetchConfig _fetchConfig;
+		private readonly NameValueCollection _constantQueryParams;
 
-		public FetchConfigFetchFunctionResolver(Uri projUri, FetchConfig fetchConfig)
+		public FetchConfigFetchFunctionResolver(Uri projUri, FetchConfig fetchConfig, NameValueCollection constantQueryParams)
 			: base(projUri)
 		{
 			_fetchConfig = fetchConfig;
+			_constantQueryParams = constantQueryParams;
 		}
 
 		public override FetchFunctionDescriptor Resolve(string requestMethodName)
 		{
-			return null;
+
+			List<IFetchParameterResolver> parameterResolvers = _fetchConfig.Parameters.Select<ActionParameterWithKind, IFetchParameterResolver>(p =>
+			{
+				switch (p.Kind)
+				{
+					case ParameterKind.RequestMethod:
+						return new RequestMethodResolver();
+					case ParameterKind.Url:
+						return new UrlParameterResolver(_constantQueryParams);
+					case ParameterKind.Body:
+						return new BodyParameterResolver();
+					case ParameterKind.Custom:
+					default:
+						return new CustomParameterResolver(p);
+				}
+			}).ToList();
+
+			return new FetchFunctionDescriptor()
+			{
+				AdditionalImports = _fetchConfig.Imports ?? new List<ImportDefinition>(),
+				AdditionalParameters = _fetchConfig.Parameters.Where(p => p.Kind == ParameterKind.Custom).ToList<ActionParameter>(),
+				FetchModulePath = ResolveFilePath(_fetchConfig.FilePath),
+				FunctionName = _fetchConfig.Name,
+				ReturnType = string.IsNullOrEmpty(_fetchConfig.ReturnType) ? "void" : _fetchConfig.ReturnType,
+				FetchParameterResolvers = parameterResolvers
+			};
 		}
 
 	}

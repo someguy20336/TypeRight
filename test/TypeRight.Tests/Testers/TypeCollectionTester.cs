@@ -7,12 +7,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using TypeRight.Tests.TestBuilders;
-using System.Collections.Specialized;
 
 namespace TypeRight.Tests.Testers
 {
 	public class TypeCollectionTester
 	{
+		public const string FetchFilePath = @".\FolderM\FolderN\AjaxFunc.ts";
+
 		private ExtractedTypeCollection _typeCollection;
 
 		private IScriptTemplate _scriptWriter;
@@ -66,26 +67,37 @@ namespace TypeRight.Tests.Testers
 			return this;
 		}
 
-		public ControllerContext GetDefaultControllerContext(string controllerName, List<ActionConfig> actionConfig = null, NameValueCollection queryParams = null)
+		public ControllerContext GetDefaultControllerContext(string controllerName, List<ActionConfig> actionConfig = null)
 		{
-			FetchFunctionResolver resolver = new ActionConfigFetchFunctionResolver(new Uri(@"C:\FolderA\FolderB\Project.csproj"), actionConfig ?? GetDefaultActionConfig(), queryParams);
+			FetchFunctionResolver resolver = new ActionConfigFetchFunctionResolver(new Uri(@"C:\FolderA\FolderB\Project.csproj"), actionConfig ?? GetDefaultActionConfig(), null);
 			return new ControllerContext(
 				_typeCollection.GetMvcControllers().Where(c => c.Name == controllerName).FirstOrDefault(),
 				@"C:\FolderA\FolderB\FolderX\FolderY\SomeController.ts",
 				_typeCollection,
 				new Uri(@"C:\FolderA\FolderB\FolderC\FolderD\ServerObjects.ts"),
-				resolver,
-				queryParams: queryParams
+				resolver
 				);
 		}
 
-		public List<ActionConfig> GetDefaultActionConfig()
+		public ControllerContext GetDefaultControllerContext(string controllerName, ConfigOptions config)
+		{
+			FetchFunctionResolver resolver = FetchFunctionResolver.FromConfig(new Uri(@"C:\FolderA\FolderB\Project.csproj"), config);
+			return new ControllerContext(
+				_typeCollection.GetMvcControllers().Where(c => c.Name == controllerName).FirstOrDefault(),
+				@"C:\FolderA\FolderB\FolderX\FolderY\SomeController.ts",
+				_typeCollection,
+				new Uri(@"C:\FolderA\FolderB\FolderC\FolderD\ServerObjects.ts"),
+				resolver
+				);
+		}
+
+		public static List<ActionConfig> GetDefaultActionConfig()
 		{
 			return new List<ActionConfig>()
 			{
 				new ActionConfig()
 				{
-					FetchFilePath = @".\FolderM\FolderN\AjaxFunc.ts",
+					FetchFilePath = FetchFilePath,
 					FetchFunctionName = "TestAjax",
 					Imports = new List<ImportDefinition>(),
 					Method = RequestMethod.Default.Name,
@@ -98,7 +110,7 @@ namespace TypeRight.Tests.Testers
 				},
 				new ActionConfig()
 				{
-					FetchFilePath = @".\FolderM\FolderN\AjaxFunc.ts",
+					FetchFilePath = FetchFilePath,
 					FetchFunctionName = "callDelete",
 					Imports = new List<ImportDefinition>(),
 					Method = "DELETE",

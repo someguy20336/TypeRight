@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TypeRight.Configuration;
 using TypeRight.Tests.TestBuilders.TypeCollection;
+using TypeRight.Tests.Testers;
 
 namespace TypeRight.Tests.TestsWithoutParsing
 {
@@ -65,7 +66,7 @@ namespace TypeRight.Tests.TestsWithoutParsing
 					Type = "string"
 				}
 			};
-			var actionConfig = tester.GetDefaultActionConfig();
+			var actionConfig = TypeCollectionTester.GetDefaultActionConfig();
 			actionConfig.First().Parameters = actionParameters;
 			var context = tester.GetDefaultControllerContext("TestController", actionConfig);
 

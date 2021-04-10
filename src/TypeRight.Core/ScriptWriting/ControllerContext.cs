@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Specialized;
 using TypeRight.TypeProcessing;
 
 namespace TypeRight.ScriptWriting
@@ -21,16 +20,13 @@ namespace TypeRight.ScriptWriting
 
 		public string BaseUrl { get; private set; }
 
-		public NameValueCollection QueryParameters { get; private set; }
-
 		public ControllerContext(
 			MvcControllerInfo controller,
 			string outputPath,
 			ExtractedTypeCollection types,
 			Uri serverObjectsPath,
 			FetchFunctionResolver fetchResolver,
-			string baseUrl = "",
-			NameValueCollection queryParams = null
+			string baseUrl = ""
 			)
 			: base(types, outputPath)
 		{
@@ -38,7 +34,6 @@ namespace TypeRight.ScriptWriting
 			BaseUrl = baseUrl;
 			ServerObjectsResultFilepath = serverObjectsPath;
 			FetchFunctionResolver = fetchResolver;
-			QueryParameters = queryParams ?? new NameValueCollection();
 		}
 
 	}

@@ -94,8 +94,7 @@ namespace TypeRight
 					typeCollection,
 					new Uri(resultAbsolute.LocalPath),
 					fetchResolver,
-					configOptions.BaseUrl,
-					configOptions.QueryParams
+					configOptions.BaseUrl
 					);
 
 				string controllerScript = scriptGen.CreateControllerTextTemplate().GetText(context);
