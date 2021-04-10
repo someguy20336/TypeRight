@@ -103,8 +103,8 @@ namespace TypeRight.Tests.Testers
 					Method = RequestMethod.Default.Name,
 					Parameters = new List<ActionParameter>()		// TODO: this is dupliated in ControllerWritingTestsBase... don't
 					{
-						new ActionParameter() {Name = "success", Type = "(result: $returnType$) => void", Optional = true},
-						new ActionParameter() {Name = "fail", Type = "(result: any) => void", Optional = true }
+						new ActionParameter("success", "(result: $returnType$) => void", true),
+						new ActionParameter("fail", "(result: any) => void", true)
 					},
 					ReturnType = "void"
 				},

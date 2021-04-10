@@ -18,7 +18,7 @@ namespace TypeRight.Configuration
 		/// <summary>
 		/// Gets or sets additional parameters to use for the fetch function
 		/// </summary>
-		public List<ActionParameterWithKind> Parameters { get; set; } = new List<ActionParameterWithKind>();
+		public List<ActionParameter> Parameters { get; set; } = new List<ActionParameter>();
 
 		/// <summary>
 		/// Gets or sets the return type of the fetch function
@@ -30,22 +30,5 @@ namespace TypeRight.Configuration
 		/// </summary>
 		public List<ImportDefinition> Imports { get; set; } = new List<ImportDefinition>();
 	}
-
-	public enum ParameterKind
-	{
-		Custom,
-		RequestMethod,
-		Url,
-		Body
-	}
-
-	/// <summary>
-	/// An action parameter
-	/// </summary>
-	public class ActionParameterWithKind : ActionParameter
-	{
-		public ParameterKind Kind { get; set; }
-	}
-
-	
+		
 }

@@ -46,17 +46,6 @@ namespace TypeRight.Configuration
 		public List<ImportDefinition> Imports { get; set; } = new List<ImportDefinition>();
 	}
 
-	/// <summary>
-	/// An action parameter
-	/// </summary>
-	public class ActionParameter
-	{
-		public string Name { get; set; }
-
-		public string Type { get; set; }
-
-		public bool Optional { get; set; }
-	}
 
 	/// <summary>
 	/// The import definiition

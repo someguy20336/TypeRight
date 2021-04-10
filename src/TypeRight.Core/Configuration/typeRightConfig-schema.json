@@ -27,9 +27,14 @@
 			"enum": [ "none", "camel" ],
 			"description": "Defines the casing strategy to use by default for classes and interfaces.  In all cases, a specified property (i.e. JsonPropertyNameAttribute) name will always take precidence."
 		},
+		"fetchConfig": {
+			"type": "object",
+			"description": "The configuration for your generalized fetch function",
+			"$ref": "#/definitions/fetchConfiguration"
+		},
 		"actionConfigurations": {
 			"type": "array",
-			"description": "Array of action configurations.  Use these to configure how web APIs get called.",
+			"description": "DEPRECATED: Array of action configurations.  Use these to configure how web APIs get called.",
 			"items": {
 				"$ref": "#/definitions/actionConfiguration"
 			}
@@ -93,7 +98,39 @@
 					}
 				}
 			}
+		},
 
+		"fetchConfiguration": {
+			"type": "object",
+			"properties": {
+				"name": {
+					"type": "string",
+					"description": "The name of method that will perform this fetch"
+				},
+				"filePath": {
+					"type": "string",
+					"description": "The relative path from the project root of the file that contains the fetch function"
+				},
+				"returnType": {
+					"type": "string",
+					"description": "The return type for the fetch function.  Can use the token $returnType$ to use the return type of the action. Example: Promise<$returnType$>"
+				},
+				"imports": {
+					"type": [ "array", "null" ],
+					"items": {
+						"$ref": "#/definitions/importDefinition"
+					}
+				},
+				"parameters": {
+					"type": [ "array", "null" ],
+					"items": {
+						"anyOf": [
+							{ "enum": [ "url", "body", "requestMethod" ] },
+							{ "$ref": "#/definitions/actionParameter" }
+						]
+					}
+				}
+			}
 		},
 
 		"actionParameter": {

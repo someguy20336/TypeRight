@@ -53,18 +53,8 @@ namespace TypeRight.Tests.TestsWithoutParsing
 			// Setup action parameters
 			List<ActionParameter> actionParameters = new List<ActionParameter>()
 			{
-				new ActionParameter()
-				{
-					Name = "userParam1",
-					Optional = false,
-					Type = "string"
-				},
-				new ActionParameter()
-				{
-					Name = "userParam2",
-					Optional = true,
-					Type = "string"
-				}
+				new ActionParameter("userParam1", "string", false),
+				new ActionParameter("userParam2", "string", true)
 			};
 			var actionConfig = TypeCollectionTester.GetDefaultActionConfig();
 			actionConfig.First().Parameters = actionParameters;

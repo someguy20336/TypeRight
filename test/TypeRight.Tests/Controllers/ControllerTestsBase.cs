@@ -91,7 +91,7 @@ namespace TypeRight.Tests.Controllers
 			_configOptions.FetchConfig = fetchConfig;
 		}
 
-		protected void AddFetchConfigParameter(ActionParameterWithKind actionParam)
+		protected void AddFetchConfigParameter(ActionParameter actionParam)
 		{
 			_configOptions.FetchConfig.Parameters.Add(actionParam);
 		}

@@ -177,17 +177,8 @@ export function StringResult(): Promise<string> {{
 		{
 			GivenActionParameters(new List<ActionParameter>()
 			{
-				new ActionParameter()
-				{
-					Name = "randomString",
-					Type = "string"
-				},
-				new ActionParameter()
-				{
-					Name = "abortSignal",
-					Optional = true,
-					Type = "AbortSignal"
-				}
+				new ActionParameter("randomString", "string", false),
+				new ActionParameter("abortSignal", "AbortSignal", true)
 			});
 			
 			GivenScriptReturnType("$returnType$");

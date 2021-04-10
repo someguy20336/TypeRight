@@ -31,11 +31,11 @@ namespace TypeRight.Tests.Controllers.AspNetCore
 				Imports = new List<ImportDefinition>(),
 				Name = "fetchWrapper",
 				ReturnType = "void",
-				Parameters = new List<ActionParameterWithKind>()
+				Parameters = new List<ActionParameter>()
 				{
-					new ActionParameterWithKind() {Kind = ParameterKind.RequestMethod },
-					new ActionParameterWithKind() {Kind = ParameterKind.Url },
-					new ActionParameterWithKind() {Kind = ParameterKind.Body }
+					ActionParameter.RequestMethod,
+					ActionParameter.Url,
+					ActionParameter.Body
 				}
 			});
 		}
@@ -109,12 +109,7 @@ export function GetThing(thingId: string, queryP: string): void {
 		[TestMethod]
 		public void CustomParameter_GetRequest_ScriptIsWritten()
 		{
-			AddFetchConfigParameter(new ActionParameterWithKind()
-			{
-				Kind = ParameterKind.Custom,
-				Name = "test",
-				Type = "string"
-			});
+			AddFetchConfigParameter(new ActionParameter("test", "string", false));
 
 			ControllerBuilder
 				.AddMethod("GetThing", "string")
