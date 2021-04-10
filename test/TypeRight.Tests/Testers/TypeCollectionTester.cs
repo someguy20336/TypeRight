@@ -68,7 +68,7 @@ namespace TypeRight.Tests.Testers
 
 		public ControllerContext GetDefaultControllerContext(string controllerName, List<ActionConfig> actionConfig = null, NameValueCollection queryParams = null)
 		{
-			FetchFunctionResolver resolver = new FetchFunctionResolver(new Uri(@"C:\FolderA\FolderB\Project.csproj"), actionConfig ?? GetDefaultActionConfig());
+			FetchFunctionResolver resolver = new ActionConfigFetchFunctionResolver(new Uri(@"C:\FolderA\FolderB\Project.csproj"), actionConfig ?? GetDefaultActionConfig(), queryParams);
 			return new ControllerContext(
 				_typeCollection.GetMvcControllers().Where(c => c.Name == controllerName).FirstOrDefault(),
 				@"C:\FolderA\FolderB\FolderX\FolderY\SomeController.ts",

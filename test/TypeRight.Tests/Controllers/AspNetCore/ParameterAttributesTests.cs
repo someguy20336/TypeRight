@@ -289,7 +289,7 @@ import {{ TestAjax }} from ""../../FolderM/FolderN/AjaxFunc"";
  * @param id 
  */
 export function Action(id: string | number): void {{
-	TestAjax(`/{ControllerName}/Action/${{id}}`);
+	TestAjax(`/{ControllerName}/Action/${{id}}`, null);
 }}
 
 
