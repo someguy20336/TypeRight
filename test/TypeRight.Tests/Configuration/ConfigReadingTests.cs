@@ -164,5 +164,45 @@ namespace TypeRight.Tests.Configuration
 
 			Assert.AreEqual(PropertyNamingStrategyType.None, config.PropNameCasingConverter);
 		}
+
+		[TestMethod]
+		public void FetchConfig_NamedActionParameters_AreDeserialized()
+		{
+			var config = ConfigParser.ParseFromJson(@"
+{
+	""fetchConfig"": {
+		""parameters"": [
+			""requestMethod"",
+			""url"",
+			""body""
+		]
+	}
+}
+");
+			Assert.AreEqual(ParameterKind.RequestMethod, config.FetchConfig.Parameters[0].Kind);
+			Assert.AreEqual(ParameterKind.Url, config.FetchConfig.Parameters[1].Kind);
+			Assert.AreEqual(ParameterKind.Body, config.FetchConfig.Parameters[2].Kind);
+		}
+
+		[TestMethod]
+		public void FetchConfig_CustomActionParameter_IsDeserialized()
+		{
+			var config = ConfigParser.ParseFromJson(@"
+{
+	""fetchConfig"": {
+		""parameters"": [
+			{
+				""name"": ""test"",
+				""type"": ""string""
+			}
+		]
+	}
+}
+");
+			var oneParam = config.FetchConfig.Parameters[0];
+			Assert.AreEqual(ParameterKind.Custom, oneParam.Kind);
+			Assert.AreEqual("test", oneParam.Name);
+			Assert.AreEqual("string", oneParam.Type);
+		}
 	}
 }

@@ -1,26 +1,57 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using TypeRight.Configuration;
 using TypeRight.TypeProcessing;
 
 namespace TypeRight.ScriptWriting
 {
-	public class FetchFunctionResolver
+	public abstract class FetchFunctionResolver
 	{
-		private IEnumerable<ActionConfig> _actionConfigs;
-		private readonly Uri _projUri;
+		protected Uri ProjUri { get; }
 			   
-		public FetchFunctionResolver(Uri projUri, IEnumerable<ActionConfig> configOptions)
+		public FetchFunctionResolver(Uri projUri)
 		{
-			_actionConfigs = configOptions;
-			_projUri = projUri;
+			ProjUri = projUri;
 		}
 
-		public FetchFunctionDescriptor Resolve(MvcActionInfo actionInfo)
+		public abstract FetchFunctionDescriptor Resolve(string requestMethodName);
+		
+
+		public static FetchFunctionResolver FromConfig(Uri projUri, ConfigOptions options)
+		{
+			if (options.FetchConfig != null)
+			{
+				return new FetchConfigFetchFunctionResolver(projUri, options.FetchConfig, options.QueryParams);
+			}
+
+			return new ActionConfigFetchFunctionResolver(projUri, options.ActionConfigurations, options.QueryParams);
+		}
+
+		protected string ResolveFilePath(string fetchFilePath)
+		{
+			return string.IsNullOrEmpty(fetchFilePath) ? null : new Uri(ProjUri, fetchFilePath).LocalPath;
+		}
+	}
+
+
+	public class ActionConfigFetchFunctionResolver : FetchFunctionResolver
+	{
+		private IEnumerable<ActionConfig> _actionConfigs;
+		private readonly NameValueCollection _constantQueryParams;
+
+		public ActionConfigFetchFunctionResolver(Uri projUri, IEnumerable<ActionConfig> configOptions, NameValueCollection constantQueryParams)
+			: base(projUri)
+		{
+			_actionConfigs = configOptions;
+			_constantQueryParams = constantQueryParams ?? new NameValueCollection();
+		}
+
+		public override FetchFunctionDescriptor Resolve(string requestMethodName)
 		{
 			ActionConfig selected = null;
-			selected = _actionConfigs.FirstOrDefault(ac => ac.Method.Equals(actionInfo.RequestMethod.Name, StringComparison.OrdinalIgnoreCase));
+			selected = _actionConfigs.FirstOrDefault(ac => ac.Method.Equals(requestMethodName, StringComparison.OrdinalIgnoreCase));
 			selected = selected ?? _actionConfigs.First(ac => ac.Method.Equals(RequestMethod.Default.Name, StringComparison.OrdinalIgnoreCase));
 
 			return ActionConfigToDescriptor(selected);
@@ -34,20 +65,73 @@ namespace TypeRight.ScriptWriting
 			{
 				addlParameters = new List<ActionParameter>()
 				{
-					new ActionParameter() {Name = "success", Type = "(result: $returnType$) => void", Optional = true},
-					new ActionParameter() {Name = "fail", Type = "(result: any) => void", Optional = true }
+					new ActionParameter("success", "(result: $returnType$) => void", true),
+					new ActionParameter("fail", "(result: any) => void", true )
 				};
 			}
 
-			string fetchModulePath = string.IsNullOrEmpty(actionConfig.FetchFilePath) ? null : new Uri(_projUri, actionConfig.FetchFilePath).LocalPath;
+			List<IFetchParameterResolver> parameterResolvers = new List<IFetchParameterResolver>()
+			{
+				new UrlParameterResolver(_constantQueryParams),
+				new BodyParameterResolver()
+			};
+
+			foreach (var addlParam in addlParameters)
+			{
+				parameterResolvers.Add(new CustomParameterResolver(addlParam));
+			}
 
 			return new FetchFunctionDescriptor()
 			{
 				AdditionalImports = actionConfig.Imports ?? new List<ImportDefinition>(),
 				AdditionalParameters = addlParameters,
-				FetchModulePath = fetchModulePath,
+				FetchModulePath = ResolveFilePath(actionConfig.FetchFilePath),
 				FunctionName = actionConfig.FetchFunctionName,
-				ReturnType = string.IsNullOrEmpty(actionConfig.ReturnType) ? "void" : actionConfig.ReturnType
+				ReturnType = string.IsNullOrEmpty(actionConfig.ReturnType) ? "void" : actionConfig.ReturnType,
+				FetchParameterResolvers = parameterResolvers
+			};
+		}
+	}
+
+	public class FetchConfigFetchFunctionResolver : FetchFunctionResolver
+	{
+		private FetchConfig _fetchConfig;
+		private readonly NameValueCollection _constantQueryParams;
+
+		public FetchConfigFetchFunctionResolver(Uri projUri, FetchConfig fetchConfig, NameValueCollection constantQueryParams)
+			: base(projUri)
+		{
+			_fetchConfig = fetchConfig;
+			_constantQueryParams = constantQueryParams;
+		}
+
+		public override FetchFunctionDescriptor Resolve(string requestMethodName)
+		{
+
+			List<IFetchParameterResolver> parameterResolvers = _fetchConfig.Parameters.Select<ActionParameter, IFetchParameterResolver>(p =>
+			{
+				switch (p.Kind)
+				{
+					case ParameterKind.RequestMethod:
+						return new RequestMethodResolver();
+					case ParameterKind.Url:
+						return new UrlParameterResolver(_constantQueryParams);
+					case ParameterKind.Body:
+						return new BodyParameterResolver();
+					case ParameterKind.Custom:
+					default:
+						return new CustomParameterResolver(p);
+				}
+			}).ToList();
+
+			return new FetchFunctionDescriptor()
+			{
+				AdditionalImports = _fetchConfig.Imports ?? new List<ImportDefinition>(),
+				AdditionalParameters = _fetchConfig.Parameters.Where(p => p.Kind == ParameterKind.Custom).ToList<ActionParameter>(),
+				FetchModulePath = ResolveFilePath(_fetchConfig.FilePath),
+				FunctionName = _fetchConfig.Name,
+				ReturnType = string.IsNullOrEmpty(_fetchConfig.ReturnType) ? "void" : _fetchConfig.ReturnType,
+				FetchParameterResolvers = parameterResolvers
 			};
 		}
 
@@ -65,6 +149,7 @@ namespace TypeRight.ScriptWriting
 
 		public List<ImportDefinition> AdditionalImports { get; internal set; }
 
-
+		public IEnumerable<IFetchParameterResolver> FetchParameterResolvers { get; internal set; }
 	}
+
 }

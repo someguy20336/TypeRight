@@ -115,7 +115,7 @@ import {{ TestAjax }} from ""../../FolderM/FolderN/AjaxFunc"";
  * 
  */
 export function NoFromBodyParams(): void {{
-	TestAjax(`/{ControllerName}/NoFromBodyParams`, {{}});
+	TestAjax(`/{ControllerName}/NoFromBodyParams`, null);
 }}
 
 
@@ -196,7 +196,7 @@ import {{ TestAjax }} from ""../../FolderM/FolderN/AjaxFunc"";
  * @param p 
  */
 export function Action(p: number): void {{
-	TestAjax(`/{ControllerName}/Action?p=${{ p ?? """" }}`, {{}});
+	TestAjax(`/{ControllerName}/Action?p=${{ p ?? """" }}`, null);
 }}
 
 
@@ -243,7 +243,7 @@ import {{ TestAjax }} from ""../../FolderM/FolderN/AjaxFunc"";
  * @param multTypes 
  */
 export function MultipleTypes(multTypes: string | number): void {{
-	TestAjax(`/{ControllerName}/MultipleTypes?multTypes=${{ multTypes ?? """" }}`, {{}});
+	TestAjax(`/{ControllerName}/MultipleTypes?multTypes=${{ multTypes ?? """" }}`, null);
 }}
 
 
@@ -289,7 +289,7 @@ import {{ TestAjax }} from ""../../FolderM/FolderN/AjaxFunc"";
  * @param id 
  */
 export function Action(id: string | number): void {{
-	TestAjax(`/{ControllerName}/Action/${{id}}`);
+	TestAjax(`/{ControllerName}/Action/${{id}}`, null);
 }}
 
 

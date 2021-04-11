@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
@@ -64,76 +62,11 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
 			return $"{action.Name}({string.Join(", ", actionParams)}): { action.ReturnType }";
 		}
 
-		/// <summary>
-		/// Builds the aja
-		/// </summary>
-		/// <param name="action"></param>
-		/// <returns></returns>
-		private string BuildWebServiceParams(ControllerActionModel action)
+		private string BuildFetchParameters(ControllerActionModel action)
 		{
-			if (!action.RequestMethod.HasBody)
-			{
-				return "";
-			}
-			var bodyParams = action.Parameters.Where(p => p.ActionParameterSourceType == ActionParameterSourceType.Body).ToList();
-
-			if (bodyParams.Count == 0)
-			{
-				return ", {}";
-			}
-			else if (bodyParams.Count > 1)
-			{
-				throw new InvalidOperationException("More than one body parameter is not supported: " + string.Join(", ", bodyParams.Select(b => b.Name)));
-			}
-			else
-			{
-				// If we are only using a single parameter model binding (i.e. asp.net core), then the object itself should be the body
-				return ", " + bodyParams[0].Name;
-			}
-		}
-
-		/// <summary>
-		/// Builds the additional parameters
-		/// </summary>
-		/// <param name="action"></param>
-		/// <returns></returns>
-		private string BuildAddlParameters(ControllerActionModel action)
-		{
-			var addlParams = action.Parameters.Where(p => p.ActionParameterSourceType == ActionParameterSourceType.Fetch).ToList();
-			if (addlParams.Count == 0)
-			{
-				return "";
-			}
-			return $", {string.Join(", ", addlParams.Select(p => p.Name)) }";
-		}
-
-		/// <summary>
-		/// Gets the URL for an action
-		/// </summary>
-		/// <param name="action">The action</param>
-		/// <returns>The URL</returns>
-		private string GetUrl(ControllerActionModel action)
-		{
-			var urlParams = action.Parameters.Where(p => p.ActionParameterSourceType == ActionParameterSourceType.Query).ToList();
-			
-			NameValueCollection queryParams = new NameValueCollection(Context.QueryParameters);
-
-			foreach (var p in urlParams)
-			{
-				queryParams.Add(p.Name, $"${{ { p.Name} ?? \"\" }}");
-			}
-
-			string urlParamQuery = queryParams.ToQueryString();
-
-			// Add the route params
-			string route = action.RouteTemplate;
-			var routeParamNames = action.Parameters.Where(p => p.ActionParameterSourceType == ActionParameterSourceType.Route).Select(p => p.Name);
-			foreach (string paramName in routeParamNames)
-			{
-				route = route.Replace($"{{{paramName}}}", $"${{{paramName}}}");
-			}
-
-			return $"`{route}{urlParamQuery}`";
+			FetchFunctionDescriptor fetchFunc = Context.FetchFunctionResolver.Resolve(action.RequestMethod.Name);
+			var allParams = fetchFunc.FetchParameterResolvers.Select(pr => pr.ResolveParameter(action));
+			return string.Join(", ", allParams);
 		}
 
 		/// <summary>

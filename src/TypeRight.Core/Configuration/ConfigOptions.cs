@@ -35,7 +35,9 @@ namespace TypeRight.Configuration
 		/// classes and enums
 		/// </summary>
 		public string ServerObjectsResultFilepath { get; set; }
-		
+
+		public FetchConfig FetchConfig { get; set; }
+
 		/// <summary>
 		/// Gets or sets the action configurations to use
 		/// </summary>

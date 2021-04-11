@@ -18,7 +18,7 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\Users\dwhel\source\repos\TypeRight\TypeRight.Core\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
+    #line 1 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
     internal partial class MvcMethodTextTemplateBase : MvcMethodTextTemplateBaseBase
     {
@@ -29,7 +29,7 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
         public virtual string TransformText()
         {
             
-            #line 6 "C:\Users\dwhel\source\repos\TypeRight\TypeRight.Core\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
+            #line 6 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
 
 foreach (var oneAction in GetActions()) {
 
@@ -38,14 +38,14 @@ foreach (var oneAction in GetActions()) {
             #line hidden
             this.Write("/**\r\n * ");
             
-            #line 10 "C:\Users\dwhel\source\repos\TypeRight\TypeRight.Core\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
+            #line 10 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(oneAction.SummaryComments));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 11 "C:\Users\dwhel\source\repos\TypeRight\TypeRight.Core\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
+            #line 11 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
 
 foreach (var paramComment in GetParameterComments(oneAction)) {
 
@@ -54,21 +54,21 @@ foreach (var paramComment in GetParameterComments(oneAction)) {
             #line hidden
             this.Write(" * @param ");
             
-            #line 14 "C:\Users\dwhel\source\repos\TypeRight\TypeRight.Core\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
+            #line 14 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(paramComment.Key));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 14 "C:\Users\dwhel\source\repos\TypeRight\TypeRight.Core\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
+            #line 14 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(paramComment.Value));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 15 "C:\Users\dwhel\source\repos\TypeRight\TypeRight.Core\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
+            #line 15 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
 
 }
 
@@ -77,40 +77,28 @@ foreach (var paramComment in GetParameterComments(oneAction)) {
             #line hidden
             this.Write(" */\r\nexport function ");
             
-            #line 19 "C:\Users\dwhel\source\repos\TypeRight\TypeRight.Core\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
+            #line 19 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(BuildActionSignature(oneAction)));
             
             #line default
             #line hidden
             this.Write(" {\r\n\t");
             
-            #line 20 "C:\Users\dwhel\source\repos\TypeRight\TypeRight.Core\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
+            #line 20 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(BuildFetchFunctionName(oneAction)));
             
             #line default
             #line hidden
             this.Write("(");
             
-            #line 20 "C:\Users\dwhel\source\repos\TypeRight\TypeRight.Core\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(GetUrl(oneAction)));
-            
-            #line default
-            #line hidden
-            
-            #line 20 "C:\Users\dwhel\source\repos\TypeRight\TypeRight.Core\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(BuildWebServiceParams(oneAction)));
-            
-            #line default
-            #line hidden
-            
-            #line 20 "C:\Users\dwhel\source\repos\TypeRight\TypeRight.Core\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(BuildAddlParameters(oneAction)));
+            #line 20 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(BuildFetchParameters(oneAction)));
             
             #line default
             #line hidden
             this.Write(");\r\n}\r\n\r\n");
             
-            #line 23 "C:\Users\dwhel\source\repos\TypeRight\TypeRight.Core\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
+            #line 23 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
 
 }
 

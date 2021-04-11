@@ -1,0 +1,14 @@
+﻿{
+	"$schema": "../../src/TypeRight.Core/Configuration/typeRightConfig-schema.json",
+	"fetchConfiguration": {
+		"parameters": [
+			"body",
+			"requestMethod",
+			"url",
+			{
+
+			}
+		]
+	}
+	
+}

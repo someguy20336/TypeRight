@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TypeRight.Configuration;
 using TypeRight.Tests.TestBuilders.TypeCollection;
+using TypeRight.Tests.Testers;
 
 namespace TypeRight.Tests.TestsWithoutParsing
 {
@@ -52,20 +53,10 @@ namespace TypeRight.Tests.TestsWithoutParsing
 			// Setup action parameters
 			List<ActionParameter> actionParameters = new List<ActionParameter>()
 			{
-				new ActionParameter()
-				{
-					Name = "userParam1",
-					Optional = false,
-					Type = "string"
-				},
-				new ActionParameter()
-				{
-					Name = "userParam2",
-					Optional = true,
-					Type = "string"
-				}
+				new ActionParameter("userParam1", "string", false),
+				new ActionParameter("userParam2", "string", true)
 			};
-			var actionConfig = tester.GetDefaultActionConfig();
+			var actionConfig = TypeCollectionTester.GetDefaultActionConfig();
 			actionConfig.First().Parameters = actionParameters;
 			var context = tester.GetDefaultControllerContext("TestController", actionConfig);
 

@@ -84,7 +84,7 @@ namespace TypeRight
 			}
 
 			// Write MVC controllers
-			FetchFunctionResolver fetchResolver = new FetchFunctionResolver(projUri, configOptions.ActionConfigurations);
+			FetchFunctionResolver fetchResolver = FetchFunctionResolver.FromConfig(projUri, configOptions);
 
 			foreach (MvcControllerInfo controller in typeCollection.GetMvcControllers())
 			{
@@ -94,8 +94,7 @@ namespace TypeRight
 					typeCollection,
 					new Uri(resultAbsolute.LocalPath),
 					fetchResolver,
-					configOptions.BaseUrl,
-					configOptions.QueryParams
+					configOptions.BaseUrl
 					);
 
 				string controllerScript = scriptGen.CreateControllerTextTemplate().GetText(context);

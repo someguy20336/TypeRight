@@ -51,7 +51,7 @@ import {{ TestAjax }} from ""../../FolderM/FolderN/AjaxFunc"";
  * 
  */
 export function GenericPropReturn_Json(): void {{
-	TestAjax(`/{ControllerName}/GenericPropReturn_Json`, {{}});
+	TestAjax(`/{ControllerName}/GenericPropReturn_Json`, null);
 }}
 
 /**
@@ -66,7 +66,7 @@ export function SimpleParameter_Json(testParam: DefaultResult.TestClass): void {
  * 
  */
 export function StringResult(): void {{
-	TestAjax(`/{ControllerName}/StringResult`, {{}});
+	TestAjax(`/{ControllerName}/StringResult`, null);
 }}
 
 
@@ -105,7 +105,7 @@ import {{ Item1, Item2 }} from ""../../ItemListImport"";
  * 
  */
 export function GenericPropReturn_Json(): void {{
-	TestAjax(`/{ControllerName}/GenericPropReturn_Json`, {{}});
+	TestAjax(`/{ControllerName}/GenericPropReturn_Json`, null);
 }}
 
 /**
@@ -120,7 +120,7 @@ export function SimpleParameter_Json(testParam: DefaultResult.TestClass): void {
  * 
  */
 export function StringResult(): void {{
-	TestAjax(`/{ControllerName}/StringResult`, {{}});
+	TestAjax(`/{ControllerName}/StringResult`, null);
 }}
 
 
@@ -147,7 +147,7 @@ import {{ TestAjax }} from ""../../FolderM/FolderN/AjaxFunc"";
  * 
  */
 export function GenericPropReturn_Json(): Promise<DefaultResult.TestClass> {{
-	return TestAjax(`/{ControllerName}/GenericPropReturn_Json`, {{}});
+	return TestAjax(`/{ControllerName}/GenericPropReturn_Json`, null);
 }}
 
 /**
@@ -162,7 +162,7 @@ export function SimpleParameter_Json(testParam: DefaultResult.TestClass): Promis
  * 
  */
 export function StringResult(): Promise<string> {{
-	return TestAjax(`/{ControllerName}/StringResult`, {{}});
+	return TestAjax(`/{ControllerName}/StringResult`, null);
 }}
 
 
@@ -177,17 +177,8 @@ export function StringResult(): Promise<string> {{
 		{
 			GivenActionParameters(new List<ActionParameter>()
 			{
-				new ActionParameter()
-				{
-					Name = "randomString",
-					Type = "string"
-				},
-				new ActionParameter()
-				{
-					Name = "abortSignal",
-					Optional = true,
-					Type = "AbortSignal"
-				}
+				new ActionParameter("randomString", "string", false),
+				new ActionParameter("abortSignal", "AbortSignal", true)
 			});
 			
 			GivenScriptReturnType("$returnType$");
@@ -203,7 +194,7 @@ import {{ TestAjax }} from ""../../FolderM/FolderN/AjaxFunc"";
  * 
  */
 export function GenericPropReturn_Json(randomString: string, abortSignal?: AbortSignal): DefaultResult.TestClass {{
-	return TestAjax(`/{ControllerName}/GenericPropReturn_Json`, {{}}, randomString, abortSignal);
+	return TestAjax(`/{ControllerName}/GenericPropReturn_Json`, null, randomString, abortSignal);
 }}
 
 /**
@@ -218,7 +209,7 @@ export function SimpleParameter_Json(testParam: DefaultResult.TestClass, randomS
  * 
  */
 export function StringResult(randomString: string, abortSignal?: AbortSignal): string {{
-	return TestAjax(`/{ControllerName}/StringResult`, {{}}, randomString, abortSignal);
+	return TestAjax(`/{ControllerName}/StringResult`, null, randomString, abortSignal);
 }}
 
 

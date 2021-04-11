@@ -34,7 +34,7 @@ namespace TypeRight.ScriptWriting.TypeScript
 
 		private ControllerActionModel CreateActionModel(MvcActionInfo actionInfo)
 		{
-			FetchFunctionDescriptor fetchDescriptor = _context.FetchFunctionResolver.Resolve(actionInfo);
+			FetchFunctionDescriptor fetchDescriptor = _context.FetchFunctionResolver.Resolve(actionInfo.RequestMethod.Name);
 			string routeTemplate = MvcRouteGenerator.CreateGenerator(_context).GenerateRouteTemplate(actionInfo);
 
 			return new ControllerActionModel()
@@ -121,7 +121,7 @@ namespace TypeRight.ScriptWriting.TypeScript
 
 		private void CompileActionImport(MvcActionInfo actionInfo)
 		{
-			FetchFunctionDescriptor fetchDescriptor = _context.FetchFunctionResolver.Resolve(actionInfo);
+			FetchFunctionDescriptor fetchDescriptor = _context.FetchFunctionResolver.Resolve(actionInfo.RequestMethod.Name);
 
 			string funcKey = "fetch-" + fetchDescriptor.FetchModulePath;
 			if (!Imports.ContainsImportPath(funcKey))

@@ -58,7 +58,7 @@ namespace TestAspNetCoreApp.Controllers
 			return Json(model);
 		}
 
-		[ScriptAction]
+		[ScriptAction, HttpPost]
 		public JsonResult MultipleFromStuff([FromRoute] string route, [FromServices] string service, [FromBody] ASimpleModel model)
 		{
 			return Json(model);

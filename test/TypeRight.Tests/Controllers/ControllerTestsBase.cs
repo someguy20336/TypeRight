@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
@@ -11,12 +12,7 @@ namespace TypeRight.Tests.Controllers
 {
 	public abstract class ControllerTestsBase : TypeRightTestBase
 	{
-		private List<ImportDefinition> _importDefinitions;
-		private List<ActionParameter> _actionParams;
-		private List<ActionConfig> _addlActionConfigs;
-		private NameValueCollection _queryParams;
-
-		private string _scriptReturnType;
+		private ConfigOptions _configOptions;
 
 		protected TestClassBuilder ControllerBuilder { get; private set; }
 
@@ -30,11 +26,13 @@ namespace TypeRight.Tests.Controllers
 		{
 			base.TestInitialize();
 
-			_importDefinitions = new List<ImportDefinition>();
-			_actionParams = new List<ActionParameter>();
-			_addlActionConfigs = new List<ActionConfig>();
-			_scriptReturnType = "";
-			_queryParams = new NameValueCollection();
+			_configOptions = new ConfigOptions()
+			{
+				ActionConfigurations = TypeCollectionTester.GetDefaultActionConfig(),
+				QueryParams = new NameValueCollection()
+			};
+
+			GivenActionParameters(Array.Empty<ActionParameter>());
 
 			WorkspaceBuilder.DefaultProject
 				.AddFakeMvc();
@@ -69,25 +67,36 @@ namespace TypeRight.Tests.Controllers
 
 		protected void GivenImportDefinition(ImportDefinition definition)
 		{
-			_importDefinitions.Add(definition);
+			_configOptions.ActionConfigurations[0].Imports.Add(definition);
 		}
 
 		protected void GivenActionParameters(IEnumerable<ActionParameter> actionParameters)
 		{
-			_actionParams = actionParameters.ToList();
+			_configOptions.ActionConfigurations[0].Parameters = actionParameters.ToList();
 		}
 
 		protected void GivenActionConfig(ActionConfig config)
 		{
-			_addlActionConfigs.Add(config);
+			_configOptions.ActionConfigurations.Add(config);
 		}
 
 		protected void GivenQueryParameter(string key, string value)
 		{
-			_queryParams.Add(key, value);
+			_configOptions.QueryParams.Add(key, value);
 		}
 
-		protected void GivenScriptReturnType(string returnType) => _scriptReturnType = returnType;
+		protected void GivenFetchConfig(FetchConfig fetchConfig)
+		{
+			_configOptions.ActionConfigurations = null;
+			_configOptions.FetchConfig = fetchConfig;
+		}
+
+		protected void AddFetchConfigParameter(ActionParameter actionParam)
+		{
+			_configOptions.FetchConfig.Parameters.Add(actionParam);
+		}
+
+		protected void GivenScriptReturnType(string returnType) => _configOptions.ActionConfigurations[0].ReturnType = returnType;
 
 		protected MvcActionTester AssertThatThisControllerAction(string actionName)
 		{
@@ -119,18 +128,7 @@ namespace TypeRight.Tests.Controllers
 
 		private ControllerContext CreateContext(TypeCollectionTester tester)
 		{
-			var actionConfig = tester.GetDefaultActionConfig();
-			actionConfig[0].Imports.AddRange(_importDefinitions);
-			actionConfig[0].Parameters = _actionParams;
-
-			if (!string.IsNullOrEmpty(_scriptReturnType))
-			{
-				actionConfig[0].ReturnType = _scriptReturnType;
-			}
-
-			actionConfig.AddRange(_addlActionConfigs);
-
-			return tester.GetDefaultControllerContext(ControllerFullName, actionConfig, _queryParams);
+			return tester.GetDefaultControllerContext(ControllerFullName, _configOptions);
 		}
 
 		private TypeCollectionTester CreateTester()

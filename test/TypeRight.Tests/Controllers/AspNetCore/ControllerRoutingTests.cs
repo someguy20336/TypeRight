@@ -79,7 +79,7 @@ import { TestAjax, callDelete } from ""../../FolderM/FolderN/AjaxFunc"";
  * @param thingId 
  */
 export function DeleteThing(thingId: string): void {
-	callDelete(`/api/RoutedApi/thing/${thingId}`);
+	callDelete(`/api/RoutedApi/thing/${thingId}`, null);
 }
 
 /**
@@ -87,7 +87,7 @@ export function DeleteThing(thingId: string): void {
  * @param thingId 
  */
 export function GetThing(thingId: string): void {
-	TestAjax(`/api/RoutedApi/thing/${thingId}`);
+	TestAjax(`/api/RoutedApi/thing/${thingId}`, null);
 }
 
 /**
@@ -133,7 +133,7 @@ import { TestAjax } from ""../../FolderM/FolderN/AjaxFunc"";
  * @param thingId 
  */
 export function GetThing(thingId: string): void {
-	TestAjax(`/api/RoutedApi/thing/${thingId}?key1=val1`);
+	TestAjax(`/api/RoutedApi/thing/${thingId}?key1=val1`, null);
 }
 
 "
@@ -170,7 +170,7 @@ import { TestAjax } from ""../../FolderM/FolderN/AjaxFunc"";
  * @param thingId 
  */
 export function GetThing(thingId: string): void {
-	TestAjax(`/api/RoutedApi/thing/${thingId}?key1=val1&key2=val2`);
+	TestAjax(`/api/RoutedApi/thing/${thingId}?key1=val1&key2=val2`, null);
 }
 
 "
@@ -206,7 +206,7 @@ import { TestAjax } from ""../../FolderM/FolderN/AjaxFunc"";
  * @param thingId 
  */
 export function GetThing(thingId: string): void {
-	TestAjax(`/api/RoutedApi/thing?key1=val1&thingId=${ thingId ?? """" }`);
+	TestAjax(`/api/RoutedApi/thing?key1=val1&thingId=${ thingId ?? """" }`, null);
 }
 
 "
