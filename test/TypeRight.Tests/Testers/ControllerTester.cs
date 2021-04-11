@@ -31,7 +31,8 @@ namespace TypeRight.Tests.Testers
 
 		public ControllerTester HasImportForFile(string relPath)
 		{
-			Assert.IsTrue(_controllerModel.Imports.Any(imp => imp.FromRelativePath == relPath));
+			var imports = ImportManager.FromController(_context).GetImports();
+			Assert.IsTrue(imports.Any(imp => imp.FromRelativePath == relPath));
 			return this;
 		}
 	}

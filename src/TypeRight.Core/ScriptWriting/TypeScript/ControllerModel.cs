@@ -15,7 +15,6 @@ namespace TypeRight.ScriptWriting.TypeScript
 	public class ControllerModel
 	{
 		public string Name { get; set; }
-		public IEnumerable<ImportStatement> Imports { get; set; }
 
 		public IEnumerable<ControllerActionModel> Actions { get; set; }
 	}

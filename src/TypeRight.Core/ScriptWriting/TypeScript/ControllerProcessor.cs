@@ -11,12 +11,9 @@ namespace TypeRight.ScriptWriting.TypeScript
 		private readonly ControllerContext _context;
 		protected MvcControllerInfo ControllerInfo => _context.Controller;
 
-		public ImportManager Imports { get; private set; }
-
 		public ControllerProcessor(ControllerContext context)
 		{
 			_context = context;
-			Imports = ImportManager.FromController(context);
 		}
 
 		public ControllerModel CreateModel(TypeFormatter formatter)
@@ -25,8 +22,7 @@ namespace TypeRight.ScriptWriting.TypeScript
 			ControllerModel controllerModel = new ControllerModel
 			{
 				Name = ControllerInfo.Name,
-				Actions = ControllerInfo.Actions.Select(ac => CreateActionModel(ac)),
-				Imports = Imports.GetImports()
+				Actions = ControllerInfo.Actions.Select(ac => CreateActionModel(ac))
 			};
 			return controllerModel;
 		}

@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TypeRight.Configuration;
-using TypeRight.TypeProcessing;
 
 namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
 {
@@ -13,6 +8,8 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
 		private MvcMethodTextTemplateBase _innerTemplate;
 
 		private ControllerModel _model;
+
+		private ImportManager _imports;
 
 		/// <summary>
 		/// Gets the controller template text
@@ -23,8 +20,9 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
 		public string GetText(ControllerContext context)
 		{
 			// This is kinda weird..
+			_imports = ImportManager.FromController(context);
 			ControllerProcessor controllerProcessor = new ControllerProcessor(context);
-			TypeFormatter formatter = new TypeScriptTypeFormatter(context.TypeCollection, new ModuleTypePrefixResolver(controllerProcessor.Imports));
+			TypeFormatter formatter = new TypeScriptTypeFormatter(context.TypeCollection, new ModuleTypePrefixResolver(_imports));
 			_model = controllerProcessor.CreateModel(formatter);
 
 			_innerTemplate = new MvcMethodTextTemplateBase();
@@ -34,7 +32,7 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
 		}
 
 
-		private IEnumerable<ImportStatement> GetImports() => _model.Imports.OrderBy(imp => imp.FromRelativePath);
+		private IEnumerable<ImportStatement> GetImports() => _imports.GetImports().OrderBy(imp => imp.FromRelativePath);
 
 	}
 }
