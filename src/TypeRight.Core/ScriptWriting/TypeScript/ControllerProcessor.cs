@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using TypeRight.Configuration;
 using TypeRight.TypeFilters;
 using TypeRight.TypeProcessing;
 
@@ -17,7 +16,7 @@ namespace TypeRight.ScriptWriting.TypeScript
 		public ControllerProcessor(ControllerContext context)
 		{
 			_context = context;
-			CompileImports();
+			Imports = ImportManager.FromController(context);
 		}
 
 		public ControllerModel CreateModel(TypeFormatter formatter)
@@ -100,7 +99,6 @@ namespace TypeRight.ScriptWriting.TypeScript
 				}
 			}
 
-
 			return new ActionParameterModel()
 			{
 				ActionParameterSourceType = sourceType,
@@ -108,30 +106,6 @@ namespace TypeRight.ScriptWriting.TypeScript
 				ParameterType = string.Join(" | ", actionParameter.Types.Select(t => t.FormatType(_typeFormatter))),
 				IsOptional = actionParameter.IsOptional
 			};
-		}
-
-		private void CompileImports()
-		{
-			Imports = new ImportManager(_context.OutputPath);
-			foreach (MvcActionInfo actionInfo in ControllerInfo.Actions)
-			{
-				CompileActionImport(actionInfo);
-			}
-		}
-
-		private void CompileActionImport(MvcActionInfo actionInfo)
-		{
-			FetchFunctionDescriptor fetchDescriptor = _context.FetchFunctionResolver.Resolve(actionInfo.RequestMethod.Name);
-
-			string funcKey = "fetch-" + fetchDescriptor.FetchModulePath;
-			if (!Imports.ContainsImportPath(funcKey))
-			{
-				Imports.AddImport(funcKey, new ImportStatement(_context.OutputPath, fetchDescriptor.FetchModulePath, false));
-			}
-			ImportStatement ajaxImport = Imports.GetImportAtPath(funcKey);
-			ajaxImport.AddItem(fetchDescriptor.FunctionName);
-
-			AddActionImports(actionInfo, fetchDescriptor.AdditionalImports);
 		}
 
 		/// <summary>
@@ -143,41 +117,6 @@ namespace TypeRight.ScriptWriting.TypeScript
 		private string ReplaceTokens(string typeStr, MvcActionInfo action)
 		{
 			return typeStr.Replace("$returnType$", action.ReturnType.FormatType(_typeFormatter));
-		}
-
-		private void AddActionImports(MvcActionInfo action, IEnumerable<ImportDefinition> additionalImports)
-		{
-			Imports.TryAddToImports(action.ReturnType);
-			foreach (var param in action.Parameters)
-			{
-				foreach (var type in param.Types)
-				{
-					Imports.TryAddToImports(type);
-				}
-			}
-
-
-			// Additional imports
-			foreach (ImportDefinition def in additionalImports)
-			{
-				string importPath = PathUtils.ResolveRelativePath(_context.OutputPath, def.Path);
-
-				string key = "custom" + importPath;
-				if (!Imports.ContainsImportPath(key))
-				{
-					Imports.AddImport(key, new ImportStatement(_context.OutputPath, importPath, def.UseAlias));
-				}
-
-				ImportStatement statement = Imports.GetImportAtPath(key);
-				if (def.Items != null)
-				{
-					foreach (var item in def.Items)
-					{
-						statement.AddItem(item);
-					}
-				}
-
-			}
 		}
 
 	}
