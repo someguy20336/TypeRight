@@ -49,7 +49,7 @@ namespace TypeRight.ScriptWriting
 
 	public class RequestMethodResolver : IFetchParameterResolver
 	{
-		public string ResolveParameter(ControllerActionModel action) => $"\"{action.RequestMethod.Name}\"";
+		public string ResolveParameter(ControllerActionModel action) => $"\"{action.RequestMethod.MethodName}\"";
 	}
 
 	public class BodyParameterResolver : IFetchParameterResolver
@@ -64,7 +64,7 @@ namespace TypeRight.ScriptWriting
 
 			if (bodyParams.Count == 0)
 			{
-				return "{}";
+				return "null";
 			}
 			else if (bodyParams.Count > 1)
 			{

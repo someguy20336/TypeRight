@@ -9,6 +9,8 @@ namespace TypeRight.TypeProcessing
 	public interface IRequestMethod
 	{
 		string Name { get; }
+
+		string MethodName { get; }
 		bool HasBody { get; }
 		ActionFilter ActionFilter { get; }
 		string GetActionTemplate(MvcActionInfo actionInfo);
@@ -17,8 +19,9 @@ namespace TypeRight.TypeProcessing
 	internal class DefaultRequestMethod : IRequestMethod
 	{
 		public string Name { get; } = "default";
+		public string MethodName => "GET";		// Default GET because we don't know otherwise
 
-		public bool HasBody { get; } = true;  // Just.... default i guess.
+		public bool HasBody { get; } = true;  // Just.... default i guess... but now weird with GET as default..
 
 		public ActionFilter ActionFilter { get; } = new AcceptAllActionFilter();
 
@@ -43,6 +46,8 @@ namespace TypeRight.TypeProcessing
 		public static IRequestMethod Post => GetByName("POST");
 
 		public string Name { get; private set; }
+
+		public string MethodName => Name;
 
 		public bool HasBody { get; private set; }
 

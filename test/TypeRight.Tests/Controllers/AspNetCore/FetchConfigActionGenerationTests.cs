@@ -1,9 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TypeRight.Configuration;
 using TypeRight.Tests.TestBuilders;
 using TypeRight.Tests.Testers;
@@ -167,6 +163,34 @@ import { fetchWrapper } from ""../../FolderM/FolderN/AjaxFunc"";
  */
 export function GetThing(thingId: string, body: string): void {
 	fetchWrapper(""POST"", `/api/RoutedApi/thing/${thingId}`, body);
+}
+
+"
+			#endregion
+				);
+		}
+
+		[TestMethod]
+		public void StandardParams_ActionHasNoMethod_DefaultsGET()
+		{
+			ControllerBuilder
+				.AddMethod("GetThing", "string")
+					.AddScriptActionAttribute()
+					.AddLineOfCode("return null", 0)
+					.Commit()
+					;
+
+			AssertControllerGeneratedText(
+			#region ScriptText	
+				@"
+import { fetchWrapper } from ""../../FolderM/FolderN/AjaxFunc"";
+
+
+/**
+ * 
+ */
+export function GetThing(): void {
+	fetchWrapper(""GET"", `/api/RoutedApi`, null);
 }
 
 "
