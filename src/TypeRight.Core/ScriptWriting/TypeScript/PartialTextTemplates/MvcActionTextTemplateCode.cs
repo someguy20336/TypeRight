@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using TypeRight.Configuration;
 using TypeRight.TypeProcessing;
 
 namespace TypeRight.ScriptWriting.TypeScript.PartialTextTemplates
@@ -53,15 +54,33 @@ namespace TypeRight.ScriptWriting.TypeScript.PartialTextTemplates
 		{
 			List<string> actionParams = new List<string>();
 
-			// Build parameters
-			foreach (MvcActionParameter oneParam in _curAction.Parameters.Where(p => p.BindingType != ActionParameterSourceType.Ignored))
-			{
-				string paramTypes = string.Join(" | ", oneParam.Types.Select(t => t.FormatType(_formatter)));
-				string paramText = $"{oneParam.Name}{ (oneParam.IsOptional ? "?" : "") }: {paramTypes}";
-				actionParams.Add(paramText);
-			}
+			var nonIgnoredParams = _curAction.Parameters.Where(p => p.BindingType != ActionParameterSourceType.Ignored);
 
-			return $"{_curAction.Name}({string.Join(", ", actionParams)}): { ReplaceTokens(_curFetchFunc.ReturnType, _curAction) }";
+			var methodRequiredParameters = nonIgnoredParams.Where(p => !p.IsOptional).Select(FormatMethodParameter);
+			var userRequiredParameters = _curFetchFunc.AdditionalParameters.Where(p => !p.Optional).Select(FormatUserParameter);
+			var methodOptionalParameters = nonIgnoredParams.Where(p => p.IsOptional).Select(FormatMethodParameter);
+			var userOptionalParameters = _curFetchFunc.AdditionalParameters.Where(p => p.Optional).Select(FormatUserParameter);
+
+			actionParams.AddRange(
+				methodRequiredParameters
+				.Union(userRequiredParameters)
+				.Union(methodOptionalParameters)
+				.Union(userOptionalParameters)
+				);
+
+			return $"{_curAction.Name}({string.Join(", ", actionParams)}): { ReplaceTokens(_curFetchFunc.ReturnType) }";
+		}
+
+		private string FormatMethodParameter(MvcActionParameter oneParam)
+		{
+			string paramTypes = string.Join(" | ", oneParam.Types.Select(t => t.FormatType(_formatter)));
+			return $"{oneParam.Name}{ (oneParam.IsOptional ? "?" : "") }: {paramTypes}";
+		}
+
+		private string FormatUserParameter(ActionParameter userParam)
+		{
+			string paramType = ReplaceTokens(userParam.Type);
+			return $"{userParam.Name}{ (userParam.Optional ? "?" : "") }: {paramType}";
 		}
 
 		private string BuildFetchParameters()
@@ -86,9 +105,9 @@ namespace TypeRight.ScriptWriting.TypeScript.PartialTextTemplates
 			return _curAction.ParameterComments.Where(kv => allParams.Contains(kv.Key));
 		}
 
-		private string ReplaceTokens(string typeStr, MvcActionInfo action)
+		private string ReplaceTokens(string typeStr)
 		{
-			return typeStr.Replace("$returnType$", action.ReturnType.FormatType(_formatter));
+			return typeStr.Replace("$returnType$", _curAction.ReturnType.FormatType(_formatter));
 		}
 	}
 }

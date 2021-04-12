@@ -2,10 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using TypeRight.TypeFilters;
-using TypeRight.ScriptWriting.TypeScript;
 
 namespace TypeRight.TypeProcessing
 {
+
+	public enum ActionParameterSourceType
+	{
+		Query,
+		Body,
+		Fetch,
+		Route,
+		Ignored
+	}
+
 	/// <summary>
 	/// An object that contains information about an MVC action
 	/// </summary>
@@ -91,10 +100,10 @@ namespace TypeRight.TypeProcessing
 			Parameters = method.Parameters.Select(p => new MvcActionParameter(this, p, typeFactory)).ToList().AsReadOnly();
 		}
 
-		public string GetRouteTemplate()
+		public string GetRouteTemplate(string baseUrl = "")
 		{
 			// TODO: base URL!  Also TODO: cache this?
-			return MvcRouteGenerator.CreateGenerator(Controller, "").GenerateRouteTemplate(this);
+			return MvcRouteGenerator.CreateGenerator(Controller, baseUrl).GenerateRouteTemplate(this);
 		}
 
 		/// <summary>

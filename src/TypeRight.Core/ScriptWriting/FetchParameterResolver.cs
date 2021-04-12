@@ -16,10 +16,12 @@ namespace TypeRight.ScriptWriting
 	public class UrlParameterResolver : IFetchParameterResolver
 	{
 		private readonly NameValueCollection _constantQueryParams;
+		private readonly string _baseUrl;
 
-		public UrlParameterResolver(NameValueCollection constantQueryParams)
+		public UrlParameterResolver(NameValueCollection constantQueryParams, string baseUrl)
 		{
 			_constantQueryParams = constantQueryParams;
+			_baseUrl = baseUrl;
 		}
 
 		public string ResolveParameter(MvcActionInfo action)
@@ -36,7 +38,7 @@ namespace TypeRight.ScriptWriting
 			string urlParamQuery = queryParams.ToQueryString();
 
 			// Add the route params
-			string route = action.GetRouteTemplate();
+			string route = action.GetRouteTemplate(_baseUrl);
 			var routeParamNames = action.Parameters.Where(p => p.BindingType == ActionParameterSourceType.Route).Select(p => p.Name);
 			foreach (string paramName in routeParamNames)
 			{
