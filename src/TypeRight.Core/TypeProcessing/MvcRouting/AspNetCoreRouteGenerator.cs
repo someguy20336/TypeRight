@@ -1,16 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using TypeRight.CodeModel;
-using TypeRight.ScriptWriting;
 
 namespace TypeRight.TypeProcessing.MvcRouting
 {
 	/// <summary>
 	/// Route generator for ASP net Core controllers
 	/// </summary>
-	class AspNetCoreRouteGenerator : MvcRouteGenerator
+	internal class AspNetCoreRouteGenerator : MvcRouteGenerator
 	{
-		public AspNetCoreRouteGenerator(ControllerContext context) : base(context)
+
+		public AspNetCoreRouteGenerator(MvcControllerInfo controller, string baseUrl) : base(controller, baseUrl)
 		{
 		}
 

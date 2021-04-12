@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using TypeRight.TypeFilters;
+using TypeRight.ScriptWriting.TypeScript;
 
 namespace TypeRight.TypeProcessing
 {
@@ -12,6 +13,7 @@ namespace TypeRight.TypeProcessing
 	{
 
 		private IRequestMethod _method;
+		internal MvcControllerInfo Controller { get; }
 
 		/// <summary>
 		/// Gets the method behind this action info
@@ -80,12 +82,19 @@ namespace TypeRight.TypeProcessing
 		/// </summary>
 		/// <param name="method">the method</param>
 		/// <param name="typeFactory">The type table</param>
-		internal MvcActionInfo(IMethod method, TypeFactory typeFactory)
+		internal MvcActionInfo(MvcControllerInfo controller, IMethod method, TypeFactory typeFactory)
 		{
+			Controller = controller;
 			Method = method;
 			ReturnType = typeFactory.LookupType(method.ReturnType);
 			ParameterComments = method.Parameters.ToDictionary(param => param.Name, param => param.Comments);
-			Parameters = method.Parameters.Select(p => new MvcActionParameter(p, typeFactory)).ToList().AsReadOnly();
+			Parameters = method.Parameters.Select(p => new MvcActionParameter(this, p, typeFactory)).ToList().AsReadOnly();
+		}
+
+		public string GetRouteTemplate()
+		{
+			// TODO: base URL!  Also TODO: cache this?
+			return MvcRouteGenerator.CreateGenerator(Controller, "").GenerateRouteTemplate(this);
 		}
 
 		/// <summary>
@@ -105,6 +114,10 @@ namespace TypeRight.TypeProcessing
 	{
 		private static TypeFilter s_scriptParamTypes
 			= new IsOfTypeFilter(KnownTypes.ScriptParamTypesAttributeName);
+
+		private ActionParameterSourceType? _bindingType;
+
+		internal MvcActionInfo Action { get; }
 
 		/// <summary>
 		/// Gets the name of the parameter
@@ -126,12 +139,58 @@ namespace TypeRight.TypeProcessing
 		/// </summary>
 		public bool IsOptional { get; }
 
-		internal MvcActionParameter(IMethodParameter methodParameter, TypeFactory typeFactory)
+		public ActionParameterSourceType BindingType
 		{
+			get
+			{
+				if (!_bindingType.HasValue)
+				{
+					_bindingType = ComputeSource();
+				}
+				return _bindingType.Value;
+			}
+		}
+
+		internal MvcActionParameter(MvcActionInfo action, IMethodParameter methodParameter, TypeFactory typeFactory)
+		{
+			Action = action;
 			Name = methodParameter.Name;
 			Types = CompileTypes(methodParameter, typeFactory);
 			Attributes = methodParameter.Attributes;
 			IsOptional = methodParameter.IsOptional;
+		}
+
+		private ActionParameterSourceType ComputeSource()
+		{
+			ActionParameterSourceType sourceType = ActionParameterSourceType.Body;
+
+			// Note - this isn't great, but is how it has always worked.
+			// consider improving the asp.net stuff... or just cutting it out
+			if (Action.Controller.IsAspNetCore)
+			{
+				var bodyFilter = new ParameterHasAttributeFilter(new IsOfTypeFilter(MvcConstants.FromBodyAttributeFullName_AspNetCore));
+				var queryFilter = new ParameterHasAttributeFilter(new IsOfTypeFilter(MvcConstants.FromQueryAttributeFullName_AspNetCore));
+
+				string routeTemplate = Action.GetRouteTemplate();
+				if (bodyFilter.Evaluate(this))
+				{
+					sourceType = ActionParameterSourceType.Body;
+				}
+				else if (queryFilter.Evaluate(this))
+				{
+					sourceType = ActionParameterSourceType.Query;
+				}
+				else if (routeTemplate.Contains($"{{{this.Name}}}"))
+				{
+					sourceType = ActionParameterSourceType.Route;
+				}
+				else
+				{
+					sourceType = ActionParameterSourceType.Ignored;
+				}
+			}
+
+			return sourceType;
 		}
 
 		private List<TypeDescriptor> CompileTypes(IMethodParameter methodParameter, TypeFactory typeFactory)

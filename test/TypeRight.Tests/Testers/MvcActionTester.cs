@@ -37,7 +37,7 @@ namespace TypeRight.Tests.Testers
 		
 		public MvcActionTester UrlTemplateIs(string expected)
 		{
-			string baseUrl = MvcRouteGenerator.CreateGenerator(_context).GenerateRouteTemplate(_method);
+			string baseUrl = MvcRouteGenerator.CreateGenerator(_context.Controller, _context.BaseUrl).GenerateRouteTemplate(_method);
 			Assert.AreEqual(expected, baseUrl);
 			return this;
 		}

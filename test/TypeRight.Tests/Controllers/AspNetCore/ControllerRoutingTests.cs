@@ -213,5 +213,41 @@ export function GetThing(thingId: string): void {
 			#endregion
 				);
 		}
+
+		[TestMethod]
+		public void BaseUrl_AppendedToBeginning()
+		{
+			GivenBaseUrl("api");
+			ControllerBuilder
+				.AddAttribute(MvcConstants.RouteAttributeFullName_AspNetCore)
+					.AddConstructorArg("\"RoutedApi\"")
+					.Commit()
+				.AddMethod("GetThing", "string")
+					.AddScriptActionAttribute()
+					.AddAttribute(MvcConstants.HttpGetAttributeFullName_AspNetCore)
+						.AddConstructorArg("\"thing\"").Commit()
+					.AddParameter("thingId", "string", attribute: MvcConstants.FromQueryAttributeFullName_AspNetCore)
+					.AddLineOfCode("return null", 0)
+					.Commit()
+					;
+
+			AssertControllerGeneratedText(
+			#region ScriptText	
+				@"
+import { TestAjax } from ""../../FolderM/FolderN/AjaxFunc"";
+
+
+/**
+ * 
+ * @param thingId 
+ */
+export function GetThing(thingId: string): void {
+	TestAjax(`/api/RoutedApi/thing?thingId=${ thingId ?? """" }`, null);
+}
+
+"
+			#endregion
+				);
+		}
 	}
 }

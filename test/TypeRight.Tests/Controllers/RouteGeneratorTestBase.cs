@@ -40,15 +40,7 @@ namespace TypeRight.Tests.Controllers
 			Controller.BuildAsController();
 			var collection = _builder.Build();
 			var controller = collection.GetMvcControllers().First();
-			var routeGen = MvcRouteGenerator.CreateGenerator(new ControllerContext(
-				controller,
-				// TODO the amount of nulls here is kind of weird
-				"",
-				null,
-				null,
-				null,
-				_basePath
-				));
+			var routeGen = MvcRouteGenerator.CreateGenerator(controller, _basePath);
 			Assert.AreEqual(expectedRoute, routeGen.GenerateRouteTemplate(controller.Actions.First()));
 		}
 	}

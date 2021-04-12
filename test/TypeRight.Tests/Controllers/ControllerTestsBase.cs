@@ -85,6 +85,8 @@ namespace TypeRight.Tests.Controllers
 			_configOptions.QueryParams.Add(key, value);
 		}
 
+		protected void GivenBaseUrl(string url) => _configOptions.BaseUrl = url;
+
 		protected void GivenFetchConfig(FetchConfig fetchConfig)
 		{
 			_configOptions.ActionConfigurations = null;
