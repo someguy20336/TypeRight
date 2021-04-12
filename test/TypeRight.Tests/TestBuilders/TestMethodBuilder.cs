@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using TypeRight.Attributes;
 
 namespace TypeRight.Tests.TestBuilders
@@ -38,14 +34,15 @@ namespace TypeRight.Tests.TestBuilders
 			return AddParameter(paramName, type, comments, attrs);
 		}
 
-		public TestMethodBuilder AddParameter(string paramName, string type, string comments, List<AttributeInfo> attributes)
+		public TestMethodBuilder AddParameter(string paramName, string type, string comments, List<AttributeInfo> attributes = null, bool optional = false)
 		{
 			_parameters.Add(new SymbolInfo()
 			{
 				Name = paramName,
 				Type = type,
 				Comments = comments,
-				Attributes = attributes ?? new List<AttributeInfo>()
+				Attributes = attributes ?? new List<AttributeInfo>(),
+				IsOptional = optional
 			});
 			return this;
 		}

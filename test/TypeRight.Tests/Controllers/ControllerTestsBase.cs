@@ -105,11 +105,6 @@ namespace TypeRight.Tests.Controllers
 			return AssertThatThisController().TestActionWithName(actionName);
 		}
 
-		protected MvcActionModelTester AssertThatThisControllerActionModel(string actionName)
-		{
-			return AssertThatThisController().TestActionModelWithName(actionName);
-		}
-
 		protected ControllerTester AssertThatThisController()
 		{
 			var packageTester = CreateTester();

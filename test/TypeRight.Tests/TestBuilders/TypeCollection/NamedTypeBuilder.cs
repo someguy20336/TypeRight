@@ -59,11 +59,6 @@ namespace TypeRight.Tests.TestBuilders.TypeCollection
 		{
 			return new MethodBuilder(this, name, TypeCollectionBuilder.GetNamedType(returnType));
 		}
-
-		public MethodBuilder AddMethod(string name, IType returnType)
-		{
-			return new MethodBuilder(this, name, returnType);
-		}
 				
 		public TypeCollectionBuilder Build()
 		{

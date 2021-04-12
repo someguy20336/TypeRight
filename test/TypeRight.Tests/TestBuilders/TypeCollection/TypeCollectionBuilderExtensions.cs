@@ -40,19 +40,5 @@ namespace TypeRight.Tests.TestBuilders.TypeCollection
 			return attributable;
 		}
 
-		public static T AddAttribute<T>(this T attributable, Type type, params object[] ctorArgs) where T : IAttributable
-		{
-			
-			attributable.Attributes.Add(new AttributeData(attributable.TypeCollectionBuilder.GetNamedType(type), null, ctorArgs));
-			return attributable;
-		}
-
-		public static T AddAttribute<T>(this T attributable, INamedType attrType, params object[] ctorArgs) where T : IAttributable
-		{
-			attributable.Attributes.Add(new AttributeData(attrType, null, ctorArgs));
-			return attributable;
-		}
-
-		public static TypeCollectionTester BuildAndTest(this TypeCollectionBuilder builder) => new TypeCollectionTester(builder.Build());
 	}
 }
