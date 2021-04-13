@@ -32,7 +32,7 @@ namespace TypeRight.Tests.Controllers.AspNetCore
 
 			// Asp net core
 			AssertThatThisControllerAction("GetStringList")
-				.UrlTemplateIs($"/api/{ControllerName}/getList");
+				.RouteTemplateIs($"/api/{ControllerName}/getList");
 
 		}
 

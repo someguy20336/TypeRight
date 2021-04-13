@@ -87,7 +87,8 @@ namespace TypeRight.Tests.Testers
 				@"C:\FolderA\FolderB\FolderX\FolderY\SomeController.ts",
 				_typeCollection,
 				new Uri(@"C:\FolderA\FolderB\FolderC\FolderD\ServerObjects.ts"),
-				resolver
+				resolver,
+				config.BaseUrl
 				);
 		}
 

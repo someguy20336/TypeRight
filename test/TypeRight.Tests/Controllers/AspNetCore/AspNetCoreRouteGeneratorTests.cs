@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using TypeRight.Tests.TestBuilders.TypeCollection;
+using TypeRight.Tests.TestBuilders;
 
 namespace TypeRight.Tests.Controllers.AspNetCore
 {
@@ -9,10 +9,7 @@ namespace TypeRight.Tests.Controllers.AspNetCore
 
 		protected override string ControllerNamespace => MvcConstants.AspNetCoreNamespace;
 
-		protected override void AddMvcTypes(TypeCollectionBuilder builder)
-		{
-			builder.AddAspNetCoreTypes();
-		}
+		protected override bool IsAspNetCore => true;
 
 		[TestMethod]
 		public void RoutedByConvention()
@@ -23,7 +20,8 @@ namespace TypeRight.Tests.Controllers.AspNetCore
 		[TestMethod]
 		public void RoutedByAttribute()
 		{
-			Controller.AddAttribute(MvcConstants.RouteAttributeFullName_AspNetCore, "api/Things/[action]");
+			ControllerBuilder.AddAttribute(MvcConstants.RouteAttributeFullName_AspNetCore)
+				.AddStringConstructorArg("api/Things/[action]").Commit();
 
 			AssertRouteEquals("/api/Things/RandoMethod");
 		}
@@ -31,7 +29,8 @@ namespace TypeRight.Tests.Controllers.AspNetCore
 		[TestMethod]
 		public void Area_RoutedByConvention()
 		{
-			Controller.AddAttribute(MvcConstants.AreaAttributeFullName_AspNetCore, "ThingsManagement");
+			ControllerBuilder.AddAttribute(MvcConstants.AreaAttributeFullName_AspNetCore)
+				.AddStringConstructorArg("ThingsManagement").Commit();
 
 			AssertRouteEquals("/ThingsManagement/Things/RandoMethod");
 		}
@@ -39,8 +38,10 @@ namespace TypeRight.Tests.Controllers.AspNetCore
 		[TestMethod]
 		public void Area_InCustomRouteWithTokens()
 		{
-			Controller.AddAttribute(MvcConstants.AreaAttributeFullName_AspNetCore, "ThingsManagement")
-				.AddAttribute(MvcConstants.RouteAttributeFullName_AspNetCore, "api/[area]/[controller]/[action]");
+			ControllerBuilder.AddAttribute(MvcConstants.AreaAttributeFullName_AspNetCore)
+					.AddStringConstructorArg("ThingsManagement").Commit()
+				.AddAttribute(MvcConstants.RouteAttributeFullName_AspNetCore)
+					.AddStringConstructorArg("api/[area]/[controller]/[action]").Commit();
 
 			AssertRouteEquals("/api/ThingsManagement/Things/RandoMethod");
 		}
@@ -48,10 +49,13 @@ namespace TypeRight.Tests.Controllers.AspNetCore
 		[TestMethod]
 		public void HttpGetRoute_IsAppended()
 		{
-			Controller.AddAttribute(MvcConstants.AreaAttributeFullName_AspNetCore, "ThingsManagement")
-				.AddAttribute(MvcConstants.RouteAttributeFullName_AspNetCore, "api/[area]/[controller]");
+			ControllerBuilder.AddAttribute(MvcConstants.AreaAttributeFullName_AspNetCore)
+					.AddStringConstructorArg("ThingsManagement").Commit()
+				.AddAttribute(MvcConstants.RouteAttributeFullName_AspNetCore)
+					.AddStringConstructorArg("api/[area]/[controller]").Commit();
 
-			Action.AddAttribute(MvcConstants.HttpGetAttributeFullName_AspNetCore, "stuff");
+			Action.AddAttribute(MvcConstants.HttpGetAttributeFullName_AspNetCore)
+				.AddStringConstructorArg("stuff").Commit();
 
 			AssertRouteEquals("/api/ThingsManagement/Things/stuff");
 		}
@@ -59,8 +63,11 @@ namespace TypeRight.Tests.Controllers.AspNetCore
 		[TestMethod]
 		public void HttpPostRoute_WithIdPlaceholder_IsAppended()
 		{
-			Controller.AddAttribute(MvcConstants.RouteAttributeFullName_AspNetCore, "api/[controller]");
-			Action.AddAttribute(MvcConstants.HttpPostAttributeFullName_AspNetCore, "{id}/dostuff");
+			ControllerBuilder.AddAttribute(MvcConstants.RouteAttributeFullName_AspNetCore)
+				.AddStringConstructorArg("api/[controller]").Commit();
+
+			Action.AddAttribute(MvcConstants.HttpPostAttributeFullName_AspNetCore)
+				.AddStringConstructorArg("{id}/dostuff").Commit();
 
 			AssertRouteEquals("/api/Things/{id}/dostuff");
 		}
@@ -68,8 +75,11 @@ namespace TypeRight.Tests.Controllers.AspNetCore
 		[TestMethod]
 		public void HttpPatchRoute_WithIdPlaceholder_IsAppended()
 		{
-			Controller.AddAttribute(MvcConstants.RouteAttributeFullName_AspNetCore, "api/[controller]");
-			Action.AddAttribute(MvcConstants.ToAspNetCoreFullName(MvcConstants.HttpPatchAttributeName), "{id}/dostuff");
+			ControllerBuilder.AddAttribute(MvcConstants.RouteAttributeFullName_AspNetCore)
+				.AddStringConstructorArg("api/[controller]").Commit();
+
+			Action.AddAttribute(MvcConstants.ToAspNetCoreFullName(MvcConstants.HttpPatchAttributeName))
+				.AddStringConstructorArg("{id}/dostuff").Commit();
 
 			AssertRouteEquals("/api/Things/{id}/dostuff");
 		}
@@ -78,8 +88,10 @@ namespace TypeRight.Tests.Controllers.AspNetCore
 		public void BaseUrl_IsPrepended()
 		{
 			GivenBaseUrl("api");
-			Controller.AddAttribute(MvcConstants.AreaAttributeFullName_AspNetCore, "ThingsManagement")
-				.AddAttribute(MvcConstants.RouteAttributeFullName_AspNetCore, "[area]/[controller]");
+			ControllerBuilder.AddAttribute(MvcConstants.AreaAttributeFullName_AspNetCore)
+					.AddStringConstructorArg("ThingsManagement").Commit()
+				.AddAttribute(MvcConstants.RouteAttributeFullName_AspNetCore)
+					.AddStringConstructorArg("[area]/[controller]").Commit();
 
 
 			AssertRouteEquals("/api/ThingsManagement/Things");
@@ -88,9 +100,10 @@ namespace TypeRight.Tests.Controllers.AspNetCore
 		[TestMethod]
 		public void ApiVersion_IsResolved()
 		{
-			Controller.AddAttribute(MvcConstants.RouteAttributeFullName_AspNetCore, "api/v{v:apiVersion}/[controller]")
-				.AddAttribute(MvcConstants.ApiVersionAttributeFullName_AspNetCore, "1.0");
-
+			ControllerBuilder.AddAttribute(MvcConstants.RouteAttributeFullName_AspNetCore)
+					.AddStringConstructorArg("api/v{v:apiVersion}/[controller]").Commit()
+				.AddAttribute(MvcConstants.ApiVersionAttributeFullName_AspNetCore)
+					.AddStringConstructorArg("1.0").Commit();
 
 			AssertRouteEquals("/api/v1.0/Things");
 		}

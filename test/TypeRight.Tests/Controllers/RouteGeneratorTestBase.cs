@@ -1,47 +1,32 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Linq;
-using TypeRight.ScriptWriting;
-using TypeRight.Tests.TestBuilders.TypeCollection;
-using TypeRight.TypeProcessing;
+using TypeRight.Tests.TestBuilders;
 
 namespace TypeRight.Tests.Controllers
 {
-	public abstract class RouteGeneratorTestBase
+	public abstract class RouteGeneratorTestBase : ControllerTestsBase
 	{
-		private TypeCollectionBuilder _builder;
-		private string _basePath = "";
 
-		protected NamedTypeBuilder Controller { get; private set; }
-
-		protected MethodBuilder Action { get; private set; }
+		protected TestMethodBuilder Action { get; private set; }
 
 		protected abstract string ControllerNamespace { get; }
 
-		protected abstract void AddMvcTypes(TypeCollectionBuilder builder);
+		protected override string ControllerName => "Things";
 
 		[TestInitialize]
 		public void Initialize()
 		{
-			_builder = TypeCollectionBuilder.Create();
-			AddMvcTypes(_builder);
+			base.TestInitialize();
 
-			Controller = _builder.AddNamedType("ThingsController")
-				.WithBaseType(MvcConstants.ControllerBaseName, ControllerNamespace);
+			Action = AddControllerAction("RandoMethod", "int");
 
-			Action = Controller.AddMethod("RandoMethod", typeof(int))
-				.AddScriptActionAttribute();
 		}
-
-		protected void GivenBaseUrl(string path) => _basePath = path;
 
 		protected void AssertRouteEquals(string expectedRoute)
 		{
 			Action.Commit();
-			Controller.BuildAsController();
-			var collection = _builder.Build();
-			var controller = collection.GetMvcControllers().First();
-			var routeGen = MvcRouteGenerator.CreateGenerator(controller, _basePath);
-			Assert.AreEqual(expectedRoute, routeGen.GenerateRouteTemplate(controller.Actions.First()));
+
+			AssertThatThisControllerAction("RandoMethod")
+				.RouteTemplateIs(expectedRoute);
 		}
 	}
 }

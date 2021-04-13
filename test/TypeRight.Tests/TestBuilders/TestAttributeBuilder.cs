@@ -24,6 +24,12 @@ namespace TypeRight.Tests.TestBuilders
 			return this;
 		}
 
+		public TestAttributeBuilder<T> AddStringConstructorArg(string value)
+		{
+			_ctorArgs.Add($"\"{value}\"");
+			return this;
+		}
+
 		public TestAttributeBuilder<T> AddNamedArg(string name, string value)
 		{
 			_namedArgs.Add(name, value);
