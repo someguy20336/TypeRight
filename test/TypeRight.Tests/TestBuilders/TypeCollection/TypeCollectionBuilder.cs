@@ -42,12 +42,6 @@ namespace TypeRight.Tests.TestBuilders.TypeCollection
 			return this;
 		}
 
-		public TypeCollectionBuilder RegisterController(INamedType type)
-		{
-			_extractedTypes.RegisterController(type);
-			return this;
-		}
-
 		public INamedType GetNamedType(Type type)
 		{
 			return GetNamedType(type.FullName);
@@ -74,10 +68,5 @@ namespace TypeRight.Tests.TestBuilders.TypeCollection
 			return this;
 		}
 
-		public TypeCollectionBuilder RegisterExternalType(string fullName)
-		{
-			var split = fullName.Split(".");
-			return RegisterExternalType(split.Last(), string.Join(".", split.Take(split.Length - 1)));
-		}
 	}
 }

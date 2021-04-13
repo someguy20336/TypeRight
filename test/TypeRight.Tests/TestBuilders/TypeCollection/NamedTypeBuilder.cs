@@ -5,19 +5,16 @@ using TypeRight.CodeModel.Default;
 
 namespace TypeRight.Tests.TestBuilders.TypeCollection
 {
-	public class NamedTypeBuilder : IBuilderWithPropertyList, IAttributable
+	public class NamedTypeBuilder : IBuilderWithPropertyList
 	{
 		private string _name;
 		private string _namespace = TypeCollectionBuilder.DefaultNamespace;
 		private string _resultPath = "";
-		private string _filePath = @"C:\FolderA\FolderB\class.cs";
 		private INamedType _baseType;
 
 		public TypeCollectionBuilder TypeCollectionBuilder { get; }
 
 		public List<IProperty> Properties { get; } = new List<IProperty>();
-		public List<IMethod> Methods { get; } = new List<IMethod>();
-		public List<IAttributeData> Attributes { get; } = new List<IAttributeData>();
 
 		public NamedTypeBuilder(TypeCollectionBuilder collectionBuilder, string typeName)
 		{
@@ -37,12 +34,6 @@ namespace TypeRight.Tests.TestBuilders.TypeCollection
 			return this;
 		}
 
-		public NamedTypeBuilder WithFilePath(string path)
-		{
-			_filePath = path;
-			return this;
-		}
-
 		public NamedTypeBuilder AddProperty(string name, Type type)
 		{
 			Properties.Add(new Property(name, TypeCollectionBuilder.GetNamedType(type)));
@@ -54,35 +45,26 @@ namespace TypeRight.Tests.TestBuilders.TypeCollection
 			Properties.Add(new Property(name, TypeCollectionBuilder.GetNamedType($"{ns}.{typeName}")));
 			return this;
 		}
-
-		public MethodBuilder AddMethod(string name, Type returnType)
-		{
-			return new MethodBuilder(this, name, TypeCollectionBuilder.GetNamedType(returnType));
-		}
-				
+						
 		public TypeCollectionBuilder Build()
 		{
 			return TypeCollectionBuilder.RegisterType(CreateNamedType(), _resultPath);
 		}
 
-		public TypeCollectionBuilder BuildAsController()
-		{
-			return TypeCollectionBuilder.RegisterController(CreateNamedType());
-		}
 
 		private INamedType CreateNamedType() => new NamedType(
 				_name,
 				$"{_namespace}.{_name}",
 				new TypeFlags(),  // TODO?
 				Properties, // props
-				Methods,   // methods,
+				new List<IMethod>(),   // methods,
 				_baseType,  // base type,
 				null,   // interfaces
-				_filePath,   // filepath
+				"",   // filepath
 				null,   // constructed from type
 				null,   // typeargs,
 				null,   // fields
-				Attributes,   // attributes
+				new List<IAttributeData>(),   // attributes
 				null    // comments
 				);
 	}
