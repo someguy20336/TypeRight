@@ -5,7 +5,7 @@ using TypeRight.ScriptWriting.TypeScript;
 
 namespace TypeRight.ScriptWriting
 {
-	class ScriptTemplateFactory
+	public class ScriptTemplateFactory
 	{
 		public static IScriptTemplate GetTemplate()
 		{

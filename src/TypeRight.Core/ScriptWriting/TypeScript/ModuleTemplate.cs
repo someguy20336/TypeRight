@@ -5,7 +5,7 @@ namespace TypeRight.ScriptWriting.TypeScript
 	/// <summary>
 	/// A template that uses the module format
 	/// </summary>
-	public class ModuleTemplate : IScriptTemplate
+	internal class ModuleTemplate : IScriptTemplate
 	{
 		/// <summary>
 		/// Creates the controller text template

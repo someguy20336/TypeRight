@@ -25,7 +25,7 @@ namespace TypeRight.Tests.Testers
 			_typeCollection = typeCollection;
 
 			// TODO not hardcode?
-			_scriptWriter = new ModuleTemplate();
+			_scriptWriter = ScriptTemplateFactory.GetTemplate();
 
 			// TODO any way to define this?  Or maybe an option when getting type name
 			_typeFormatter = new TypeScriptTypeFormatter(_typeCollection, new FakeTypePrefixer());

@@ -5,7 +5,7 @@ using TypeRight.TypeProcessing;
 
 namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
 {
-	partial class MvcControllerTextTemplate : IControllerTextTemplate
+	internal partial class MvcControllerTextTemplate : IControllerTextTemplate
 	{
 		private MvcActionTextTemplate _innerTemplate;
 
