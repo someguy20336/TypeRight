@@ -10,7 +10,7 @@ namespace TypeRight.Workspaces.VsixAdapter
 	/// <summary>
 	/// Provides a workspace generation engine object
 	/// </summary>
-	public class ScriptGenerationAdapter
+	internal class ScriptGenerationAdapter
 	{
 		/// <summary>
 		/// Creates the script generation engine

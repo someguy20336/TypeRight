@@ -6,7 +6,7 @@ namespace TypeRight
 	/// <summary>
 	/// Helper used for builds
 	/// </summary>
-	public class BuildHelper
+	internal class BuildHelper
 	{
 
 		/// <summary>

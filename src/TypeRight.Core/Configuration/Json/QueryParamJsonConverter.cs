@@ -5,7 +5,7 @@ using System.Collections.Specialized;
 
 namespace TypeRight.Configuration.Json
 {
-	public class QueryParamJsonConverter : JsonConverter
+	internal class QueryParamJsonConverter : JsonConverter
 	{
 		public override bool CanConvert(Type objectType)
 		{

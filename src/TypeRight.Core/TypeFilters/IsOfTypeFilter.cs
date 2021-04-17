@@ -5,7 +5,7 @@ namespace TypeRight.TypeFilters
 	/// <summary>
 	/// Parse filter for whether the symbol is of a specific type in its heirarchy
 	/// </summary>
-	public class IsOfTypeFilter : TypeFilter
+	internal class IsOfTypeFilter : TypeFilter
 	{
 		/// <summary>
 		/// The type to check
