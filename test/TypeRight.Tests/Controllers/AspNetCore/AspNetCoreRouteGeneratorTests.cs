@@ -85,7 +85,7 @@ namespace TypeRight.Tests.Controllers.AspNetCore
 		}
 
 		[TestMethod]
-		public void BaseUrl_IsPrepended()
+		public void BaseUrl_IsPrepended_ScriptGenerated()
 		{
 			GivenBaseUrl("api");
 			ControllerBuilder.AddAttribute(MvcConstants.AreaAttributeFullName_AspNetCore)
@@ -93,8 +93,20 @@ namespace TypeRight.Tests.Controllers.AspNetCore
 				.AddAttribute(MvcConstants.RouteAttributeFullName_AspNetCore)
 					.AddStringConstructorArg("[area]/[controller]").Commit();
 
+			Action.Commit();
 
-			AssertRouteEquals("/api/ThingsManagement/Things");
+			AssertControllerGeneratedText(@"
+import { TestAjax } from ""../../FolderM/FolderN/AjaxFunc"";
+
+
+/**
+ * 
+ */
+export function RandoMethod(): void {
+	TestAjax(`/api/ThingsManagement/Things`, null);
+}
+
+");
 		}
 
 		[TestMethod]

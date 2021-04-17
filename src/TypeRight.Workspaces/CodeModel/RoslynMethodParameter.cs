@@ -41,5 +41,9 @@ namespace TypeRight.Workspaces.CodeModel
 			IsOptional = parameter.IsOptional;
 		}
 
+		public override string ToString()
+		{
+			return $"{ParameterType.Name} {Name}";
+		}
 	}
 }
