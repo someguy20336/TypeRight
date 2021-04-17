@@ -7,7 +7,7 @@
 //     the code is regenerated.
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
+namespace TypeRight.ScriptWriting.TypeScript.PartialTextTemplates
 {
     using System.Linq;
     using System.Text;
@@ -18,9 +18,9 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
+    #line 1 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\PartialTextTemplates\MvcActionTextTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
-    internal partial class MvcMethodTextTemplateBase : MvcMethodTextTemplateBaseBase
+    internal partial class MvcActionTextTemplate : MvcActionTextTemplateBase
     {
 #line hidden
         /// <summary>
@@ -28,47 +28,39 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
         /// </summary>
         public virtual string TransformText()
         {
-            
-            #line 6 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
-
-foreach (var oneAction in GetActions()) {
-
-            
-            #line default
-            #line hidden
             this.Write("/**\r\n * ");
             
-            #line 10 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(oneAction.SummaryComments));
+            #line 7 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\PartialTextTemplates\MvcActionTextTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_curAction.SummaryComments));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 11 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
+            #line 8 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\PartialTextTemplates\MvcActionTextTemplate.tt"
 
-foreach (var paramComment in GetParameterComments(oneAction)) {
+foreach (var paramComment in GetParameterComments()) {
 
             
             #line default
             #line hidden
             this.Write(" * @param ");
             
-            #line 14 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
+            #line 11 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\PartialTextTemplates\MvcActionTextTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(paramComment.Key));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 14 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
+            #line 11 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\PartialTextTemplates\MvcActionTextTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(paramComment.Value));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 15 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
+            #line 12 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\PartialTextTemplates\MvcActionTextTemplate.tt"
 
 }
 
@@ -77,34 +69,26 @@ foreach (var paramComment in GetParameterComments(oneAction)) {
             #line hidden
             this.Write(" */\r\nexport function ");
             
-            #line 19 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(BuildActionSignature(oneAction)));
+            #line 16 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\PartialTextTemplates\MvcActionTextTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(BuildActionSignature()));
             
             #line default
             #line hidden
             this.Write(" {\r\n\t");
             
-            #line 20 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(BuildFetchFunctionName(oneAction)));
+            #line 17 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\PartialTextTemplates\MvcActionTextTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(BuildFetchFunctionName()));
             
             #line default
             #line hidden
             this.Write("(");
             
-            #line 20 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(BuildFetchParameters(oneAction)));
+            #line 17 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\PartialTextTemplates\MvcActionTextTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(BuildFetchParameters()));
             
             #line default
             #line hidden
-            this.Write(");\r\n}\r\n\r\n");
-            
-            #line 23 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt"
-
-}
-
-            
-            #line default
-            #line hidden
+            this.Write(");\r\n}\r\n");
             return this.GenerationEnvironment.ToString();
         }
     }
@@ -116,7 +100,7 @@ foreach (var paramComment in GetParameterComments(oneAction)) {
     /// Base class for this transformation
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
-    internal class MvcMethodTextTemplateBaseBase
+    internal class MvcActionTextTemplateBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;

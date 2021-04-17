@@ -11,7 +11,7 @@ namespace TypeRight.ScriptWriting.TypeScript
 		/// Creates the controller text template
 		/// </summary>
 		/// <returns></returns>
-		public IControllerTextTemplate CreateControllerTextTemplate() => new ModuleMvcMethodTextTemplate();
+		public IControllerTextTemplate CreateControllerTextTemplate() => new MvcControllerTextTemplate();
 
 		/// <summary>
 		/// Creates the type text template

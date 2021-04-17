@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using TypeRight.ScriptWriting;
 using TypeRight.TypeFilters;
 using TypeRight.TypeProcessing.MvcRouting;
 
@@ -9,13 +8,14 @@ namespace TypeRight.TypeProcessing
 	{
 		public const string ConventionalBaseRouteTemplate = "/[controller]/[action]";
 		public const string ConventionalBaseRouteTemplateWithArea = "/[area]/[controller]/[action]";
-		private readonly ControllerContext _context;
+		private readonly string _baseUrl;
 
-		protected MvcControllerInfo Controller => _context.Controller;
+		protected MvcControllerInfo Controller { get; }
 
-		protected MvcRouteGenerator(ControllerContext context)
+		protected MvcRouteGenerator(MvcControllerInfo controller, string baseUrl)
 		{
-			_context = context;
+			_baseUrl = baseUrl;
+			Controller = controller;
 		}
 
 		public string GenerateRouteTemplate(MvcActionInfo actionInfo)
@@ -52,7 +52,7 @@ namespace TypeRight.TypeProcessing
 
 		private string PrependBasePath(string url)
 		{
-			string baseUrl = !string.IsNullOrEmpty(_context.BaseUrl) ? _context.BaseUrl : "/";
+			string baseUrl = !string.IsNullOrEmpty(_baseUrl) ? _baseUrl : "/";
 			baseUrl = AppendSlashIfNecessary(baseUrl);
 
 			url = baseUrl + url.TrimStart('/');
@@ -77,14 +77,14 @@ namespace TypeRight.TypeProcessing
 			return actionInfo.RequestMethod.GetActionTemplate(actionInfo);
 		}
 
-		public static MvcRouteGenerator CreateGenerator(ControllerContext context)
+		public static MvcRouteGenerator CreateGenerator(MvcControllerInfo controller, string baseUrl)
 		{
 			TypeFilter aspNetCoreFilter = new IsOfTypeFilter(MvcConstants.ControllerBaseFullName_AspNetCore);
 
-			var controllerInfo = context.Controller;
+			var controllerInfo = controller;
 			return aspNetCoreFilter.Evaluate(controllerInfo.NamedType) 
-				? new AspNetCoreRouteGenerator(context) 
-				: (MvcRouteGenerator)new AspNetRouteGenerator(context);
+				? new AspNetCoreRouteGenerator(controller, baseUrl) 
+				: (MvcRouteGenerator)new AspNetRouteGenerator(controller, baseUrl);
 		}
 
 		protected virtual List<RouteParameterResolver> GetParameterResolvers()

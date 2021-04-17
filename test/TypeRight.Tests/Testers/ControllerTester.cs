@@ -7,14 +7,11 @@ namespace TypeRight.Tests.Testers
 {
 	public class ControllerTester
 	{
-		private readonly ControllerModel _controllerModel;
-
 		private readonly TypeFormatter _typeFormatter;
 		private readonly ControllerContext _context;
 
 		public ControllerTester(TypeFormatter typeFormatter, ControllerContext context)
 		{
-			_controllerModel = new ControllerProcessor(context).CreateModel(typeFormatter);
 			_typeFormatter = typeFormatter;
 			_context = context;
 		}
@@ -24,14 +21,10 @@ namespace TypeRight.Tests.Testers
 			return new MvcActionTester(_context, _context.Controller.Actions.Where(m => m.Name == name).First(), _typeFormatter);
 		}
 
-		public MvcActionModelTester TestActionModelWithName(string name)
-		{
-			return new MvcActionModelTester(_controllerModel.Actions.Where(m => m.Name == name).First());
-		}
-
 		public ControllerTester HasImportForFile(string relPath)
 		{
-			Assert.IsTrue(_controllerModel.Imports.Any(imp => imp.FromRelativePath == relPath));
+			var imports = ImportManager.FromController(_context).GetImports();
+			Assert.IsTrue(imports.Any(imp => imp.FromRelativePath == relPath));
 			return this;
 		}
 	}

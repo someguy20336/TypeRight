@@ -59,7 +59,7 @@ namespace TypeRight.TypeProcessing
 			{
 				if (method.Attributes.Any(attrData => actionFilter.Evaluate(attrData.AttributeType)))
 				{
-					MvcActionInfo action = new MvcActionInfo(method, typeFactory);
+					MvcActionInfo action = new MvcActionInfo(this, method, typeFactory);
 					_actions.Add(action);
 				}
 			}

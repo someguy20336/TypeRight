@@ -91,109 +91,153 @@ namespace TypeRight.Tests.TestBuilders
 			return this;
 		}
 
-		public TestProjectBuilder AddFakeMvc()
+		public TestProjectBuilder AddFakeMvc(bool aspNetCore)
 		{
-			
-			// Route attribute
-			CreateClassBuilder(MvcConstants.RouteAttributeName, MvcConstants.AspNetCoreNamespace)
-				.AddBaseClass("System.Attribute")
-				.AddConstructor()
-					.AddParameter("template", "string")
-					.Commit()
-				.Commit();
 
-			CreateClassBuilder(MvcConstants.RouteAttributeName, MvcConstants.AspNetNamespace)
-				.AddBaseClass("System.Attribute")
-				.AddConstructor()
-					.AddParameter("template", "string")
-					.Commit()
-				.Commit();
+			if (aspNetCore)
+			{
+				CreateClassBuilder(MvcConstants.AreaAttributeFullName_AspNetCore)
+					.AddBaseClass("System.Attribute")
+					.AddConstructor().AddParameter("value", "string").Commit()
+					.Commit();
 
-			// HTTP GET
-			CreateClassBuilder(MvcConstants.HttpGetAttributeName, MvcConstants.AspNetCoreNamespace)
-				.AddBaseClass("System.Attribute")
-				.AddConstructor()
-					.AddParameter("template", "string")
-					.Commit()
-				.Commit();
+				CreateClassBuilder(MvcConstants.RouteAttributeName, MvcConstants.AspNetCoreNamespace)
+					.AddBaseClass("System.Attribute")
+					.AddConstructor()
+						.AddParameter("template", "string")
+						.Commit()
+					.Commit();
 
-			CreateClassBuilder(MvcConstants.HttpGetAttributeName, MvcConstants.AspNetNamespace)
-				.AddBaseClass("System.Attribute")
-				.AddConstructor()
-					.AddParameter("template", "string")
-					.Commit()
-				.Commit();
+				CreateClassBuilder(MvcConstants.HttpGetAttributeName, MvcConstants.AspNetCoreNamespace)
+					.AddBaseClass("System.Attribute")
+					.AddConstructor()
+						.AddParameter("template", "string")
+						.Commit()
+					.Commit();
 
-			// HTTP Post
-			CreateClassBuilder(MvcConstants.HttpPostAttributeName, MvcConstants.AspNetCoreNamespace)
-			.AddBaseClass("System.Attribute")
-			.AddConstructor()
-					.AddParameter("template", "string")
-					.Commit()
-			.Commit();
+				CreateClassBuilder(MvcConstants.HttpPostAttributeName, MvcConstants.AspNetCoreNamespace)
+					.AddBaseClass("System.Attribute")
+					.AddConstructor()
+							.AddParameter("template", "string")
+							.Commit()
+					.Commit();
 
-			CreateClassBuilder(MvcConstants.HttpPostAttributeName, MvcConstants.AspNetNamespace)
-				.AddBaseClass("System.Attribute")
-				.AddConstructor()
-					.AddParameter("template", "string")
-					.Commit()
-				.Commit();
+				CreateClassBuilder(MvcConstants.HttpPutAttributeName, MvcConstants.AspNetCoreNamespace)
+					.AddBaseClass("System.Attribute")
+					.AddConstructor()
+							.AddParameter("template", "string")
+							.Commit()
+					.Commit();
 
-			// HTTP Put
-			CreateClassBuilder(MvcConstants.HttpPutAttributeName, MvcConstants.AspNetCoreNamespace)
-			.AddBaseClass("System.Attribute")
-			.AddConstructor()
-					.AddParameter("template", "string")
-					.Commit()
-			.Commit();
+				CreateClassBuilder(MvcConstants.HttpPatchAttributeName, MvcConstants.AspNetCoreNamespace)
+					.AddBaseClass("System.Attribute")
+					.AddConstructor()
+							.AddParameter("template", "string")
+							.Commit()
+					.Commit();
 
-			CreateClassBuilder(MvcConstants.HttpPutAttributeName, MvcConstants.AspNetNamespace)
-				.AddBaseClass("System.Attribute")
-				.AddConstructor()
-					.AddParameter("template", "string")
-					.Commit()
-				.Commit();
+				CreateClassBuilder(MvcConstants.HttpDeleteAttributeName, MvcConstants.AspNetCoreNamespace)
+					.AddBaseClass("System.Attribute")
+					.AddConstructor()
+							.AddParameter("template", "string")
+							.Commit()
+					.Commit();
 
-			// HTTP DELETE
-			CreateClassBuilder(MvcConstants.HttpDeleteAttributeName, MvcConstants.AspNetCoreNamespace)
-			.AddBaseClass("System.Attribute")
-			.AddConstructor()
-					.AddParameter("template", "string")
-					.Commit()
-			.Commit();
+				CreateClassBuilder(MvcConstants.ActionResultName, MvcConstants.AspNetCoreNamespace)
+					.AddGenericParameter("TValue")
+					.AddConstructor()
+						.AddParameter("value", "TValue")
+						.Commit()
+					// TODO Other ctor
+					.Commit();
 
-			CreateClassBuilder(MvcConstants.HttpDeleteAttributeName, MvcConstants.AspNetNamespace)
-				.AddBaseClass("System.Attribute")
-				.AddConstructor()
-					.AddParameter("template", "string")
-					.Commit()
-				.Commit();
 
-			// From body
-			CreateClassBuilder(MvcConstants.FromBodyAttributeName, MvcConstants.AspNetCoreNamespace)
-				.AddBaseClass("System.Attribute")
-				.Commit();
+				// From body
+				CreateClassBuilder(MvcConstants.FromBodyAttributeName, MvcConstants.AspNetCoreNamespace)
+					.AddBaseClass("System.Attribute")
+					.Commit();
 
-			// From services
-			CreateClassBuilder(MvcConstants.FromServicesAttributeName, MvcConstants.AspNetCoreNamespace)
-				.AddBaseClass("System.Attribute")
-				.Commit();
+				// From services
+				CreateClassBuilder(MvcConstants.FromServicesAttributeName, MvcConstants.AspNetCoreNamespace)
+					.AddBaseClass("System.Attribute")
+					.Commit();
 
-			// From query
-			CreateClassBuilder(MvcConstants.FromQueryAttributeName, MvcConstants.AspNetCoreNamespace)
-				.AddBaseClass("System.Attribute")
-				.Commit();
+				// From query
+				CreateClassBuilder(MvcConstants.FromQueryAttributeName, MvcConstants.AspNetCoreNamespace)
+					.AddBaseClass("System.Attribute")
+					.Commit();
 
-			CreateClassBuilder(MvcConstants.JsonResultName, MvcConstants.AspNetCoreNamespace).Commit();
-			CreateClassBuilder(MvcConstants.JsonResultName, MvcConstants.AspNetNamespace).Commit();
+				CreateClassBuilder(MvcConstants.JsonResultName, MvcConstants.AspNetCoreNamespace).Commit();
 
-			CreateClassBuilder(MvcConstants.ActionResultName, MvcConstants.AspNetCoreNamespace)
-				.AddGenericParameter("TValue")
-				.AddConstructor()
-					.AddParameter("value", "TValue")
-					.Commit()
-				// TODO Other ctor
-				.Commit();
+				CreateClassBuilder(MvcConstants.ApiVersionAttributeFullName_AspNetCore)
+					.AddBaseClass("System.Attribute")
+					.AddConstructor().AddParameter("value", "string").Commit()
+					.Commit();
+
+				
+			}
+			else
+			{
+				CreateClassBuilder(MvcConstants.RouteAreaAttributeFullName_AspNet)
+					.AddBaseClass("System.Attribute")
+					.AddConstructor().AddParameter("value", "string").Commit()
+					.Commit();
+
+				// Route attribute
+				CreateClassBuilder(MvcConstants.RouteAttributeName, MvcConstants.AspNetNamespace)
+					.AddBaseClass("System.Attribute")
+					.AddConstructor()
+						.AddParameter("template", "string")
+						.Commit()
+					.Commit();
+
+				// HTTP GET
+				CreateClassBuilder(MvcConstants.HttpGetAttributeName, MvcConstants.AspNetNamespace)
+					.AddBaseClass("System.Attribute")
+					.AddConstructor()
+						.AddParameter("template", "string")
+						.Commit()
+					.Commit();
+
+				// HTTP Post
+				CreateClassBuilder(MvcConstants.HttpPostAttributeName, MvcConstants.AspNetNamespace)
+					.AddBaseClass("System.Attribute")
+					.AddConstructor()
+						.AddParameter("template", "string")
+						.Commit()
+					.Commit();
+
+				// HTTP Put
+				CreateClassBuilder(MvcConstants.HttpPutAttributeName, MvcConstants.AspNetNamespace)
+					.AddBaseClass("System.Attribute")
+					.AddConstructor()
+						.AddParameter("template", "string")
+						.Commit()
+					.Commit();
+
+				CreateClassBuilder(MvcConstants.HttpPatchAttributeName, MvcConstants.AspNetNamespace)
+					.AddBaseClass("System.Attribute")
+					.AddConstructor()
+							.AddParameter("template", "string")
+							.Commit()
+					.Commit();
+
+				// HTTP DELETE
+				CreateClassBuilder(MvcConstants.HttpDeleteAttributeName, MvcConstants.AspNetNamespace)
+					.AddBaseClass("System.Attribute")
+					.AddConstructor()
+						.AddParameter("template", "string")
+						.Commit()
+					.Commit();
+
+				CreateClassBuilder(MvcConstants.JsonResultName, MvcConstants.AspNetNamespace).Commit();
+
+				CreateClassBuilder(MvcConstants.ApiVersionAttributeFullName_AspNet)
+					.AddBaseClass("System.Attribute")
+					.AddConstructor().AddParameter("value", "string").Commit()
+					.Commit();
+			}
+
 
 
 			return this;

@@ -108,7 +108,13 @@ namespace TypeRight.Tests.TestBuilders
 			{
 				attrs = $"[{ string.Join(", ", parameter.Attributes.Select(attr => attr.ToFormattedString())) }]";
 			}
-			return $"{ attrs }{parameter.Type} {parameter.Name}";
+			
+			string paramText = $"{ attrs }{parameter.Type} {parameter.Name}";
+			if (parameter.IsOptional)
+			{
+				paramText += " = default";
+			}
+			return paramText;
 		}
 	}
 }

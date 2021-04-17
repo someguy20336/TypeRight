@@ -63,5 +63,10 @@ namespace TypeRight.Workspaces.CodeModel
 				_parameters.Add(csParam);
 			}
 		}
+
+		public override string ToString()
+		{
+			return $"{ReturnType.Name} {Name}";
+		}
 	}
 }

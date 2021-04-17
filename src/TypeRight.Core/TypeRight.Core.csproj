@@ -38,17 +38,17 @@
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>TypeScriptInterfaceTextTemplate.cs</LastGenOutput>
     </None>
-    <None Update="ScriptWriting\TypeScript\TextTemplates\ModuleMvcMethodTextTemplate.tt">
+    <None Update="ScriptWriting\TypeScript\TextTemplates\MvcControllerTextTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>ModuleMvcMethodTextTemplate.cs</LastGenOutput>
+      <LastGenOutput>MvcControllerTextTemplate.cs</LastGenOutput>
     </None>
     <None Update="ScriptWriting\TypeScript\TextTemplates\ModuleTypeTextTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>ModuleTypeTextTemplate.cs</LastGenOutput>
     </None>
-    <None Update="ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.tt">
+    <None Update="ScriptWriting\TypeScript\PartialTextTemplates\MvcActionTextTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>MvcMethodTextTemplateBase.cs</LastGenOutput>
+      <LastGenOutput>MvcActionTextTemplate.cs</LastGenOutput>
     </None>
   </ItemGroup>
 
@@ -72,22 +72,22 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>TypeScriptInterfaceTextTemplate.tt</DependentUpon>
     </Compile>
-    <Compile Update="ScriptWriting\TypeScript\TextTemplates\ModuleMvcMethodTextTemplate.cs">
+    <Compile Update="ScriptWriting\TypeScript\TextTemplates\MvcControllerTextTemplate.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>ModuleMvcMethodTextTemplate.tt</DependentUpon>
+      <DependentUpon>MvcControllerTextTemplate.tt</DependentUpon>
     </Compile>
     <Compile Update="ScriptWriting\TypeScript\TextTemplates\ModuleTypeTextTemplate.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>ModuleTypeTextTemplate.tt</DependentUpon>
     </Compile>
-    <Compile Update="ScriptWriting\TypeScript\TextTemplates\MvcMethodTextTemplateBase.cs">
+    <Compile Update="ScriptWriting\TypeScript\PartialTextTemplates\MvcActionTextTemplate.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>MvcMethodTextTemplateBase.tt</DependentUpon>
+      <DependentUpon>MvcActionTextTemplate.tt</DependentUpon>
     </Compile>
   </ItemGroup>
 
-	<Import Project="..\..\TypeRightVersion.targets"/>
+	<Import Project="..\..\TypeRightVersion.targets" />
 </Project>

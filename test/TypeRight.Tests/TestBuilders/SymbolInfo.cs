@@ -10,6 +10,8 @@ namespace TypeRight.Tests.TestBuilders
 
 		public string Comments { get; set; }
 
+		public bool IsOptional { get; set; }
+
 		public List<AttributeInfo> Attributes { get; set; } = new List<AttributeInfo>();
 
 	}

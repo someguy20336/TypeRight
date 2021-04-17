@@ -2,7 +2,6 @@
 using System.IO;
 using System.Linq;
 using TypeRight.CodeModel;
-using TypeRight.ScriptWriting;
 using TypeRight.TypeFilters;
 
 namespace TypeRight.TypeProcessing.MvcRouting
@@ -15,7 +14,7 @@ namespace TypeRight.TypeProcessing.MvcRouting
 
 		private static TypeFilter s_routeAreaTypeFilter = new IsOfTypeFilter(MvcConstants.RouteAreaAttributeFullName_AspNet);
 
-		public AspNetRouteGenerator(ControllerContext context) : base(context)
+		public AspNetRouteGenerator(MvcControllerInfo controller, string baseUrl) : base(controller, baseUrl)
 		{
 		}
 

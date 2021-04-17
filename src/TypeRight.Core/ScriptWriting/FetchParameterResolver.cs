@@ -3,27 +3,30 @@ using System.Collections.Specialized;
 using System.Linq;
 using TypeRight.Configuration;
 using TypeRight.ScriptWriting.TypeScript;
+using TypeRight.TypeProcessing;
 
 namespace TypeRight.ScriptWriting
 {
 
 	public interface IFetchParameterResolver
 	{
-		string ResolveParameter(ControllerActionModel action);
+		string ResolveParameter(MvcActionInfo action);
 	}
 
 	public class UrlParameterResolver : IFetchParameterResolver
 	{
 		private readonly NameValueCollection _constantQueryParams;
+		private readonly string _baseUrl;
 
-		public UrlParameterResolver(NameValueCollection constantQueryParams)
+		public UrlParameterResolver(NameValueCollection constantQueryParams, string baseUrl)
 		{
 			_constantQueryParams = constantQueryParams;
+			_baseUrl = baseUrl;
 		}
 
-		public string ResolveParameter(ControllerActionModel action)
+		public string ResolveParameter(MvcActionInfo action)
 		{
-			var urlParams = action.Parameters.Where(p => p.ActionParameterSourceType == ActionParameterSourceType.Query).ToList();
+			var urlParams = action.Parameters.Where(p => p.BindingType == ActionParameterSourceType.Query).ToList();
 
 			NameValueCollection queryParams = new NameValueCollection(_constantQueryParams);
 
@@ -35,8 +38,8 @@ namespace TypeRight.ScriptWriting
 			string urlParamQuery = queryParams.ToQueryString();
 
 			// Add the route params
-			string route = action.RouteTemplate;
-			var routeParamNames = action.Parameters.Where(p => p.ActionParameterSourceType == ActionParameterSourceType.Route).Select(p => p.Name);
+			string route = action.GetRouteTemplate(_baseUrl);
+			var routeParamNames = action.Parameters.Where(p => p.BindingType == ActionParameterSourceType.Route).Select(p => p.Name);
 			foreach (string paramName in routeParamNames)
 			{
 				route = route.Replace($"{{{paramName}}}", $"${{{paramName}}}");
@@ -49,18 +52,18 @@ namespace TypeRight.ScriptWriting
 
 	public class RequestMethodResolver : IFetchParameterResolver
 	{
-		public string ResolveParameter(ControllerActionModel action) => $"\"{action.RequestMethod.MethodName}\"";
+		public string ResolveParameter(MvcActionInfo action) => $"\"{action.RequestMethod.MethodName}\"";
 	}
 
 	public class BodyParameterResolver : IFetchParameterResolver
 	{
-		public string ResolveParameter(ControllerActionModel action)
+		public string ResolveParameter(MvcActionInfo action)
 		{
 			if (!action.RequestMethod.HasBody)
 			{
 				return "null";
 			}
-			var bodyParams = action.Parameters.Where(p => p.ActionParameterSourceType == ActionParameterSourceType.Body).ToList();
+			var bodyParams = action.Parameters.Where(p => p.BindingType == ActionParameterSourceType.Body).ToList();
 
 			if (bodyParams.Count == 0)
 			{
@@ -86,6 +89,6 @@ namespace TypeRight.ScriptWriting
 		{
 			_parameter = parameter;
 		}
-		public string ResolveParameter(ControllerActionModel action) => _parameter.Name;
+		public string ResolveParameter(MvcActionInfo action) => _parameter.Name;
 	}
 }

@@ -32,7 +32,7 @@ namespace TypeRight.Tests.Controllers.AspNetCore
 
 			// Asp net core
 			AssertThatThisControllerAction("GetStringList")
-				.UrlTemplateIs($"/api/{ControllerName}/getList");
+				.RouteTemplateIs($"/api/{ControllerName}/getList");
 
 		}
 
@@ -207,6 +207,42 @@ import { TestAjax } from ""../../FolderM/FolderN/AjaxFunc"";
  */
 export function GetThing(thingId: string): void {
 	TestAjax(`/api/RoutedApi/thing?key1=val1&thingId=${ thingId ?? """" }`, null);
+}
+
+"
+			#endregion
+				);
+		}
+
+		[TestMethod]
+		public void BaseUrl_AppendedToBeginning()
+		{
+			GivenBaseUrl("api");
+			ControllerBuilder
+				.AddAttribute(MvcConstants.RouteAttributeFullName_AspNetCore)
+					.AddConstructorArg("\"RoutedApi\"")
+					.Commit()
+				.AddMethod("GetThing", "string")
+					.AddScriptActionAttribute()
+					.AddAttribute(MvcConstants.HttpGetAttributeFullName_AspNetCore)
+						.AddConstructorArg("\"thing\"").Commit()
+					.AddParameter("thingId", "string", attribute: MvcConstants.FromQueryAttributeFullName_AspNetCore)
+					.AddLineOfCode("return null", 0)
+					.Commit()
+					;
+
+			AssertControllerGeneratedText(
+			#region ScriptText	
+				@"
+import { TestAjax } from ""../../FolderM/FolderN/AjaxFunc"";
+
+
+/**
+ * 
+ * @param thingId 
+ */
+export function GetThing(thingId: string): void {
+	TestAjax(`/api/RoutedApi/thing?thingId=${ thingId ?? """" }`, null);
 }
 
 "

@@ -3,23 +3,16 @@
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
-<#
-foreach (var oneAction in GetActions()) {
-#>
 /**
- * <#= oneAction.SummaryComments #>
+ * <#= _curAction.SummaryComments #>
 <#
-foreach (var paramComment in GetParameterComments(oneAction)) {
+foreach (var paramComment in GetParameterComments()) {
 #>
  * @param <#= paramComment.Key #> <#= paramComment.Value #>
 <#
 }
 #>
  */
-export function <#= BuildActionSignature(oneAction) #> {
-	<#= BuildFetchFunctionName(oneAction) #>(<#= BuildFetchParameters(oneAction) #>);
+export function <#= BuildActionSignature() #> {
+	<#= BuildFetchFunctionName() #>(<#= BuildFetchParameters() #>);
 }
-
-<#
-}
-#>

@@ -23,10 +23,10 @@ namespace TypeRight.ScriptWriting
 		{
 			if (options.FetchConfig != null)
 			{
-				return new FetchConfigFetchFunctionResolver(projUri, options.FetchConfig, options.QueryParams);
+				return new FetchConfigFetchFunctionResolver(projUri, options.FetchConfig, options.QueryParams, options.BaseUrl);
 			}
 
-			return new ActionConfigFetchFunctionResolver(projUri, options.ActionConfigurations, options.QueryParams);
+			return new ActionConfigFetchFunctionResolver(projUri, options.ActionConfigurations, options.QueryParams, options.BaseUrl);
 		}
 
 		protected string ResolveFilePath(string fetchFilePath)
@@ -40,12 +40,14 @@ namespace TypeRight.ScriptWriting
 	{
 		private IEnumerable<ActionConfig> _actionConfigs;
 		private readonly NameValueCollection _constantQueryParams;
+		private readonly string _baseUrl;
 
-		public ActionConfigFetchFunctionResolver(Uri projUri, IEnumerable<ActionConfig> configOptions, NameValueCollection constantQueryParams)
+		public ActionConfigFetchFunctionResolver(Uri projUri, IEnumerable<ActionConfig> configOptions, NameValueCollection constantQueryParams, string baseUrl)
 			: base(projUri)
 		{
 			_actionConfigs = configOptions;
 			_constantQueryParams = constantQueryParams ?? new NameValueCollection();
+			_baseUrl = baseUrl;
 		}
 
 		public override FetchFunctionDescriptor Resolve(string requestMethodName)
@@ -72,7 +74,7 @@ namespace TypeRight.ScriptWriting
 
 			List<IFetchParameterResolver> parameterResolvers = new List<IFetchParameterResolver>()
 			{
-				new UrlParameterResolver(_constantQueryParams),
+				new UrlParameterResolver(_constantQueryParams, _baseUrl),
 				new BodyParameterResolver()
 			};
 
@@ -97,12 +99,14 @@ namespace TypeRight.ScriptWriting
 	{
 		private FetchConfig _fetchConfig;
 		private readonly NameValueCollection _constantQueryParams;
+		private readonly string _baseUrl;
 
-		public FetchConfigFetchFunctionResolver(Uri projUri, FetchConfig fetchConfig, NameValueCollection constantQueryParams)
+		public FetchConfigFetchFunctionResolver(Uri projUri, FetchConfig fetchConfig, NameValueCollection constantQueryParams, string baseUrl)
 			: base(projUri)
 		{
 			_fetchConfig = fetchConfig;
 			_constantQueryParams = constantQueryParams;
+			_baseUrl = baseUrl;
 		}
 
 		public override FetchFunctionDescriptor Resolve(string requestMethodName)
@@ -115,7 +119,7 @@ namespace TypeRight.ScriptWriting
 					case ParameterKind.RequestMethod:
 						return new RequestMethodResolver();
 					case ParameterKind.Url:
-						return new UrlParameterResolver(_constantQueryParams);
+						return new UrlParameterResolver(_constantQueryParams, _baseUrl);
 					case ParameterKind.Body:
 						return new BodyParameterResolver();
 					case ParameterKind.Custom:

@@ -1,5 +1,4 @@
 ﻿using TypeRight.ScriptWriting;
-using TypeRight.ScriptWriting.TypeScript;
 using TypeRight.TypeProcessing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
@@ -35,71 +34,26 @@ namespace TypeRight.Tests.Testers
 		}
 
 		
-		public MvcActionTester UrlTemplateIs(string expected)
+		public MvcActionTester RouteTemplateIs(string expected)
 		{
-			string baseUrl = MvcRouteGenerator.CreateGenerator(_context).GenerateRouteTemplate(_method);
+			string baseUrl = MvcRouteGenerator.CreateGenerator(_context.Controller, _context.BaseUrl).GenerateRouteTemplate(_method);
 			Assert.AreEqual(expected, baseUrl);
 			return this;
 		}
-	}
 
-
-
-	public class MvcActionModelTester
-	{
-		private ControllerActionModel _actionModel;
-
-
-		public MvcActionModelTester(ControllerActionModel actionModel)
+		public MvcActionTester ParameterSourceTypeIs(string paramName, ActionParameterSourceType expectedType)
 		{
-			_actionModel = actionModel;
-		}
-
-		public MvcActionModelTester FetchFunctionIs(string func)
-		{
-			Assert.AreEqual(func, _actionModel.FetchFunctionName);
+			var parameter = _method.Parameters.Where(p => p.Name == paramName).First();
+			Assert.AreEqual(expectedType, parameter.BindingType);
 			return this;
 		}
 
-		public MvcActionModelTester ParameterTypeIs(string paramName, string typescriptName)
+		public MvcActionTester FetchFunctionIs(string expectedFuncName)
 		{
-			ActionParameterModel parameter = _actionModel.Parameters.Where(p => p.Name == paramName).First();
-			Assert.AreEqual(typescriptName, parameter.ParameterType);
-			return this;
-		}
-
-		public MvcActionModelTester ReturnTypeTypescriptNameIs(string typescriptName)
-		{
-			Assert.AreEqual(typescriptName, _actionModel.ReturnType);
-			return this;
-		}
-
-		public MvcActionModelTester ParameterSourceTypeIs(string paramName, ActionParameterSourceType expectedType)
-		{
-			ActionParameterModel parameter = _actionModel.Parameters.Where(p => p.Name == paramName).First();
-			Assert.AreEqual(expectedType, parameter.ActionParameterSourceType);
-			return this;
-		}
-
-		public MvcActionModelTester RouteTemplateIs(string expected)
-		{
-			Assert.AreEqual(expected, _actionModel.RouteTemplate);
-			return this;
-		}
-
-		/// <summary>
-		/// Tests that the parameter at the specified index has the expected name and optional flag
-		/// </summary>
-		/// <param name="index"></param>
-		/// <param name="expectedParamName"></param>
-		/// <param name="expectedOptional"></param>
-		/// <returns></returns>
-		public MvcActionModelTester ParameterAtIndexIs(int index, string expectedParamName, bool expectedOptional)
-		{
-			var paramList = _actionModel.Parameters.ToList();
-			Assert.AreEqual(expectedParamName, paramList[index].Name);
-			Assert.AreEqual(expectedOptional, paramList[index].IsOptional);
+			FetchFunctionDescriptor desc = _context.FetchFunctionResolver.Resolve(_method.RequestMethod.Name);
+			Assert.AreEqual(expectedFuncName, desc.FunctionName);
 			return this;
 		}
 	}
+
 }

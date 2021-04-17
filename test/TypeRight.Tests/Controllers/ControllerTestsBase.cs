@@ -16,8 +16,8 @@ namespace TypeRight.Tests.Controllers
 
 		protected TestClassBuilder ControllerBuilder { get; private set; }
 
-		protected string ControllerFullName => "TestController";
-		protected string ControllerName => "Test";
+		protected string ControllerFullName => $"{ControllerName}Controller";
+		protected virtual string ControllerName => "Test";
 
 		protected abstract bool IsAspNetCore { get; }
 
@@ -35,7 +35,7 @@ namespace TypeRight.Tests.Controllers
 			GivenActionParameters(Array.Empty<ActionParameter>());
 
 			WorkspaceBuilder.DefaultProject
-				.AddFakeMvc();
+				.AddFakeMvc(IsAspNetCore);
 
 			// Test class to use as return/param
 			AddClass("TestClass")
@@ -85,6 +85,8 @@ namespace TypeRight.Tests.Controllers
 			_configOptions.QueryParams.Add(key, value);
 		}
 
+		protected void GivenBaseUrl(string url) => _configOptions.BaseUrl = url;
+
 		protected void GivenFetchConfig(FetchConfig fetchConfig)
 		{
 			_configOptions.ActionConfigurations = null;
@@ -101,11 +103,6 @@ namespace TypeRight.Tests.Controllers
 		protected MvcActionTester AssertThatThisControllerAction(string actionName)
 		{
 			return AssertThatThisController().TestActionWithName(actionName);
-		}
-
-		protected MvcActionModelTester AssertThatThisControllerActionModel(string actionName)
-		{
-			return AssertThatThisController().TestActionModelWithName(actionName);
 		}
 
 		protected ControllerTester AssertThatThisController()
