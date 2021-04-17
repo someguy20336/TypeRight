@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace TypeRight.TypeProcessing.MvcRouting
 {
-	public class ApiVersionRouteParameterResolver : RouteParameterResolver
+	internal class ApiVersionRouteParameterResolver : RouteParameterResolver
 	{
 		private static Regex s_apiVersionToken = new Regex("{([a-zA-Z]+)(:apiVersion)}");
 
