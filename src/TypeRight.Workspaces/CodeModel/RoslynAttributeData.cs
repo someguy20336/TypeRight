@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace TypeRight.Workspaces.CodeModel
 {
-	class RoslynAttributeData : IAttributeData
+	internal class RoslynAttributeData : IAttributeData
 	{
 		private Dictionary<string, object> _namedArgs = new Dictionary<string, object>();
 

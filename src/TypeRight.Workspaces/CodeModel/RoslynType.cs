@@ -5,7 +5,7 @@ using Microsoft.CodeAnalysis;
 
 namespace TypeRight.Workspaces.CodeModel
 {
-	class RoslynType : IType
+	internal class RoslynType : IType
 	{
 		protected ParseContext Context { get; private set; }
 		protected ITypeSymbol TypeSymbol { get; set; }

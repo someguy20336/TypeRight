@@ -5,7 +5,7 @@ using TypeRight.Workspaces.Parsing;
 
 namespace TypeRight.Workspaces.CodeModel
 {
-	class RoslynMethodParameter : IMethodParameter
+	internal class RoslynMethodParameter : IMethodParameter
 	{
 		/// <summary>
 		/// Gets the name of the parameter

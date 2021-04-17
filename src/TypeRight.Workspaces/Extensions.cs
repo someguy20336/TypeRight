@@ -3,7 +3,7 @@ using System;
 
 namespace TypeRight.Workspaces
 {
-	public static class Extensions
+	internal static class Extensions
 	{
 		/// <summary>
 		/// Gets whether the given type symbol has the given base type

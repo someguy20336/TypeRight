@@ -6,7 +6,7 @@ namespace TypeRight.Workspaces
 	/// <summary>
 	/// A class that can provide documentation about a symbol
 	/// </summary>
-	public abstract class DocumentationProvider
+	internal abstract class DocumentationProvider
 	{
 		/// <summary>
 		/// Gets documentation about a symbol

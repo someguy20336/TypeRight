@@ -11,7 +11,7 @@ namespace TypeRight.Workspaces.Parsing
 	/// <summary>
 	/// Walks an MVC action to extract information about the method
 	/// </summary>
-	class MvcActionMethodWalker : CSharpSyntaxWalker
+	internal class MvcActionMethodWalker : CSharpSyntaxWalker
 	{
 		/// <summary>
 		/// The current semantic model

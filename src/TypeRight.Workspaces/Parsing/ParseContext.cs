@@ -8,7 +8,7 @@ namespace TypeRight.Workspaces.Parsing
 	/// <summary>
 	/// Provides contextual information for the parse
 	/// </summary>
-	public class ParseContext
+	internal class ParseContext
 	{
 
 		private List<MethodReturnTypeHandler> _returnTypeHandlers = new List<MethodReturnTypeHandler>();

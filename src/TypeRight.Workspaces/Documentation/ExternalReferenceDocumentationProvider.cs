@@ -10,7 +10,7 @@ namespace TypeRight.Workspaces
 	/// <summary>
 	/// This class provides documentation for external refrences
 	/// </summary>
-	public class ExternalReferenceDocumentationProvider : DocumentationProvider
+	internal class ExternalReferenceDocumentationProvider : DocumentationProvider
 	{
 		/// <summary>
 		/// The private cache of assemblies and their documentation

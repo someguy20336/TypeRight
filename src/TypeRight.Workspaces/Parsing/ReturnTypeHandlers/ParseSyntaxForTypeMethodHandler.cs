@@ -8,7 +8,7 @@ namespace TypeRight.Workspaces.Parsing
 	/// <summary>
 	/// Method return handler that parses the method syntax for the return type
 	/// </summary>
-	public class ParseSyntaxForTypeMethodHandler : MethodReturnTypeHandler
+	internal class ParseSyntaxForTypeMethodHandler : MethodReturnTypeHandler
 	{
 		/// <summary>
 		/// The return type this applies to
