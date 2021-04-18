@@ -35,7 +35,7 @@ namespace TypeRight.Tests.Testers
 		{
 			ExtractedReferenceType extrType = _typeCollection.GetReferenceTypes()
 					.Where(type => type.NamedType.Name == name && (!typeArgCnt.HasValue || typeArgCnt.Value == type.NamedType.TypeArguments.Count))
-					.FirstOrDefault() as ExtractedReferenceType;
+					.FirstOrDefault();
 			return new ReferenceTypeTester(extrType, _typeFormatter);
 		}
 
@@ -48,14 +48,6 @@ namespace TypeRight.Tests.Testers
 		{
 			context = context ?? GetDefaultControllerContext(name);
 			return new ControllerTester(_typeFormatter, context);
-		}
-
-		public TypeCollectionTester TestScriptText()
-		{
-			TypeWriteContext context = new TypeWriteContext(_typeCollection, _typeCollection, TestWorkspaceBuilder.DefaultResultPath);
-			string scriptText = _scriptWriter.CreateTypeTemplate().GetText(context);
-			Assert.IsFalse(string.IsNullOrEmpty(scriptText));
-			return this;
 		}
 
 		public TypeCollectionTester AssertScriptText(string expectedText)

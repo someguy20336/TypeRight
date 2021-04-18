@@ -26,12 +26,6 @@ namespace TypeRight.Tests.Testers
 			return this;
 		}
 
-		public ReferenceTypeTester Exists()
-		{
-			Assert.IsNotNull(NamedType);
-			return this;
-		}
-
 		public ReferenceTypeTester HasInterfaceWithName(string name)
 		{
 			Assert.IsNotNull(_namedObjectType.Interfaces.FirstOrDefault(i => i.Name == name));

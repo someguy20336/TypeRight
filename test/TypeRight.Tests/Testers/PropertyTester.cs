@@ -61,10 +61,5 @@ namespace TypeRight.Tests.Testers
 			return this;
 		}
 
-		public PropertyTester OutputNameIs(string expected)
-		{
-			Assert.AreEqual(expected, _property.OutputName);
-			return this;
-		}
 	}
 }
