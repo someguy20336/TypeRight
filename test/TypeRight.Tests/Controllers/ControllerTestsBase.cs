@@ -108,7 +108,7 @@ namespace TypeRight.Tests.Controllers
 		protected ControllerTester AssertThatThisController()
 		{
 			var packageTester = CreateTester();
-			return packageTester.TestControllerWithName(ControllerFullName, CreateContext(packageTester));
+			return packageTester.TestControllerWithName(CreateContext(packageTester));
 		}
 
 		protected void AssertControllerGeneratedText(string expectedText)

@@ -2,7 +2,6 @@
 using System.Collections.Specialized;
 using System.Linq;
 using TypeRight.Configuration;
-using TypeRight.ScriptWriting.TypeScript;
 using TypeRight.TypeProcessing;
 
 namespace TypeRight.ScriptWriting
@@ -13,7 +12,7 @@ namespace TypeRight.ScriptWriting
 		string ResolveParameter(MvcActionInfo action);
 	}
 
-	public class UrlParameterResolver : IFetchParameterResolver
+	internal class UrlParameterResolver : IFetchParameterResolver
 	{
 		private readonly NameValueCollection _constantQueryParams;
 		private readonly string _baseUrl;
@@ -50,12 +49,12 @@ namespace TypeRight.ScriptWriting
 
 	}
 
-	public class RequestMethodResolver : IFetchParameterResolver
+	internal class RequestMethodResolver : IFetchParameterResolver
 	{
 		public string ResolveParameter(MvcActionInfo action) => $"\"{action.RequestMethod.MethodName}\"";
 	}
 
-	public class BodyParameterResolver : IFetchParameterResolver
+	internal class BodyParameterResolver : IFetchParameterResolver
 	{
 		public string ResolveParameter(MvcActionInfo action)
 		{
@@ -81,7 +80,7 @@ namespace TypeRight.ScriptWriting
 		}
 	}
 
-	public class CustomParameterResolver : IFetchParameterResolver
+	internal class CustomParameterResolver : IFetchParameterResolver
 	{
 		private readonly ActionParameter _parameter;
 

@@ -44,9 +44,8 @@ namespace TypeRight.Tests.Testers
 			return new EnumTester(_typeCollection.GetEnumTypes().Where(en => en.Name == name).FirstOrDefault());
 		}
 
-		public ControllerTester TestControllerWithName(string name, ControllerContext context = null)
+		public ControllerTester TestControllerWithName(ControllerContext context)
 		{
-			context = context ?? GetDefaultControllerContext(name);
 			return new ControllerTester(_typeFormatter, context);
 		}
 
@@ -57,18 +56,6 @@ namespace TypeRight.Tests.Testers
 			expectedText = expectedText.Trim();
 			Assert.AreEqual(expectedText, scriptText);
 			return this;
-		}
-
-		public ControllerContext GetDefaultControllerContext(string controllerName, List<ActionConfig> actionConfig = null)
-		{
-			FetchFunctionResolver resolver = new ActionConfigFetchFunctionResolver(new Uri(@"C:\FolderA\FolderB\Project.csproj"), actionConfig ?? GetDefaultActionConfig(), null, "");
-			return new ControllerContext(
-				_typeCollection.GetMvcControllers().Where(c => c.Name == controllerName).FirstOrDefault(),
-				@"C:\FolderA\FolderB\FolderX\FolderY\SomeController.ts",
-				_typeCollection,
-				new Uri(@"C:\FolderA\FolderB\FolderC\FolderD\ServerObjects.ts"),
-				resolver
-				);
 		}
 
 		public ControllerContext GetDefaultControllerContext(string controllerName, ConfigOptions config)

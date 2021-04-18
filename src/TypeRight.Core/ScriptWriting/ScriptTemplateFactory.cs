@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using TypeRight.ScriptWriting.TypeScript;
+﻿using TypeRight.ScriptWriting.TypeScript;
 
 namespace TypeRight.ScriptWriting
 {
