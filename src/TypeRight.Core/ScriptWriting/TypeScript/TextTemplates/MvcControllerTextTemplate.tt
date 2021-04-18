@@ -14,7 +14,7 @@ foreach (var imp in GetImports()) {
 <#
 foreach (var oneAction in GetActions()) {
 #>
-<#= _innerTemplate.WriteAction(oneAction) #>
+<#= CreateTemplateForAction(oneAction).TransformText() #>
 <#
 }
 #>

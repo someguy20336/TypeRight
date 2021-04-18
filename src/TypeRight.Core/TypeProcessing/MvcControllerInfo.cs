@@ -13,7 +13,7 @@ namespace TypeRight.TypeProcessing
 	public class MvcControllerInfo : ITypeWithFullName
 	{
 
-
+		private string _lazyResultPath = null;
 		private List<MvcActionInfo> _actions = new List<MvcActionInfo>();
 
 		/// <summary>
@@ -35,6 +35,8 @@ namespace TypeRight.TypeProcessing
 		/// Gets the filepath to the controller
 		/// </summary>
 		public string FilePath => NamedType.FilePath;
+
+		public string ResultPath => GetControllerResultPath();
 
 		/// <summary>
 		/// Gets a list of the actions
@@ -80,8 +82,13 @@ namespace TypeRight.TypeProcessing
 		/// Gets the result path for a controller
 		/// </summary>
 		/// <returns>The result path</returns>
-		public string GetControllerResultPath()
+		private string GetControllerResultPath()
 		{
+			if (_lazyResultPath != null)
+			{
+				return _lazyResultPath;
+			}
+
 			FileInfo fileInfo = new FileInfo(FilePath);
 			DirectoryInfo controllerDir = fileInfo.Directory;
 
@@ -97,7 +104,9 @@ namespace TypeRight.TypeProcessing
 
 			// Calculate the result
 			string resultPath = Path.Combine(controllerDir.FullName, relativeOutputPath);
-			return Path.GetFullPath(resultPath);
+			_lazyResultPath = Path.GetFullPath(resultPath);
+
+			return _lazyResultPath;
 		}
 
 

@@ -18,12 +18,12 @@ namespace TypeRight.Tests.Testers
 
 		public MvcActionTester TestActionWithName(string name)
 		{
-			return new MvcActionTester(_context, _context.Controller.Actions.Where(m => m.Name == name).First(), _typeFormatter);
+			return new MvcActionTester(_context, _context.Actions.Where(m => m.Name == name).First(), _typeFormatter);
 		}
 
 		public ControllerTester HasImportForFile(string relPath)
 		{
-			var imports = ImportManager.FromController(_context).GetImports();
+			var imports = ImportManager.FromControllerContext(_context).GetImports();
 			Assert.IsTrue(imports.Any(imp => imp.FromRelativePath == relPath));
 			return this;
 		}

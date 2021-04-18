@@ -61,7 +61,7 @@ foreach (var oneAction in GetActions()) {
             #line hidden
             
             #line 17 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\TextTemplates\MvcControllerTextTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_innerTemplate.WriteAction(oneAction)));
+            this.Write(this.ToStringHelper.ToStringWithCulture(CreateTemplateForAction(oneAction).TransformText()));
             
             #line default
             #line hidden

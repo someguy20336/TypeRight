@@ -38,10 +38,10 @@ namespace TypeRight.ScriptWriting.TypeScript
 			return newManager;
 		}
 
-		public static ImportManager FromController(ControllerContext context)
+		public static ImportManager FromControllerContext(ControllerContext context)
 		{
 			ImportManager result = new ImportManager(context.OutputPath);
-			foreach (MvcActionInfo actionInfo in context.Controller.Actions)
+			foreach (MvcActionInfo actionInfo in context.Actions)
 			{
 				CompileActionImport(result, context, actionInfo);
 			}

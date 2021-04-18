@@ -7,10 +7,9 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
 {
 	internal partial class MvcControllerTextTemplate : IControllerTextTemplate
 	{
-		private MvcActionTextTemplate _innerTemplate;
-
 		private ImportManager _imports;
 		private ControllerContext _context;
+		private TypeFormatter _formatter;
 
 		/// <summary>
 		/// Gets the controller template text
@@ -20,9 +19,9 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
 		public string GetText(ControllerContext context)
 		{
 			_context = context;
-			_imports = ImportManager.FromController(context);			
+			_imports = ImportManager.FromControllerContext(context);
 
-			_innerTemplate = new MvcActionTextTemplate(context, _imports);
+			_formatter = new TypeScriptTypeFormatter(context.TypeCollection, new ModuleTypePrefixResolver(_imports));
 
 			return TransformText();
 		}
@@ -34,6 +33,9 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
 		/// Gets a list of all actions ordered by name
 		/// </summary>
 		/// <returns>An enumerable list of actions</returns>
-		private IEnumerable<MvcActionInfo> GetActions() => _context.Controller.Actions.OrderBy(act => act.Name);
+		private IEnumerable<MvcActionInfo> GetActions() => _context.Actions.OrderBy(act => act.Name);
+
+		private MvcActionTextTemplate CreateTemplateForAction(MvcActionInfo action) 
+			=> new MvcActionTextTemplate(action, _context.FetchFunctionResolver.Resolve(action.RequestMethod.Name), _formatter);
 	}
 }

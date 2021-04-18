@@ -87,11 +87,11 @@ namespace TypeRight
 			// Write MVC controllers
 			FetchFunctionResolver fetchResolver = FetchFunctionResolver.FromConfig(projUri, configOptions);
 
-			foreach (MvcControllerInfo controller in typeCollection.GetMvcControllers())
+			foreach (var controllerGroup in typeCollection.GetMvcControllers().GroupBy(c => c.ResultPath))
 			{
 				ControllerContext context = new ControllerContext(
-					controller,
-					controller.GetControllerResultPath(),
+					controllerGroup,
+					controllerGroup.Key,
 					typeCollection,
 					fetchResolver
 					);
