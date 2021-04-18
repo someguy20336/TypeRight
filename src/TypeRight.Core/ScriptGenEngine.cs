@@ -71,7 +71,6 @@ namespace TypeRight
 			ExtractedTypeCollection typeCollection = visitor.TypeCollection;
 
 			// Write the object script text
-			var typeTemplate = ScriptTemplateFactory.CreateTypeTextTemplate();
 			foreach (var typeGroup in typeCollection.GroupBy(t => t.TargetPath))
 			{
 				TypeWriteContext scriptContext = new TypeWriteContext(
@@ -79,6 +78,8 @@ namespace TypeRight
 					typeCollection,
 					typeGroup.Key
 					);
+
+				var typeTemplate = ScriptTemplateFactory.CreateTypeTextTemplate();
 				string scriptText = typeTemplate.GetText(scriptContext);
 				File.WriteAllText(typeGroup.Key, scriptText);
 			}
@@ -86,7 +87,6 @@ namespace TypeRight
 			// Write MVC controllers
 			FetchFunctionResolver fetchResolver = FetchFunctionResolver.FromConfig(projUri, configOptions);
 
-			var controllerTemplate = ScriptTemplateFactory.CreateControllerTextTemplate();
 			foreach (MvcControllerInfo controller in typeCollection.GetMvcControllers())
 			{
 				ControllerContext context = new ControllerContext(
@@ -96,6 +96,7 @@ namespace TypeRight
 					fetchResolver
 					);
 
+				var controllerTemplate = ScriptTemplateFactory.CreateControllerTextTemplate();
 				string controllerScript = controllerTemplate.GetText(context);
 				File.WriteAllText(context.OutputPath, controllerScript);
 			}

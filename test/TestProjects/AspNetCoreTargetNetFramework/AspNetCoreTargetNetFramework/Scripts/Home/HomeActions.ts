@@ -6,6 +6,6 @@ import { callPost } from "../Communication";
  * 
  */
 export function Privacy(): Promise<any> {
-	return callPost(`/Home/Privacy`, {});
+	return callPost(`/Home/Privacy`, null);
 }
 
