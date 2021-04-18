@@ -10,7 +10,7 @@ namespace TypeRight.Attributes
 	/// For classes with this attribute, you generally do not want to mark it with <see cref="ScriptObjectAttribute"/>.
 	/// </summary>
 	[AttributeUsage(AttributeTargets.Class)]
-	public class FunctionalTypeAttribute : Attribute
+	public sealed class FunctionalTypeAttribute : Attribute
 	{
 		/// <summary>
 		/// Gets the functional type of the class

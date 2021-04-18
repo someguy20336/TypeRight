@@ -6,7 +6,7 @@ namespace TypeRight.Attributes
 	/// Overrides the type of an action parameter to one or more types
 	/// </summary>
 	[AttributeUsage(AttributeTargets.Parameter)]
-	public class ScriptParamTypesAttribute : Attribute
+	public sealed class ScriptParamTypesAttribute : Attribute
 	{
 		/// <summary>
 		/// Gets the array of override types

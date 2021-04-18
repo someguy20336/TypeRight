@@ -6,7 +6,7 @@ namespace TypeRight.Attributes
     /// Attribute used to mark an object for extraction.
     /// </summary>
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Interface, Inherited = false)]
-    public class ScriptObjectAttribute : Attribute
+    public sealed class ScriptObjectAttribute : Attribute
 	{
 		/// <summary>
 		/// Creates a script object that gets added to the default path

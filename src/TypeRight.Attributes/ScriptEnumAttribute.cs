@@ -6,7 +6,7 @@ namespace TypeRight.Attributes
     /// Marks an Enum for extraction
     /// </summary>
     [AttributeUsage(AttributeTargets.Enum)]
-    public class ScriptEnumAttribute : Attribute
+    public sealed class ScriptEnumAttribute : Attribute
     {
 		/// <summary>
 		/// Gets or sets whether the extended enum syntax should be used.  This syntax
