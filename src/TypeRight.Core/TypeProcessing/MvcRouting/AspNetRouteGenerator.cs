@@ -14,7 +14,7 @@ namespace TypeRight.TypeProcessing.MvcRouting
 
 		private static TypeFilter s_routeAreaTypeFilter = new IsOfTypeFilter(MvcConstants.RouteAreaAttributeFullName_AspNet);
 
-		public AspNetRouteGenerator(MvcControllerInfo controller, string baseUrl) : base(controller, baseUrl)
+		public AspNetRouteGenerator(MvcController controller, string baseUrl) : base(controller, baseUrl)
 		{
 		}
 

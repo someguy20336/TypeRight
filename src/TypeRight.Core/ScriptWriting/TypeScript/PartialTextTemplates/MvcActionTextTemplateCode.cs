@@ -7,11 +7,11 @@ namespace TypeRight.ScriptWriting.TypeScript.PartialTextTemplates
 {
 	partial class MvcActionTextTemplate
 	{
-		private MvcActionInfo _action;
+		private MvcAction _action;
 		private FetchFunctionDescriptor _fetchFunc;
 		private TypeFormatter _formatter;
 
-		public MvcActionTextTemplate(MvcActionInfo action, FetchFunctionDescriptor fetchFunc, TypeFormatter formatter)
+		public MvcActionTextTemplate(MvcAction action, FetchFunctionDescriptor fetchFunc, TypeFormatter formatter)
 		{
 			_action = action;
 			_formatter = formatter;

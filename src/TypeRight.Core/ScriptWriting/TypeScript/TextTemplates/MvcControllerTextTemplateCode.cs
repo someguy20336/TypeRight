@@ -33,9 +33,9 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
 		/// Gets a list of all actions ordered by name
 		/// </summary>
 		/// <returns>An enumerable list of actions</returns>
-		private IEnumerable<MvcActionInfo> GetActions() => _context.Actions.OrderBy(act => act.Name);
+		private IEnumerable<MvcAction> GetActions() => _context.Actions.OrderBy(act => act.Name);
 
-		private MvcActionTextTemplate CreateTemplateForAction(MvcActionInfo action) 
+		private MvcActionTextTemplate CreateTemplateForAction(MvcAction action) 
 			=> new MvcActionTextTemplate(action, _context.FetchFunctionResolver.Resolve(action.RequestMethod.Name), _formatter);
 	}
 }

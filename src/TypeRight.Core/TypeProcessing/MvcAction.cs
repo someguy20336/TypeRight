@@ -18,11 +18,11 @@ namespace TypeRight.TypeProcessing
 	/// <summary>
 	/// An object that contains information about an MVC action
 	/// </summary>
-	public class MvcActionInfo
+	public class MvcAction
 	{
 
 		private IRequestMethod _method;
-		internal MvcControllerInfo Controller { get; }
+		internal MvcController Controller { get; }
 
 		/// <summary>
 		/// Gets the method behind this action info
@@ -91,7 +91,7 @@ namespace TypeRight.TypeProcessing
 		/// </summary>
 		/// <param name="method">the method</param>
 		/// <param name="typeFactory">The type table</param>
-		internal MvcActionInfo(MvcControllerInfo controller, IMethod method, TypeFactory typeFactory)
+		internal MvcAction(MvcController controller, IMethod method, TypeFactory typeFactory)
 		{
 			Controller = controller;
 			Method = method;
@@ -126,7 +126,7 @@ namespace TypeRight.TypeProcessing
 
 		private ActionParameterSourceType? _bindingType;
 
-		internal MvcActionInfo Action { get; }
+		internal MvcAction Action { get; }
 
 		/// <summary>
 		/// Gets the name of the parameter
@@ -160,7 +160,7 @@ namespace TypeRight.TypeProcessing
 			}
 		}
 
-		internal MvcActionParameter(MvcActionInfo action, IMethodParameter methodParameter, TypeFactory typeFactory)
+		internal MvcActionParameter(MvcAction action, IMethodParameter methodParameter, TypeFactory typeFactory)
 		{
 			Action = action;
 			Name = methodParameter.Name;

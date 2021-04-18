@@ -9,7 +9,7 @@ namespace TypeRight.ScriptWriting
 
 	public interface IFetchParameterResolver
 	{
-		string ResolveParameter(MvcActionInfo action);
+		string ResolveParameter(MvcAction action);
 	}
 
 	internal class UrlParameterResolver : IFetchParameterResolver
@@ -23,7 +23,7 @@ namespace TypeRight.ScriptWriting
 			_baseUrl = baseUrl;
 		}
 
-		public string ResolveParameter(MvcActionInfo action)
+		public string ResolveParameter(MvcAction action)
 		{
 			var urlParams = action.Parameters.Where(p => p.BindingType == ActionParameterSourceType.Query).ToList();
 
@@ -51,12 +51,12 @@ namespace TypeRight.ScriptWriting
 
 	internal class RequestMethodResolver : IFetchParameterResolver
 	{
-		public string ResolveParameter(MvcActionInfo action) => $"\"{action.RequestMethod.MethodName}\"";
+		public string ResolveParameter(MvcAction action) => $"\"{action.RequestMethod.MethodName}\"";
 	}
 
 	internal class BodyParameterResolver : IFetchParameterResolver
 	{
-		public string ResolveParameter(MvcActionInfo action)
+		public string ResolveParameter(MvcAction action)
 		{
 			if (!action.RequestMethod.HasBody)
 			{
@@ -88,6 +88,6 @@ namespace TypeRight.ScriptWriting
 		{
 			_parameter = parameter;
 		}
-		public string ResolveParameter(MvcActionInfo action) => _parameter.Name;
+		public string ResolveParameter(MvcAction action) => _parameter.Name;
 	}
 }

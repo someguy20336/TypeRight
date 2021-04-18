@@ -10,7 +10,7 @@ namespace TypeRight.TypeProcessing.MvcRouting
 	internal class AspNetCoreRouteGenerator : MvcRouteGenerator
 	{
 
-		public AspNetCoreRouteGenerator(MvcControllerInfo controller, string baseUrl) : base(controller, baseUrl)
+		public AspNetCoreRouteGenerator(MvcController controller, string baseUrl) : base(controller, baseUrl)
 		{
 		}
 

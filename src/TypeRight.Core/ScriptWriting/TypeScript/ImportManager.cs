@@ -41,7 +41,7 @@ namespace TypeRight.ScriptWriting.TypeScript
 		public static ImportManager FromControllerContext(ControllerContext context)
 		{
 			ImportManager result = new ImportManager(context.OutputPath);
-			foreach (MvcActionInfo actionInfo in context.Actions)
+			foreach (MvcAction actionInfo in context.Actions)
 			{
 				CompileActionImport(result, context, actionInfo);
 			}
@@ -50,7 +50,7 @@ namespace TypeRight.ScriptWriting.TypeScript
 		}
 
 
-		private static void CompileActionImport(ImportManager imports, ControllerContext context, MvcActionInfo actionInfo)
+		private static void CompileActionImport(ImportManager imports, ControllerContext context, MvcAction actionInfo)
 		{
 			FetchFunctionDescriptor fetchDescriptor = context.FetchFunctionResolver.Resolve(actionInfo.RequestMethod.Name);
 
@@ -67,7 +67,7 @@ namespace TypeRight.ScriptWriting.TypeScript
 		}
 
 
-		private static void AddActionImports(ImportManager imports, MvcActionInfo action)
+		private static void AddActionImports(ImportManager imports, MvcAction action)
 		{
 			imports.TryAddToImports(action.ReturnType);
 			foreach (var param in action.Parameters)

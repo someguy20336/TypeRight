@@ -8,11 +8,11 @@ namespace TypeRight.Tests.Testers
 	public class MvcActionTester
 	{
 		private readonly ControllerContext _context;
-		private MvcActionInfo _method;
+		private MvcAction _method;
 
 		private readonly TypeFormatter _typeFormatter;
 
-		public MvcActionTester(ControllerContext context, MvcActionInfo method, TypeFormatter typeFormatter)
+		public MvcActionTester(ControllerContext context, MvcAction method, TypeFormatter typeFormatter)
 		{
 			_context = context;
 			_method = method;

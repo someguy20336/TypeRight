@@ -10,11 +10,11 @@ namespace TypeRight.TypeProcessing
 	/// <summary>
 	/// A single MVC controller containing HTTP Post actions
 	/// </summary>
-	public class MvcControllerInfo : ITypeWithFullName
+	public class MvcController : ITypeWithFullName
 	{
 
 		private string _lazyResultPath = null;
-		private List<MvcActionInfo> _actions = new List<MvcActionInfo>();
+		private List<MvcAction> _actions = new List<MvcAction>();
 
 		/// <summary>
 		/// Gets the named type for this action
@@ -41,7 +41,7 @@ namespace TypeRight.TypeProcessing
 		/// <summary>
 		/// Gets a list of the actions
 		/// </summary>
-		public IReadOnlyList<MvcActionInfo> Actions => _actions;
+		public IReadOnlyList<MvcAction> Actions => _actions;
 
 		public string ControllerName => Name.Substring(0, Name.Length - "Controller".Length);
 
@@ -53,7 +53,7 @@ namespace TypeRight.TypeProcessing
 		/// <param name="namedType">The named type for the controller</param>
 		/// <param name="actionFilter">The parse filter to use for the MVC action attribute</param>
 		/// <param name="typeFactory">The type table</param>
-		internal MvcControllerInfo(INamedType namedType, TypeFilter actionFilter, TypeFactory typeFactory)
+		internal MvcController(INamedType namedType, TypeFilter actionFilter, TypeFactory typeFactory)
 		{
 			NamedType = namedType;
 			
@@ -61,7 +61,7 @@ namespace TypeRight.TypeProcessing
 			{
 				if (method.Attributes.Any(attrData => actionFilter.Evaluate(attrData.AttributeType)))
 				{
-					MvcActionInfo action = new MvcActionInfo(this, method, typeFactory);
+					MvcAction action = new MvcAction(this, method, typeFactory);
 					_actions.Add(action);
 				}
 			}

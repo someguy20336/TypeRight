@@ -13,7 +13,7 @@ namespace TypeRight.TypeProcessing
 		string MethodName { get; }
 		bool HasBody { get; }
 		ActionFilter ActionFilter { get; }
-		string GetActionTemplate(MvcActionInfo actionInfo);
+		string GetActionTemplate(MvcAction actionInfo);
 	}
 
 	internal class DefaultRequestMethod : IRequestMethod
@@ -25,7 +25,7 @@ namespace TypeRight.TypeProcessing
 
 		public ActionFilter ActionFilter { get; } = new AcceptAllActionFilter();
 
-		public string GetActionTemplate(MvcActionInfo actionInfo) => "";
+		public string GetActionTemplate(MvcAction actionInfo) => "";
 	}
 
 	public class RequestMethod : IRequestMethod
@@ -63,7 +63,7 @@ namespace TypeRight.TypeProcessing
 			ActionFilter = new ActionHasAttributeFilter(TypeFilter);
 		}
 
-		public string GetActionTemplate(MvcActionInfo actionInfo)
+		public string GetActionTemplate(MvcAction actionInfo)
 		{
 			var mvcAttr = actionInfo.Attributes.FirstOrDefault(attr => TypeFilter.Evaluate(attr.AttributeType));
 			if (mvcAttr.ConstructorArguments.Count > 0)

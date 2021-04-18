@@ -12,13 +12,13 @@ namespace TypeRight.ScriptWriting
 						
 		public FetchFunctionResolver FetchFunctionResolver { get; private set; }
 
-		public IEnumerable<MvcControllerInfo> Controllers { get; private set; }
+		public IEnumerable<MvcController> Controllers { get; private set; }
 
-		public IEnumerable<MvcActionInfo> Actions => Controllers.SelectMany(c => c.Actions);
+		public IEnumerable<MvcAction> Actions => Controllers.SelectMany(c => c.Actions);
 
 
 		public ControllerContext(
-			MvcControllerInfo controller,
+			MvcController controller,
 			string outputPath,
 			ExtractedTypeCollection types,
 			FetchFunctionResolver fetchResolver
@@ -28,7 +28,7 @@ namespace TypeRight.ScriptWriting
 		}
 
 		public ControllerContext(
-			IEnumerable<MvcControllerInfo> controllers,
+			IEnumerable<MvcController> controllers,
 			string outputPath,
 			ExtractedTypeCollection types,
 			FetchFunctionResolver fetchResolver

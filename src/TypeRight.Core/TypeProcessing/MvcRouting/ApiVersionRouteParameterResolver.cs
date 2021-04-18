@@ -17,7 +17,7 @@ namespace TypeRight.TypeProcessing.MvcRouting
 			_attrTypeFullName = attrTypeFullName;
 		}
 
-		public override string TryResolve(string currentRoute, MvcControllerInfo controller, MvcActionInfo action)
+		public override string TryResolve(string currentRoute, MvcController controller, MvcAction action)
 		{
 			var apiVersionAttr = controller.NamedType.Attributes.LastOrDefault(attr => attr.AttributeType.FullName == _attrTypeFullName);
 			if (apiVersionAttr == null)
