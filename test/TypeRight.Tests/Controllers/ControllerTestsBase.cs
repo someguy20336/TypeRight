@@ -12,7 +12,7 @@ namespace TypeRight.Tests.Controllers
 {
 	public abstract class ControllerTestsBase : TypeRightTestBase
 	{
-		private ConfigOptions _configOptions;
+		protected ConfigOptions ConfigOptions { get; private set; }
 
 		protected TestClassBuilder ControllerBuilder { get; private set; }
 
@@ -26,7 +26,7 @@ namespace TypeRight.Tests.Controllers
 		{
 			base.TestInitialize();
 
-			_configOptions = new ConfigOptions()
+			ConfigOptions = new ConfigOptions()
 			{
 				ActionConfigurations = TypeCollectionTester.GetDefaultActionConfig(),
 				QueryParams = new NameValueCollection()
@@ -67,38 +67,38 @@ namespace TypeRight.Tests.Controllers
 
 		protected void GivenImportDefinition(ImportDefinition definition)
 		{
-			_configOptions.ActionConfigurations[0].Imports.Add(definition);
+			ConfigOptions.ActionConfigurations[0].Imports.Add(definition);
 		}
 
 		protected void GivenActionParameters(IEnumerable<ActionParameter> actionParameters)
 		{
-			_configOptions.ActionConfigurations[0].Parameters = actionParameters.ToList();
+			ConfigOptions.ActionConfigurations[0].Parameters = actionParameters.ToList();
 		}
 
 		protected void GivenActionConfig(ActionConfig config)
 		{
-			_configOptions.ActionConfigurations.Add(config);
+			ConfigOptions.ActionConfigurations.Add(config);
 		}
 
 		protected void GivenQueryParameter(string key, string value)
 		{
-			_configOptions.QueryParams.Add(key, value);
+			ConfigOptions.QueryParams.Add(key, value);
 		}
 
-		protected void GivenBaseUrl(string url) => _configOptions.BaseUrl = url;
+		protected void GivenBaseUrl(string url) => ConfigOptions.BaseUrl = url;
 
 		protected void GivenFetchConfig(FetchConfig fetchConfig)
 		{
-			_configOptions.ActionConfigurations = null;
-			_configOptions.FetchConfig = fetchConfig;
+			ConfigOptions.ActionConfigurations = null;
+			ConfigOptions.FetchConfig = fetchConfig;
 		}
 
 		protected void AddFetchConfigParameter(ActionParameter actionParam)
 		{
-			_configOptions.FetchConfig.Parameters.Add(actionParam);
+			ConfigOptions.FetchConfig.Parameters.Add(actionParam);
 		}
 
-		protected void GivenScriptReturnType(string returnType) => _configOptions.ActionConfigurations[0].ReturnType = returnType;
+		protected void GivenScriptReturnType(string returnType) => ConfigOptions.ActionConfigurations[0].ReturnType = returnType;
 
 		protected MvcActionTester AssertThatThisControllerAction(string actionName)
 		{
@@ -125,7 +125,7 @@ namespace TypeRight.Tests.Controllers
 
 		private ControllerContext CreateContext(TypeCollectionTester tester)
 		{
-			return tester.GetDefaultControllerContext(ControllerFullName, _configOptions);
+			return tester.GetDefaultControllerContext(ControllerFullName, ConfigOptions);
 		}
 
 		private TypeCollectionTester CreateTester()

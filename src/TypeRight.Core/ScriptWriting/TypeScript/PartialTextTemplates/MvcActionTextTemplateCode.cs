@@ -24,7 +24,7 @@ namespace TypeRight.ScriptWriting.TypeScript.PartialTextTemplates
 			_curAction = action;
 			_curFetchFunc = Context.FetchFunctionResolver.Resolve(_curAction.RequestMethod.Name);
 
-			this.GenerationEnvironment.Clear();
+			GenerationEnvironment.Clear();
 			return TransformText();
 		}
 

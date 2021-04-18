@@ -26,7 +26,7 @@ namespace TypeRight.Tests.Controllers
 			Action.Commit();
 
 			AssertThatThisControllerAction("RandoMethod")
-				.RouteTemplateIs(expectedRoute);
+				.RouteTemplateIs(expectedRoute, ConfigOptions.BaseUrl);
 		}
 	}
 }

@@ -69,9 +69,9 @@ namespace TypeRight
 			parameters.TypeIterator.IterateTypes(visitor);
 
 			ExtractedTypeCollection typeCollection = visitor.TypeCollection;
-			IScriptTemplate scriptGen = ScriptTemplateFactory.GetTemplate();
 
 			// Write the object script text
+			var typeTemplate = ScriptTemplateFactory.CreateTypeTextTemplate();
 			foreach (var typeGroup in typeCollection.GroupBy(t => t.TargetPath))
 			{
 				TypeWriteContext scriptContext = new TypeWriteContext(
@@ -79,24 +79,24 @@ namespace TypeRight
 					typeCollection,
 					typeGroup.Key
 					);
-				string scriptText = scriptGen.CreateTypeTemplate().GetText(scriptContext);
+				string scriptText = typeTemplate.GetText(scriptContext);
 				File.WriteAllText(typeGroup.Key, scriptText);
 			}
 
 			// Write MVC controllers
 			FetchFunctionResolver fetchResolver = FetchFunctionResolver.FromConfig(projUri, configOptions);
 
+			var controllerTemplate = ScriptTemplateFactory.CreateControllerTextTemplate();
 			foreach (MvcControllerInfo controller in typeCollection.GetMvcControllers())
 			{
 				ControllerContext context = new ControllerContext(
 					controller,
 					controller.GetControllerResultPath(),
 					typeCollection,
-					fetchResolver,
-					configOptions.BaseUrl
+					fetchResolver
 					);
 
-				string controllerScript = scriptGen.CreateControllerTextTemplate().GetText(context);
+				string controllerScript = controllerTemplate.GetText(context);
 				File.WriteAllText(context.OutputPath, controllerScript);
 			}
 

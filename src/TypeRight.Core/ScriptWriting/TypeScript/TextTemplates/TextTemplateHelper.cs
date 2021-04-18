@@ -11,15 +11,15 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
 		{
 			
 			IPartialTypeTextTemplate partial;
-			if (type is ExtractedClassType cl)
+			if (type is ExtractedClassType)
 			{
 				partial = new TypeScriptClassTextTemplate(formatter);
 			}
-			else if (type is ExtractedInterfaceType inter)
+			else if (type is ExtractedInterfaceType)
 			{
 				partial = new TypeScriptInterfaceTextTemplate(formatter);
 			}
-			else if (type is ExtractedEnumType enumType)
+			else if (type is ExtractedEnumType)
 			{
 				partial = new EnumTextTemplate();
 			}

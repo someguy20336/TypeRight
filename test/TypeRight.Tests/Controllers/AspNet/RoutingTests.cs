@@ -29,7 +29,7 @@ namespace TypeRight.Tests.Controllers.AspNet
 
 			// asp.net
 			AssertThatThisControllerAction("GetStringList")
-				.RouteTemplateIs($"/api/asp/{ControllerName}/GetStringList");
+				.RouteTemplateIs($"/api/asp/{ControllerName}/GetStringList", "");
 		}
 	}
 }

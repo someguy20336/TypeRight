@@ -15,7 +15,6 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
 		/// <summary>
 		/// Gets the controller template text
 		/// </summary>
-		/// <param name="controllerInfo">The controller info</param>
 		/// <param name="context">The script write context</param>
 		/// <returns>the script text</returns>
 		public string GetText(ControllerContext context)
