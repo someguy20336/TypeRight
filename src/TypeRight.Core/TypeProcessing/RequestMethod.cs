@@ -65,7 +65,7 @@ namespace TypeRight.TypeProcessing
 
 		public string GetActionTemplate(MvcAction actionInfo)
 		{
-			var mvcAttr = actionInfo.Attributes.FirstOrDefault(attr => TypeFilter.Evaluate(attr.AttributeType));
+			var mvcAttr = actionInfo.Attributes.FirstOrDefault(attr => TypeFilter.Matches(attr.AttributeType));
 			if (mvcAttr.ConstructorArguments.Count > 0)
 			{
 				return mvcAttr.ConstructorArguments[0] as string;

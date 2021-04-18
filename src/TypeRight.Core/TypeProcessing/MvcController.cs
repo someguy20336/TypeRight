@@ -59,7 +59,7 @@ namespace TypeRight.TypeProcessing
 			
 			foreach (IMethod method in namedType.Methods)
 			{
-				if (method.Attributes.Any(attrData => actionFilter.Evaluate(attrData.AttributeType)))
+				if (method.Attributes.Any(attrData => actionFilter.Matches(attrData.AttributeType)))
 				{
 					MvcAction action = new MvcAction(this, method, typeFactory);
 					_actions.Add(action);

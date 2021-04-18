@@ -21,7 +21,7 @@ namespace TypeRight.TypeProcessing.MvcRouting
 		protected override string GetArea()
 		{
 			// Check for route area attribute
-			var routeArea = Controller.NamedType.Attributes.FirstOrDefault(attr => s_routeAreaTypeFilter.Evaluate(attr.AttributeType));
+			var routeArea = Controller.NamedType.Attributes.FirstOrDefault(attr => s_routeAreaTypeFilter.Matches(attr.AttributeType));
 			if (routeArea != null)
 			{
 				return routeArea.ConstructorArguments[0] as string;

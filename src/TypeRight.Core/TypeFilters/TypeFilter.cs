@@ -12,6 +12,6 @@ namespace TypeRight.TypeFilters
 		/// </summary>
 		/// <param name="namedType">The named type to check</param>
 		/// <returns>True if it meets the filter</returns>
-		public abstract bool Evaluate(INamedType namedType);
+		public abstract bool Matches(INamedType namedType);
 	}
 }

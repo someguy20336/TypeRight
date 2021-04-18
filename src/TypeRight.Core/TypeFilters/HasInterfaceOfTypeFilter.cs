@@ -26,7 +26,7 @@ namespace TypeRight.TypeFilters
 		/// </summary>
 		/// <param name="namedType">The type to check</param>
 		/// <returns>True if it meets the criteria</returns>
-		public override bool Evaluate(INamedType namedType)
+		public override bool Matches(INamedType namedType)
 		{
 			foreach (INamedType interfaceType in namedType.Interfaces)
 			{

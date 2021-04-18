@@ -86,7 +86,7 @@ namespace TypeRight.ScriptWriting
 			private bool TryFindNewtonsoftOverride(IProperty property, out string name)
 			{
 				name = null;
-				var attr = property.Attributes.FirstOrDefault(a => s_newtonsoftJsonAttributeFilter.Evaluate(a.AttributeType));
+				var attr = property.Attributes.FirstOrDefault(a => s_newtonsoftJsonAttributeFilter.Matches(a.AttributeType));
 				if (attr == null)
 				{
 					return false;
@@ -105,7 +105,7 @@ namespace TypeRight.ScriptWriting
 			private bool TryFindSystemTextOverride(IProperty property, out string name)
 			{
 				name = null;
-				var attr = property.Attributes.FirstOrDefault(a => s_systemTextJsonAttributeFilter.Evaluate(a.AttributeType));
+				var attr = property.Attributes.FirstOrDefault(a => s_systemTextJsonAttributeFilter.Matches(a.AttributeType));
 				if (attr == null)
 				{
 					return false;

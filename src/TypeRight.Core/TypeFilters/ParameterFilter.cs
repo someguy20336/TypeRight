@@ -34,7 +34,7 @@ namespace TypeRight.TypeFilters
 		/// <returns>True if it should be inclued</returns>
 		public override bool Evaluate(MvcActionParameter actionParameter)
 		{
-			return actionParameter.Attributes.Any(attr => _attributeFilter.Evaluate(attr.AttributeType));
+			return actionParameter.Attributes.Any(attr => _attributeFilter.Matches(attr.AttributeType));
 		}
 	}
 }

@@ -67,7 +67,7 @@ namespace TypeRight.TypeProcessing
 			string dispNameProvider = typeof(IEnumDisplayNameProvider).FullName;
 			foreach (IAttributeData attr in Field.Attributes)
 			{
-				if (dispNameParseFilter.Evaluate(attr.AttributeType))
+				if (dispNameParseFilter.Matches(attr.AttributeType))
 				{
 					return attr;
 				}

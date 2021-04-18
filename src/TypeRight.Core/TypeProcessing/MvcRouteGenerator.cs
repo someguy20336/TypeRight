@@ -82,7 +82,7 @@ namespace TypeRight.TypeProcessing
 			TypeFilter aspNetCoreFilter = new IsOfTypeFilter(MvcConstants.ControllerBaseFullName_AspNetCore);
 
 			var controllerInfo = controller;
-			return aspNetCoreFilter.Evaluate(controllerInfo.NamedType) 
+			return aspNetCoreFilter.Matches(controllerInfo.NamedType) 
 				? new AspNetCoreRouteGenerator(controller, baseUrl) 
 				: (MvcRouteGenerator)new AspNetRouteGenerator(controller, baseUrl);
 		}
