@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using TypeRight.TypeFilters;
+using TypeRight.Attributes;
 
 namespace TypeRight.TypeProcessing
 {
@@ -33,6 +34,11 @@ namespace TypeRight.TypeProcessing
 		/// Gets the name of the action
 		/// </summary>
 		public string Name => Method.Name;
+
+		/// <summary>
+		/// Gets the name to use for the script
+		/// </summary>
+		public string ScriptName { get; }
 
 		/// <summary>
 		/// Gets the action summary comments
@@ -95,6 +101,7 @@ namespace TypeRight.TypeProcessing
 		{
 			Controller = controller;
 			Method = method;
+			ScriptName = GetScriptName(method);
 			ReturnType = typeFactory.LookupType(method.ReturnType);
 			ParameterComments = method.Parameters.ToDictionary(param => param.Name, param => param.Comments);
 			Parameters = method.Parameters.Select(p => new MvcActionParameter(this, p, typeFactory)).ToList().AsReadOnly();
@@ -102,8 +109,20 @@ namespace TypeRight.TypeProcessing
 
 		public string GetRouteTemplate(string baseUrl = "")
 		{
-			// TODO: base URL!  Also TODO: cache this?
 			return MvcRouteGenerator.CreateGenerator(Controller, baseUrl).GenerateRouteTemplate(this);
+		}
+
+		private string GetScriptName(IMethod method)
+		{
+			IAttributeData actionAttr = method.Attributes.FirstOrDefault(attr => CommonFilters.ScriptActionAttributeTypeFilter.Matches(attr.AttributeType));
+
+			string key = nameof(ScriptActionAttribute.Name);
+			if (actionAttr != null && actionAttr.NamedArguments.ContainsKey(key))
+			{
+				return actionAttr.NamedArguments[key] as string;
+			}
+
+			return method.Name;
 		}
 
 		/// <summary>
@@ -204,7 +223,7 @@ namespace TypeRight.TypeProcessing
 
 		private List<TypeDescriptor> CompileTypes(IMethodParameter methodParameter, TypeFactory typeFactory)
 		{
-			var attr = methodParameter.Attributes.FirstOrDefault(a => s_scriptParamTypes.Evaluate(a.AttributeType));
+			var attr = methodParameter.Attributes.FirstOrDefault(a => s_scriptParamTypes.Matches(a.AttributeType));
 			if (attr == null)
 			{
 				return new List<TypeDescriptor>()

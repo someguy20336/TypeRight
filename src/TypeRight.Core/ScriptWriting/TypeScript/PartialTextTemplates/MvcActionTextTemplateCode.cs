@@ -58,7 +58,7 @@ namespace TypeRight.ScriptWriting.TypeScript.PartialTextTemplates
 				.Union(userOptionalParameters)
 				);
 
-			return $"{_action.Name}({string.Join(", ", actionParams)}): { ReplaceTokens(_fetchFunc.ReturnType) }";
+			return $"{_action.ScriptName}({string.Join(", ", actionParams)}): { ReplaceTokens(_fetchFunc.ReturnType) }";
 		}
 
 		private string FormatMethodParameter(MvcActionParameter oneParam)

@@ -48,6 +48,7 @@ namespace TypeRight.Tests.TestBuilders
 			string typeRightNamespace = "TypeRight.Attributes";
 			CreateClassBuilder(typeof(ScriptActionAttribute).Name, typeRightNamespace)
 				.AddBaseClass("System.Attribute")
+				.AddProperty(nameof(ScriptActionAttribute.Name), "string")
 				.Commit();
 
 			CreateClassBuilder(typeof(ScriptObjectAttribute).Name, typeRightNamespace)
