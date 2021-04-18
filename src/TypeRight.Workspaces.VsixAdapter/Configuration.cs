@@ -7,7 +7,7 @@ namespace TypeRight.Workspaces.VsixAdapter
 	/// <summary>
 	/// Configuration manager for the script generator
 	/// </summary>
-	public static class Configuration
+	internal static class Configuration
 	{
 		public static IResponse GetConfigFilepath(IRequest request)
 		{

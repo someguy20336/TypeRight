@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace TypeRight.Workspaces.CodeModel
 {
-	class RoslynMethod : IMethod
+	internal class RoslynMethod : IMethod
 	{
 
 		private Lazy<IReadOnlyList<IAttributeData>> _attrs;

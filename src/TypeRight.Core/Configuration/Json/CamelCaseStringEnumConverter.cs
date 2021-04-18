@@ -8,7 +8,7 @@ namespace TypeRight.Configuration.Json
 	/// <summary>
 	/// Converts an enum with camel casing
 	/// </summary>
-	class CamelCaseStringEnumConverter : StringEnumConverter
+	internal class CamelCaseStringEnumConverter : StringEnumConverter
 	{
 
 		public CamelCaseStringEnumConverter()

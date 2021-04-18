@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using TypeRight.TypeProcessing;
 
 namespace TypeRight.TypeFilters
@@ -9,7 +6,7 @@ namespace TypeRight.TypeFilters
 	/// <summary>
 	/// Filter for MVC action parameters
 	/// </summary>
-	public abstract class ParameterFilter
+	internal abstract class ParameterFilter
 	{
 		/// <summary>
 		/// Evaluates the parameter for whether it should be included
@@ -22,7 +19,7 @@ namespace TypeRight.TypeFilters
 	/// <summary>
 	/// Filter for checking if a parameter has an attribute
 	/// </summary>
-	public class ParameterHasAttributeFilter : ParameterFilter
+	internal class ParameterHasAttributeFilter : ParameterFilter
 	{
 		private TypeFilter _attributeFilter;
 

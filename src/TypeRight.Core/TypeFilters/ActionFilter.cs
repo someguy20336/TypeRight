@@ -23,7 +23,7 @@ namespace TypeRight.TypeFilters
 	/// <summary>
 	/// Filter for checking if a parameter has an attribute
 	/// </summary>
-	public class ActionHasAttributeFilter : ActionFilter
+	internal class ActionHasAttributeFilter : ActionFilter
 	{
 		private TypeFilter _attributeFilter;
 
@@ -42,7 +42,7 @@ namespace TypeRight.TypeFilters
 		}
 	}
 
-	public class AcceptAllActionFilter : ActionFilter
+	internal class AcceptAllActionFilter : ActionFilter
 	{
 		public override bool Evaluate(MvcActionInfo action) => true;
 	}

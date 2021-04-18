@@ -2,12 +2,11 @@
 {
 	public abstract class RouteParameterResolver
 	{
-
 		public abstract string TryResolve(string currentRoute, MvcControllerInfo controller, MvcActionInfo action);
 	}
 
 
-	public class DelegateRouteParameterResolver : RouteParameterResolver
+	internal class DelegateRouteParameterResolver : RouteParameterResolver
 	{
 		private readonly ResolverFunc _func;
 

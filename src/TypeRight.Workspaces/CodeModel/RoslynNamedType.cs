@@ -8,7 +8,7 @@ using System.Collections;
 
 namespace TypeRight.Workspaces.CodeModel
 {
-	class RoslynNamedType : RoslynType, INamedType
+	internal class RoslynNamedType : RoslynType, INamedType
 	{
 
 		protected INamedTypeSymbol NamedTypeSymbol => TypeSymbol as INamedTypeSymbol;

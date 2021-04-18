@@ -8,7 +8,7 @@ namespace TypeRight.Workspaces.Parsing
 	/// A handler for the return type of a method.  Allows the return type of the method
 	/// to be altered for a given method
 	/// </summary>
-	public abstract class MethodReturnTypeHandler
+	internal abstract class MethodReturnTypeHandler
 	{
 		/// <summary>
 		/// Determines whether this handler can handle the given method
@@ -31,7 +31,7 @@ namespace TypeRight.Workspaces.Parsing
 	/// <summary>
 	/// The default return type handler
 	/// </summary>
-	public class DefaultMethodReturnTypeHandler : MethodReturnTypeHandler
+	internal class DefaultMethodReturnTypeHandler : MethodReturnTypeHandler
 	{
 		/// <inheritdoc/>
 		public override bool CanHandleType(ITypeSymbol currentType, IMethodSymbol method)

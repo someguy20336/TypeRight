@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace TypeRight.Configuration.Json
 {
-	public class ActionParameterJsonConverter : JsonConverter
+	internal class ActionParameterJsonConverter : JsonConverter
 	{
 		private	CamelCaseNamingStrategy _camelCase = new CamelCaseNamingStrategy();
 		public override bool CanConvert(Type objectType) => true;

@@ -6,7 +6,7 @@ namespace TypeRight.TypeFilters
 	/// <summary>
 	/// Parse filter for "Has specified attribute"
 	/// </summary>
-	public class HasAttributeFilter : TypeFilter
+	internal class HasAttributeFilter : TypeFilter
 	{
 		/// <summary>
 		/// The full name of the attribute type

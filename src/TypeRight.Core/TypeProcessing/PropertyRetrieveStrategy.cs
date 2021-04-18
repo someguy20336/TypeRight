@@ -53,7 +53,7 @@ namespace TypeRight.TypeProcessing
 	/// <summary>
 	/// A property retrieve strategy for classes
 	/// </summary>
-	public class ClassPropertyRetrieveStrategy : PropertyRetrieveStrategy
+	internal class ClassPropertyRetrieveStrategy : PropertyRetrieveStrategy
 	{
 
 		internal ClassPropertyRetrieveStrategy(TypeFactory typeTable) : base(typeTable)
@@ -101,7 +101,7 @@ namespace TypeRight.TypeProcessing
 	/// <summary>
 	/// A property retrieve strategy for interfaces
 	/// </summary>
-	public class InterfacePropertyRetrieveStrategy : PropertyRetrieveStrategy
+	internal class InterfacePropertyRetrieveStrategy : PropertyRetrieveStrategy
 	{
 		internal InterfacePropertyRetrieveStrategy(TypeFactory typeTable) : base(typeTable)
 		{

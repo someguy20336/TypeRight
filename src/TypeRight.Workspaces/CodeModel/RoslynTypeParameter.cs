@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis;
 
 namespace TypeRight.Workspaces.CodeModel
 {
-	class RoslynTypeParameter : RoslynType, ITypeParameter
+	internal class RoslynTypeParameter : RoslynType, ITypeParameter
 	{
 		public RoslynTypeParameter(ITypeSymbol sym, ParseContext context)
 			: base(sym, context)

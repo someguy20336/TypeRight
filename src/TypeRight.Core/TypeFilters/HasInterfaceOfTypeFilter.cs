@@ -5,7 +5,7 @@ namespace TypeRight.TypeFilters
 	/// <summary>
 	/// A parse filter for whether the type has an interface of a given type
 	/// </summary>
-	public class HasInterfaceOfTypeFilter : TypeFilter
+	internal class HasInterfaceOfTypeFilter : TypeFilter
 	{
 		/// <summary>
 		/// The type to check

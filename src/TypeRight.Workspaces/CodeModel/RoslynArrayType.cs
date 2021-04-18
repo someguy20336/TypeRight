@@ -5,7 +5,7 @@ using System;
 
 namespace TypeRight.Workspaces.CodeModel
 {
-	class RoslynArrayType : RoslynType, IArrayType
+	internal class RoslynArrayType : RoslynType, IArrayType
 	{
 		private Lazy<RoslynType> _elementInitializer;
 

@@ -7,7 +7,7 @@ namespace TypeRight.TypeFilters
 	/// <summary>
 	/// A type filter that checks if the type is of any specfied type
 	/// </summary>
-	public class IsOfAnyTypeFilter : TypeFilter
+	internal class IsOfAnyTypeFilter : TypeFilter
 	{
 
 		private IEnumerable<TypeFilter> _singleTypeFilters;

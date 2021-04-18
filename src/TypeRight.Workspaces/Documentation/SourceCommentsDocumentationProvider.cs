@@ -7,7 +7,7 @@ namespace TypeRight.Workspaces
 	/// <summary>
 	/// Gets documentation from the source code
 	/// </summary>
-	public class SourceCommentsDocumentationProvider : DocumentationProvider
+	internal class SourceCommentsDocumentationProvider : DocumentationProvider
 	{
 		/// <summary>
 		/// The symbol to get the documentation for
@@ -23,7 +23,7 @@ namespace TypeRight.Workspaces
 	/// <summary>
 	/// XML documentation from the source code
 	/// </summary>
-	class SourceCommentsXmlDocumentation : XmlDocumentation
+	internal class SourceCommentsXmlDocumentation : XmlDocumentation
 	{
 		/// <summary>
 		/// Creates a new xml docs object for a given symbol

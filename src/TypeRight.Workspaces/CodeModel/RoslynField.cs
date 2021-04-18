@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace TypeRight.Workspaces.CodeModel
 {
-	class RoslynField : IField
+	internal class RoslynField : IField
 	{
 
 		private Lazy<IReadOnlyList<IAttributeData>> _attrs;

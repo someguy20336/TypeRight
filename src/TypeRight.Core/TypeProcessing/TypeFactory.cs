@@ -1,6 +1,5 @@
 ﻿using TypeRight.CodeModel;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using TypeRight.TypeFilters;
 using TypeRight.Attributes;

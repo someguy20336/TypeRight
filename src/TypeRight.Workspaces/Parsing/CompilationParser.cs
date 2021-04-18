@@ -10,7 +10,7 @@ namespace TypeRight.Workspaces.Parsing
 	/// <summary>
 	/// Parses a single compilation
 	/// </summary>
-	public class CompilationParser : CSharpSyntaxWalker, ITypeIterator
+	internal class CompilationParser : CSharpSyntaxWalker, ITypeIterator
 	{
 		private ITypeVisitor _visitor;
 

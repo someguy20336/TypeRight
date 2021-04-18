@@ -25,7 +25,7 @@ namespace TypeRight.Tests.Testers
 			_typeCollection = typeCollection;
 
 			// TODO not hardcode?
-			_scriptWriter = new ModuleTemplate();
+			_scriptWriter = ScriptTemplateFactory.GetTemplate();
 
 			// TODO any way to define this?  Or maybe an option when getting type name
 			_typeFormatter = new TypeScriptTypeFormatter(_typeCollection, new FakeTypePrefixer());
@@ -35,7 +35,7 @@ namespace TypeRight.Tests.Testers
 		{
 			ExtractedReferenceType extrType = _typeCollection.GetReferenceTypes()
 					.Where(type => type.NamedType.Name == name && (!typeArgCnt.HasValue || typeArgCnt.Value == type.NamedType.TypeArguments.Count))
-					.FirstOrDefault() as ExtractedReferenceType;
+					.FirstOrDefault();
 			return new ReferenceTypeTester(extrType, _typeFormatter);
 		}
 
@@ -44,18 +44,9 @@ namespace TypeRight.Tests.Testers
 			return new EnumTester(_typeCollection.GetEnumTypes().Where(en => en.Name == name).FirstOrDefault());
 		}
 
-		public ControllerTester TestControllerWithName(string name, ControllerContext context = null)
+		public ControllerTester TestControllerWithName(ControllerContext context)
 		{
-			context = context ?? GetDefaultControllerContext(name);
 			return new ControllerTester(_typeFormatter, context);
-		}
-
-		public TypeCollectionTester TestScriptText()
-		{
-			TypeWriteContext context = new TypeWriteContext(_typeCollection, _typeCollection, TestWorkspaceBuilder.DefaultResultPath);
-			string scriptText = _scriptWriter.CreateTypeTemplate().GetText(context);
-			Assert.IsFalse(string.IsNullOrEmpty(scriptText));
-			return this;
 		}
 
 		public TypeCollectionTester AssertScriptText(string expectedText)
@@ -65,18 +56,6 @@ namespace TypeRight.Tests.Testers
 			expectedText = expectedText.Trim();
 			Assert.AreEqual(expectedText, scriptText);
 			return this;
-		}
-
-		public ControllerContext GetDefaultControllerContext(string controllerName, List<ActionConfig> actionConfig = null)
-		{
-			FetchFunctionResolver resolver = new ActionConfigFetchFunctionResolver(new Uri(@"C:\FolderA\FolderB\Project.csproj"), actionConfig ?? GetDefaultActionConfig(), null, "");
-			return new ControllerContext(
-				_typeCollection.GetMvcControllers().Where(c => c.Name == controllerName).FirstOrDefault(),
-				@"C:\FolderA\FolderB\FolderX\FolderY\SomeController.ts",
-				_typeCollection,
-				new Uri(@"C:\FolderA\FolderB\FolderC\FolderD\ServerObjects.ts"),
-				resolver
-				);
 		}
 
 		public ControllerContext GetDefaultControllerContext(string controllerName, ConfigOptions config)

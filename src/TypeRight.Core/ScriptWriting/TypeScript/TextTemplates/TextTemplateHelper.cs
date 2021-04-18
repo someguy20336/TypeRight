@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TypeRight.ScriptWriting.TypeScript.PartialTextTemplates;
 using TypeRight.TypeProcessing;
 
 namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
 {
-	static class TextTemplateHelper
+	internal static class TextTemplateHelper
 	{
 
 		public static IPartialTypeTextTemplate GetPartialTypeTextTemplate(ExtractedType type,  TypeFormatter formatter)

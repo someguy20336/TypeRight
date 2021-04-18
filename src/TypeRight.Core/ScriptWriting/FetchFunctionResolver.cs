@@ -36,7 +36,7 @@ namespace TypeRight.ScriptWriting
 	}
 
 
-	public class ActionConfigFetchFunctionResolver : FetchFunctionResolver
+	internal class ActionConfigFetchFunctionResolver : FetchFunctionResolver
 	{
 		private IEnumerable<ActionConfig> _actionConfigs;
 		private readonly NameValueCollection _constantQueryParams;
@@ -95,7 +95,7 @@ namespace TypeRight.ScriptWriting
 		}
 	}
 
-	public class FetchConfigFetchFunctionResolver : FetchFunctionResolver
+	internal class FetchConfigFetchFunctionResolver : FetchFunctionResolver
 	{
 		private FetchConfig _fetchConfig;
 		private readonly NameValueCollection _constantQueryParams;
