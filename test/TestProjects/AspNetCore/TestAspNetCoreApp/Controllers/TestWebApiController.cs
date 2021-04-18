@@ -1,15 +1,11 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using TestAspNetCoreApp.Models;
 using TypeRight.Attributes;
 
 namespace TestAspNetCoreApp.Controllers
 {
-    [Route("api/[controller]")]
+	[Route("api/[controller]")]
     [ApiController]
 	[ScriptOutput("../Scripts/Home/CustomNamedActions.ts")]
     public class TestWebApiController : ControllerBase
