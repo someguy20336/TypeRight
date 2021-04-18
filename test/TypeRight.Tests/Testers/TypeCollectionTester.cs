@@ -65,7 +65,6 @@ namespace TypeRight.Tests.Testers
 				_typeCollection.GetMvcControllers().Where(c => c.Name == controllerName).FirstOrDefault(),
 				@"C:\FolderA\FolderB\FolderX\FolderY\SomeController.ts",
 				_typeCollection,
-				new Uri(@"C:\FolderA\FolderB\FolderC\FolderD\ServerObjects.ts"),
 				resolver,
 				config.BaseUrl
 				);

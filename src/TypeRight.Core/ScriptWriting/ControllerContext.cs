@@ -1,5 +1,4 @@
-﻿using System;
-using TypeRight.TypeProcessing;
+﻿using TypeRight.TypeProcessing;
 
 namespace TypeRight.ScriptWriting
 {
@@ -8,12 +7,7 @@ namespace TypeRight.ScriptWriting
 	/// </summary>
 	public class ControllerContext : ScriptWriteContext
 	{
-
-		/// <summary>
-		/// Gets or sets the result filepath for the server objects file
-		/// </summary>
-		public Uri ServerObjectsResultFilepath { get; private set; }
-				
+						
 		public FetchFunctionResolver FetchFunctionResolver { get; private set; }
 
 		public MvcControllerInfo Controller { get; private set; }
@@ -24,7 +18,6 @@ namespace TypeRight.ScriptWriting
 			MvcControllerInfo controller,
 			string outputPath,
 			ExtractedTypeCollection types,
-			Uri serverObjectsPath,
 			FetchFunctionResolver fetchResolver,
 			string baseUrl = ""
 			)
@@ -32,7 +25,6 @@ namespace TypeRight.ScriptWriting
 		{
 			Controller = controller;
 			BaseUrl = baseUrl;
-			ServerObjectsResultFilepath = serverObjectsPath;
 			FetchFunctionResolver = fetchResolver;
 		}
 

@@ -92,7 +92,6 @@ namespace TypeRight
 					controller,
 					controller.GetControllerResultPath(),
 					typeCollection,
-					new Uri(resultAbsolute.LocalPath),
 					fetchResolver,
 					configOptions.BaseUrl
 					);
