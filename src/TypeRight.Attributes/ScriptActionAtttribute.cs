@@ -6,7 +6,11 @@ namespace TypeRight.Attributes
 	/// Marks an MVC controller action for extraction
 	/// </summary>
 	[AttributeUsage(AttributeTargets.Method)]
-	public class ScriptActionAttribute : Attribute
+	public sealed class ScriptActionAttribute : Attribute
 	{
+		/// <summary>
+		/// Gets or sets the name to use for this action
+		/// </summary>
+		public string Name { get; set; }
 	}
 }

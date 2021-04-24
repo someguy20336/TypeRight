@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace TypeRight.Attributes
 {
 	/// <summary>
 	/// Directs the script generator to where the output script for this object should go
 	/// </summary>
-	public class ScriptOutputAttribute : Attribute
+	public sealed class ScriptOutputAttribute : Attribute
 	{
 		/// <summary>
 		/// Directs the script generator to where the output script for this object should go

@@ -36,6 +36,12 @@ namespace TypeRight.Tests.TestBuilders
 			return this;
 		}
 
+		public TestAttributeBuilder<T> AddStringNamedArg(string name, string value)
+		{
+			_namedArgs.Add(name, $"\"{value}\"");
+			return this;
+		}
+
 		public T Commit()
 		{
 			AttributeInfo attr = new AttributeInfo()

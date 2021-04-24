@@ -10,15 +10,15 @@ namespace TypeRight.TypeProcessing
 		public const string ConventionalBaseRouteTemplateWithArea = "/[area]/[controller]/[action]";
 		private readonly string _baseUrl;
 
-		protected MvcControllerInfo Controller { get; }
+		protected MvcController Controller { get; }
 
-		protected MvcRouteGenerator(MvcControllerInfo controller, string baseUrl)
+		protected MvcRouteGenerator(MvcController controller, string baseUrl)
 		{
 			_baseUrl = baseUrl;
 			Controller = controller;
 		}
 
-		public string GenerateRouteTemplate(MvcActionInfo actionInfo)
+		public string GenerateRouteTemplate(MvcAction actionInfo)
 		{
 			string area = GetArea();
 			string routeTemplate = GetBaseRouteTemplate();
@@ -72,17 +72,17 @@ namespace TypeRight.TypeProcessing
 			return path;
 		}
 
-		private string GetActionTemplate(MvcActionInfo actionInfo)
+		private string GetActionTemplate(MvcAction actionInfo)
 		{
 			return actionInfo.RequestMethod.GetActionTemplate(actionInfo);
 		}
 
-		public static MvcRouteGenerator CreateGenerator(MvcControllerInfo controller, string baseUrl)
+		public static MvcRouteGenerator CreateGenerator(MvcController controller, string baseUrl)
 		{
 			TypeFilter aspNetCoreFilter = new IsOfTypeFilter(MvcConstants.ControllerBaseFullName_AspNetCore);
 
 			var controllerInfo = controller;
-			return aspNetCoreFilter.Evaluate(controllerInfo.NamedType) 
+			return aspNetCoreFilter.Matches(controllerInfo.NamedType) 
 				? new AspNetCoreRouteGenerator(controller, baseUrl) 
 				: (MvcRouteGenerator)new AspNetRouteGenerator(controller, baseUrl);
 		}

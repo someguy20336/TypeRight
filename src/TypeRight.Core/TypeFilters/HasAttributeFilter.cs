@@ -27,7 +27,7 @@ namespace TypeRight.TypeFilters
 		/// </summary>
 		/// <param name="typeSymbol">The type symbol</param>
 		/// <returns>True if it meets the criteria</returns>
-		public override bool Evaluate(INamedType typeSymbol)
+		public override bool Matches(INamedType typeSymbol)
 		{
 			IReadOnlyList<IAttributeData> attributes = typeSymbol.Attributes;
 

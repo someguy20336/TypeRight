@@ -10,11 +10,11 @@ namespace TypeRight.TypeProcessing
 	/// <summary>
 	/// A single MVC controller containing HTTP Post actions
 	/// </summary>
-	public class MvcControllerInfo : ITypeWithFullName
+	public class MvcController : ITypeWithFullName
 	{
 
-
-		private List<MvcActionInfo> _actions = new List<MvcActionInfo>();
+		private string _lazyResultPath = null;
+		private List<MvcAction> _actions = new List<MvcAction>();
 
 		/// <summary>
 		/// Gets the named type for this action
@@ -36,10 +36,12 @@ namespace TypeRight.TypeProcessing
 		/// </summary>
 		public string FilePath => NamedType.FilePath;
 
+		public string ResultPath => GetControllerResultPath();
+
 		/// <summary>
 		/// Gets a list of the actions
 		/// </summary>
-		public IReadOnlyList<MvcActionInfo> Actions => _actions;
+		public IReadOnlyList<MvcAction> Actions => _actions;
 
 		public string ControllerName => Name.Substring(0, Name.Length - "Controller".Length);
 
@@ -51,15 +53,15 @@ namespace TypeRight.TypeProcessing
 		/// <param name="namedType">The named type for the controller</param>
 		/// <param name="actionFilter">The parse filter to use for the MVC action attribute</param>
 		/// <param name="typeFactory">The type table</param>
-		internal MvcControllerInfo(INamedType namedType, TypeFilter actionFilter, TypeFactory typeFactory)
+		internal MvcController(INamedType namedType, TypeFilter actionFilter, TypeFactory typeFactory)
 		{
 			NamedType = namedType;
 			
 			foreach (IMethod method in namedType.Methods)
 			{
-				if (method.Attributes.Any(attrData => actionFilter.Evaluate(attrData.AttributeType)))
+				if (method.Attributes.Any(attrData => actionFilter.Matches(attrData.AttributeType)))
 				{
-					MvcActionInfo action = new MvcActionInfo(this, method, typeFactory);
+					MvcAction action = new MvcAction(this, method, typeFactory);
 					_actions.Add(action);
 				}
 			}
@@ -80,8 +82,13 @@ namespace TypeRight.TypeProcessing
 		/// Gets the result path for a controller
 		/// </summary>
 		/// <returns>The result path</returns>
-		public string GetControllerResultPath()
+		private string GetControllerResultPath()
 		{
+			if (_lazyResultPath != null)
+			{
+				return _lazyResultPath;
+			}
+
 			FileInfo fileInfo = new FileInfo(FilePath);
 			DirectoryInfo controllerDir = fileInfo.Directory;
 
@@ -97,7 +104,9 @@ namespace TypeRight.TypeProcessing
 
 			// Calculate the result
 			string resultPath = Path.Combine(controllerDir.FullName, relativeOutputPath);
-			return Path.GetFullPath(resultPath);
+			_lazyResultPath = Path.GetFullPath(resultPath);
+
+			return _lazyResultPath;
 		}
 
 

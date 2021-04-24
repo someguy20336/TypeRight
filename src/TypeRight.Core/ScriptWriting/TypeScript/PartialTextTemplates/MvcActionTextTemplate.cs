@@ -31,7 +31,7 @@ namespace TypeRight.ScriptWriting.TypeScript.PartialTextTemplates
             this.Write("/**\r\n * ");
             
             #line 7 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\PartialTextTemplates\MvcActionTextTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_curAction.SummaryComments));
+            this.Write(this.ToStringHelper.ToStringWithCulture(_action.SummaryComments));
             
             #line default
             #line hidden

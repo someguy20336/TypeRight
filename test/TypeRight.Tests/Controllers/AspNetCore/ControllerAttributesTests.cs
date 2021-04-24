@@ -6,7 +6,7 @@ using TypeRight.Tests.TestBuilders;
 namespace TypeRight.Tests.Controllers.AspNetCore
 {
 	[TestClass]
-	public class ParameterAttributesTests : ControllerTestsBase
+	public class ControllerAttributesTests : ControllerTestsBase
 	{
 
 		protected override bool IsAspNetCore => true;
@@ -289,6 +289,39 @@ import {{ TestAjax }} from ""../../FolderM/FolderN/AjaxFunc"";
  * @param id 
  */
 export function Action(id: string | number): void {{
+	TestAjax(`/{ControllerName}/Action/${{id}}`, null);
+}}
+
+
+"
+			#endregion
+				);
+		}
+
+		[TestMethod]
+		public void ScriptActionName_ActionScriptNameIsOverridden()
+		{
+			ControllerBuilder
+				.AddMethod("Action", MvcConstants.JsonResult_AspNetCore)
+					.AddScriptActionAttribute("DifferentName")
+					.AddAttribute(MvcConstants.HttpGetAttributeFullName_AspNetCore)
+						.AddConstructorArg("\"{id}\"")
+						.Commit()
+					.AddParameter("id", "string")
+					.Commit()
+			;
+
+			AssertControllerGeneratedText(
+			#region ScriptText	
+				@$"
+import {{ TestAjax }} from ""../../FolderM/FolderN/AjaxFunc"";
+
+
+/**
+ * 
+ * @param id 
+ */
+export function DifferentName(id: string): void {{
 	TestAjax(`/{ControllerName}/Action/${{id}}`, null);
 }}
 

@@ -11,10 +11,8 @@ namespace TypeRight.TypeProcessing
 	/// </summary>
 	public class ExtractedTypeCollection : IEnumerable<ExtractedType>
 	{
-		private static TypeFilter s_mvcActionFilter = new IsOfTypeFilter(typeof(ScriptActionAttribute).FullName);
-
 		private readonly TypeFactory _typeFactory;
-		private List<MvcControllerInfo> _controllers;
+		private List<MvcController> _controllers;
 		private readonly Dictionary<string, INamedType> _controllerTypes = new Dictionary<string, INamedType>();
 
 		/// <summary>
@@ -56,7 +54,7 @@ namespace TypeRight.TypeProcessing
 		/// Gets all of the extracted controllers. 
 		/// </summary>
 		/// <returns></returns>
-		public IEnumerable<MvcControllerInfo> GetMvcControllers()
+		public IEnumerable<MvcController> GetMvcControllers()
 		{
 			EnsureCompiledControllers();
 			return _controllers;
@@ -66,10 +64,10 @@ namespace TypeRight.TypeProcessing
 		{
 			if (_controllers == null)
 			{
-				_controllers = new List<MvcControllerInfo>();
+				_controllers = new List<MvcController>();
 				foreach (INamedType controllerType in _controllerTypes.Values)
 				{
-					MvcControllerInfo controllerInfo = new MvcControllerInfo(controllerType, s_mvcActionFilter, _typeFactory);
+					MvcController controllerInfo = new MvcController(controllerType, CommonFilters.ScriptActionAttributeTypeFilter, _typeFactory);
 					if (controllerInfo.Actions.Count > 0)
 					{
 						_controllers.Add(controllerInfo);

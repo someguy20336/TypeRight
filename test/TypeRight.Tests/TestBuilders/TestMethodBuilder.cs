@@ -30,7 +30,7 @@ namespace TypeRight.Tests.TestBuilders
 			var attrs = string.IsNullOrEmpty(attribute)
 				? new List<AttributeInfo>()
 				: new List<AttributeInfo>() { new AttributeInfo() { AttributeTypeName = attribute } };
-			
+
 			return AddParameter(paramName, type, comments, attrs);
 		}
 
@@ -52,9 +52,16 @@ namespace TypeRight.Tests.TestBuilders
 			return new TestAttributeBuilder<TestMethodBuilder>(this, attributeType);
 		}
 
-		public TestMethodBuilder AddScriptActionAttribute()
+		public TestMethodBuilder AddScriptActionAttribute(string withName = null)
 		{
-			AddAttribute(typeof(ScriptActionAttribute).FullName).Commit();
+			var builder = AddAttribute(typeof(ScriptActionAttribute).FullName);
+
+			if (!string.IsNullOrEmpty(withName))
+			{
+				builder.AddStringNamedArg(nameof(ScriptActionAttribute.Name), withName);
+			}
+
+			builder.Commit();
 			return this;
 		}
 

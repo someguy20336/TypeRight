@@ -16,7 +16,7 @@ namespace TypeRight.TypeFilters
 		/// </summary>
 		/// <param name="action">The action</param>
 		/// <returns>True if it should be included</returns>
-		public abstract bool Evaluate(MvcActionInfo action);
+		public abstract bool Evaluate(MvcAction action);
 	}
 
 
@@ -36,14 +36,14 @@ namespace TypeRight.TypeFilters
 		/// </summary>
 		/// <param name="action">The action</param>
 		/// <returns>True if it should be included</returns>
-		public override bool Evaluate(MvcActionInfo action)
+		public override bool Evaluate(MvcAction action)
 		{
-			return action.Attributes.Any(attr => _attributeFilter.Evaluate(attr.AttributeType));
+			return action.Attributes.Any(attr => _attributeFilter.Matches(attr.AttributeType));
 		}
 	}
 
 	internal class AcceptAllActionFilter : ActionFilter
 	{
-		public override bool Evaluate(MvcActionInfo action) => true;
+		public override bool Evaluate(MvcAction action) => true;
 	}
 }

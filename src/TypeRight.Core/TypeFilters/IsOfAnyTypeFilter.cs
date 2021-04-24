@@ -26,9 +26,9 @@ namespace TypeRight.TypeFilters
 		/// </summary>
 		/// <param name="namedType">The named type to check</param>
 		/// <returns>True if it meets the filter</returns>
-		public override bool Evaluate(INamedType namedType)
+		public override bool Matches(INamedType namedType)
 		{
-			return _singleTypeFilters.Any(filt => filt.Evaluate(namedType));
+			return _singleTypeFilters.Any(filt => filt.Matches(namedType));
 		}
 	}
 }

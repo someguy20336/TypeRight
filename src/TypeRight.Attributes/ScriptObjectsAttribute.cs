@@ -7,7 +7,7 @@ namespace TypeRight.Attributes
 	/// This can be used to extract types that aren't in the current assembly
 	/// </summary>
 	[AttributeUsage(AttributeTargets.Assembly, AllowMultiple = true)]
-	public class ScriptObjectsAttribute : Attribute
+	public sealed class ScriptObjectsAttribute : Attribute
 	{
 
 		/// <summary>

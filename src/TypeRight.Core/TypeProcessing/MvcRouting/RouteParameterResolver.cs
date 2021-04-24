@@ -2,7 +2,7 @@
 {
 	public abstract class RouteParameterResolver
 	{
-		public abstract string TryResolve(string currentRoute, MvcControllerInfo controller, MvcActionInfo action);
+		public abstract string TryResolve(string currentRoute, MvcController controller, MvcAction action);
 	}
 
 
@@ -10,14 +10,14 @@
 	{
 		private readonly ResolverFunc _func;
 
-		public delegate string ResolverFunc(string currentRoute, MvcControllerInfo controller, MvcActionInfo action);
+		public delegate string ResolverFunc(string currentRoute, MvcController controller, MvcAction action);
 
 		public DelegateRouteParameterResolver(ResolverFunc func)
 		{
 			_func = func;
 		}
 
-		public override string TryResolve(string currentRoute, MvcControllerInfo controller, MvcActionInfo action) => _func(currentRoute, controller, action);
+		public override string TryResolve(string currentRoute, MvcController controller, MvcAction action) => _func(currentRoute, controller, action);
 	}
 
 }

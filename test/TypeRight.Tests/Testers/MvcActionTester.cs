@@ -8,12 +8,11 @@ namespace TypeRight.Tests.Testers
 	public class MvcActionTester
 	{
 		private readonly ControllerContext _context;
-		private MvcActionInfo _method;
-		private MvcControllerInfo ControllerInfo => _context.Controller;
+		private MvcAction _method;
 
 		private readonly TypeFormatter _typeFormatter;
 
-		public MvcActionTester(ControllerContext context, MvcActionInfo method, TypeFormatter typeFormatter)
+		public MvcActionTester(ControllerContext context, MvcAction method, TypeFormatter typeFormatter)
 		{
 			_context = context;
 			_method = method;
@@ -36,7 +35,7 @@ namespace TypeRight.Tests.Testers
 		
 		public MvcActionTester RouteTemplateIs(string expected, string baseUrl)
 		{
-			string url = MvcRouteGenerator.CreateGenerator(_context.Controller, baseUrl).GenerateRouteTemplate(_method);
+			string url = MvcRouteGenerator.CreateGenerator(_context.Controllers.First(), baseUrl).GenerateRouteTemplate(_method);
 			Assert.AreEqual(expected, url);
 			return this;
 		}

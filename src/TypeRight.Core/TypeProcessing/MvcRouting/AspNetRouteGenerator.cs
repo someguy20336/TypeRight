@@ -14,14 +14,14 @@ namespace TypeRight.TypeProcessing.MvcRouting
 
 		private static TypeFilter s_routeAreaTypeFilter = new IsOfTypeFilter(MvcConstants.RouteAreaAttributeFullName_AspNet);
 
-		public AspNetRouteGenerator(MvcControllerInfo controller, string baseUrl) : base(controller, baseUrl)
+		public AspNetRouteGenerator(MvcController controller, string baseUrl) : base(controller, baseUrl)
 		{
 		}
 
 		protected override string GetArea()
 		{
 			// Check for route area attribute
-			var routeArea = Controller.NamedType.Attributes.FirstOrDefault(attr => s_routeAreaTypeFilter.Evaluate(attr.AttributeType));
+			var routeArea = Controller.NamedType.Attributes.FirstOrDefault(attr => s_routeAreaTypeFilter.Matches(attr.AttributeType));
 			if (routeArea != null)
 			{
 				return routeArea.ConstructorArguments[0] as string;

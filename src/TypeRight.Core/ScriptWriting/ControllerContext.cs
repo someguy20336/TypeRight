@@ -1,4 +1,6 @@
-﻿using TypeRight.TypeProcessing;
+﻿using System.Collections.Generic;
+using System.Linq;
+using TypeRight.TypeProcessing;
 
 namespace TypeRight.ScriptWriting
 {
@@ -10,20 +12,31 @@ namespace TypeRight.ScriptWriting
 						
 		public FetchFunctionResolver FetchFunctionResolver { get; private set; }
 
-		public MvcControllerInfo Controller { get; private set; }
+		public IEnumerable<MvcController> Controllers { get; private set; }
+
+		public IEnumerable<MvcAction> Actions => Controllers.SelectMany(c => c.Actions);
 
 
 		public ControllerContext(
-			MvcControllerInfo controller,
+			MvcController controller,
+			string outputPath,
+			ExtractedTypeCollection types,
+			FetchFunctionResolver fetchResolver
+			)
+			: this(new [] { controller }, outputPath, types, fetchResolver)
+		{
+		}
+
+		public ControllerContext(
+			IEnumerable<MvcController> controllers,
 			string outputPath,
 			ExtractedTypeCollection types,
 			FetchFunctionResolver fetchResolver
 			)
 			: base(types, outputPath)
 		{
-			Controller = controller;
+			Controllers = controllers;
 			FetchFunctionResolver = fetchResolver;
 		}
-
 	}
 }

@@ -33,12 +33,12 @@ namespace TypeRight.CodeModel
 		/// <param name="targetPath">The target path for the type</param>
 		public void Visit(INamedType namedType, string targetPath = null)
 		{
-			if (FilterSettings.ClassFilter.Evaluate(namedType)
-				|| FilterSettings.EnumFilter.Evaluate(namedType))
+			if (FilterSettings.ClassFilter.Matches(namedType)
+				|| FilterSettings.EnumFilter.Matches(namedType))
 			{
 				TypeCollection.RegisterType(namedType, targetPath);
 			}
-			else if (FilterSettings.ControllerFilter.Evaluate(namedType))
+			else if (FilterSettings.ControllerFilter.Matches(namedType))
 			{
 				TypeCollection.RegisterController(namedType);
 			}
