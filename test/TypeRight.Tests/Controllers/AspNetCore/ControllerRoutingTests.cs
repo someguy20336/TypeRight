@@ -122,20 +122,12 @@ export function PutThingWithQuery(thingId: string, query: string, body: boolean)
 					.Commit()
 					;
 
-			AssertControllerGeneratedText(
+			AssertScriptTextForFunctionIs(
 			#region ScriptText	
 				@"
-import { TestAjax } from ""../../FolderM/FolderN/AjaxFunc"";
-
-
-/**
- * 
- * @param thingId 
- */
 export function GetThing(thingId: string): void {
 	TestAjax(`/api/RoutedApi/thing/${thingId}?key1=val1`, null);
 }
-
 "
 			#endregion
 				);
@@ -159,23 +151,10 @@ export function GetThing(thingId: string): void {
 					.Commit()
 					;
 
-			AssertControllerGeneratedText(
-			#region ScriptText	
-				@"
-import { TestAjax } from ""../../FolderM/FolderN/AjaxFunc"";
-
-
-/**
- * 
- * @param thingId 
- */
+			AssertScriptTextForFunctionIs(@"
 export function GetThing(thingId: string): void {
 	TestAjax(`/api/RoutedApi/thing/${thingId}?key1=val1&key2=val2`, null);
-}
-
-"
-			#endregion
-				);
+}");
 		}
 
 		[TestMethod]
@@ -195,23 +174,10 @@ export function GetThing(thingId: string): void {
 					.Commit()
 					;
 
-			AssertControllerGeneratedText(
-			#region ScriptText	
-				@"
-import { TestAjax } from ""../../FolderM/FolderN/AjaxFunc"";
-
-
-/**
- * 
- * @param thingId 
- */
+			AssertScriptTextForFunctionIs(@"
 export function GetThing(thingId: string): void {
 	TestAjax(`/api/RoutedApi/thing?key1=val1&thingId=${ thingId ?? """" }`, null);
-}
-
-"
-			#endregion
-				);
+}");
 		}
 
 		[TestMethod]
@@ -231,23 +197,10 @@ export function GetThing(thingId: string): void {
 					.Commit()
 					;
 
-			AssertControllerGeneratedText(
-			#region ScriptText	
-				@"
-import { TestAjax } from ""../../FolderM/FolderN/AjaxFunc"";
-
-
-/**
- * 
- * @param thingId 
- */
+			AssertScriptTextForFunctionIs(@"
 export function GetThing(thingId: string): void {
 	TestAjax(`/api/RoutedApi/thing?thingId=${ thingId ?? """" }`, null);
-}
-
-"
-			#endregion
-				);
+}");
 		}
 	}
 }

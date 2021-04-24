@@ -93,13 +93,5 @@ namespace TypeRight.Tests.Testers
 		}
 
 
-		public TypeCollectionTester AssertControllerScriptText(ControllerContext context, string expectedText)
-		{
-			string scriptText = ScriptTemplateFactory.CreateControllerTextTemplate().GetText(context).Trim();
-
-			expectedText = expectedText.Trim();
-			Assert.AreEqual(expectedText, scriptText);
-			return this;
-		}
 	}
 }
