@@ -38,7 +38,7 @@ export function TestAction(fromQuery: string): void {{
 			;
 
 			AssertScriptTextForFunctionIs(@$"
-export function TestAction(fromQuery: DefaultResult.TestClass): void {{
+export function TestAction(fromQuery: Partial<DefaultResult.TestClass>): void {{
 	let urlParams = new URLSearchParams();
 	tryAppendObjectValuesToUrl(urlParams, fromQuery);
 	let queryString = """";
@@ -59,7 +59,7 @@ export function TestAction(fromQuery: DefaultResult.TestClass): void {{
 			;
 
 			AssertScriptTextForFunctionIs(@$"
-export function TestAction(simple: string, complex: DefaultResult.TestClass): void {{
+export function TestAction(simple: string, complex: Partial<DefaultResult.TestClass>): void {{
 	let urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, ""simple"", simple);
 	tryAppendObjectValuesToUrl(urlParams, complex);

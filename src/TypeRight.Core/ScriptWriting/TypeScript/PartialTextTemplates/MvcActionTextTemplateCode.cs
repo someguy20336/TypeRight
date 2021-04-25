@@ -69,50 +69,58 @@ namespace TypeRight.ScriptWriting.TypeScript.PartialTextTemplates
 
 		private string FormatMethodParameter(MvcActionParameter oneParam)
 		{
-			string paramTypes = string.Join(" | ", oneParam.Types.Select(t => t.FormatType(_formatter)));
+			string paramTypes = string.Join(" | ", oneParam.Types.Select(t =>
+			{
+				string formattedType = t.FormatType(_formatter);
+				if (oneParam.BindingType == ActionParameterSourceType.Query && t.IsComplexType())
+				{
+					formattedType = $"Partial<{formattedType}>";
+				}
+				return formattedType;
+			}));
 			return $"{oneParam.Name}{ (oneParam.IsOptional ? "?" : "") }: {paramTypes}";
 		}
 
-		private string FormatUserParameter(ActionParameter userParam)
-		{
-			string paramType = ReplaceTokens(userParam.Type);
-			return $"{userParam.Name}{ (userParam.Optional ? "?" : "") }: {paramType}";
-		}
-
-		private string BuildFetchParameters()
-		{
-			var allParams = _fetchFunc.FetchParameterResolvers.Select(pr => pr.ResolveParameter(_action));
-			return string.Join(", ", allParams);
-		}
-
-		/// <summary>
-		/// Gets the key value pairs of parameters and comments for this action
-		/// </summary>
-		/// <param name="action">The action</param>
-		/// <returns></returns>
-		private IEnumerable<KeyValuePair<string, string>> GetParameterComments()
-		{
-			// Get the params that should actually be written
-			HashSet<string> allParams = new HashSet<string>(_action.Parameters
-				.Where(p => p.BindingType != ActionParameterSourceType.Ignored)
-				.Select(p => p.Name)
-				);
-
-			return _action.ParameterComments.Where(kv => allParams.Contains(kv.Key));
-		}
-
-		private void WriteBodyExtensions()
-		{
-			PushIndent();
-			foreach (var ext in _bodyExtensions)
-			{
-				ext.Write(this);
-			}
-			PopIndent();
-		}
-		private string ReplaceTokens(string typeStr)
-		{
-			return typeStr.Replace("$returnType$", _action.ReturnType.FormatType(_formatter));
-		}
+	private string FormatUserParameter(ActionParameter userParam)
+	{
+		string paramType = ReplaceTokens(userParam.Type);
+		return $"{userParam.Name}{ (userParam.Optional ? "?" : "") }: {paramType}";
 	}
+
+	private string BuildFetchParameters()
+	{
+		var allParams = _fetchFunc.FetchParameterResolvers.Select(pr => pr.ResolveParameter(_action));
+		return string.Join(", ", allParams);
+	}
+
+	/// <summary>
+	/// Gets the key value pairs of parameters and comments for this action
+	/// </summary>
+	/// <param name="action">The action</param>
+	/// <returns></returns>
+	private IEnumerable<KeyValuePair<string, string>> GetParameterComments()
+	{
+		// Get the params that should actually be written
+		HashSet<string> allParams = new HashSet<string>(_action.Parameters
+			.Where(p => p.BindingType != ActionParameterSourceType.Ignored)
+			.Select(p => p.Name)
+			);
+
+		return _action.ParameterComments.Where(kv => allParams.Contains(kv.Key));
+	}
+
+	private void WriteBodyExtensions()
+	{
+		PushIndent();
+		foreach (var ext in _bodyExtensions)
+		{
+			ext.Write(this);
+		}
+		PopIndent();
+	}
+	private string ReplaceTokens(string typeStr)
+	{
+		return typeStr.Replace("$returnType$", _action.ReturnType.FormatType(_formatter));
+	}
+}
 }
