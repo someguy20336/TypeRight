@@ -64,7 +64,7 @@ namespace TypeRight.ScriptWriting.TypeScript.PartialTextTemplates
             #line default
             #line hidden
             this.Write(@"(urlParams: URLSearchParams, key: string, value: any): void {
-    if (value !== null && typeof value !== ""undefined"") {        
+    if (value !== null && typeof value !== ""undefined"") {
         if (Array.isArray(val)) {
             for (let aryVal of val) {
                 urlParams.append(key, aryVal.toString());

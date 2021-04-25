@@ -94,8 +94,14 @@ export function NoFromBodyParams(): void {{
 
 			AssertScriptTextForFunctionIs(@$"
 export function QueryParameterWithBody(fromQuery: string, fromBody: DefaultResult.TestClass): void {{
-	TestAjax(`/{ControllerName}/QueryParameterWithBody?fromQuery=${{ fromQuery ?? """" }}`, fromBody);
-}}");
+	let urlParams = new URLSearchParams();
+	tryAppendKeyValueToUrl(urlParams, ""fromQuery"", fromQuery);
+	let queryString = """";
+	if (urlParams.getAll().length > 0) {{
+		queryString = ""?"" + urlParams.toString();
+	}}
+	TestAjax(`/{ControllerName}/QueryParameterWithBody${{queryString}}`, fromBody);
+}}", ScriptExtensions.KeyValueQueryParamHelper);
 		}
 
 		[TestMethod]
@@ -126,8 +132,14 @@ export function QueryParameterWithBody(fromQuery: string, fromBody: DefaultResul
 
 			AssertScriptTextForFunctionIs(@$"
 export function Action(p: number): void {{
-	TestAjax(`/{ControllerName}/Action?p=${{ p ?? """" }}`, null);
-}}");
+	let urlParams = new URLSearchParams();
+	tryAppendKeyValueToUrl(urlParams, ""p"", p);
+	let queryString = """";
+	if (urlParams.getAll().length > 0) {{
+		queryString = ""?"" + urlParams.toString();
+	}}
+	TestAjax(`/{ControllerName}/Action${{queryString}}`, null);
+}}", ScriptExtensions.KeyValueQueryParamHelper);
 		}
 
 		[TestMethod]
@@ -159,8 +171,14 @@ export function Action(p: number): void {{
 
 			AssertScriptTextForFunctionIs(@$"
 export function MultipleTypes(multTypes: string | number): void {{
-	TestAjax(`/{ControllerName}/MultipleTypes?multTypes=${{ multTypes ?? """" }}`, null);
-}}");
+	let urlParams = new URLSearchParams();
+	tryAppendKeyValueToUrl(urlParams, ""multTypes"", multTypes);
+	let queryString = """";
+	if (urlParams.getAll().length > 0) {{
+		queryString = ""?"" + urlParams.toString();
+	}}
+	TestAjax(`/{ControllerName}/MultipleTypes${{queryString}}`, null);
+}}", ScriptExtensions.KeyValueQueryParamHelper);
 		}
 
 		[TestMethod]

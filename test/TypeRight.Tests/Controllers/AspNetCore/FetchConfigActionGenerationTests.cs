@@ -72,8 +72,14 @@ export function GetThing(thingId: string): void {
 
 			AssertScriptTextForFunctionIs(@"
 export function GetThing(thingId: string, queryP: string): void {
-	fetchWrapper(""GET"", `/api/RoutedApi/thing/${thingId}?queryP=${ queryP ?? """" }`, null);
-}");
+	let urlParams = new URLSearchParams();
+	tryAppendKeyValueToUrl(urlParams, ""queryP"", queryP);
+	let queryString = """";
+	if (urlParams.getAll().length > 0) {
+		queryString = ""?"" + urlParams.toString();
+	}
+	fetchWrapper(""GET"", `/api/RoutedApi/thing/${thingId}${queryString}`, null);
+}", ScriptExtensions.KeyValueQueryParamHelper);
 		}
 
 		[TestMethod]

@@ -97,9 +97,26 @@ export function GetThing(thingId: string): void {
  * @param body 
  */
 export function PutThingWithQuery(thingId: string, query: string, body: boolean): void {
-	TestAjax(`/api/RoutedApi/thing/${thingId}/put?query=${ query ?? """" }`, body);
+	let urlParams = new URLSearchParams();
+	tryAppendKeyValueToUrl(urlParams, ""query"", query);
+	let queryString = """";
+	if (urlParams.getAll().length > 0) {
+		queryString = ""?"" + urlParams.toString();
+	}
+	TestAjax(`/api/RoutedApi/thing/${thingId}/put${queryString}`, body);
 }
 
+function tryAppendKeyValueToUrl(urlParams: URLSearchParams, key: string, value: any): void {
+    if (value !== null && typeof value !== ""undefined"") {
+        if (Array.isArray(val)) {
+            for (let aryVal of val) {
+                urlParams.append(key, aryVal.toString());
+            }
+        } else {
+            urlParams.append(key, val);
+        }
+    }
+}
 "
 			#endregion
 				);
@@ -122,15 +139,10 @@ export function PutThingWithQuery(thingId: string, query: string, body: boolean)
 					.Commit()
 					;
 
-			AssertScriptTextForFunctionIs(
-			#region ScriptText	
-				@"
+			AssertScriptTextForFunctionIs(@"
 export function GetThing(thingId: string): void {
 	TestAjax(`/api/RoutedApi/thing/${thingId}?key1=val1`, null);
-}
-"
-			#endregion
-				);
+}");
 		}
 
 		[TestMethod]
@@ -199,8 +211,14 @@ export function GetThing(thingId: string): void {
 
 			AssertScriptTextForFunctionIs(@"
 export function GetThing(thingId: string): void {
-	TestAjax(`/api/RoutedApi/thing?thingId=${ thingId ?? """" }`, null);
-}");
+	let urlParams = new URLSearchParams();
+	tryAppendKeyValueToUrl(urlParams, ""thingId"", thingId);
+	let queryString = """";
+	if (urlParams.getAll().length > 0) {
+		queryString = ""?"" + urlParams.toString();
+	}
+	TestAjax(`/api/RoutedApi/thing${queryString}`, null);
+}", ScriptExtensions.KeyValueQueryParamHelper);
 		}
 	}
 }
