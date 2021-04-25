@@ -42,38 +42,38 @@ namespace TypeRight.ScriptWriting.TypeScript.PartialTextTemplates
             #line default
             #line hidden
             this.Write("(urlParams: URLSearchParams, obj: any): void {\r\n    for (let [key, val] of Object" +
-                    ".entries(obj)) {\r\n        if (Array.isArray(val)) {\r\n            for (let aryVal" +
-                    " of val) {\r\n                ");
+                    ".entries(obj)) {\r\n        ");
             
-            #line 11 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\PartialTextTemplates\QueryParameterHelperFunctions.tt"
+            #line 9 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\PartialTextTemplates\QueryParameterHelperFunctions.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TryAppendKeyValueFuncName));
             
             #line default
             #line hidden
-            this.Write("(urlParams, key, aryVal);\r\n            }\r\n        } else {\r\n            ");
+            this.Write("(urlParams, key, val);\r\n    }\r\n}\r\n\r\n");
             
-            #line 14 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\PartialTextTemplates\QueryParameterHelperFunctions.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(TryAppendKeyValueFuncName));
-            
-            #line default
-            #line hidden
-            this.Write("(urlParams, key, val);\r\n        }\r\n    }\r\n}\r\n\r\n");
-            
-            #line 19 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\PartialTextTemplates\QueryParameterHelperFunctions.tt"
+            #line 13 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\PartialTextTemplates\QueryParameterHelperFunctions.tt"
  } 
             
             #line default
             #line hidden
             this.Write("function ");
             
-            #line 20 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\PartialTextTemplates\QueryParameterHelperFunctions.tt"
+            #line 14 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\PartialTextTemplates\QueryParameterHelperFunctions.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TryAppendKeyValueFuncName));
             
             #line default
             #line hidden
-            this.Write("(urlParams: URLSearchParams, key: string, value: any): void {\r\n    if (value !== " +
-                    "null && typeof value !== \"undefined\") {\r\n        urlParams.append(key, value.toS" +
-                    "tring());\r\n    }\r\n}");
+            this.Write(@"(urlParams: URLSearchParams, key: string, value: any): void {
+    if (value !== null && typeof value !== ""undefined"") {        
+        if (Array.isArray(val)) {
+            for (let aryVal of val) {
+                urlParams.append(key, aryVal.toString());
+            }
+        } else {
+            urlParams.append(key, val);
+        }
+    }
+}");
             return this.GenerationEnvironment.ToString();
         }
     }

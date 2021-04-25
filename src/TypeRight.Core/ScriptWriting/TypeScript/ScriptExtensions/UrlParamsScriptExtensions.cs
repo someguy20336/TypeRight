@@ -49,4 +49,19 @@ namespace TypeRight.ScriptWriting.TypeScript.ScriptExtensions
 			writer.WriteLine($"{QueryParameterHelperFunctions.TryAppendKeyValueFuncName}({InitUrlParamsScriptExtensions.UrlParamsVarName}, \"{_paramName}\", {_paramName});");
 		}
 	}
+
+	internal class AddComplexParameterToQueryStringScriptExtension : IScriptExtension
+	{
+		private string _paramName;
+
+		public AddComplexParameterToQueryStringScriptExtension(string paramName)
+		{
+			_paramName = paramName;
+		}
+
+		public void Write(IScriptWriter writer)
+		{
+			writer.WriteLine($"{QueryParameterHelperFunctions.TryAppendObjectFuncName}({InitUrlParamsScriptExtensions.UrlParamsVarName}, {_paramName});");
+		}
+	}
 }

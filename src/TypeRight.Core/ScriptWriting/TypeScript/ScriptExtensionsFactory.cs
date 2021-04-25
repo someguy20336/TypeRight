@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using TypeRight.ScriptWriting.TypeScript.ScriptExtensions;
 using TypeRight.TypeProcessing;
 
@@ -30,9 +28,14 @@ namespace TypeRight.ScriptWriting.TypeScript
 			{
 				exts.Add(new InitUrlParamsScriptExtensions());
 
-				foreach (var queryP in action.Parameters.Where(p => p.BindingType == ActionParameterSourceType.Query))
+				foreach (var queryP in GetSimpleQueryParams(action))
 				{
 					exts.Add(new AddSimpleParameterToQueryStringScriptExtension(queryP.Name));
+				}
+
+				foreach (var queryP in GetComplexQueryParams(action))
+				{
+					exts.Add(new AddComplexParameterToQueryStringScriptExtension(queryP.Name));
 				}
 
 				exts.Add(new AddStringUrlParamsScriptExtension());
@@ -53,6 +56,12 @@ namespace TypeRight.ScriptWriting.TypeScript
 			=> controller.Actions.Any(a => HasAnyComplexQueryParmeter(a));
 
 		private static bool HasAnyComplexQueryParmeter(MvcAction action)
-			=> action.Parameters.Any(p => p.BindingType == ActionParameterSourceType.Query);
+			=> GetComplexQueryParams(action).Any();
+
+		private static IEnumerable<MvcActionParameter> GetComplexQueryParams(MvcAction action)
+			=> action.Parameters.Where(p => p.BindingType == ActionParameterSourceType.Query && p.Types.Any(t => t.IsComplexType()));
+
+		private static IEnumerable<MvcActionParameter> GetSimpleQueryParams(MvcAction action)
+			=> action.Parameters.Where(p => p.BindingType == ActionParameterSourceType.Query && p.Types.Any(t => !t.IsComplexType()));
 	}
 }

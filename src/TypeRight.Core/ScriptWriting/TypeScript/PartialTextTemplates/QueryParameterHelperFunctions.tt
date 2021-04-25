@@ -6,19 +6,19 @@
 <# if (_needsAppendObjectFunc) { #>
 function <#= TryAppendObjectFuncName #>(urlParams: URLSearchParams, obj: any): void {
     for (let [key, val] of Object.entries(obj)) {
-        if (Array.isArray(val)) {
-            for (let aryVal of val) {
-                <#= TryAppendKeyValueFuncName #>(urlParams, key, aryVal);
-            }
-        } else {
-            <#= TryAppendKeyValueFuncName #>(urlParams, key, val);
-        }
+        <#= TryAppendKeyValueFuncName #>(urlParams, key, val);
     }
 }
 
 <# } #>
 function <#= TryAppendKeyValueFuncName #>(urlParams: URLSearchParams, key: string, value: any): void {
-    if (value !== null && typeof value !== "undefined") {
-        urlParams.append(key, value.toString());
+    if (value !== null && typeof value !== "undefined") {        
+        if (Array.isArray(val)) {
+            for (let aryVal of val) {
+                urlParams.append(key, aryVal.toString());
+            }
+        } else {
+            urlParams.append(key, val);
+        }
     }
 }

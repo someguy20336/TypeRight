@@ -5,6 +5,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using TypeRight.Configuration;
 using TypeRight.ScriptWriting;
+using TypeRight.ScriptWriting.TypeScript.PartialTextTemplates;
 using TypeRight.Tests.TestBuilders;
 using TypeRight.Tests.Testers;
 
@@ -12,6 +13,15 @@ namespace TypeRight.Tests.Controllers
 {
 	public abstract class ControllerTestsBase : TypeRightTestBase
 	{
+
+		[Flags]
+		protected enum ScriptExtensions
+		{
+			None,
+			KeyValueQueryParamHelper,
+			ObjectQueryParamHelper
+		}
+
 		protected ConfigOptions ConfigOptions { get; private set; }
 
 		protected TestClassBuilder ControllerBuilder { get; private set; }
@@ -124,7 +134,7 @@ namespace TypeRight.Tests.Controllers
 		/// asserts the script text without all the stuff i don't care about (comments, imports, etc)
 		/// </summary>
 		/// <param name="expectedText"></param>
-		protected void AssertScriptTextForFunctionIs(string expectedText)
+		protected void AssertScriptTextForFunctionIs(string expectedText, ScriptExtensions expectedExtensions = ScriptExtensions.None)
 		{
 			string scriptText = GetScriptText();
 
@@ -135,9 +145,16 @@ namespace TypeRight.Tests.Controllers
 				.Where(ln => !ln.Trim().StartsWith("*"))
 				.Where(ln => !ln.Trim().StartsWith("*/"))
 				.ToArray();
-
 			scriptText = string.Join(Environment.NewLine, scriptLines).Trim();
+
 			expectedText = expectedText.Trim();
+
+			if (expectedExtensions.HasFlag(ScriptExtensions.KeyValueQueryParamHelper) || expectedExtensions.HasFlag(ScriptExtensions.ObjectQueryParamHelper))
+			{
+				var queryParamHelpers = new QueryParameterHelperFunctions(expectedExtensions.HasFlag(ScriptExtensions.ObjectQueryParamHelper));
+				expectedText += Environment.NewLine + Environment.NewLine + queryParamHelpers.TransformText();
+			}
+
 			Assert.AreEqual(expectedText, scriptText);
 		}
 
