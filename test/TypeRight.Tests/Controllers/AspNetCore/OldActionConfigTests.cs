@@ -94,8 +94,16 @@ namespace TypeRight.Tests.Controllers.AspNetCore
 			// Test that the order of parameters is maintained.  Kind of a "control" test here
 			AssertScriptTextForFunctionIs(@"
 export function CustomMethod(param1: string, param2: string, param3?: string): void {
-	TestAjax(`/Test/CustomMethod?param1=${ param1 ?? """" }&param2=${ param2 ?? """" }&param3=${ param3 ?? """" }`, null);
-}");
+	let urlParams = new URLSearchParams();
+	tryAppendKeyValueToUrl(urlParams, ""param1"", param1);
+	tryAppendKeyValueToUrl(urlParams, ""param2"", param2);
+	tryAppendKeyValueToUrl(urlParams, ""param3"", param3);
+	let queryString = """";
+	if (urlParams.getAll().length > 0) {
+		queryString = ""?"" + urlParams.toString();
+	}
+	TestAjax(`/Test/CustomMethod${queryString}`, null);
+}", ScriptExtensions.KeyValueQueryParamHelper);
 			
 		}
 
@@ -120,8 +128,16 @@ export function CustomMethod(param1: string, param2: string, param3?: string): v
 			// Test that the order of parameters is maintained.  Kind of a "control" test here
 			AssertScriptTextForFunctionIs(@"
 export function CustomMethod(param1: string, param2: string, userParam1: string, param3?: string, userParam2?: string): void {
-	TestAjax(`/Test/CustomMethod?param1=${ param1 ?? """" }&param2=${ param2 ?? """" }&param3=${ param3 ?? """" }`, null, userParam1, userParam2);
-}");
+	let urlParams = new URLSearchParams();
+	tryAppendKeyValueToUrl(urlParams, ""param1"", param1);
+	tryAppendKeyValueToUrl(urlParams, ""param2"", param2);
+	tryAppendKeyValueToUrl(urlParams, ""param3"", param3);
+	let queryString = """";
+	if (urlParams.getAll().length > 0) {
+		queryString = ""?"" + urlParams.toString();
+	}
+	TestAjax(`/Test/CustomMethod${queryString}`, null, userParam1, userParam2);
+}", ScriptExtensions.KeyValueQueryParamHelper);
 		}
 	}
 }
