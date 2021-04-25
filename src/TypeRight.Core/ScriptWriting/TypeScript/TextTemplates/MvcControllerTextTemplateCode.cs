@@ -37,5 +37,14 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
 
 		private MvcActionTextTemplate CreateTemplateForAction(MvcAction action) 
 			=> new MvcActionTextTemplate(action, _context.FetchFunctionResolver.Resolve(action.RequestMethod.Name), _formatter);
+
+		private string TryWriteQueryParamsHelpers()
+		{
+			if (false)
+			{
+				return new QueryParameterHelperFunctions(true).TransformText();
+			}
+			return "";
+		}
 	}
 }
