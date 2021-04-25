@@ -96,11 +96,7 @@ export function NoFromBodyParams(): void {{
 export function QueryParameterWithBody(fromQuery: string, fromBody: DefaultResult.TestClass): void {{
 	let urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, ""fromQuery"", fromQuery);
-	let queryString = """";
-	if (urlParams.getAll().length > 0) {{
-		queryString = ""?"" + urlParams.toString();
-	}}
-	TestAjax(`/{ControllerName}/QueryParameterWithBody${{queryString}}`, fromBody);
+	TestAjax(`/{ControllerName}/QueryParameterWithBody${{getQueryString(urlParams)}}`, fromBody);
 }}", ScriptExtensions.KeyValueQueryParamHelper);
 		}
 
@@ -134,11 +130,7 @@ export function QueryParameterWithBody(fromQuery: string, fromBody: DefaultResul
 export function Action(p: number): void {{
 	let urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, ""p"", p);
-	let queryString = """";
-	if (urlParams.getAll().length > 0) {{
-		queryString = ""?"" + urlParams.toString();
-	}}
-	TestAjax(`/{ControllerName}/Action${{queryString}}`, null);
+	TestAjax(`/{ControllerName}/Action${{getQueryString(urlParams)}}`, null);
 }}", ScriptExtensions.KeyValueQueryParamHelper);
 		}
 
@@ -173,11 +165,7 @@ export function Action(p: number): void {{
 export function MultipleTypes(multTypes: string | number): void {{
 	let urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, ""multTypes"", multTypes);
-	let queryString = """";
-	if (urlParams.getAll().length > 0) {{
-		queryString = ""?"" + urlParams.toString();
-	}}
-	TestAjax(`/{ControllerName}/MultipleTypes${{queryString}}`, null);
+	TestAjax(`/{ControllerName}/MultipleTypes${{getQueryString(urlParams)}}`, null);
 }}", ScriptExtensions.KeyValueQueryParamHelper);
 		}
 

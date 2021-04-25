@@ -21,11 +21,7 @@ namespace TypeRight.Tests.Controllers.AspNetCore
 export function TestAction(fromQuery: string): void {{
 	let urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, ""fromQuery"", fromQuery);
-	let queryString = """";
-	if (urlParams.getAll().length > 0) {{
-		queryString = ""?"" + urlParams.toString();
-	}}
-	TestAjax(`/{ControllerName}/TestAction${{queryString}}`, null);
+	TestAjax(`/{ControllerName}/TestAction${{getQueryString(urlParams)}}`, null);
 }}", ScriptExtensions.KeyValueQueryParamHelper);
 		}
 
@@ -41,11 +37,7 @@ export function TestAction(fromQuery: string): void {{
 export function TestAction(fromQuery: Partial<DefaultResult.TestClass>): void {{
 	let urlParams = new URLSearchParams();
 	tryAppendObjectValuesToUrl(urlParams, fromQuery);
-	let queryString = """";
-	if (urlParams.getAll().length > 0) {{
-		queryString = ""?"" + urlParams.toString();
-	}}
-	TestAjax(`/{ControllerName}/TestAction${{queryString}}`, null);
+	TestAjax(`/{ControllerName}/TestAction${{getQueryString(urlParams)}}`, null);
 }}", ScriptExtensions.KeyValueQueryParamHelper | ScriptExtensions.ObjectQueryParamHelper);
 		}
 
@@ -63,11 +55,7 @@ export function TestAction(simple: string, complex: Partial<DefaultResult.TestCl
 	let urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, ""simple"", simple);
 	tryAppendObjectValuesToUrl(urlParams, complex);
-	let queryString = """";
-	if (urlParams.getAll().length > 0) {{
-		queryString = ""?"" + urlParams.toString();
-	}}
-	TestAjax(`/{ControllerName}/TestAction${{queryString}}`, null);
+	TestAjax(`/{ControllerName}/TestAction${{getQueryString(urlParams)}}`, null);
 }}", ScriptExtensions.KeyValueQueryParamHelper | ScriptExtensions.ObjectQueryParamHelper);
 		}
 
@@ -95,11 +83,7 @@ export function GetThing(thingId: string): void {
 	let urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, ""key1"", ""val1"");
 	tryAppendKeyValueToUrl(urlParams, ""key2"", ""val2"");
-	let queryString = """";
-	if (urlParams.getAll().length > 0) {
-		queryString = ""?"" + urlParams.toString();
-	}
-	TestAjax(`/api/RoutedApi/thing/${thingId}${queryString}`, null);
+	TestAjax(`/api/RoutedApi/thing/${thingId}${getQueryString(urlParams)}`, null);
 }", ScriptExtensions.KeyValueQueryParamHelper);
 		}
 
@@ -125,11 +109,7 @@ export function GetThing(thingId: string): void {
 	let urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, ""thingId"", thingId);
 	tryAppendKeyValueToUrl(urlParams, ""key1"", ""val1"");
-	let queryString = """";
-	if (urlParams.getAll().length > 0) {
-		queryString = ""?"" + urlParams.toString();
-	}
-	TestAjax(`/api/RoutedApi/thing${queryString}`, null);
+	TestAjax(`/api/RoutedApi/thing${getQueryString(urlParams)}`, null);
 }", ScriptExtensions.KeyValueQueryParamHelper);
 		}
 
@@ -154,11 +134,7 @@ export function GetThing(thingId: string): void {
 export function GetThing(thingId: string): void {
 	let urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, ""key1"", ""val1"");
-	let queryString = """";
-	if (urlParams.getAll().length > 0) {
-		queryString = ""?"" + urlParams.toString();
-	}
-	TestAjax(`/api/RoutedApi/thing/${thingId}${queryString}`, null);
+	TestAjax(`/api/RoutedApi/thing/${thingId}${getQueryString(urlParams)}`, null);
 }", ScriptExtensions.KeyValueQueryParamHelper);
 		}
 

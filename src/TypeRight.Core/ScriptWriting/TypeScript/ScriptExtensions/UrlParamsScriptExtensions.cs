@@ -15,24 +15,6 @@ namespace TypeRight.ScriptWriting.TypeScript.ScriptExtensions
 	}
 
 	/// <summary>
-	/// Adds the string URL code
-	/// </summary>
-	internal class AddStringUrlParamsScriptExtension : IScriptExtension
-	{
-		public const string UrlQueryStringVarName = "queryString";
-
-		public void Write(IScriptWriter writer)
-		{
-			writer.WriteLine($"let {UrlQueryStringVarName} = \"\";");
-			writer.WriteLine($"if ({InitUrlParamsScriptExtensions.UrlParamsVarName}.getAll().length > 0) {{");
-			writer.PushIndent();
-			writer.WriteLine($"{UrlQueryStringVarName} = \"?\" + {InitUrlParamsScriptExtensions.UrlParamsVarName}.toString();");
-			writer.PopIndent();
-			writer.WriteLine("}");
-		}
-	}
-
-	/// <summary>
 	/// Adds a simple key/value parameter to the query string
 	/// </summary>
 	internal class AddSimpleParameterToQueryStringScriptExtension : IScriptExtension

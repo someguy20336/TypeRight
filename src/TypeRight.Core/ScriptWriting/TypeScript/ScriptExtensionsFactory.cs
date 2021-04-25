@@ -54,7 +54,6 @@ namespace TypeRight.ScriptWriting.TypeScript
 					exts.Add(new AddComplexParameterToQueryStringScriptExtension(queryP.Name));
 				}
 
-				exts.Add(new AddStringUrlParamsScriptExtension());
 			}
 
 			return exts;

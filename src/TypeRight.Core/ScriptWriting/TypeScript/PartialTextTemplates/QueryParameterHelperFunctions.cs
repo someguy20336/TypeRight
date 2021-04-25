@@ -73,7 +73,18 @@ namespace TypeRight.ScriptWriting.TypeScript.PartialTextTemplates
             urlParams.append(key, val);
         }
     }
-}");
+}
+
+function ");
+            
+            #line 26 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\PartialTextTemplates\QueryParameterHelperFunctions.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(GetQueryStringFuncName));
+            
+            #line default
+            #line hidden
+            this.Write("(urlParams: URLSearchParams): string {\r\n    let queryString = urlParams.toString(" +
+                    ");\r\n    if (queryString !== \"\"\"\") {\r\n        queryString = \"\"?\"\" + queryString;\r" +
+                    "\n    }\r\n    return queryString;\r\n}");
             return this.GenerationEnvironment.ToString();
         }
     }

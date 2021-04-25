@@ -98,11 +98,7 @@ export function CustomMethod(param1: string, param2: string, param3?: string): v
 	tryAppendKeyValueToUrl(urlParams, ""param1"", param1);
 	tryAppendKeyValueToUrl(urlParams, ""param2"", param2);
 	tryAppendKeyValueToUrl(urlParams, ""param3"", param3);
-	let queryString = """";
-	if (urlParams.getAll().length > 0) {
-		queryString = ""?"" + urlParams.toString();
-	}
-	TestAjax(`/Test/CustomMethod${queryString}`, null);
+	TestAjax(`/Test/CustomMethod${getQueryString(urlParams)}`, null);
 }", ScriptExtensions.KeyValueQueryParamHelper);
 			
 		}
@@ -132,11 +128,7 @@ export function CustomMethod(param1: string, param2: string, userParam1: string,
 	tryAppendKeyValueToUrl(urlParams, ""param1"", param1);
 	tryAppendKeyValueToUrl(urlParams, ""param2"", param2);
 	tryAppendKeyValueToUrl(urlParams, ""param3"", param3);
-	let queryString = """";
-	if (urlParams.getAll().length > 0) {
-		queryString = ""?"" + urlParams.toString();
-	}
-	TestAjax(`/Test/CustomMethod${queryString}`, null, userParam1, userParam2);
+	TestAjax(`/Test/CustomMethod${getQueryString(urlParams)}`, null, userParam1, userParam2);
 }", ScriptExtensions.KeyValueQueryParamHelper);
 		}
 	}

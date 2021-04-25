@@ -22,3 +22,11 @@ function <#= TryAppendKeyValueFuncName #>(urlParams: URLSearchParams, key: strin
         }
     }
 }
+
+function <#= GetQueryStringFuncName #>(urlParams: URLSearchParams): string {
+    let queryString = urlParams.toString();
+    if (queryString !== """") {
+        queryString = ""?"" + queryString;
+    }
+    return queryString;
+}

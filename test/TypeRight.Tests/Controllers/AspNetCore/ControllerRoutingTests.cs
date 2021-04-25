@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using TypeRight.ScriptWriting.TypeScript.PartialTextTemplates;
 using TypeRight.Tests.TestBuilders;
 
 namespace TypeRight.Tests.Controllers.AspNetCore
@@ -67,6 +68,7 @@ namespace TypeRight.Tests.Controllers.AspNetCore
 					.AddLineOfCode("return null", 0)
 					.Commit()
 					;
+			string queryHelpers = new QueryParameterHelperFunctions(false).TransformText();
 
 			AssertControllerGeneratedText(
 			#region ScriptText	
@@ -99,25 +101,10 @@ export function GetThing(thingId: string): void {
 export function PutThingWithQuery(thingId: string, query: string, body: boolean): void {
 	let urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, ""query"", query);
-	let queryString = """";
-	if (urlParams.getAll().length > 0) {
-		queryString = ""?"" + urlParams.toString();
-	}
-	TestAjax(`/api/RoutedApi/thing/${thingId}/put${queryString}`, body);
+	TestAjax(`/api/RoutedApi/thing/${thingId}/put${getQueryString(urlParams)}`, body);
 }
 
-function tryAppendKeyValueToUrl(urlParams: URLSearchParams, key: string, value: any): void {
-    if (value !== null && typeof value !== ""undefined"") {
-        if (Array.isArray(val)) {
-            for (let aryVal of val) {
-                urlParams.append(key, aryVal.toString());
-            }
-        } else {
-            urlParams.append(key, val);
-        }
-    }
-}
-"
+" + queryHelpers
 			#endregion
 				);
 		}
@@ -144,11 +131,7 @@ function tryAppendKeyValueToUrl(urlParams: URLSearchParams, key: string, value: 
 export function GetThing(thingId: string): void {
 	let urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, ""thingId"", thingId);
-	let queryString = """";
-	if (urlParams.getAll().length > 0) {
-		queryString = ""?"" + urlParams.toString();
-	}
-	TestAjax(`/api/RoutedApi/thing${queryString}`, null);
+	TestAjax(`/api/RoutedApi/thing${getQueryString(urlParams)}`, null);
 }", ScriptExtensions.KeyValueQueryParamHelper);
 		}
 	}

@@ -74,11 +74,7 @@ export function GetThing(thingId: string): void {
 export function GetThing(thingId: string, queryP: string): void {
 	let urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, ""queryP"", queryP);
-	let queryString = """";
-	if (urlParams.getAll().length > 0) {
-		queryString = ""?"" + urlParams.toString();
-	}
-	fetchWrapper(""GET"", `/api/RoutedApi/thing/${thingId}${queryString}`, null);
+	fetchWrapper(""GET"", `/api/RoutedApi/thing/${thingId}${getQueryString(urlParams)}`, null);
 }", ScriptExtensions.KeyValueQueryParamHelper);
 		}
 

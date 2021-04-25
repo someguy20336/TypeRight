@@ -8,6 +8,7 @@
 	{
 		public const string TryAppendObjectFuncName = "tryAppendObjectValuesToUrl";
 		public const string TryAppendKeyValueFuncName = "tryAppendKeyValueToUrl";
+		public const string GetQueryStringFuncName = "getQueryString";
 		private readonly bool _needsAppendObjectFunc;
 
 		public QueryParameterHelperFunctions(bool needsAppendObjectFunc)

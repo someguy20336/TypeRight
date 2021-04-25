@@ -2,6 +2,7 @@
 using System.Collections.Specialized;
 using System.Linq;
 using TypeRight.Configuration;
+using TypeRight.ScriptWriting.TypeScript.PartialTextTemplates;
 using TypeRight.ScriptWriting.TypeScript.ScriptExtensions;
 using TypeRight.TypeProcessing;
 
@@ -29,7 +30,7 @@ namespace TypeRight.ScriptWriting
 			var actionQueryParams = action.Parameters.Where(p => p.BindingType == ActionParameterSourceType.Query).ToList();
 
 			string urlParamQueryPart = actionQueryParams.Count > 0 || _constantQueryParams.Count > 0
-				? $"${{{AddStringUrlParamsScriptExtension.UrlQueryStringVarName}}}"
+				? $"${{{QueryParameterHelperFunctions.GetQueryStringFuncName}({InitUrlParamsScriptExtensions.UrlParamsVarName})}}"
 				: ""; ;
 
 			// Add the route params
