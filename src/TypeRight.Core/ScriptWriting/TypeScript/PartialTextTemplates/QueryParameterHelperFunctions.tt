@@ -13,20 +13,20 @@ function <#= TryAppendObjectFuncName #>(urlParams: URLSearchParams, obj: any): v
 <# } #>
 function <#= TryAppendKeyValueFuncName #>(urlParams: URLSearchParams, key: string, value: any): void {
     if (value !== null && typeof value !== "undefined") {
-        if (Array.isArray(val)) {
-            for (let aryVal of val) {
+        if (Array.isArray(value)) {
+            for (let aryVal of value) {
                 urlParams.append(key, aryVal.toString());
             }
         } else {
-            urlParams.append(key, val);
+            urlParams.append(key, value);
         }
     }
 }
 
 function <#= GetQueryStringFuncName #>(urlParams: URLSearchParams): string {
     let queryString = urlParams.toString();
-    if (queryString !== """") {
-        queryString = ""?"" + queryString;
+    if (queryString !== "") {
+        queryString = "?" + queryString;
     }
     return queryString;
 }

@@ -65,12 +65,12 @@ namespace TypeRight.ScriptWriting.TypeScript.PartialTextTemplates
             #line hidden
             this.Write(@"(urlParams: URLSearchParams, key: string, value: any): void {
     if (value !== null && typeof value !== ""undefined"") {
-        if (Array.isArray(val)) {
-            for (let aryVal of val) {
+        if (Array.isArray(value)) {
+            for (let aryVal of value) {
                 urlParams.append(key, aryVal.toString());
             }
         } else {
-            urlParams.append(key, val);
+            urlParams.append(key, value);
         }
     }
 }
@@ -83,8 +83,8 @@ function ");
             #line default
             #line hidden
             this.Write("(urlParams: URLSearchParams): string {\r\n    let queryString = urlParams.toString(" +
-                    ");\r\n    if (queryString !== \"\"\"\") {\r\n        queryString = \"\"?\"\" + queryString;\r" +
-                    "\n    }\r\n    return queryString;\r\n}");
+                    ");\r\n    if (queryString !== \"\") {\r\n        queryString = \"?\" + queryString;\r\n   " +
+                    " }\r\n    return queryString;\r\n}");
             return this.GenerationEnvironment.ToString();
         }
     }
