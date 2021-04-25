@@ -69,6 +69,7 @@ namespace TypeRight
 			parameters.TypeIterator.IterateTypes(visitor);
 
 			ExtractedTypeCollection typeCollection = visitor.TypeCollection;
+			ScriptTemplateFactory scriptTemplateFactory = new ScriptTemplateFactory(configOptions);
 
 			// Write the object script text
 			foreach (var typeGroup in typeCollection.GroupBy(t => t.TargetPath))
@@ -79,7 +80,7 @@ namespace TypeRight
 					typeGroup.Key
 					);
 
-				var typeTemplate = ScriptTemplateFactory.CreateTypeTextTemplate();
+				var typeTemplate = scriptTemplateFactory.CreateTypeTextTemplate();
 				string scriptText = typeTemplate.GetText(scriptContext);
 				File.WriteAllText(typeGroup.Key, scriptText);
 			}
@@ -96,8 +97,8 @@ namespace TypeRight
 					fetchResolver
 					);
 
-				var controllerTemplate = ScriptTemplateFactory.CreateControllerTextTemplate();
-				string controllerScript = controllerTemplate.GetText(context);
+				var controllerTemplate = scriptTemplateFactory.CreateControllerTextTemplate(context);
+				string controllerScript = controllerTemplate.GetText();
 				File.WriteAllText(context.OutputPath, controllerScript);
 			}
 

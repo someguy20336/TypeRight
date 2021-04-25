@@ -26,16 +26,9 @@ namespace TypeRight.ScriptWriting
 
 		public string ResolveParameter(MvcAction action)
 		{
-			var urlParams = action.Parameters.Where(p => p.BindingType == ActionParameterSourceType.Query).ToList();
+			var actionQueryParams = action.Parameters.Where(p => p.BindingType == ActionParameterSourceType.Query).ToList();
 
-			NameValueCollection queryParams = new NameValueCollection(_constantQueryParams);
-
-			foreach (var p in urlParams)
-			{
-				queryParams.Add(p.Name, $"${{ { p.Name} ?? \"\" }}");
-			}
-
-			string urlParamQueryPart = urlParams.Count > 0
+			string urlParamQueryPart = actionQueryParams.Count > 0 || _constantQueryParams.Count > 0
 				? $"${{{AddStringUrlParamsScriptExtension.UrlQueryStringVarName}}}"
 				: ""; ;
 

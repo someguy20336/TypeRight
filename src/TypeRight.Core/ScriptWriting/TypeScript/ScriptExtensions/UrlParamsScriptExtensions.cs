@@ -50,6 +50,23 @@ namespace TypeRight.ScriptWriting.TypeScript.ScriptExtensions
 		}
 	}
 
+	internal class AddKeyValueToQueryStringScriptExtension : IScriptExtension
+	{
+		private readonly string _key;
+		private readonly string _value;
+
+		public AddKeyValueToQueryStringScriptExtension(string key, string value)
+		{
+			_key = key;
+			_value = value;
+		}
+
+		public void Write(IScriptWriter writer)
+		{
+			writer.WriteLine($"{QueryParameterHelperFunctions.TryAppendKeyValueFuncName}({InitUrlParamsScriptExtensions.UrlParamsVarName}, \"{_key}\", \"{_value}\");");
+		}
+	}
+
 	internal class AddComplexParameterToQueryStringScriptExtension : IScriptExtension
 	{
 		private string _paramName;

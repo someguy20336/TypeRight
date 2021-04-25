@@ -165,7 +165,8 @@ namespace TypeRight.Tests.Controllers
 			var packageTester = WorkspaceBuilder.GetPackageTester();
 			var context = CreateContext(packageTester);
 
-			string scriptText = ScriptTemplateFactory.CreateControllerTextTemplate().GetText(context);
+			var templateFactory = new ScriptTemplateFactory(ConfigOptions);
+			string scriptText = templateFactory.CreateControllerTextTemplate(context).GetText();
 			return scriptText;
 		}
 

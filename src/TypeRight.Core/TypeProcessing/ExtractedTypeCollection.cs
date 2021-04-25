@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Collections;
 using TypeRight.TypeFilters;
-using TypeRight.Attributes;
 
 namespace TypeRight.TypeProcessing
 {

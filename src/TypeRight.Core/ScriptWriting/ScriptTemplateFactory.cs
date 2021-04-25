@@ -1,11 +1,20 @@
-﻿using TypeRight.ScriptWriting.TypeScript.TextTemplates;
+﻿using TypeRight.Configuration;
+using TypeRight.ScriptWriting.TypeScript;
+using TypeRight.ScriptWriting.TypeScript.TextTemplates;
 
 namespace TypeRight.ScriptWriting
 {
 	public class ScriptTemplateFactory
 	{
-		public static ITypeTextTemplate CreateTypeTextTemplate() => new ModuleTypeTextTemplate();
+		private ScriptExtensionsFactory _scriptExtensions;
+		public ScriptTemplateFactory(ConfigOptions options)
+		{
+			_scriptExtensions = new ScriptExtensionsFactory(options.QueryParams);
+		}
 
-		public static IControllerTextTemplate CreateControllerTextTemplate() => new MvcControllerTextTemplate();
+		public ITypeTextTemplate CreateTypeTextTemplate() => new ModuleTypeTextTemplate();
+
+		public IControllerTextTemplate CreateControllerTextTemplate(ControllerContext context) 
+			=> new MvcControllerTextTemplate(context, _scriptExtensions);
 	}
 }

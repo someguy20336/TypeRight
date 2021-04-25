@@ -12,12 +12,12 @@ namespace TypeRight.ScriptWriting.TypeScript.PartialTextTemplates
 		private TypeFormatter _formatter;
 		private IEnumerable<IScriptExtension> _bodyExtensions;
 
-		public MvcActionTextTemplate(MvcAction action, FetchFunctionDescriptor fetchFunc, TypeFormatter formatter)
+		public MvcActionTextTemplate(MvcAction action, ScriptExtensionsFactory extensionsFactory, FetchFunctionDescriptor fetchFunc, TypeFormatter formatter)
 		{
 			_action = action;
 			_formatter = formatter;
 			_fetchFunc = fetchFunc;
-			_bodyExtensions = ScriptExtensionsFactory.CreateForActionFunctionBody(action);
+			_bodyExtensions = extensionsFactory.CreateForActionFunctionBody(action);
 		}
 		public void PushIndent()
 		{
