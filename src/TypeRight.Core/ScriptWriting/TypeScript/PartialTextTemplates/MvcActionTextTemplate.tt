@@ -4,7 +4,7 @@
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
 /**
- * <#= _curAction.SummaryComments #>
+ * <#= _action.SummaryComments #>
 <#
 foreach (var paramComment in GetParameterComments()) {
 #>
@@ -14,5 +14,6 @@ foreach (var paramComment in GetParameterComments()) {
 #>
  */
 export function <#= BuildActionSignature() #> {
+<# WriteBodyExtensions(); #>
 	<#= BuildFetchFunctionName() #>(<#= BuildFetchParameters() #>);
 }

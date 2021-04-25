@@ -57,16 +57,16 @@ namespace TypeRight.ScriptWriting.TypeScript.PartialTextTemplates
             
             #line default
             #line hidden
-            this.Write("(urlParams, key, val);\r\n        }\r\n    }\r\n}\r\n");
+            this.Write("(urlParams, key, val);\r\n        }\r\n    }\r\n}\r\n\r\n");
             
-            #line 18 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\PartialTextTemplates\QueryParameterHelperFunctions.tt"
+            #line 19 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\PartialTextTemplates\QueryParameterHelperFunctions.tt"
  } 
             
             #line default
             #line hidden
             this.Write("function ");
             
-            #line 19 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\PartialTextTemplates\QueryParameterHelperFunctions.tt"
+            #line 20 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\PartialTextTemplates\QueryParameterHelperFunctions.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TryAppendKeyValueFuncName));
             
             #line default

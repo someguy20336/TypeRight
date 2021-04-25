@@ -2,6 +2,7 @@
 using System.Collections.Specialized;
 using System.Linq;
 using TypeRight.Configuration;
+using TypeRight.ScriptWriting.TypeScript.ScriptExtensions;
 using TypeRight.TypeProcessing;
 
 namespace TypeRight.ScriptWriting
@@ -34,7 +35,9 @@ namespace TypeRight.ScriptWriting
 				queryParams.Add(p.Name, $"${{ { p.Name} ?? \"\" }}");
 			}
 
-			string urlParamQuery = queryParams.ToQueryString();
+			string urlParamQueryPart = urlParams.Count > 0
+				? $"${{{AddStringUrlParamsScriptExtension.UrlQueryStringVarName}}}"
+				: ""; ;
 
 			// Add the route params
 			string route = action.GetRouteTemplate(_baseUrl);
@@ -44,7 +47,7 @@ namespace TypeRight.ScriptWriting
 				route = route.Replace($"{{{paramName}}}", $"${{{paramName}}}");
 			}
 
-			return $"`{route}{urlParamQuery}`";
+			return $"`{route}{urlParamQueryPart}`";
 		}
 
 	}

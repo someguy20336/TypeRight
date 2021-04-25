@@ -74,16 +74,23 @@ foreach (var paramComment in GetParameterComments()) {
             
             #line default
             #line hidden
-            this.Write(" {\r\n\t");
+            this.Write(" {\r\n");
             
             #line 17 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\PartialTextTemplates\MvcActionTextTemplate.tt"
+ WriteBodyExtensions(); 
+            
+            #line default
+            #line hidden
+            this.Write("\t");
+            
+            #line 18 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\PartialTextTemplates\MvcActionTextTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(BuildFetchFunctionName()));
             
             #line default
             #line hidden
             this.Write("(");
             
-            #line 17 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\PartialTextTemplates\MvcActionTextTemplate.tt"
+            #line 18 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\PartialTextTemplates\MvcActionTextTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(BuildFetchParameters()));
             
             #line default

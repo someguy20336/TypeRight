@@ -5,17 +5,23 @@ using TypeRight.TypeProcessing;
 
 namespace TypeRight.ScriptWriting.TypeScript.PartialTextTemplates
 {
-	partial class MvcActionTextTemplate
+	partial class MvcActionTextTemplate : IScriptWriter
 	{
 		private MvcAction _action;
 		private FetchFunctionDescriptor _fetchFunc;
 		private TypeFormatter _formatter;
+		private IEnumerable<IScriptExtension> _bodyExtensions;
 
 		public MvcActionTextTemplate(MvcAction action, FetchFunctionDescriptor fetchFunc, TypeFormatter formatter)
 		{
 			_action = action;
 			_formatter = formatter;
 			_fetchFunc = fetchFunc;
+			_bodyExtensions = ScriptExtensionsFactory.CreateForActionFunctionBody(action);
+		}
+		public void PushIndent()
+		{
+			PushIndent("\t");
 		}
 
 		/// <summary>
@@ -95,6 +101,15 @@ namespace TypeRight.ScriptWriting.TypeScript.PartialTextTemplates
 			return _action.ParameterComments.Where(kv => allParams.Contains(kv.Key));
 		}
 
+		private void WriteBodyExtensions()
+		{
+			PushIndent();
+			foreach (var ext in _bodyExtensions)
+			{
+				ext.Write(this);
+			}
+			PopIndent();
+		}
 		private string ReplaceTokens(string typeStr)
 		{
 			return typeStr.Replace("$returnType$", _action.ReturnType.FormatType(_formatter));

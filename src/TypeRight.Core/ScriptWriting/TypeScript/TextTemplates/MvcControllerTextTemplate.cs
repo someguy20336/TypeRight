@@ -76,7 +76,7 @@ foreach (var oneAction in GetActions()) {
             #line hidden
             
             #line 21 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\TextTemplates\MvcControllerTextTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(TryWriteQueryParamsHelpers()));
+ RunPostScriptExtensions(); 
             
             #line default
             #line hidden
