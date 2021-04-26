@@ -12,7 +12,7 @@ namespace TypeRight.ScriptWriting.TypeScript
 
 		public ScriptExtensionsFactory(NameValueCollection constantQueryParams)
 		{
-			_constantQueryParams = constantQueryParams;
+			_constantQueryParams = constantQueryParams ?? new NameValueCollection();
 		}
 
 		public IEnumerable<IScriptExtension> CreatePostControllerScript(ControllerContext context)
