@@ -17,11 +17,8 @@ fromQuerySimpleTest.addEventListener("click", async () => {
 
 fromQueryComplexTest.addEventListener("click", async () => {
     let res = await api.ComplexFromQuery("theID", {
-        NoNewtonsoftOverride: null,
         PropOne: 1234,
-        PropTwo: "string value!",
-        overrideNewtonsoft: null,
-        overrideSysText: null        
+        PropTwo: "string value!"     
     });
 
     textArea.value = JSON.stringify(res);
