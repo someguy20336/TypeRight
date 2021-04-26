@@ -59,7 +59,7 @@ export interface ModelWithArray {
 	ArrayType: number[];
 }
 
-/** Start some doc here */
+/**  */
 export interface NetStandardClass {
 	/**  */
 	HelloThere: number;

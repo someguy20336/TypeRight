@@ -4,6 +4,25 @@ import * as CustomGroup from "../CustomGroup";
 import * as ServerObjects from "../ServerObjects";
 import * as Models from "./Models";
 
+function tryAppendKeyValueToUrl(urlParams: URLSearchParams, key: string, value: any): void {
+    if (value !== null && typeof value !== "undefined") {
+        if (Array.isArray(value)) {
+            for (let aryVal of value) {
+                urlParams.append(key, aryVal.toString());
+            }
+        } else {
+            urlParams.append(key, value);
+        }
+    }
+}
+
+function getQueryString(urlParams: URLSearchParams): string {
+    let queryString = urlParams.toString();
+    if (queryString !== "") {
+        queryString = "?" + queryString;
+    }
+    return queryString;
+}
 
 /**
  * 
@@ -69,22 +88,3 @@ export function TestJson(abort?: AbortSignal): Promise<ServerObjects.NetStandard
 	return fetchWrapper("GET", `/Home/TestJson${getQueryString(urlParams)}`, null, abort);
 }
 
-function tryAppendKeyValueToUrl(urlParams: URLSearchParams, key: string, value: any): void {
-    if (value !== null && typeof value !== "undefined") {
-        if (Array.isArray(value)) {
-            for (let aryVal of value) {
-                urlParams.append(key, aryVal.toString());
-            }
-        } else {
-            urlParams.append(key, value);
-        }
-    }
-}
-
-function getQueryString(urlParams: URLSearchParams): string {
-    let queryString = urlParams.toString();
-    if (queryString !== "") {
-        queryString = "?" + queryString;
-    }
-    return queryString;
-}

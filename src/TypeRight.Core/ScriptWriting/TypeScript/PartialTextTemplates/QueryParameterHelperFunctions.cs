@@ -28,37 +28,9 @@ namespace TypeRight.ScriptWriting.TypeScript.PartialTextTemplates
         /// </summary>
         public virtual string TransformText()
         {
+            this.Write("function ");
             
             #line 6 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\PartialTextTemplates\QueryParameterHelperFunctions.tt"
- if (_needsAppendObjectFunc) { 
-            
-            #line default
-            #line hidden
-            this.Write("function ");
-            
-            #line 7 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\PartialTextTemplates\QueryParameterHelperFunctions.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(TryAppendObjectFuncName));
-            
-            #line default
-            #line hidden
-            this.Write("(urlParams: URLSearchParams, obj: any): void {\r\n    for (let [key, val] of Object" +
-                    ".entries(obj)) {\r\n        ");
-            
-            #line 9 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\PartialTextTemplates\QueryParameterHelperFunctions.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(TryAppendKeyValueFuncName));
-            
-            #line default
-            #line hidden
-            this.Write("(urlParams, key, val);\r\n    }\r\n}\r\n\r\n");
-            
-            #line 13 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\PartialTextTemplates\QueryParameterHelperFunctions.tt"
- } 
-            
-            #line default
-            #line hidden
-            this.Write("function ");
-            
-            #line 14 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\PartialTextTemplates\QueryParameterHelperFunctions.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TryAppendKeyValueFuncName));
             
             #line default
@@ -74,8 +46,36 @@ namespace TypeRight.ScriptWriting.TypeScript.PartialTextTemplates
         }
     }
 }
-
-function ");
+");
+            
+            #line 17 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\PartialTextTemplates\QueryParameterHelperFunctions.tt"
+ if (_needsAppendObjectFunc) { 
+            
+            #line default
+            #line hidden
+            this.Write("\r\nfunction ");
+            
+            #line 19 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\PartialTextTemplates\QueryParameterHelperFunctions.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(TryAppendObjectFuncName));
+            
+            #line default
+            #line hidden
+            this.Write("(urlParams: URLSearchParams, obj: any): void {\r\n    for (let [key, val] of Object" +
+                    ".entries(obj)) {\r\n        ");
+            
+            #line 21 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\PartialTextTemplates\QueryParameterHelperFunctions.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(TryAppendKeyValueFuncName));
+            
+            #line default
+            #line hidden
+            this.Write("(urlParams, key, val);\r\n    }\r\n}\r\n");
+            
+            #line 24 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\PartialTextTemplates\QueryParameterHelperFunctions.tt"
+ } 
+            
+            #line default
+            #line hidden
+            this.Write("\r\nfunction ");
             
             #line 26 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\PartialTextTemplates\QueryParameterHelperFunctions.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(GetQueryStringFuncName));
@@ -84,7 +84,7 @@ function ");
             #line hidden
             this.Write("(urlParams: URLSearchParams): string {\r\n    let queryString = urlParams.toString(" +
                     ");\r\n    if (queryString !== \"\") {\r\n        queryString = \"?\" + queryString;\r\n   " +
-                    " }\r\n    return queryString;\r\n}");
+                    " }\r\n    return queryString;\r\n}\r\n");
             return this.GenerationEnvironment.ToString();
         }
     }

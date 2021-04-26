@@ -147,13 +147,13 @@ namespace TypeRight.Tests.Controllers
 				.ToArray();
 			scriptText = string.Join(Environment.NewLine, scriptLines).Trim();
 
-			expectedText = expectedText.Trim();
-
 			if (expectedExtensions.HasFlag(ScriptExtensions.KeyValueQueryParamHelper) || expectedExtensions.HasFlag(ScriptExtensions.ObjectQueryParamHelper))
 			{
 				var queryParamHelpers = new QueryParameterHelperFunctions(expectedExtensions.HasFlag(ScriptExtensions.ObjectQueryParamHelper));
-				expectedText += Environment.NewLine + Environment.NewLine + queryParamHelpers.TransformText();
+				expectedText = queryParamHelpers.TransformText() + expectedText;
 			}
+
+			expectedText = expectedText.Trim();
 
 			Assert.AreEqual(expectedText, scriptText);
 		}

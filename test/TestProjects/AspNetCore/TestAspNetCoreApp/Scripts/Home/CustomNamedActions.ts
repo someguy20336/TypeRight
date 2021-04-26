@@ -4,6 +4,31 @@ import * as CustomGroup from "../CustomGroup";
 import * as ServerObjects from "../ServerObjects";
 import * as Models from "./Models";
 
+function tryAppendKeyValueToUrl(urlParams: URLSearchParams, key: string, value: any): void {
+    if (value !== null && typeof value !== "undefined") {
+        if (Array.isArray(value)) {
+            for (let aryVal of value) {
+                urlParams.append(key, aryVal.toString());
+            }
+        } else {
+            urlParams.append(key, value);
+        }
+    }
+}
+
+function tryAppendObjectValuesToUrl(urlParams: URLSearchParams, obj: any): void {
+    for (let [key, val] of Object.entries(obj)) {
+        tryAppendKeyValueToUrl(urlParams, key, val);
+    }
+}
+
+function getQueryString(urlParams: URLSearchParams): string {
+    let queryString = urlParams.toString();
+    if (queryString !== "") {
+        queryString = "?" + queryString;
+    }
+    return queryString;
+}
 
 /**
  * 
@@ -155,28 +180,3 @@ export function WithFromQuery(id: string, body: Models.CustomGroupObj3, abort?: 
 	return fetchWrapper("POST", `/api/TestWebApi${getQueryString(urlParams)}`, body, abort);
 }
 
-function tryAppendObjectValuesToUrl(urlParams: URLSearchParams, obj: any): void {
-    for (let [key, val] of Object.entries(obj)) {
-        tryAppendKeyValueToUrl(urlParams, key, val);
-    }
-}
-
-function tryAppendKeyValueToUrl(urlParams: URLSearchParams, key: string, value: any): void {
-    if (value !== null && typeof value !== "undefined") {
-        if (Array.isArray(value)) {
-            for (let aryVal of value) {
-                urlParams.append(key, aryVal.toString());
-            }
-        } else {
-            urlParams.append(key, value);
-        }
-    }
-}
-
-function getQueryString(urlParams: URLSearchParams): string {
-    let queryString = urlParams.toString();
-    if (queryString !== "") {
-        queryString = "?" + queryString;
-    }
-    return queryString;
-}

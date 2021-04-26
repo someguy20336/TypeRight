@@ -50,9 +50,16 @@ foreach (var imp in GetImports()) {
             
             #line default
             #line hidden
-            this.Write("\r\n\r\n");
+            this.Write("\r\n");
             
-            #line 14 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\TextTemplates\MvcControllerTextTemplate.tt"
+            #line 13 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\TextTemplates\MvcControllerTextTemplate.tt"
+ RunPostScriptExtensions(); 
+            
+            #line default
+            #line hidden
+            this.Write("\r\n");
+            
+            #line 15 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\TextTemplates\MvcControllerTextTemplate.tt"
 
 foreach (var oneAction in GetActions()) {
 
@@ -60,23 +67,17 @@ foreach (var oneAction in GetActions()) {
             #line default
             #line hidden
             
-            #line 17 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\TextTemplates\MvcControllerTextTemplate.tt"
+            #line 18 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\TextTemplates\MvcControllerTextTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(CreateTemplateForAction(oneAction).TransformText()));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 18 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\TextTemplates\MvcControllerTextTemplate.tt"
+            #line 19 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\TextTemplates\MvcControllerTextTemplate.tt"
 
 }
 
-            
-            #line default
-            #line hidden
-            
-            #line 21 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\TextTemplates\MvcControllerTextTemplate.tt"
- RunPostScriptExtensions(); 
             
             #line default
             #line hidden

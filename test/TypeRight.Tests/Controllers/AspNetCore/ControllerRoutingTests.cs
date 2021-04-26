@@ -75,7 +75,7 @@ namespace TypeRight.Tests.Controllers.AspNetCore
 				@"
 import { TestAjax, callDelete } from ""../../FolderM/FolderN/AjaxFunc"";
 
-
+" + queryHelpers + @"
 /**
  * 
  * @param thingId 
@@ -104,7 +104,7 @@ export function PutThingWithQuery(thingId: string, query: string, body: boolean)
 	TestAjax(`/api/RoutedApi/thing/${thingId}/put${getQueryString(urlParams)}`, body);
 }
 
-" + queryHelpers
+"
 			#endregion
 				);
 		}
