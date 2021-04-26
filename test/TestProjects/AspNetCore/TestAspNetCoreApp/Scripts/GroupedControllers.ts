@@ -7,7 +7,10 @@ import { fetchWrapper } from "./CallServiceStuff";
  * @param id 
  */
 export function DeleteFirst(id: number, abort?: AbortSignal): Promise<any> {
-	return fetchWrapper("DELETE", `/api/FirstGrouped/${id}?param1=val1&param2=val2`, null, abort);
+	let urlParams = new URLSearchParams();
+	tryAppendKeyValueToUrl(urlParams, "param1", "val1");
+	tryAppendKeyValueToUrl(urlParams, "param2", "val2");
+	return fetchWrapper("DELETE", `/api/FirstGrouped/${id}${getQueryString(urlParams)}`, null, abort);
 }
 
 /**
@@ -15,14 +18,20 @@ export function DeleteFirst(id: number, abort?: AbortSignal): Promise<any> {
  * @param id 
  */
 export function DeleteSecond(id: number, abort?: AbortSignal): Promise<any> {
-	return fetchWrapper("DELETE", `/api/SecondGrouped/${id}?param1=val1&param2=val2`, null, abort);
+	let urlParams = new URLSearchParams();
+	tryAppendKeyValueToUrl(urlParams, "param1", "val1");
+	tryAppendKeyValueToUrl(urlParams, "param2", "val2");
+	return fetchWrapper("DELETE", `/api/SecondGrouped/${id}${getQueryString(urlParams)}`, null, abort);
 }
 
 /**
  * 
  */
 export function GetFirst(abort?: AbortSignal): Promise<string[]> {
-	return fetchWrapper("GET", `/api/FirstGrouped?param1=val1&param2=val2`, null, abort);
+	let urlParams = new URLSearchParams();
+	tryAppendKeyValueToUrl(urlParams, "param1", "val1");
+	tryAppendKeyValueToUrl(urlParams, "param2", "val2");
+	return fetchWrapper("GET", `/api/FirstGrouped${getQueryString(urlParams)}`, null, abort);
 }
 
 /**
@@ -30,14 +39,20 @@ export function GetFirst(abort?: AbortSignal): Promise<string[]> {
  * @param id 
  */
 export function GetFirstById(id: number, abort?: AbortSignal): Promise<string> {
-	return fetchWrapper("GET", `/api/FirstGrouped/${id}?param1=val1&param2=val2`, null, abort);
+	let urlParams = new URLSearchParams();
+	tryAppendKeyValueToUrl(urlParams, "param1", "val1");
+	tryAppendKeyValueToUrl(urlParams, "param2", "val2");
+	return fetchWrapper("GET", `/api/FirstGrouped/${id}${getQueryString(urlParams)}`, null, abort);
 }
 
 /**
  * 
  */
 export function GetSecond(abort?: AbortSignal): Promise<string[]> {
-	return fetchWrapper("GET", `/api/SecondGrouped?param1=val1&param2=val2`, null, abort);
+	let urlParams = new URLSearchParams();
+	tryAppendKeyValueToUrl(urlParams, "param1", "val1");
+	tryAppendKeyValueToUrl(urlParams, "param2", "val2");
+	return fetchWrapper("GET", `/api/SecondGrouped${getQueryString(urlParams)}`, null, abort);
 }
 
 /**
@@ -45,7 +60,10 @@ export function GetSecond(abort?: AbortSignal): Promise<string[]> {
  * @param id 
  */
 export function GetSecondById(id: number, abort?: AbortSignal): Promise<string> {
-	return fetchWrapper("GET", `/api/SecondGrouped/${id}?param1=val1&param2=val2`, null, abort);
+	let urlParams = new URLSearchParams();
+	tryAppendKeyValueToUrl(urlParams, "param1", "val1");
+	tryAppendKeyValueToUrl(urlParams, "param2", "val2");
+	return fetchWrapper("GET", `/api/SecondGrouped/${id}${getQueryString(urlParams)}`, null, abort);
 }
 
 /**
@@ -53,7 +71,10 @@ export function GetSecondById(id: number, abort?: AbortSignal): Promise<string> 
  * @param value 
  */
 export function PostFirst(value: string, abort?: AbortSignal): Promise<any> {
-	return fetchWrapper("POST", `/api/FirstGrouped?param1=val1&param2=val2`, value, abort);
+	let urlParams = new URLSearchParams();
+	tryAppendKeyValueToUrl(urlParams, "param1", "val1");
+	tryAppendKeyValueToUrl(urlParams, "param2", "val2");
+	return fetchWrapper("POST", `/api/FirstGrouped${getQueryString(urlParams)}`, value, abort);
 }
 
 /**
@@ -61,7 +82,10 @@ export function PostFirst(value: string, abort?: AbortSignal): Promise<any> {
  * @param value 
  */
 export function PostSecond(value: string, abort?: AbortSignal): Promise<any> {
-	return fetchWrapper("POST", `/api/SecondGrouped?param1=val1&param2=val2`, value, abort);
+	let urlParams = new URLSearchParams();
+	tryAppendKeyValueToUrl(urlParams, "param1", "val1");
+	tryAppendKeyValueToUrl(urlParams, "param2", "val2");
+	return fetchWrapper("POST", `/api/SecondGrouped${getQueryString(urlParams)}`, value, abort);
 }
 
 /**
@@ -70,7 +94,10 @@ export function PostSecond(value: string, abort?: AbortSignal): Promise<any> {
  * @param value 
  */
 export function PutFirst(id: number, value: string, abort?: AbortSignal): Promise<any> {
-	return fetchWrapper("PUT", `/api/FirstGrouped/${id}?param1=val1&param2=val2`, value, abort);
+	let urlParams = new URLSearchParams();
+	tryAppendKeyValueToUrl(urlParams, "param1", "val1");
+	tryAppendKeyValueToUrl(urlParams, "param2", "val2");
+	return fetchWrapper("PUT", `/api/FirstGrouped/${id}${getQueryString(urlParams)}`, value, abort);
 }
 
 /**
@@ -79,6 +106,28 @@ export function PutFirst(id: number, value: string, abort?: AbortSignal): Promis
  * @param value 
  */
 export function PutSecond(id: number, value: string, abort?: AbortSignal): Promise<any> {
-	return fetchWrapper("PUT", `/api/SecondGrouped/${id}?param1=val1&param2=val2`, value, abort);
+	let urlParams = new URLSearchParams();
+	tryAppendKeyValueToUrl(urlParams, "param1", "val1");
+	tryAppendKeyValueToUrl(urlParams, "param2", "val2");
+	return fetchWrapper("PUT", `/api/SecondGrouped/${id}${getQueryString(urlParams)}`, value, abort);
 }
 
+function tryAppendKeyValueToUrl(urlParams: URLSearchParams, key: string, value: any): void {
+    if (value !== null && typeof value !== "undefined") {
+        if (Array.isArray(value)) {
+            for (let aryVal of value) {
+                urlParams.append(key, aryVal.toString());
+            }
+        } else {
+            urlParams.append(key, value);
+        }
+    }
+}
+
+function getQueryString(urlParams: URLSearchParams): string {
+    let queryString = urlParams.toString();
+    if (queryString !== "") {
+        queryString = "?" + queryString;
+    }
+    return queryString;
+}

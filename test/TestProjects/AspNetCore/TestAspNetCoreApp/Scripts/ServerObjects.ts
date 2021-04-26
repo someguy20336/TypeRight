@@ -51,6 +51,14 @@ export interface GenericModel<T> {
 	Prop1: T;
 }
 
+/**  */
+export interface ModelWithArray {
+	/**  */
+	SimpleType: string;
+	/**  */
+	ArrayType: number[];
+}
+
 /** Start some doc here */
 export interface NetStandardClass {
 	/**  */

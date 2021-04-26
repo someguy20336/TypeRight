@@ -36,6 +36,13 @@ namespace TestAspNetCoreApp.Models
 	}
 
 	[ScriptObject]
+	public class ModelWithArray
+    {
+        public string SimpleType { get; set; }
+        public int[] ArrayType { get; set; }
+    }
+
+	[ScriptObject]
 	public class ASimpleModel<T>
 	{
 		public T GenericThing { get; set; }
