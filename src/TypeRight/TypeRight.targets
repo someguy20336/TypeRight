@@ -13,6 +13,14 @@
 		Name="ScriptGeneration"
 		BeforeTargets="CompileTypeScript;CoreCompile;PreComputeCompileTypeScriptWithTSConfig">
 
+		<Message Condition="$(BuildingProject) != true" Text="BuildProject not set - skipping generation" Importance="normal"></Message>
+		<Message Condition="$(SkipTypeRight) == true" Text="SkipTypeRight flag set - skipping generation" Importance="normal"></Message>
+
+		<CallTarget Condition="$(BuildingProject) == true And $(SkipTypeRight) != true" Targets="ExecuteTypeRightScriptGeneration"></CallTarget>
+		
+	</Target>
+
+	<Target Name="ExecuteTypeRightScriptGeneration">
 		<PropertyGroup>
 			<TypeRightExe />
 			<ExecOutput />
@@ -30,22 +38,19 @@
 			<Output TaskParameter="CombinedPaths" PropertyName="TypeRightExe"/>
 		</CombinePath>
 
-		<Message Condition="$(BuildingProject) != true" Text="BuildProject not set - skipping" Importance="normal"></Message>
-		
 		<Exec Condition="$(BuildingProject) == true" Command="&quot;$(TypeRightExe)&quot; &quot;$(ProjectPath)&quot;" ConsoleToMSBuild="true">
 			<Output TaskParameter="ConsoleOutput" PropertyName="ExecOutput"/>
 		</Exec>
 
-		<Message Condition="$(ExecOutput) != ''" 
-				 Text="Message while generating scripts: $(ExecOutput)" 
-				 Importance="high">			
+		<Message Condition="$(ExecOutput) != ''"
+				 Text="Message while generating scripts: $(ExecOutput)"
+				 Importance="high">
 		</Message>
-		
-		<Message Condition="$(ExecOutput) == '' And $(BuildingInsideVisualStudio) == true" 
-				 Text="Warning! You are generating scripts using the MSBuild task inside Visual Studio. Consider installing the extension for a faster build." 
-				 Importance="high">			
+
+		<Message Condition="$(ExecOutput) == '' And $(BuildingInsideVisualStudio) == true"
+				 Text="Warning! You are generating scripts using the MSBuild task inside Visual Studio. Consider installing the extension for a faster build."
+				 Importance="high">
 		</Message>
-		
 	</Target>
 
 </Project>
