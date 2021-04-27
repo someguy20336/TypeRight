@@ -33,7 +33,8 @@ namespace TestAspNetCoreApp.Models
 
 	public class CustomGroupObj3
 	{
-		public CustomGroupObject1 Obj1 { get; set; }
+        public string StringProp { get; set; }
+        public CustomGroupObject1 Obj1 { get; set; }
 
 		public CustomGroupObj2<NetStandardEnum> GenericArg { get; set; }
 	}

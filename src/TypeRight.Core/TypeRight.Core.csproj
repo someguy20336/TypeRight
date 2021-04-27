@@ -1,93 +1,112 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>TypeRight.snk</AssemblyOriginatorKeyFile>
-    <FileVersion>1.0.0.0</FileVersion>
-    <RootNamespace>TypeRight</RootNamespace>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<SignAssembly>true</SignAssembly>
+		<AssemblyOriginatorKeyFile>TypeRight.snk</AssemblyOriginatorKeyFile>
+		<FileVersion>1.0.0.0</FileVersion>
+		<RootNamespace>TypeRight</RootNamespace>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <None Include="ScriptWriting\TypeScript\PartialTextTemplates\TypeScriptClassTextTemplate.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>TypeScriptClassTextTemplate.tt</DependentUpon>
-    </None>
-  </ItemGroup>
+	<ItemGroup>
+		<None Include="ScriptWriting\TypeScript\PartialTextTemplates\QueryParameterHelperFunctions.cs">
+		  <DesignTime>True</DesignTime>
+		  <AutoGen>True</AutoGen>
+		  <DependentUpon>QueryParameterHelperFunctions.tt</DependentUpon>
+		</None>
+		<None Include="ScriptWriting\TypeScript\PartialTextTemplates\TypeScriptClassTextTemplate.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>TypeScriptClassTextTemplate.tt</DependentUpon>
+		</None>
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="System.CodeDom" Version="4.7.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+		<PackageReference Include="System.CodeDom" Version="4.7.0" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\TypeRight.Attributes\TypeRight.Attributes.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\TypeRight.Attributes\TypeRight.Attributes.csproj" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Update="ScriptWriting\TypeScript\PartialTextTemplates\EnumTextTemplate.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>EnumTextTemplate.cs</LastGenOutput>
-    </None>
-    <None Update="ScriptWriting\TypeScript\PartialTextTemplates\TypeScriptClassTextTemplate.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>TypeScriptClassTextTemplate.cs</LastGenOutput>
-    </None>
-    <None Update="ScriptWriting\TypeScript\PartialTextTemplates\TypeScriptInterfaceTextTemplate.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>TypeScriptInterfaceTextTemplate.cs</LastGenOutput>
-    </None>
-    <None Update="ScriptWriting\TypeScript\TextTemplates\MvcControllerTextTemplate.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>MvcControllerTextTemplate.cs</LastGenOutput>
-    </None>
-    <None Update="ScriptWriting\TypeScript\TextTemplates\ModuleTypeTextTemplate.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>ModuleTypeTextTemplate.cs</LastGenOutput>
-    </None>
-    <None Update="ScriptWriting\TypeScript\PartialTextTemplates\MvcActionTextTemplate.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>MvcActionTextTemplate.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
+	<ItemGroup>
+		<None Update="ScriptWriting\TypeScript\PartialTextTemplates\EnumTextTemplate.tt">
+			<Generator>TextTemplatingFilePreprocessor</Generator>
+			<LastGenOutput>EnumTextTemplate.cs</LastGenOutput>
+		</None>
+		<None Update="ScriptWriting\TypeScript\PartialTextTemplates\QueryParameterHelperFunctions.tt">
+		  <Generator>TextTemplatingFilePreprocessor</Generator>
+		  <LastGenOutput>QueryParameterHelperFunctions.cs</LastGenOutput>
+		</None>
+		<None Update="ScriptWriting\TypeScript\PartialTextTemplates\TypeScriptClassTextTemplate.tt">
+			<Generator>TextTemplatingFilePreprocessor</Generator>
+			<LastGenOutput>TypeScriptClassTextTemplate.cs</LastGenOutput>
+		</None>
+		<None Update="ScriptWriting\TypeScript\PartialTextTemplates\TypeScriptInterfaceTextTemplate.tt">
+			<Generator>TextTemplatingFilePreprocessor</Generator>
+			<LastGenOutput>TypeScriptInterfaceTextTemplate.cs</LastGenOutput>
+		</None>
+		<None Update="ScriptWriting\TypeScript\TextTemplates\MvcControllerTextTemplate.tt">
+			<Generator>TextTemplatingFilePreprocessor</Generator>
+			<LastGenOutput>MvcControllerTextTemplate.cs</LastGenOutput>
+		</None>
+		<None Update="ScriptWriting\TypeScript\TextTemplates\ModuleTypeTextTemplate.tt">
+			<Generator>TextTemplatingFilePreprocessor</Generator>
+			<LastGenOutput>ModuleTypeTextTemplate.cs</LastGenOutput>
+		</None>
+		<None Update="ScriptWriting\TypeScript\PartialTextTemplates\MvcActionTextTemplate.tt">
+			<Generator>TextTemplatingFilePreprocessor</Generator>
+			<LastGenOutput>MvcActionTextTemplate.cs</LastGenOutput>
+		</None>
+	</ItemGroup>
 
-  <ItemGroup>
-    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
-  </ItemGroup>
+	<ItemGroup>
+		<Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Compile Update="ScriptWriting\TypeScript\PartialTextTemplates\EnumTextTemplate.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>EnumTextTemplate.tt</DependentUpon>
-    </Compile>
-    <Compile Update="ScriptWriting\TypeScript\PartialTextTemplates\TypeScriptClassTextTemplate.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>TypeScriptClassTextTemplate.tt</DependentUpon>
-    </Compile>
-    <Compile Update="ScriptWriting\TypeScript\PartialTextTemplates\TypeScriptInterfaceTextTemplate.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>TypeScriptInterfaceTextTemplate.tt</DependentUpon>
-    </Compile>
-    <Compile Update="ScriptWriting\TypeScript\TextTemplates\MvcControllerTextTemplate.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>MvcControllerTextTemplate.tt</DependentUpon>
-    </Compile>
-    <Compile Update="ScriptWriting\TypeScript\TextTemplates\ModuleTypeTextTemplate.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>ModuleTypeTextTemplate.tt</DependentUpon>
-    </Compile>
-    <Compile Update="ScriptWriting\TypeScript\PartialTextTemplates\MvcActionTextTemplate.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>MvcActionTextTemplate.tt</DependentUpon>
-    </Compile>
-  </ItemGroup>
+	<ItemGroup>
+		<Compile Update="ScriptWriting\TypeScript\PartialTextTemplates\EnumTextTemplate.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>EnumTextTemplate.tt</DependentUpon>
+		</Compile>
+		<Compile Update="ScriptWriting\TypeScript\PartialTextTemplates\QueryParameterFunctions.cs">
+		  <DesignTime>True</DesignTime>
+		  <AutoGen>True</AutoGen>
+		  <DependentUpon>QueryParameterFunctions.tt</DependentUpon>
+		</Compile>
+		<Compile Update="ScriptWriting\TypeScript\PartialTextTemplates\QueryParameterHelperFunctions.cs">
+		  <DesignTime>True</DesignTime>
+		  <AutoGen>True</AutoGen>
+		  <DependentUpon>QueryParameterHelperFunctions.tt</DependentUpon>
+		</Compile>
+		<Compile Update="ScriptWriting\TypeScript\PartialTextTemplates\TypeScriptClassTextTemplate.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>TypeScriptClassTextTemplate.tt</DependentUpon>
+		</Compile>
+		<Compile Update="ScriptWriting\TypeScript\PartialTextTemplates\TypeScriptInterfaceTextTemplate.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>TypeScriptInterfaceTextTemplate.tt</DependentUpon>
+		</Compile>
+		<Compile Update="ScriptWriting\TypeScript\TextTemplates\MvcControllerTextTemplate.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>MvcControllerTextTemplate.tt</DependentUpon>
+		</Compile>
+		<Compile Update="ScriptWriting\TypeScript\TextTemplates\ModuleTypeTextTemplate.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>ModuleTypeTextTemplate.tt</DependentUpon>
+		</Compile>
+		<Compile Update="ScriptWriting\TypeScript\PartialTextTemplates\MvcActionTextTemplate.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>MvcActionTextTemplate.tt</DependentUpon>
+		</Compile>
+	</ItemGroup>
 
 	<Import Project="..\..\TypeRightVersion.targets" />
 </Project>

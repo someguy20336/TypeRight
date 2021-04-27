@@ -7,8 +7,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace TestAspNetCoreApp
 {
@@ -31,13 +33,29 @@ namespace TestAspNetCoreApp
 				options.MinimumSameSitePolicy = SameSiteMode.None;
 			});
 
-
-			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+			services.AddRazorPages().AddRazorRuntimeCompilation();
+			services.AddScoped<AService>();
+			services.AddMvc();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-		public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 		{
+			var rewriteOptions = new RewriteOptions()
+				.AddRewrite(@"\/js\/.*[^\.][^j][^s]$", "$1.js", true);
+
+			app.UseRewriter(rewriteOptions);
+
+			app.Use(async (ctx, next) =>
+			{
+				string route = ctx.Request.Path.ToString();
+                if (route.StartsWith("/js/") && !route.EndsWith(".js"))
+				{
+					ctx.Request.Path = new PathString(route + ".js");
+				}
+				await next();
+			});
+
 			if (env.IsDevelopment())
 			{
 				app.UseDeveloperExceptionPage();
@@ -51,13 +69,19 @@ namespace TestAspNetCoreApp
 			app.UseHttpsRedirection();
 			app.UseStaticFiles();
 			app.UseCookiePolicy();
-
-			app.UseMvc(routes =>
+			app.UseRouting();
+			app.UseEndpoints(opts =>
 			{
-				routes.MapRoute(
+				opts.MapControllerRoute(
 					name: "default",
-					template: "{controller=Home}/{action=Index}/{id?}");
+					pattern: "{controller=Home}/{action=Index}/{id?}");
 			});
+
 		}
 	}
+
+	public class AService
+    {
+
+    }
 }

@@ -49,23 +49,11 @@ namespace TypeRight.Tests.Controllers.AspNetCore
 					.Commit()
 					;
 
-			AssertControllerGeneratedText(
-			#region ScriptText	
+			AssertScriptTextForFunctionIs(
 				@"
-import { fetchWrapper } from ""../../FolderM/FolderN/AjaxFunc"";
-
-
-/**
- * 
- * @param thingId 
- */
 export function GetThing(thingId: string): void {
 	fetchWrapper(""GET"", `/api/RoutedApi/thing/${thingId}`, null);
-}
-
-"
-			#endregion
-				);
+}");
 		}
 
 		[TestMethod]
@@ -82,24 +70,12 @@ export function GetThing(thingId: string): void {
 					.Commit()
 					;
 
-			AssertControllerGeneratedText(
-			#region ScriptText	
-				@"
-import { fetchWrapper } from ""../../FolderM/FolderN/AjaxFunc"";
-
-
-/**
- * 
- * @param thingId 
- * @param queryP 
- */
+			AssertScriptTextForFunctionIs(@"
 export function GetThing(thingId: string, queryP: string): void {
-	fetchWrapper(""GET"", `/api/RoutedApi/thing/${thingId}?queryP=${ queryP ?? """" }`, null);
-}
-
-"
-			#endregion
-				);
+	let urlParams = new URLSearchParams();
+	tryAppendKeyValueToUrl(urlParams, ""queryP"", queryP);
+	fetchWrapper(""GET"", `/api/RoutedApi/thing/${thingId}${getQueryString(urlParams)}`, null);
+}", ScriptExtensions.KeyValueQueryParamHelper);
 		}
 
 		[TestMethod]
@@ -117,23 +93,10 @@ export function GetThing(thingId: string, queryP: string): void {
 					.Commit()
 					;
 
-			AssertControllerGeneratedText(
-			#region ScriptText	
-				@"
-import { fetchWrapper } from ""../../FolderM/FolderN/AjaxFunc"";
-
-
-/**
- * 
- * @param thingId 
- */
+			AssertScriptTextForFunctionIs(@"
 export function GetThing(thingId: string, test: string): void {
 	fetchWrapper(""GET"", `/api/RoutedApi/thing/${thingId}`, null, test);
-}
-
-"
-			#endregion
-				);
+}");
 		}
 
 		[TestMethod]
@@ -150,24 +113,10 @@ export function GetThing(thingId: string, test: string): void {
 					.Commit()
 					;
 
-			AssertControllerGeneratedText(
-			#region ScriptText	
-				@"
-import { fetchWrapper } from ""../../FolderM/FolderN/AjaxFunc"";
-
-
-/**
- * 
- * @param thingId 
- * @param body 
- */
+			AssertScriptTextForFunctionIs(@"
 export function GetThing(thingId: string, body: string): void {
 	fetchWrapper(""POST"", `/api/RoutedApi/thing/${thingId}`, body);
-}
-
-"
-			#endregion
-				);
+}");
 		}
 
 		[TestMethod]
@@ -180,22 +129,10 @@ export function GetThing(thingId: string, body: string): void {
 					.Commit()
 					;
 
-			AssertControllerGeneratedText(
-			#region ScriptText	
-				@"
-import { fetchWrapper } from ""../../FolderM/FolderN/AjaxFunc"";
-
-
-/**
- * 
- */
+			AssertScriptTextForFunctionIs(@"
 export function GetThing(): void {
 	fetchWrapper(""GET"", `/api/RoutedApi`, null);
-}
-
-"
-			#endregion
-				);
+}");
 		}
 	}
 }

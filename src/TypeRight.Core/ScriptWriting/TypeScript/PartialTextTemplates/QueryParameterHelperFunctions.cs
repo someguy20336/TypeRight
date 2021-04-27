@@ -18,9 +18,9 @@ namespace TypeRight.ScriptWriting.TypeScript.PartialTextTemplates
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\PartialTextTemplates\MvcActionTextTemplate.tt"
+    #line 1 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\PartialTextTemplates\QueryParameterHelperFunctions.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
-    internal partial class MvcActionTextTemplate : MvcActionTextTemplateBase
+    public partial class QueryParameterHelperFunctions : QueryParameterHelperFunctionsBase
     {
 #line hidden
         /// <summary>
@@ -28,74 +28,63 @@ namespace TypeRight.ScriptWriting.TypeScript.PartialTextTemplates
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("/**\r\n * ");
+            this.Write("function ");
             
-            #line 7 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\PartialTextTemplates\MvcActionTextTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_action.SummaryComments));
-            
-            #line default
-            #line hidden
-            this.Write("\r\n");
-            
-            #line 8 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\PartialTextTemplates\MvcActionTextTemplate.tt"
-
-foreach (var paramComment in GetParameterComments()) {
-
+            #line 6 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\PartialTextTemplates\QueryParameterHelperFunctions.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(TryAppendKeyValueFuncName));
             
             #line default
             #line hidden
-            this.Write(" * @param ");
-            
-            #line 11 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\PartialTextTemplates\MvcActionTextTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(paramComment.Key));
-            
-            #line default
-            #line hidden
-            this.Write(" ");
-            
-            #line 11 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\PartialTextTemplates\MvcActionTextTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(paramComment.Value));
-            
-            #line default
-            #line hidden
-            this.Write("\r\n");
-            
-            #line 12 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\PartialTextTemplates\MvcActionTextTemplate.tt"
-
+            this.Write(@"(urlParams: URLSearchParams, key: string, value: any): void {
+    if (value !== null && typeof value !== ""undefined"") {
+        if (Array.isArray(value)) {
+            for (let aryVal of value) {
+                urlParams.append(key, aryVal.toString());
+            }
+        } else {
+            urlParams.append(key, value);
+        }
+    }
 }
-
+");
+            
+            #line 17 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\PartialTextTemplates\QueryParameterHelperFunctions.tt"
+ if (_needsAppendObjectFunc) { 
             
             #line default
             #line hidden
-            this.Write(" */\r\nexport function ");
+            this.Write("\r\nfunction ");
             
-            #line 16 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\PartialTextTemplates\MvcActionTextTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(BuildActionSignature()));
-            
-            #line default
-            #line hidden
-            this.Write(" {\r\n");
-            
-            #line 17 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\PartialTextTemplates\MvcActionTextTemplate.tt"
- WriteBodyExtensions(); 
+            #line 19 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\PartialTextTemplates\QueryParameterHelperFunctions.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(TryAppendObjectFuncName));
             
             #line default
             #line hidden
-            this.Write("\t");
+            this.Write("(urlParams: URLSearchParams, obj: any): void {\r\n    for (let [key, val] of Object" +
+                    ".entries(obj)) {\r\n        ");
             
-            #line 18 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\PartialTextTemplates\MvcActionTextTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(BuildFetchFunctionName()));
-            
-            #line default
-            #line hidden
-            this.Write("(");
-            
-            #line 18 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\PartialTextTemplates\MvcActionTextTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(BuildFetchParameters()));
+            #line 21 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\PartialTextTemplates\QueryParameterHelperFunctions.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(TryAppendKeyValueFuncName));
             
             #line default
             #line hidden
-            this.Write(");\r\n}\r\n");
+            this.Write("(urlParams, key, val);\r\n    }\r\n}\r\n");
+            
+            #line 24 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\PartialTextTemplates\QueryParameterHelperFunctions.tt"
+ } 
+            
+            #line default
+            #line hidden
+            this.Write("\r\nfunction ");
+            
+            #line 26 "C:\Users\dwhel\source\repos\TypeRight\src\TypeRight.Core\ScriptWriting\TypeScript\PartialTextTemplates\QueryParameterHelperFunctions.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(GetQueryStringFuncName));
+            
+            #line default
+            #line hidden
+            this.Write("(urlParams: URLSearchParams): string {\r\n    let queryString = urlParams.toString(" +
+                    ");\r\n    if (queryString !== \"\") {\r\n        queryString = \"?\" + queryString;\r\n   " +
+                    " }\r\n    return queryString;\r\n}\r\n");
             return this.GenerationEnvironment.ToString();
         }
     }
@@ -107,7 +96,7 @@ foreach (var paramComment in GetParameterComments()) {
     /// Base class for this transformation
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
-    internal class MvcActionTextTemplateBase
+    public class QueryParameterHelperFunctionsBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;

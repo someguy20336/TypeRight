@@ -10,6 +10,7 @@ foreach (var imp in GetImports()) {
 <#= imp.ToImportStatement() #>
 <# } #>
 
+<# RunPostScriptExtensions(); #>
 
 <#
 foreach (var oneAction in GetActions()) {

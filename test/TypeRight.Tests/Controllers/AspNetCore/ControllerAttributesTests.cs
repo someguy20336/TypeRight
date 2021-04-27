@@ -36,25 +36,10 @@ namespace TypeRight.Tests.Controllers.AspNetCore
 					.Commit()
 				;
 
-			AssertControllerGeneratedText(
-			#region ScriptText	
-				@$"
-import * as DefaultResult from ""../../DefaultResult"";
-import {{ TestAjax }} from ""../../FolderM/FolderN/AjaxFunc"";
-
-
-/**
- * 
- * @param fromBody 
- */
+			AssertScriptTextForFunctionIs(@$"
 export function TestingParamFilter(fromBody: string): void {{
 	TestAjax(`/{ControllerName}/TestingParamFilter`, fromBody);
-}}
-
-
-"
-			#endregion
-				);
+}}");
 		}
 
 		[TestMethod]
@@ -69,25 +54,10 @@ export function TestingParamFilter(fromBody: string): void {{
 					.Commit()
 				;
 
-			AssertControllerGeneratedText(
-			#region ScriptText	
-				@$"
-import * as DefaultResult from ""../../DefaultResult"";
-import {{ TestAjax }} from ""../../FolderM/FolderN/AjaxFunc"";
-
-
-/**
- * 
- * @param fromBody 
- */
+			AssertScriptTextForFunctionIs(@$"
 export function IsNotFirstParameter(fromBody: string): void {{
 	TestAjax(`/{ControllerName}/IsNotFirstParameter`, fromBody);
-}}
-
-
-"
-			#endregion
-				);
+}}");
 		}
 
 
@@ -104,25 +74,10 @@ export function IsNotFirstParameter(fromBody: string): void {{
 					.Commit()
 				;
 
-			AssertControllerGeneratedText(
-			#region ScriptText	
-				@$"
-import * as DefaultResult from ""../../DefaultResult"";
-import {{ TestAjax }} from ""../../FolderM/FolderN/AjaxFunc"";
-
-
-/**
- * 
- */
+			AssertScriptTextForFunctionIs(@$"
 export function NoFromBodyParams(): void {{
 	TestAjax(`/{ControllerName}/NoFromBodyParams`, null);
-}}
-
-
-
-"
-			#endregion
-				);
+}}");
 		}
 
 
@@ -137,26 +92,12 @@ export function NoFromBodyParams(): void {{
 					.Commit()
 				;
 
-			AssertControllerGeneratedText(
-			#region ScriptText	
-				@$"
-import * as DefaultResult from ""../../DefaultResult"";
-import {{ TestAjax }} from ""../../FolderM/FolderN/AjaxFunc"";
-
-
-/**
- * 
- * @param fromQuery 
- * @param fromBody 
- */
+			AssertScriptTextForFunctionIs(@$"
 export function QueryParameterWithBody(fromQuery: string, fromBody: DefaultResult.TestClass): void {{
-	TestAjax(`/{ControllerName}/QueryParameterWithBody?fromQuery=${{ fromQuery ?? """" }}`, fromBody);
-}}
-
-
-"
-			#endregion
-				);
+	let urlParams = new URLSearchParams();
+	tryAppendKeyValueToUrl(urlParams, ""fromQuery"", fromQuery);
+	TestAjax(`/{ControllerName}/QueryParameterWithBody${{getQueryString(urlParams)}}`, fromBody);
+}}", ScriptExtensions.KeyValueQueryParamHelper);
 		}
 
 		[TestMethod]
@@ -185,24 +126,12 @@ export function QueryParameterWithBody(fromQuery: string, fromBody: DefaultResul
 					.Commit()
 			;
 
-			AssertControllerGeneratedText(
-			#region ScriptText	
-				@$"
-import {{ TestAjax }} from ""../../FolderM/FolderN/AjaxFunc"";
-
-
-/**
- * 
- * @param p 
- */
+			AssertScriptTextForFunctionIs(@$"
 export function Action(p: number): void {{
-	TestAjax(`/{ControllerName}/Action?p=${{ p ?? """" }}`, null);
-}}
-
-
-"
-			#endregion
-				);
+	let urlParams = new URLSearchParams();
+	tryAppendKeyValueToUrl(urlParams, ""p"", p);
+	TestAjax(`/{ControllerName}/Action${{getQueryString(urlParams)}}`, null);
+}}", ScriptExtensions.KeyValueQueryParamHelper);
 		}
 
 		[TestMethod]
@@ -232,24 +161,12 @@ export function Action(p: number): void {{
 					.Commit()
 			;
 
-			AssertControllerGeneratedText(
-			#region ScriptText	
-				@$"
-import {{ TestAjax }} from ""../../FolderM/FolderN/AjaxFunc"";
-
-
-/**
- * 
- * @param multTypes 
- */
+			AssertScriptTextForFunctionIs(@$"
 export function MultipleTypes(multTypes: string | number): void {{
-	TestAjax(`/{ControllerName}/MultipleTypes?multTypes=${{ multTypes ?? """" }}`, null);
-}}
-
-
-"
-			#endregion
-				);
+	let urlParams = new URLSearchParams();
+	tryAppendKeyValueToUrl(urlParams, ""multTypes"", multTypes);
+	TestAjax(`/{ControllerName}/MultipleTypes${{getQueryString(urlParams)}}`, null);
+}}", ScriptExtensions.KeyValueQueryParamHelper);
 		}
 
 		[TestMethod]
@@ -278,24 +195,10 @@ export function MultipleTypes(multTypes: string | number): void {{
 					.Commit()
 			;
 
-			AssertControllerGeneratedText(
-			#region ScriptText	
-				@$"
-import {{ TestAjax }} from ""../../FolderM/FolderN/AjaxFunc"";
-
-
-/**
- * 
- * @param id 
- */
+			AssertScriptTextForFunctionIs(@$"
 export function Action(id: string | number): void {{
 	TestAjax(`/{ControllerName}/Action/${{id}}`, null);
-}}
-
-
-"
-			#endregion
-				);
+}}");
 		}
 
 		[TestMethod]
@@ -311,24 +214,11 @@ export function Action(id: string | number): void {{
 					.Commit()
 			;
 
-			AssertControllerGeneratedText(
-			#region ScriptText	
-				@$"
-import {{ TestAjax }} from ""../../FolderM/FolderN/AjaxFunc"";
-
-
-/**
- * 
- * @param id 
- */
+			AssertScriptTextForFunctionIs(@$"
 export function DifferentName(id: string): void {{
 	TestAjax(`/{ControllerName}/Action/${{id}}`, null);
-}}
-
-
-"
-			#endregion
-				);
+}}");
 		}
+
 	}
 }

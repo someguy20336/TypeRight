@@ -23,9 +23,33 @@ namespace TestAspNetCoreApp.Controllers
 		}
 
 		[HttpPost, ScriptAction]
-		public CustomGroupObject1 WithFromQuery([FromQuery] string id, [FromBody] CustomGroupObj3 body, [FromServices] string service)
+		public CustomGroupObject1 WithFromQuery([FromQuery] string id, [FromBody] CustomGroupObj3 body, [FromServices] AService service)
 		{
-			return new CustomGroupObject1();
+			return new CustomGroupObject1()
+			{
+				AnotherStringList = new List<string>() { id, body.StringProp }
+			};
+		}
+
+		[HttpPost("complex"), ScriptAction]
+		public object ComplexFromQuery([FromQuery] string id, [FromQuery] ASimpleModel fromQueryModel)
+		{
+			return new 
+			{
+				id = id,
+				PropOne = fromQueryModel.PropOne,
+				PropTwo = fromQueryModel.PropTwo
+			};
+		}
+
+		[HttpPost("complex-list"), ScriptAction]
+		public object ComplexWithListFromQuery([FromQuery] ModelWithArray fromQueryModel)
+		{
+			return new
+			{
+				simple = fromQueryModel.SimpleType,
+				array = fromQueryModel.ArrayType,
+			};
 		}
 
 		[HttpGet, ScriptAction]

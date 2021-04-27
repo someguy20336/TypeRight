@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using TypeRight.ScriptWriting.TypeScript.PartialTextTemplates;
 using TypeRight.Tests.TestBuilders;
 
 namespace TypeRight.Tests.Controllers.AspNetCore
@@ -67,13 +68,14 @@ namespace TypeRight.Tests.Controllers.AspNetCore
 					.AddLineOfCode("return null", 0)
 					.Commit()
 					;
+			string queryHelpers = new QueryParameterHelperFunctions(false).TransformText();
 
 			AssertControllerGeneratedText(
 			#region ScriptText	
 				@"
 import { TestAjax, callDelete } from ""../../FolderM/FolderN/AjaxFunc"";
 
-
+" + queryHelpers + @"
 /**
  * 
  * @param thingId 
@@ -97,7 +99,9 @@ export function GetThing(thingId: string): void {
  * @param body 
  */
 export function PutThingWithQuery(thingId: string, query: string, body: boolean): void {
-	TestAjax(`/api/RoutedApi/thing/${thingId}/put?query=${ query ?? """" }`, body);
+	let urlParams = new URLSearchParams();
+	tryAppendKeyValueToUrl(urlParams, ""query"", query);
+	TestAjax(`/api/RoutedApi/thing/${thingId}/put${getQueryString(urlParams)}`, body);
 }
 
 "
@@ -105,114 +109,6 @@ export function PutThingWithQuery(thingId: string, query: string, body: boolean)
 				);
 		}
 
-		[TestMethod]
-		public void ConfiguredQueryParams_Single_AddedToUrl_ScriptWritten()
-		{
-			GivenQueryParameter("key1", "val1");
-			ControllerBuilder
-				.AddAttribute(MvcConstants.RouteAttributeFullName_AspNetCore)
-					.AddConstructorArg("\"api/RoutedApi\"")
-					.Commit()
-				.AddMethod("GetThing", "string")
-					.AddScriptActionAttribute()
-					.AddAttribute(MvcConstants.HttpGetAttributeFullName_AspNetCore)
-						.AddConstructorArg("\"thing/{thingId}\"").Commit()
-					.AddParameter("thingId", "string")
-					.AddLineOfCode("return null", 0)
-					.Commit()
-					;
-
-			AssertControllerGeneratedText(
-			#region ScriptText	
-				@"
-import { TestAjax } from ""../../FolderM/FolderN/AjaxFunc"";
-
-
-/**
- * 
- * @param thingId 
- */
-export function GetThing(thingId: string): void {
-	TestAjax(`/api/RoutedApi/thing/${thingId}?key1=val1`, null);
-}
-
-"
-			#endregion
-				);
-		}
-
-		[TestMethod]
-		public void ConfiguredQueryParams_Multi_AddedToUrl_ScriptWritten()
-		{
-			GivenQueryParameter("key1", "val1");
-			GivenQueryParameter("key2", "val2");
-			ControllerBuilder
-				.AddAttribute(MvcConstants.RouteAttributeFullName_AspNetCore)
-					.AddConstructorArg("\"api/RoutedApi\"")
-					.Commit()
-				.AddMethod("GetThing", "string")
-					.AddScriptActionAttribute()
-					.AddAttribute(MvcConstants.HttpGetAttributeFullName_AspNetCore)
-						.AddConstructorArg("\"thing/{thingId}\"").Commit()
-					.AddParameter("thingId", "string")
-					.AddLineOfCode("return null", 0)
-					.Commit()
-					;
-
-			AssertControllerGeneratedText(
-			#region ScriptText	
-				@"
-import { TestAjax } from ""../../FolderM/FolderN/AjaxFunc"";
-
-
-/**
- * 
- * @param thingId 
- */
-export function GetThing(thingId: string): void {
-	TestAjax(`/api/RoutedApi/thing/${thingId}?key1=val1&key2=val2`, null);
-}
-
-"
-			#endregion
-				);
-		}
-
-		[TestMethod]
-		public void ConfiguredQueryParams_WithFromQuery_AddedToUrl_ScriptWritten()
-		{
-			GivenQueryParameter("key1", "val1");
-			ControllerBuilder
-				.AddAttribute(MvcConstants.RouteAttributeFullName_AspNetCore)
-					.AddConstructorArg("\"api/RoutedApi\"")
-					.Commit()
-				.AddMethod("GetThing", "string")
-					.AddScriptActionAttribute()
-					.AddAttribute(MvcConstants.HttpGetAttributeFullName_AspNetCore)
-						.AddConstructorArg("\"thing\"").Commit()
-					.AddParameter("thingId", "string", attribute: MvcConstants.FromQueryAttributeFullName_AspNetCore)
-					.AddLineOfCode("return null", 0)
-					.Commit()
-					;
-
-			AssertControllerGeneratedText(
-			#region ScriptText	
-				@"
-import { TestAjax } from ""../../FolderM/FolderN/AjaxFunc"";
-
-
-/**
- * 
- * @param thingId 
- */
-export function GetThing(thingId: string): void {
-	TestAjax(`/api/RoutedApi/thing?key1=val1&thingId=${ thingId ?? """" }`, null);
-}
-
-"
-			#endregion
-				);
-		}
 
 		[TestMethod]
 		public void BaseUrl_AppendedToBeginning()
@@ -231,23 +127,12 @@ export function GetThing(thingId: string): void {
 					.Commit()
 					;
 
-			AssertControllerGeneratedText(
-			#region ScriptText	
-				@"
-import { TestAjax } from ""../../FolderM/FolderN/AjaxFunc"";
-
-
-/**
- * 
- * @param thingId 
- */
+			AssertScriptTextForFunctionIs(@"
 export function GetThing(thingId: string): void {
-	TestAjax(`/api/RoutedApi/thing?thingId=${ thingId ?? """" }`, null);
-}
-
-"
-			#endregion
-				);
+	let urlParams = new URLSearchParams();
+	tryAppendKeyValueToUrl(urlParams, ""thingId"", thingId);
+	TestAjax(`/api/RoutedApi/thing${getQueryString(urlParams)}`, null);
+}", ScriptExtensions.KeyValueQueryParamHelper);
 		}
 	}
 }

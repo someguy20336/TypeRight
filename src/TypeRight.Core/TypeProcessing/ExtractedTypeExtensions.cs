@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TypeRight.TypeProcessing
 {
@@ -35,5 +32,7 @@ namespace TypeRight.TypeProcessing
 		/// <returns></returns>
 		public static ExtractedReferenceType GetTypeByName(this IEnumerable<ExtractedType> collection, string name)
 			=> collection.FirstOrDefault(type => type.Name == name) as ExtractedReferenceType;
+
+		public static bool IsComplexType(this TypeDescriptor typeDescriptor) => typeDescriptor is ExtractedTypeDescriptor;
 	}
 }

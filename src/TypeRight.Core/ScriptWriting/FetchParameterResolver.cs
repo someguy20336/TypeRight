@@ -2,6 +2,8 @@
 using System.Collections.Specialized;
 using System.Linq;
 using TypeRight.Configuration;
+using TypeRight.ScriptWriting.TypeScript.PartialTextTemplates;
+using TypeRight.ScriptWriting.TypeScript.ScriptExtensions;
 using TypeRight.TypeProcessing;
 
 namespace TypeRight.ScriptWriting
@@ -25,16 +27,11 @@ namespace TypeRight.ScriptWriting
 
 		public string ResolveParameter(MvcAction action)
 		{
-			var urlParams = action.Parameters.Where(p => p.BindingType == ActionParameterSourceType.Query).ToList();
+			var actionQueryParams = action.Parameters.Where(p => p.BindingType == ActionParameterSourceType.Query).ToList();
 
-			NameValueCollection queryParams = new NameValueCollection(_constantQueryParams);
-
-			foreach (var p in urlParams)
-			{
-				queryParams.Add(p.Name, $"${{ { p.Name} ?? \"\" }}");
-			}
-
-			string urlParamQuery = queryParams.ToQueryString();
+			string urlParamQueryPart = actionQueryParams.Count > 0 || _constantQueryParams.Count > 0
+				? $"${{{QueryParameterHelperFunctions.GetQueryStringFuncName}({InitUrlParamsScriptExtensions.UrlParamsVarName})}}"
+				: ""; ;
 
 			// Add the route params
 			string route = action.GetRouteTemplate(_baseUrl);
@@ -44,7 +41,7 @@ namespace TypeRight.ScriptWriting
 				route = route.Replace($"{{{paramName}}}", $"${{{paramName}}}");
 			}
 
-			return $"`{route}{urlParamQuery}`";
+			return $"`{route}{urlParamQueryPart}`";
 		}
 
 	}

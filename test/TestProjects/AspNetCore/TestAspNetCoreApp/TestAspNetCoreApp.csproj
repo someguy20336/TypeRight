@@ -6,11 +6,27 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\css\**" />
+    <Compile Remove="wwwroot\images\**" />
+    <Compile Remove="wwwroot\lib\**" />
+    <Content Remove="wwwroot\css\**" />
+    <Content Remove="wwwroot\images\**" />
+    <Content Remove="wwwroot\lib\**" />
+    <EmbeddedResource Remove="wwwroot\css\**" />
+    <EmbeddedResource Remove="wwwroot\images\**" />
+    <EmbeddedResource Remove="wwwroot\lib\**" />
+    <None Remove="wwwroot\css\**" />
+    <None Remove="wwwroot\images\**" />
+    <None Remove="wwwroot\lib\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="typeRightConfig.json" />
   </ItemGroup>
 
   <ItemGroup>
     <None Remove="Scripts\CallServiceStuff.ts" />
+    <None Remove="Scripts\Home\Index.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -18,17 +34,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.5" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="TypeRightDebug" Version="1.0.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Scripts\Home\" />
-    <Folder Include="Views\" />
-    <Folder Include="wwwroot\css\" />
-    <Folder Include="wwwroot\images\" />
     <Folder Include="wwwroot\js\" />
-    <Folder Include="wwwroot\lib\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -37,6 +49,7 @@
 
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\CallServiceStuff.ts" />
+    <TypeScriptCompile Include="Scripts\Home\Index.ts" />
   </ItemGroup>
 
 </Project>

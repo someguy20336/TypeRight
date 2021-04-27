@@ -131,7 +131,7 @@ namespace TypeRight.ScriptWriting
 			return new FetchFunctionDescriptor()
 			{
 				AdditionalImports = _fetchConfig.Imports ?? new List<ImportDefinition>(),
-				AdditionalParameters = _fetchConfig.Parameters.Where(p => p.Kind == ParameterKind.Custom).ToList<ActionParameter>(),
+				AdditionalParameters = _fetchConfig.Parameters.Where(p => p.Kind == ParameterKind.Custom).ToList(),
 				FetchModulePath = ResolveFilePath(_fetchConfig.FilePath),
 				FunctionName = _fetchConfig.Name,
 				ReturnType = string.IsNullOrEmpty(_fetchConfig.ReturnType) ? "void" : _fetchConfig.ReturnType,

@@ -95,18 +95,10 @@ namespace TypeRight.Tests.Controllers.AspNetCore
 
 			Action.Commit();
 
-			AssertControllerGeneratedText(@"
-import { TestAjax } from ""../../FolderM/FolderN/AjaxFunc"";
-
-
-/**
- * 
- */
+			AssertScriptTextForFunctionIs(@"
 export function RandoMethod(): void {
 	TestAjax(`/api/ThingsManagement/Things`, null);
-}
-
-");
+}");
 		}
 
 		[TestMethod]

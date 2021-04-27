@@ -92,20 +92,14 @@ namespace TypeRight.Tests.Controllers.AspNetCore
 				.Commit();
 
 			// Test that the order of parameters is maintained.  Kind of a "control" test here
-			AssertControllerGeneratedText(@"
-import { TestAjax } from ""../../FolderM/FolderN/AjaxFunc"";
-
-
-/**
- * 
- * @param param1 
- * @param param2 
- * @param param3 
- */
+			AssertScriptTextForFunctionIs(@"
 export function CustomMethod(param1: string, param2: string, param3?: string): void {
-	TestAjax(`/Test/CustomMethod?param1=${ param1 ?? """" }&param2=${ param2 ?? """" }&param3=${ param3 ?? """" }`, null);
-}
-");
+	let urlParams = new URLSearchParams();
+	tryAppendKeyValueToUrl(urlParams, ""param1"", param1);
+	tryAppendKeyValueToUrl(urlParams, ""param2"", param2);
+	tryAppendKeyValueToUrl(urlParams, ""param3"", param3);
+	TestAjax(`/Test/CustomMethod${getQueryString(urlParams)}`, null);
+}", ScriptExtensions.KeyValueQueryParamHelper);
 			
 		}
 
@@ -128,20 +122,14 @@ export function CustomMethod(param1: string, param2: string, param3?: string): v
 				.Commit();
 
 			// Test that the order of parameters is maintained.  Kind of a "control" test here
-			AssertControllerGeneratedText(@"
-import { TestAjax } from ""../../FolderM/FolderN/AjaxFunc"";
-
-
-/**
- * 
- * @param param1 
- * @param param2 
- * @param param3 
- */
+			AssertScriptTextForFunctionIs(@"
 export function CustomMethod(param1: string, param2: string, userParam1: string, param3?: string, userParam2?: string): void {
-	TestAjax(`/Test/CustomMethod?param1=${ param1 ?? """" }&param2=${ param2 ?? """" }&param3=${ param3 ?? """" }`, null, userParam1, userParam2);
-}
-");
+	let urlParams = new URLSearchParams();
+	tryAppendKeyValueToUrl(urlParams, ""param1"", param1);
+	tryAppendKeyValueToUrl(urlParams, ""param2"", param2);
+	tryAppendKeyValueToUrl(urlParams, ""param3"", param3);
+	TestAjax(`/Test/CustomMethod${getQueryString(urlParams)}`, null, userParam1, userParam2);
+}", ScriptExtensions.KeyValueQueryParamHelper);
 		}
 	}
 }

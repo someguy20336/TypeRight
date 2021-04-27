@@ -47,7 +47,9 @@ namespace TypeRight.Tests.Testers
 		public TypeCollectionTester AssertScriptText(string expectedText)
 		{
 			TypeWriteContext context = new TypeWriteContext(_typeCollection, _typeCollection, TestWorkspaceBuilder.DefaultResultPath);
-			string scriptText = ScriptTemplateFactory.CreateTypeTextTemplate().GetText(context).Trim();
+
+			var templateFactory = new ScriptTemplateFactory(new ConfigOptions());
+			string scriptText = templateFactory.CreateTypeTextTemplate().GetText(context).Trim();
 			expectedText = expectedText.Trim();
 			Assert.AreEqual(expectedText, scriptText);
 			return this;
@@ -93,13 +95,5 @@ namespace TypeRight.Tests.Testers
 		}
 
 
-		public TypeCollectionTester AssertControllerScriptText(ControllerContext context, string expectedText)
-		{
-			string scriptText = ScriptTemplateFactory.CreateControllerTextTemplate().GetText(context).Trim();
-
-			expectedText = expectedText.Trim();
-			Assert.AreEqual(expectedText, scriptText);
-			return this;
-		}
 	}
 }
