@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/someguy20336/TypeRight/56-fetch-config-changes/src/TypeRight.Core/Configuration/typeRightConfig-schema.json",
   "enabled": true,
   "baseUrl": "",
-  "propNameCasingConverter": "none",
+  "nameCasingConverter": "camel",
   "queryParams": {
     "param1": "val1",
     "param2": "val2"

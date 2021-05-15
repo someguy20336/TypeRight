@@ -80,7 +80,7 @@ export interface MyType {
 		[TestMethod]
 		public void DefaultCamelCase_PropNamesAreConverted()
 		{
-			WorkspaceBuilder.ProcessorSettings.NamingStrategy = PropertyNamingStrategy.Create(PropertyNamingStrategyType.Camel);
+			WorkspaceBuilder.ProcessorSettings.NamingStrategy = NamingStrategy.Create(NamingStrategyType.Camel);
 			TestClassBuilder builder = AddExtractedClass("MyType");
 
 			builder.AddPropertyAndBuildAttributes("PropName", "string")

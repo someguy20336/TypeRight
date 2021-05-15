@@ -22,10 +22,10 @@
 			"type": [ "object", "string" ],
 			"additionalProperties": { "type": "string" }
 		},
-		"propNameCasingConverter": {
+		"nameCasingConverter": {
 			"type": [ "string", "null" ],
 			"enum": [ "none", "camel" ],
-			"description": "Defines the casing strategy to use by default for classes and interfaces.  In all cases, a specified property (i.e. JsonPropertyNameAttribute) name will always take precidence."
+			"description": "Defines the casing strategy to use by default for properties and actions.  In all cases, a specified property (i.e. JsonPropertyNameAttribute) name will always take precidence."
 		},
 		"fetchConfig": {
 			"type": "object",

@@ -25,7 +25,7 @@ function getQueryString(urlParams: URLSearchParams): string {
  * 
  * @param id 
  */
-export function DeleteFirst(id: number, abort?: AbortSignal): Promise<any> {
+export function deleteFirst(id: number, abort?: AbortSignal): Promise<any> {
 	let urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, "param1", "val1");
 	tryAppendKeyValueToUrl(urlParams, "param2", "val2");
@@ -36,7 +36,7 @@ export function DeleteFirst(id: number, abort?: AbortSignal): Promise<any> {
  * 
  * @param id 
  */
-export function DeleteSecond(id: number, abort?: AbortSignal): Promise<any> {
+export function deleteSecond(id: number, abort?: AbortSignal): Promise<any> {
 	let urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, "param1", "val1");
 	tryAppendKeyValueToUrl(urlParams, "param2", "val2");
@@ -46,7 +46,7 @@ export function DeleteSecond(id: number, abort?: AbortSignal): Promise<any> {
 /**
  * 
  */
-export function GetFirst(abort?: AbortSignal): Promise<string[]> {
+export function getFirst(abort?: AbortSignal): Promise<string[]> {
 	let urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, "param1", "val1");
 	tryAppendKeyValueToUrl(urlParams, "param2", "val2");
@@ -57,7 +57,7 @@ export function GetFirst(abort?: AbortSignal): Promise<string[]> {
  * 
  * @param id 
  */
-export function GetFirstById(id: number, abort?: AbortSignal): Promise<string> {
+export function getFirstById(id: number, abort?: AbortSignal): Promise<string> {
 	let urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, "param1", "val1");
 	tryAppendKeyValueToUrl(urlParams, "param2", "val2");
@@ -67,7 +67,7 @@ export function GetFirstById(id: number, abort?: AbortSignal): Promise<string> {
 /**
  * 
  */
-export function GetSecond(abort?: AbortSignal): Promise<string[]> {
+export function getSecond(abort?: AbortSignal): Promise<string[]> {
 	let urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, "param1", "val1");
 	tryAppendKeyValueToUrl(urlParams, "param2", "val2");
@@ -78,7 +78,7 @@ export function GetSecond(abort?: AbortSignal): Promise<string[]> {
  * 
  * @param id 
  */
-export function GetSecondById(id: number, abort?: AbortSignal): Promise<string> {
+export function getSecondById(id: number, abort?: AbortSignal): Promise<string> {
 	let urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, "param1", "val1");
 	tryAppendKeyValueToUrl(urlParams, "param2", "val2");
@@ -89,7 +89,7 @@ export function GetSecondById(id: number, abort?: AbortSignal): Promise<string> 
  * 
  * @param value 
  */
-export function PostFirst(value: string, abort?: AbortSignal): Promise<any> {
+export function postFirst(value: string, abort?: AbortSignal): Promise<any> {
 	let urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, "param1", "val1");
 	tryAppendKeyValueToUrl(urlParams, "param2", "val2");
@@ -100,7 +100,7 @@ export function PostFirst(value: string, abort?: AbortSignal): Promise<any> {
  * 
  * @param value 
  */
-export function PostSecond(value: string, abort?: AbortSignal): Promise<any> {
+export function postSecond(value: string, abort?: AbortSignal): Promise<any> {
 	let urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, "param1", "val1");
 	tryAppendKeyValueToUrl(urlParams, "param2", "val2");
@@ -112,7 +112,7 @@ export function PostSecond(value: string, abort?: AbortSignal): Promise<any> {
  * @param id 
  * @param value 
  */
-export function PutFirst(id: number, value: string, abort?: AbortSignal): Promise<any> {
+export function putFirst(id: number, value: string, abort?: AbortSignal): Promise<any> {
 	let urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, "param1", "val1");
 	tryAppendKeyValueToUrl(urlParams, "param2", "val2");
@@ -124,7 +124,7 @@ export function PutFirst(id: number, value: string, abort?: AbortSignal): Promis
  * @param id 
  * @param value 
  */
-export function PutSecond(id: number, value: string, abort?: AbortSignal): Promise<any> {
+export function putSecond(id: number, value: string, abort?: AbortSignal): Promise<any> {
 	let urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, "param1", "val1");
 	tryAppendKeyValueToUrl(urlParams, "param2", "val2");

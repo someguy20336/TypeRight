@@ -15,7 +15,7 @@ namespace TypeRight.Configuration
 	{
 		[JsonProperty("$schema")]
 		public string Schema { get; set; }
-			= "https://raw.githubusercontent.com/someguy20336/TypeRight/tool/v1.3.0/src/TypeRight.Core/Configuration/typeRightConfig-schema.json";
+			= "https://raw.githubusercontent.com/someguy20336/TypeRight/tool/v1.4.0/src/TypeRight.Core/Configuration/typeRightConfig-schema.json";
 
 		/// <summary>
 		/// Gets or sets whether script generation is enabled
@@ -25,7 +25,7 @@ namespace TypeRight.Configuration
 		public string BaseUrl { get; set; }
 
 		[JsonConverter(typeof(CamelCaseStringEnumConverter))]
-		public PropertyNamingStrategyType PropNameCasingConverter { get; set; }
+		public NamingStrategyType NameCasingConverter { get; set; }
 
 		[JsonConverter(typeof(QueryParamJsonConverter))]
 		public NameValueCollection QueryParams { get; set; }

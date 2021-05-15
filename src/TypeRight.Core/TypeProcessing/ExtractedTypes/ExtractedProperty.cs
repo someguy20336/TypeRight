@@ -25,11 +25,11 @@ namespace TypeRight.TypeProcessing
 
 		public string OutputName { get; set; }
 
-		internal ExtractedProperty(IProperty property, PropertyNamingStrategy namingStrategy, TypeFactory typeFactory)
+		internal ExtractedProperty(IProperty property, TypeFactory typeFactory)
 		{
 			Name = property.Name;
 			Comments = property.Comments;
-			OutputName = namingStrategy.GetName(property);
+			OutputName = typeFactory.Settings.NamingStrategy.GetPropertyName(property);
 			Type = typeFactory.LookupType(property.PropertyType);  
 		}
 	}

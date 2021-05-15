@@ -6,73 +6,73 @@
 /** Tst model */
 export interface ASimpleModel {
 	/** Doc for prop 1 */
-	PropOne: number;
+	propOne: number;
 	/** Doc for prop 2 */
-	PropTwo: string;
+	propTwo: string;
 	/**  */
 	overrideSysText: number;
 	/**  */
 	overrideNewtonsoft: number;
 	/**  */
-	NoNewtonsoftOverride: number;
+	noNewtonsoftOverride: number;
 }
 
 /**  */
 export interface ASimpleModel_1<T> {
 	/**  */
-	GenericThing: T;
+	genericThing: T;
 }
 
 /**  */
 export interface CommandResult {
 	/**  */
-	Success: boolean;
+	success: boolean;
 	/**  */
-	ErrorMessage: string;
+	errorMessage: string;
 }
 
 /**  */
 export interface CommandResult_1<T> extends CommandResult {
 	/**  */
-	Result: T;
+	result: T;
 }
 
 /** Test summ */
 export interface ErrorViewModel {
 	/**  */
-	RequestId: string;
+	requestId: string;
 	/**  */
-	ShowRequestId: boolean;
+	showRequestId: boolean;
 }
 
 /**  */
 export interface GenericModel<T> {
 	/**  */
-	Prop1: T;
+	prop1: T;
 }
 
 /**  */
 export interface ModelWithArray {
 	/**  */
-	SimpleType: string;
+	simpleType: string;
 	/**  */
-	ArrayType: number[];
+	arrayType: number[];
 }
 
-/**  */
+/** Start some doc here */
 export interface NetStandardClass {
 	/**  */
-	HelloThere: number;
+	helloThere: number;
 	/**  */
-	EnumType: NetStandardEnum;
+	enumType: NetStandardEnum;
 }
 
 /**  */
 export interface TestTwoTypeParams<T, T2> {
 	/**  */
-	Prop1: T;
+	prop1: T;
 	/**  */
-	Prop2: T2;
+	prop2: T2;
 }
 
   

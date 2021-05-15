@@ -134,11 +134,11 @@ namespace TypeRight.Tests.Configuration
 		{
 			var config = ConfigParser.ParseFromJson(@"
 {
-	""propNameCasingConverter"": ""camel""
+	""nameCasingConverter"": ""camel""
 }
 ");
 
-			Assert.AreEqual(PropertyNamingStrategyType.Camel, config.PropNameCasingConverter);
+			Assert.AreEqual(NamingStrategyType.Camel, config.NameCasingConverter);
 		}
 
 		[TestMethod]
@@ -146,11 +146,11 @@ namespace TypeRight.Tests.Configuration
 		{
 			var config = ConfigParser.ParseFromJson(@"
 {
-	""propNameCasingConverter"": ""none""
+	""nameCasingConverter"": ""none""
 }
 ");
 
-			Assert.AreEqual(PropertyNamingStrategyType.None, config.PropNameCasingConverter);
+			Assert.AreEqual(NamingStrategyType.None, config.NameCasingConverter);
 		}
 
 		[TestMethod]
@@ -158,11 +158,11 @@ namespace TypeRight.Tests.Configuration
 		{
 			var config = ConfigParser.ParseFromJson(@"
 {
-	""propNameCasingConverter"": null
+	""nameCasingConverter"": null
 }
 ");
 
-			Assert.AreEqual(PropertyNamingStrategyType.None, config.PropNameCasingConverter);
+			Assert.AreEqual(NamingStrategyType.None, config.NameCasingConverter);
 		}
 
 		[TestMethod]

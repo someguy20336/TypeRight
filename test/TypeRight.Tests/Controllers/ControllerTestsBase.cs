@@ -162,6 +162,9 @@ namespace TypeRight.Tests.Controllers
 		{
 			ControllerBuilder.Commit();
 
+			// Kind of annoying... but eh
+			WorkspaceBuilder.ProcessorSettings.NamingStrategy = NamingStrategy.Create(ConfigOptions.NameCasingConverter);
+
 			var packageTester = WorkspaceBuilder.GetPackageTester();
 			var context = CreateContext(packageTester);
 

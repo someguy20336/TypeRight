@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TypeRight.TypeFilters;
 using TypeRight.Attributes;
+using TypeRight.ScriptWriting;
 
 namespace TypeRight.TypeProcessing
 {
@@ -101,7 +102,7 @@ namespace TypeRight.TypeProcessing
 		{
 			Controller = controller;
 			Method = method;
-			ScriptName = GetScriptName(method);
+			ScriptName = GetScriptName(method, typeFactory.Settings.NamingStrategy);
 			ReturnType = typeFactory.LookupType(method.ReturnType);
 			ParameterComments = method.Parameters.ToDictionary(param => param.Name, param => param.Comments);
 			Parameters = method.Parameters.Select(p => new MvcActionParameter(this, p, typeFactory)).ToList().AsReadOnly();
@@ -112,7 +113,7 @@ namespace TypeRight.TypeProcessing
 			return MvcRouteGenerator.CreateGenerator(Controller, baseUrl).GenerateRouteTemplate(this);
 		}
 
-		private string GetScriptName(IMethod method)
+		private string GetScriptName(IMethod method, NamingStrategy namingStrategy)
 		{
 			IAttributeData actionAttr = method.Attributes.FirstOrDefault(attr => CommonFilters.ScriptActionAttributeTypeFilter.Matches(attr.AttributeType));
 
@@ -122,7 +123,7 @@ namespace TypeRight.TypeProcessing
 				return actionAttr.NamedArguments[key] as string;
 			}
 
-			return method.Name;
+			return namingStrategy.GetName(method.Name);
 		}
 
 		/// <summary>

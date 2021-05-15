@@ -1,67 +1,17 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using TypeRight.ScriptWriting;
 using TypeRight.Tests.TestBuilders;
 
 namespace TypeRight.Tests.Controllers.AspNetCore
 {
 	[TestClass]
-	public class QueryParametersTests : ControllerTestsBase
+	public class OtherConfigTests : ControllerTestsBase
 	{
 
 		protected override bool IsAspNetCore => true;
 
 		[TestMethod]
-		public void SingleSimpleFromQueryParam_KeyValueFuncAdded_Generated()
-		{
-			AddControllerAction("TestAction", MvcConstants.JsonResult_AspNetCore)
-					.AddParameter("fromQuery", "string", attribute: MvcConstants.FromQueryAttributeFullName_AspNetCore)
-					.Commit()
-			;
-
-			AssertScriptTextForFunctionIs(@$"
-export function TestAction(fromQuery: string): void {{
-	let urlParams = new URLSearchParams();
-	tryAppendKeyValueToUrl(urlParams, ""fromQuery"", fromQuery);
-	TestAjax(`/{ControllerName}/TestAction${{getQueryString(urlParams)}}`, null);
-}}", ScriptExtensions.KeyValueQueryParamHelper);
-		}
-
-		[TestMethod]
-		public void SingleObjectFromQueryParam_BothQueryHelperFuncsAdded_Generated()
-		{
-			AddControllerAction("TestAction", MvcConstants.JsonResult_AspNetCore)
-					.AddParameter("fromQuery", "TestClass", attribute: MvcConstants.FromQueryAttributeFullName_AspNetCore)
-					.Commit()
-			;
-
-			AssertScriptTextForFunctionIs(@$"
-export function TestAction(fromQuery: Partial<DefaultResult.TestClass>): void {{
-	let urlParams = new URLSearchParams();
-	tryAppendObjectValuesToUrl(urlParams, fromQuery);
-	TestAjax(`/{ControllerName}/TestAction${{getQueryString(urlParams)}}`, null);
-}}", ScriptExtensions.KeyValueQueryParamHelper | ScriptExtensions.ObjectQueryParamHelper);
-		}
-
-		[TestMethod]
-		public void ComplexAndSimpleParameters_BothQueryHelperFuncsAdded_ScriptGenerated()
-		{
-			AddControllerAction("TestAction", MvcConstants.JsonResult_AspNetCore)
-					.AddParameter("simple", "string", attribute: MvcConstants.FromQueryAttributeFullName_AspNetCore)
-					.AddParameter("complex", "TestClass", attribute: MvcConstants.FromQueryAttributeFullName_AspNetCore)
-					.Commit()
-			;
-
-			AssertScriptTextForFunctionIs(@$"
-export function TestAction(simple: string, complex: Partial<DefaultResult.TestClass>): void {{
-	let urlParams = new URLSearchParams();
-	tryAppendKeyValueToUrl(urlParams, ""simple"", simple);
-	tryAppendObjectValuesToUrl(urlParams, complex);
-	TestAjax(`/{ControllerName}/TestAction${{getQueryString(urlParams)}}`, null);
-}}", ScriptExtensions.KeyValueQueryParamHelper | ScriptExtensions.ObjectQueryParamHelper);
-		}
-
-
-		[TestMethod]
-		public void ConfiguredQueryParams_Multi_AddedToUrl_ScriptWritten()
+		public void QueryParams_Configured_Multi_AddedToUrl_ScriptWritten()
 		{
 			GivenQueryParameter("key1", "val1");
 			GivenQueryParameter("key2", "val2");
@@ -88,7 +38,7 @@ export function GetThing(thingId: string): void {
 		}
 
 		[TestMethod]
-		public void ConfiguredQueryParams_WithFromQuery_AddedToUrl_ScriptWritten()
+		public void QueryParams_Configured_WithFromQuery_AddedToUrl_ScriptWritten()
 		{
 			GivenQueryParameter("key1", "val1");
 			ControllerBuilder
@@ -114,7 +64,7 @@ export function GetThing(thingId: string): void {
 		}
 
 		[TestMethod]
-		public void ConfiguredQueryParams_Single_AddedToUrl_ScriptWritten()
+		public void QueryParams_Configured_Single_AddedToUrl_ScriptWritten()
 		{
 			GivenQueryParameter("key1", "val1");
 			ControllerBuilder
@@ -136,6 +86,21 @@ export function GetThing(thingId: string): void {
 	tryAppendKeyValueToUrl(urlParams, ""key1"", ""val1"");
 	TestAjax(`/api/RoutedApi/thing/${thingId}${getQueryString(urlParams)}`, null);
 }", ScriptExtensions.KeyValueQueryParamHelper);
+		}
+
+		[TestMethod]
+		public void NameCasing_Camel_ScriptIsCorrect()
+		{
+			AddControllerAction("CamelCasedTestAction", MvcConstants.JsonResult_AspNetCore)
+				.Commit()
+				;
+
+			ConfigOptions.NameCasingConverter = NamingStrategyType.Camel;
+
+			AssertScriptTextForFunctionIs(@$"
+export function camelCasedTestAction(): void {{
+	TestAjax(`/{ControllerName}/CamelCasedTestAction`, null);
+}}");
 		}
 
 	}
