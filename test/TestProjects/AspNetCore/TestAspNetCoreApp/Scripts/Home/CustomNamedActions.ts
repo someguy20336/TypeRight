@@ -35,7 +35,7 @@ function getQueryString(urlParams: URLSearchParams): string {
  * @param id 
  * @param fromQueryModel 
  */
-export function ComplexFromQuery(id: string, fromQueryModel: Partial<ServerObjects.ASimpleModel>, abort?: AbortSignal): Promise<{ id: string, PropOne: number, PropTwo: string }> {
+export function complexFromQuery(id: string, fromQueryModel: Partial<ServerObjects.ASimpleModel>, abort?: AbortSignal): Promise<{ id: string, PropOne: number, PropTwo: string }> {
 	let urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, "id", id);
 	tryAppendKeyValueToUrl(urlParams, "param1", "val1");
@@ -48,7 +48,7 @@ export function ComplexFromQuery(id: string, fromQueryModel: Partial<ServerObjec
  * 
  * @param fromQueryModel 
  */
-export function ComplexWithListFromQuery(fromQueryModel: Partial<ServerObjects.ModelWithArray>, abort?: AbortSignal): Promise<{ array: number[], simple: string }> {
+export function complexWithListFromQuery(fromQueryModel: Partial<ServerObjects.ModelWithArray>, abort?: AbortSignal): Promise<{ array: number[], simple: string }> {
 	let urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, "param1", "val1");
 	tryAppendKeyValueToUrl(urlParams, "param2", "val2");
@@ -60,7 +60,7 @@ export function ComplexWithListFromQuery(fromQueryModel: Partial<ServerObjects.M
  * 
  * @param id 
  */
-export function FromRoute_TestOverrideMultParamTypesMethod(id: number | boolean | string, abort?: AbortSignal): Promise<string> {
+export function fromRoute_TestOverrideMultParamTypesMethod(id: number | boolean | string, abort?: AbortSignal): Promise<string> {
 	let urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, "param1", "val1");
 	tryAppendKeyValueToUrl(urlParams, "param2", "val2");
@@ -71,7 +71,7 @@ export function FromRoute_TestOverrideMultParamTypesMethod(id: number | boolean 
  * 
  * @param id 
  */
-export function GetRandoGroupObject(id: string, abort?: AbortSignal): Promise<CustomGroup.CustomGroupObject1> {
+export function getRandoGroupObject(id: string, abort?: AbortSignal): Promise<CustomGroup.CustomGroupObject1> {
 	let urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, "param1", "val1");
 	tryAppendKeyValueToUrl(urlParams, "param2", "val2");
@@ -82,7 +82,7 @@ export function GetRandoGroupObject(id: string, abort?: AbortSignal): Promise<Cu
  * 
  * @param id 
  */
-export function GetSomething(id: string, abort?: AbortSignal): Promise<string> {
+export function getSomething(id: string, abort?: AbortSignal): Promise<string> {
 	let urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, "param1", "val1");
 	tryAppendKeyValueToUrl(urlParams, "param2", "val2");
@@ -92,7 +92,7 @@ export function GetSomething(id: string, abort?: AbortSignal): Promise<string> {
 /**
  * 
  */
-export function GetStringList(abort?: AbortSignal): Promise<string[]> {
+export function getStringList(abort?: AbortSignal): Promise<string[]> {
 	let urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, "param1", "val1");
 	tryAppendKeyValueToUrl(urlParams, "param2", "val2");
@@ -104,7 +104,7 @@ export function GetStringList(abort?: AbortSignal): Promise<string[]> {
  * @param id 
  * @param body 
  */
-export function PutSomething(id: string, body: boolean, abort?: AbortSignal): Promise<string> {
+export function putSomething(id: string, body: boolean, abort?: AbortSignal): Promise<string> {
 	let urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, "param1", "val1");
 	tryAppendKeyValueToUrl(urlParams, "param2", "val2");
@@ -114,7 +114,7 @@ export function PutSomething(id: string, body: boolean, abort?: AbortSignal): Pr
 /**
  * 
  */
-export function TestActionResult(abort?: AbortSignal): Promise<string> {
+export function testActionResult(abort?: AbortSignal): Promise<string> {
 	let urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, "param1", "val1");
 	tryAppendKeyValueToUrl(urlParams, "param2", "val2");
@@ -124,7 +124,7 @@ export function TestActionResult(abort?: AbortSignal): Promise<string> {
 /**
  * 
  */
-export function TestClassActionResult(abort?: AbortSignal): Promise<CustomGroup.CustomGroupObject1> {
+export function testClassActionResult(abort?: AbortSignal): Promise<CustomGroup.CustomGroupObject1> {
 	let urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, "param1", "val1");
 	tryAppendKeyValueToUrl(urlParams, "param2", "val2");
@@ -135,7 +135,7 @@ export function TestClassActionResult(abort?: AbortSignal): Promise<CustomGroup.
  * 
  * @param id 
  */
-export function TestGetMethod(id: string, abort?: AbortSignal): Promise<string> {
+export function testGetMethod(id: string, abort?: AbortSignal): Promise<string> {
 	let urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, "id", id);
 	tryAppendKeyValueToUrl(urlParams, "param1", "val1");
@@ -147,7 +147,7 @@ export function TestGetMethod(id: string, abort?: AbortSignal): Promise<string> 
  * 
  * @param id 
  */
-export function TestOverrideMultParamTypesMethod(id: number | boolean | string, abort?: AbortSignal): Promise<string> {
+export function testOverrideMultParamTypesMethod(id: number | boolean | string, abort?: AbortSignal): Promise<string> {
 	let urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, "id", id);
 	tryAppendKeyValueToUrl(urlParams, "param1", "val1");
@@ -159,7 +159,7 @@ export function TestOverrideMultParamTypesMethod(id: number | boolean | string, 
  * 
  * @param id 
  */
-export function TestOverrideSingleParamTypeMethod(id: number, abort?: AbortSignal): Promise<string> {
+export function testOverrideSingleParamTypeMethod(id: number, abort?: AbortSignal): Promise<string> {
 	let urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, "id", id);
 	tryAppendKeyValueToUrl(urlParams, "param1", "val1");
@@ -172,7 +172,7 @@ export function TestOverrideSingleParamTypeMethod(id: number, abort?: AbortSigna
  * @param id 
  * @param body 
  */
-export function WithFromQuery(id: string, body: Models.CustomGroupObj3, abort?: AbortSignal): Promise<CustomGroup.CustomGroupObject1> {
+export function withFromQuery(id: string, body: Models.CustomGroupObj3, abort?: AbortSignal): Promise<CustomGroup.CustomGroupObject1> {
 	let urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, "id", id);
 	tryAppendKeyValueToUrl(urlParams, "param1", "val1");

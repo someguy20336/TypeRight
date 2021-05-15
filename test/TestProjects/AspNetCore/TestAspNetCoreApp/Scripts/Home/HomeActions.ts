@@ -28,7 +28,7 @@ function getQueryString(urlParams: URLSearchParams): string {
  * 
  * @param model 
  */
-export function AnonTypeWithDictionaryProperty(model: Models.CustomGroupObj3, abort?: AbortSignal): Promise<{ listObj: CustomGroup.CustomGroupObject1[] }> {
+export function anonTypeWithDictionaryProperty(model: Models.CustomGroupObj3, abort?: AbortSignal): Promise<{ listObj: CustomGroup.CustomGroupObject1[] }> {
 	let urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, "param1", "val1");
 	tryAppendKeyValueToUrl(urlParams, "param2", "val2");
@@ -39,7 +39,7 @@ export function AnonTypeWithDictionaryProperty(model: Models.CustomGroupObj3, ab
  * 
  * @param model 
  */
-export function FunctionWithModel(model: ServerObjects.ASimpleModel, abort?: AbortSignal): Promise<ServerObjects.ASimpleModel> {
+export function functionWithModel(model: ServerObjects.ASimpleModel, abort?: AbortSignal): Promise<ServerObjects.ASimpleModel> {
 	let urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, "param1", "val1");
 	tryAppendKeyValueToUrl(urlParams, "param2", "val2");
@@ -50,7 +50,7 @@ export function FunctionWithModel(model: ServerObjects.ASimpleModel, abort?: Abo
  * 
  * @param model 
  */
-export function MultipleFromStuff(model: ServerObjects.ASimpleModel, abort?: AbortSignal): Promise<ServerObjects.ASimpleModel> {
+export function multipleFromStuff(model: ServerObjects.ASimpleModel, abort?: AbortSignal): Promise<ServerObjects.ASimpleModel> {
 	let urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, "param1", "val1");
 	tryAppendKeyValueToUrl(urlParams, "param2", "val2");
@@ -60,7 +60,7 @@ export function MultipleFromStuff(model: ServerObjects.ASimpleModel, abort?: Abo
 /**
  * 
  */
-export function NoFromBodyParams(abort?: AbortSignal): Promise<ServerObjects.ASimpleModel> {
+export function noFromBodyParams(abort?: AbortSignal): Promise<ServerObjects.ASimpleModel> {
 	let urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, "param1", "val1");
 	tryAppendKeyValueToUrl(urlParams, "param2", "val2");
@@ -71,7 +71,7 @@ export function NoFromBodyParams(abort?: AbortSignal): Promise<ServerObjects.ASi
  * 
  * @param model 
  */
-export function OtherFunctionWithModel(model: CustomGroup.CustomGroupObject1, abort?: AbortSignal): Promise<CustomGroup.CustomGroupObject1> {
+export function otherFunctionWithModel(model: CustomGroup.CustomGroupObject1, abort?: AbortSignal): Promise<CustomGroup.CustomGroupObject1> {
 	let urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, "param1", "val1");
 	tryAppendKeyValueToUrl(urlParams, "param2", "val2");
@@ -81,7 +81,7 @@ export function OtherFunctionWithModel(model: CustomGroup.CustomGroupObject1, ab
 /**
  * 
  */
-export function TestJson(abort?: AbortSignal): Promise<ServerObjects.NetStandardClass> {
+export function testJson(abort?: AbortSignal): Promise<ServerObjects.NetStandardClass> {
 	let urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, "param1", "val1");
 	tryAppendKeyValueToUrl(urlParams, "param2", "val2");

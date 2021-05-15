@@ -7,39 +7,39 @@ import * as ServerObjects from "./ServerObjects";
 /**  */
 export interface ASimpleModel<T1, T2> {
 	/**  */
-	Reference: ServerObjects.ASimpleModel_1<T1>;
+	reference: ServerObjects.ASimpleModel_1<T1>;
 	/**  */
-	AhDoesThisWork: ASimpleEnum;
+	ahDoesThisWork: ASimpleEnum;
 	/**  */
-	ReferenceArray: ServerObjects.ASimpleModel_1<T1>[];
+	referenceArray: ServerObjects.ASimpleModel_1<T1>[];
 	/**  */
-	ReferenceList: ServerObjects.ASimpleModel_1<T1>[];
+	referenceList: ServerObjects.ASimpleModel_1<T1>[];
 	/**  */
-	EnumDict: { [key: number]: ServerObjects.NetStandardEnum };
+	enumDict: { [key: number]: ServerObjects.NetStandardEnum };
 	/**  */
-	NullableEnum: ServerObjects.NetStandardEnum;
+	nullableEnum: ServerObjects.NetStandardEnum;
 }
 
 /**  */
 export interface CustomGroupObj2 {
 	/**  */
-	Obj1: CustomGroupObject1;
+	obj1: CustomGroupObject1;
 }
 
 /**  */
 export interface CustomGroupObj2_1<T> {
 	/**  */
-	Property: number;
+	property: number;
 }
 
 /**  */
 export interface CustomGroupObject1 {
 	/** Add doc */
-	Prop1: number;
+	prop1: number;
 	/**  */
-	OtherClass: ServerObjects.NetStandardClass;
+	otherClass: ServerObjects.NetStandardClass;
 	/** Just has a string list */
-	AnotherStringList: string[];
+	anotherStringList: string[];
 }
 
   

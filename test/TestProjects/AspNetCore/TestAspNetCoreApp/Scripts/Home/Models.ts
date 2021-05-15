@@ -8,11 +8,11 @@ import * as ServerObjects from "../ServerObjects";
 /**  */
 export interface CustomGroupObj3 {
 	/**  */
-	StringProp: string;
+	stringProp: string;
 	/**  */
-	Obj1: CustomGroup.CustomGroupObject1;
+	obj1: CustomGroup.CustomGroupObject1;
 	/**  */
-	GenericArg: CustomGroup.CustomGroupObj2_1<ServerObjects.NetStandardEnum>;
+	genericArg: CustomGroup.CustomGroupObj2_1<ServerObjects.NetStandardEnum>;
 }
 
   
