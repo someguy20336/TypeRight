@@ -11,7 +11,11 @@ See [the wiki](https://github.com/someguy20336/TypeRight/wiki/Quick-Start) for a
 
 # Recent Updates
 
-- [Version 1.2.0](https://github.com/someguy20336/TypeRight/releases/tag/v1.2.0)
+- [Version 1.4.0](https://github.com/someguy20336/TypeRight/releases/tag/tool/v1.4.0)
+- [Version 1.3.0](https://github.com/someguy20336/TypeRight/releases/tag/tool/v1.3.0) 
+  - Unlisted in NuGet due to a technically breaking change in v1.4
+- [Version 1.2.0](https://github.com/someguy20336/TypeRight/releases/tag/v1.2.0) 
+  - Unlisted in NuGet due to a technically breaking change in v1.4
 - [Version 1.1.0](https://github.com/someguy20336/TypeRight/releases/tag/v1.1.0)
 - [Version 1.0.0](https://github.com/someguy20336/TypeRight/releases/tag/v1.0.0)
 
