@@ -25,7 +25,7 @@ namespace TypeRight.Configuration
 		public string BaseUrl { get; set; }
 
 		[JsonConverter(typeof(CamelCaseStringEnumConverter))]
-		public PropertyNamingStrategyType PropNameCasingConverter { get; set; }
+		public NamingStrategyType NameCasingConverter { get; set; }
 
 		[JsonConverter(typeof(QueryParamJsonConverter))]
 		public NameValueCollection QueryParams { get; set; }

@@ -17,7 +17,7 @@ namespace TypeRight.TypeProcessing
 		/// </summary>
 		public string DefaultResultPath { get; set; }
 
-		public PropertyNamingStrategy NamingStrategy { get; set; } = PropertyNamingStrategy.Default;
+		public NamingStrategy NamingStrategy { get; set; } = NamingStrategy.Default;
 
 	}
 }

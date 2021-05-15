@@ -25,6 +25,56 @@ namespace TypeRight.Tests.Controllers.AspNetCore
 
 
 		[TestMethod]
+		public void FromQuery_SingleSimple_KeyValueFuncAdded_Generated()
+		{
+			AddControllerAction("TestAction", MvcConstants.JsonResult_AspNetCore)
+					.AddParameter("fromQuery", "string", attribute: MvcConstants.FromQueryAttributeFullName_AspNetCore)
+					.Commit()
+			;
+
+			AssertScriptTextForFunctionIs(@$"
+export function TestAction(fromQuery: string): void {{
+	let urlParams = new URLSearchParams();
+	tryAppendKeyValueToUrl(urlParams, ""fromQuery"", fromQuery);
+	TestAjax(`/{ControllerName}/TestAction${{getQueryString(urlParams)}}`, null);
+}}", ScriptExtensions.KeyValueQueryParamHelper);
+		}
+
+		[TestMethod]
+		public void FromQuery_SingleObject_BothQueryHelperFuncsAdded_Generated()
+		{
+			AddControllerAction("TestAction", MvcConstants.JsonResult_AspNetCore)
+					.AddParameter("fromQuery", "TestClass", attribute: MvcConstants.FromQueryAttributeFullName_AspNetCore)
+					.Commit()
+			;
+
+			AssertScriptTextForFunctionIs(@$"
+export function TestAction(fromQuery: Partial<DefaultResult.TestClass>): void {{
+	let urlParams = new URLSearchParams();
+	tryAppendObjectValuesToUrl(urlParams, fromQuery);
+	TestAjax(`/{ControllerName}/TestAction${{getQueryString(urlParams)}}`, null);
+}}", ScriptExtensions.KeyValueQueryParamHelper | ScriptExtensions.ObjectQueryParamHelper);
+		}
+
+		[TestMethod]
+		public void FromQuery_ComplexAndSimpleParameters_BothQueryHelperFuncsAdded_ScriptGenerated()
+		{
+			AddControllerAction("TestAction", MvcConstants.JsonResult_AspNetCore)
+					.AddParameter("simple", "string", attribute: MvcConstants.FromQueryAttributeFullName_AspNetCore)
+					.AddParameter("complex", "TestClass", attribute: MvcConstants.FromQueryAttributeFullName_AspNetCore)
+					.Commit()
+			;
+
+			AssertScriptTextForFunctionIs(@$"
+export function TestAction(simple: string, complex: Partial<DefaultResult.TestClass>): void {{
+	let urlParams = new URLSearchParams();
+	tryAppendKeyValueToUrl(urlParams, ""simple"", simple);
+	tryAppendObjectValuesToUrl(urlParams, complex);
+	TestAjax(`/{ControllerName}/TestAction${{getQueryString(urlParams)}}`, null);
+}}", ScriptExtensions.KeyValueQueryParamHelper | ScriptExtensions.ObjectQueryParamHelper);
+		}
+
+		[TestMethod]
 		public void FromBody_WithFromServices_FirstParameter_ScriptIsCorrect()
 		{
 			ControllerBuilder
@@ -218,6 +268,13 @@ export function Action(id: string | number): void {{
 export function DifferentName(id: string): void {{
 	TestAjax(`/{ControllerName}/Action/${{id}}`, null);
 }}");
+		}
+
+		[TestMethod]
+		public void ScriptActionName_WithConfigAsCamel_ActionScriptNameIsStillOverridden()
+		{
+			ConfigOptions.NameCasingConverter = ScriptWriting.NamingStrategyType.Camel;
+			ScriptActionName_ActionScriptNameIsOverridden();
 		}
 
 	}

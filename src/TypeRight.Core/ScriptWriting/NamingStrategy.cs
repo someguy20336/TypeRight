@@ -5,31 +5,31 @@ using TypeRight.TypeFilters;
 
 namespace TypeRight.ScriptWriting
 {
-	public enum PropertyNamingStrategyType
+	public enum NamingStrategyType
 	{
 		None,
 		Camel
 	}
 
-	public abstract class PropertyNamingStrategy
+	public abstract class NamingStrategy
 	{
-		private static readonly PropertyNamingStrategy _default = Create(PropertyNamingStrategyType.None);
-		public static PropertyNamingStrategy Default => _default;
+		private static readonly NamingStrategy _default = Create(NamingStrategyType.None);
+		public static NamingStrategy Default => _default;
 
-		public abstract string GetName(IProperty property);
+		public abstract string GetPropertyName(IProperty property);
 
-		// TODO method to create "named" (i.e. using camel case)
+		public abstract string GetName(string name);
 
-		public static PropertyNamingStrategy Create(PropertyNamingStrategyType type)
+		public static NamingStrategy Create(NamingStrategyType type)
 		{
-			PropertyNamingStrategy defaultStrat;
+			NamingStrategy defaultStrat;
 			switch (type)
 			{
-				case PropertyNamingStrategyType.Camel:
-					defaultStrat = new CamelCasePropertyNamingStrategy();
+				case NamingStrategyType.Camel:
+					defaultStrat = new CamelCaseNamingStrategy();
 					break;
 				default:
-					defaultStrat = new NullPropertyNamingStrategy();
+					defaultStrat = new NullNamingStrategy();
 					break;
 			}
 
@@ -37,24 +37,25 @@ namespace TypeRight.ScriptWriting
 		}
 
 
-		private class CamelCasePropertyNamingStrategy : PropertyNamingStrategy
+		private class CamelCaseNamingStrategy : NamingStrategy
 		{
-			private static readonly CamelCaseNamingStrategy s_camelCaseResolver = new CamelCaseNamingStrategy();
-			public override string GetName(IProperty property)
+			private static readonly Newtonsoft.Json.Serialization.CamelCaseNamingStrategy s_camelCaseResolver = new Newtonsoft.Json.Serialization.CamelCaseNamingStrategy();
+			public override string GetPropertyName(IProperty property) => GetName(property.Name);
+
+			public override string GetName(string name)
 			{
-				return s_camelCaseResolver.GetPropertyName(property.Name, false);
+				return s_camelCaseResolver.GetPropertyName(name, false);
 			}
 		}
 
-		private class NullPropertyNamingStrategy : PropertyNamingStrategy
+		private class NullNamingStrategy : NamingStrategy
 		{
-			public override string GetName(IProperty property)
-			{
-				return property.Name;
-			}
+			public override string GetPropertyName(IProperty property) => GetName(property.Name);
+
+			public override string GetName(string name) => name;
 		}
 
-		private class TryNameOverrideStrategy : PropertyNamingStrategy
+		private class TryNameOverrideStrategy : NamingStrategy
 		{
 			private static readonly TypeFilter s_systemTextJsonAttributeFilter
 				= new IsOfTypeFilter(KnownTypes.SystemTextJsonPropertyName);
@@ -62,14 +63,14 @@ namespace TypeRight.ScriptWriting
 			private static readonly TypeFilter s_newtonsoftJsonAttributeFilter
 				= new IsOfAnyTypeFilter(KnownTypes.NewtonsoftJsonPropertyName_v12, KnownTypes.NewtonsoftJsonPropertyName_pre_v12);
 
-			private readonly PropertyNamingStrategy _defaultStrategy;
+			private readonly NamingStrategy _defaultStrategy;
 
-			public TryNameOverrideStrategy(PropertyNamingStrategy defaultStrategy)
+			public TryNameOverrideStrategy(NamingStrategy defaultStrategy)
 			{
 				_defaultStrategy = defaultStrategy;
 			}
 
-			public override string GetName(IProperty property)
+			public override string GetPropertyName(IProperty property)
 			{
 				string name;
 				if (TryFindNewtonsoftOverride(property, out name))
@@ -80,8 +81,10 @@ namespace TypeRight.ScriptWriting
 				{
 					return name;
 				}
-				return _defaultStrategy.GetName(property);
+				return _defaultStrategy.GetPropertyName(property);
 			}
+
+			public override string GetName(string name) => _defaultStrategy.GetName(name);
 
 			private bool TryFindNewtonsoftOverride(IProperty property, out string name)
 			{

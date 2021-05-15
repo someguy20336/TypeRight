@@ -8,7 +8,7 @@ namespace TypeRight.TypeProcessing
 {
 	internal class TypeFactory
 	{
-		private ProcessorSettings _settings;
+		public ProcessorSettings Settings { get; }
 
 		private static TypeFilter s_enumDisplayNameFilter = new HasInterfaceOfTypeFilter(typeof(IEnumDisplayNameProvider).FullName);
 
@@ -59,7 +59,7 @@ namespace TypeRight.TypeProcessing
 
 		public TypeFactory(ProcessorSettings settings)
 		{
-			_settings = settings;
+			Settings = settings;
 		}
 
 		public bool ContainsNamedType(INamedType namedType)
@@ -175,11 +175,11 @@ namespace TypeRight.TypeProcessing
 		{
 			if (string.IsNullOrEmpty(targetPath))
 			{
-				targetPath = _settings.DefaultResultPath;
+				targetPath = Settings.DefaultResultPath;
 			}
 			else
 			{
-				targetPath = PathUtils.ResolveRelativePath(_settings.ProjectPath, targetPath);
+				targetPath = PathUtils.ResolveRelativePath(Settings.ProjectPath, targetPath);
 			}
 
 			if (type.Flags.IsInterface)  // Interface
@@ -198,7 +198,7 @@ namespace TypeRight.TypeProcessing
 
 		public ExtractedProperty CreateExtractedProperty(IProperty property)
 		{
-			return new ExtractedProperty(property, _settings.NamingStrategy, this);
+			return new ExtractedProperty(property, this);
 		}
 
 	}

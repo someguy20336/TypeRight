@@ -61,7 +61,7 @@ namespace TypeRight
 			{
 				DefaultResultPath = resultAbsolute.LocalPath,
 				ProjectPath = projUri.LocalPath,
-				NamingStrategy = PropertyNamingStrategy.Create(configOptions.PropNameCasingConverter)
+				NamingStrategy =NamingStrategy.Create(configOptions.NameCasingConverter)
 			};
 
 			// At this point we are good
