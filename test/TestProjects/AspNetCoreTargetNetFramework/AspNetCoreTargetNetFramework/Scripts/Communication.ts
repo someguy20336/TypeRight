@@ -5,7 +5,7 @@
  * @param success the success function
  * @param fail the fail function
  */
-export function callPost<T>(url: string, data: any, abortSignal?: AbortSignal): Promise<T> {
+export function fetchwrapper<T>(method: string, url: string, data: any, abortSignal?: AbortSignal): Promise<T> {
 
 	return null;
 }

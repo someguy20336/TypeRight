@@ -1,5 +1,5 @@
 {
-  "$schema": "https://raw.githubusercontent.com/someguy20336/TypeRight/56-fetch-config-changes/src/TypeRight.Core/Configuration/typeRightConfig-schema.json",
+  "$schema": "https://raw.githubusercontent.com/someguy20336/TypeRight/tool/v1.4.0/src/TypeRight.Core/Configuration/typeRightConfig-schema.json",
   "enabled": true,
   "baseUrl": "",
   "nameCasingConverter": "camel",
@@ -22,49 +22,5 @@
         "optional": true
       }
     ]
-  },
-  //"actionConfigurations": [
-  //  {
-  //    "method": "default",
-  //    "fetchFunctionName": "callPost",
-  //    "fetchFilePath": "./Scripts/CallServiceStuff.ts",
-  //    "parameters": [
-  //      {
-  //        "name": "abort",
-  //        "type": "AbortSignal",
-  //        "optional": true
-  //      }
-  //    ],
-  //    "returnType": "Promise<$returnType$>",
-  //    "imports": null
-  //  },
-  //  {
-  //    "method": "GET",
-  //    "fetchFunctionName": "callGet",
-  //    "fetchFilePath": "./Scripts/CallServiceStuff.ts",
-  //    "parameters": [
-  //      {
-  //        "name": "abort",
-  //        "type": "AbortSignal",
-  //        "optional": true
-  //      }
-  //    ],
-  //    "returnType": "Promise<$returnType$>",
-  //    "imports": null
-  //  },
-  //  {
-  //    "method": "PUT",
-  //    "fetchFunctionName": "callPut",
-  //    "fetchFilePath": "./Scripts/CallServiceStuff.ts",
-  //    "parameters": [
-  //      {
-  //        "name": "abort",
-  //        "type": "AbortSignal",
-  //        "optional": true
-  //      }
-  //    ],
-  //    "returnType": "Promise<$returnType$>",
-  //    "imports": null
-  //  }
-  //]
+  }
 }

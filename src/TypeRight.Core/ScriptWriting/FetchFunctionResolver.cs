@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using TypeRight.Configuration;
-using TypeRight.TypeProcessing;
 
 namespace TypeRight.ScriptWriting
 {
@@ -40,7 +39,7 @@ namespace TypeRight.ScriptWriting
 			: base(projUri)
 		{
 			_fetchConfig = fetchConfig;
-			_constantQueryParams = constantQueryParams;
+			_constantQueryParams = constantQueryParams ?? new NameValueCollection();
 			_baseUrl = baseUrl;
 		}
 
