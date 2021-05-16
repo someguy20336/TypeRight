@@ -38,11 +38,9 @@ namespace TypeRight.Tests.Controllers
 
 			ConfigOptions = new ConfigOptions()
 			{
-				ActionConfigurations = TypeCollectionTester.GetDefaultActionConfig(),
+				FetchConfig = TypeCollectionTester.GetDefaultFetchConfig(),
 				QueryParams = new NameValueCollection()
 			};
-
-			GivenActionParameters(Array.Empty<ActionParameter>());
 
 			WorkspaceBuilder.DefaultProject
 				.AddFakeMvc(IsAspNetCore);
@@ -77,17 +75,12 @@ namespace TypeRight.Tests.Controllers
 
 		protected void GivenImportDefinition(ImportDefinition definition)
 		{
-			ConfigOptions.ActionConfigurations[0].Imports.Add(definition);
+			ConfigOptions.FetchConfig.Imports.Add(definition);
 		}
 
 		protected void GivenActionParameters(IEnumerable<ActionParameter> actionParameters)
 		{
-			ConfigOptions.ActionConfigurations[0].Parameters = actionParameters.ToList();
-		}
-
-		protected void GivenActionConfig(ActionConfig config)
-		{
-			ConfigOptions.ActionConfigurations.Add(config);
+			ConfigOptions.FetchConfig.Parameters.AddRange(actionParameters);
 		}
 
 		protected void GivenQueryParameter(string key, string value)
@@ -99,7 +92,6 @@ namespace TypeRight.Tests.Controllers
 
 		protected void GivenFetchConfig(FetchConfig fetchConfig)
 		{
-			ConfigOptions.ActionConfigurations = null;
 			ConfigOptions.FetchConfig = fetchConfig;
 		}
 
@@ -108,7 +100,7 @@ namespace TypeRight.Tests.Controllers
 			ConfigOptions.FetchConfig.Parameters.Add(actionParam);
 		}
 
-		protected void GivenScriptReturnType(string returnType) => ConfigOptions.ActionConfigurations[0].ReturnType = returnType;
+		protected void GivenScriptReturnType(string returnType) => ConfigOptions.FetchConfig.ReturnType = returnType;
 
 		protected MvcActionTester AssertThatThisControllerAction(string actionName)
 		{

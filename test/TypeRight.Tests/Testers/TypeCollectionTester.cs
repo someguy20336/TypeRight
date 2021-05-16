@@ -12,7 +12,7 @@ namespace TypeRight.Tests.Testers
 {
 	public class TypeCollectionTester
 	{
-		public const string FetchFilePath = @".\FolderM\FolderN\AjaxFunc.ts";
+		public const string FetchFilePath = @".\FolderM\FolderN\FetchFile.ts";
 
 		private ExtractedTypeCollection _typeCollection;
 
@@ -66,31 +66,21 @@ namespace TypeRight.Tests.Testers
 				);
 		}
 
-		public static List<ActionConfig> GetDefaultActionConfig()
+		public static FetchConfig GetDefaultFetchConfig()
 		{
-			return new List<ActionConfig>()
+
+			return new FetchConfig()
 			{
-				new ActionConfig()
+				FilePath = FetchFilePath,
+				Name = "fetchWrapper",
+				Imports = new List<ImportDefinition>(),
+				Parameters = new List<ActionParameter>()
 				{
-					FetchFilePath = FetchFilePath,
-					FetchFunctionName = "TestAjax",
-					Imports = new List<ImportDefinition>(),
-					Method = RequestMethod.Default.Name,
-					Parameters = new List<ActionParameter>()		// TODO: this is dupliated in ControllerWritingTestsBase... don't
-					{
-						new ActionParameter("success", "(result: $returnType$) => void", true),
-						new ActionParameter("fail", "(result: any) => void", true)
-					},
-					ReturnType = "void"
+					ActionParameter.RequestMethod,
+					ActionParameter.Url,
+					ActionParameter.Body
 				},
-				new ActionConfig()
-				{
-					FetchFilePath = FetchFilePath,
-					FetchFunctionName = "callDelete",
-					Imports = new List<ImportDefinition>(),
-					Method = "DELETE",
-					ReturnType = "void"
-				}
+				ReturnType = "void"
 			};
 		}
 

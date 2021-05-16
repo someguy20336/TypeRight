@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using System.Collections.Generic;
 using System.Collections.Specialized;
 using TypeRight.Configuration.Json;
 using TypeRight.ScriptWriting;
@@ -39,11 +38,6 @@ namespace TypeRight.Configuration
 		public FetchConfig FetchConfig { get; set; }
 
 		/// <summary>
-		/// Gets or sets the action configurations to use
-		/// </summary>
-		public List<ActionConfig> ActionConfigurations { get; set; }
-
-		/// <summary>
 		/// Creates a new config file
 		/// </summary>
 		public ConfigOptions()
@@ -52,7 +46,6 @@ namespace TypeRight.Configuration
 			ServerObjectsResultFilepath = "./Scripts/ServerObjects.ts";
 
 			BaseUrl = "";
-			ActionConfigurations = new List<ActionConfig>();
 		}
 	}
 }

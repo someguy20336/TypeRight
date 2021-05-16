@@ -54,15 +54,7 @@ namespace TypeRight.Tests.Controllers
 		[TestMethod]
 		public void ImportsFetchFile()
 		{
-			GivenActionConfig(new ActionConfig()
-			{
-				FetchFilePath = @".\FolderM\FolderN\AjaxFuncPost.ts",
-				FetchFunctionName = "callPost",
-				Imports = null,
-				Method = "POST",
-				Parameters = null,
-				ReturnType = "void"
-			});
+			ConfigOptions.FetchConfig.FilePath = @".\FolderM\FolderN\FetchStuff.ts";
 
 			// Turns out actions are required
 			AddControllerAction("PostMethod", "string")
@@ -72,7 +64,7 @@ namespace TypeRight.Tests.Controllers
 
 
 			AssertThatThisController()
-				.HasImportForFile(@"../../FolderM/FolderN/AjaxFuncPost");
+				.HasImportForFile(@"../../FolderM/FolderN/FetchStuff");
 		}
 	}
 }

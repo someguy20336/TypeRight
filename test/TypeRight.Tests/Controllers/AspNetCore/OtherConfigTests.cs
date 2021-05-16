@@ -33,7 +33,7 @@ export function GetThing(thingId: string): void {
 	let urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, ""key1"", ""val1"");
 	tryAppendKeyValueToUrl(urlParams, ""key2"", ""val2"");
-	TestAjax(`/api/RoutedApi/thing/${thingId}${getQueryString(urlParams)}`, null);
+	fetchWrapper(""GET"", `/api/RoutedApi/thing/${thingId}${getQueryString(urlParams)}`, null);
 }", ScriptExtensions.KeyValueQueryParamHelper);
 		}
 
@@ -59,7 +59,7 @@ export function GetThing(thingId: string): void {
 	let urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, ""thingId"", thingId);
 	tryAppendKeyValueToUrl(urlParams, ""key1"", ""val1"");
-	TestAjax(`/api/RoutedApi/thing${getQueryString(urlParams)}`, null);
+	fetchWrapper(""GET"", `/api/RoutedApi/thing${getQueryString(urlParams)}`, null);
 }", ScriptExtensions.KeyValueQueryParamHelper);
 		}
 
@@ -84,7 +84,7 @@ export function GetThing(thingId: string): void {
 export function GetThing(thingId: string): void {
 	let urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, ""key1"", ""val1"");
-	TestAjax(`/api/RoutedApi/thing/${thingId}${getQueryString(urlParams)}`, null);
+	fetchWrapper(""GET"", `/api/RoutedApi/thing/${thingId}${getQueryString(urlParams)}`, null);
 }", ScriptExtensions.KeyValueQueryParamHelper);
 		}
 
@@ -99,7 +99,7 @@ export function GetThing(thingId: string): void {
 
 			AssertScriptTextForFunctionIs(@$"
 export function camelCasedTestAction(): void {{
-	TestAjax(`/{ControllerName}/CamelCasedTestAction`, null);
+	fetchWrapper(""GET"", `/{ControllerName}/CamelCasedTestAction`, null);
 }}");
 		}
 
