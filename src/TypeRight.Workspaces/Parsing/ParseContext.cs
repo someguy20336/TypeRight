@@ -41,12 +41,9 @@ namespace TypeRight.Workspaces.Parsing
 
 			// ActionResult, IActionResult, JsonResult, ActionResult<object>, object
 			_returnTypeHandlers.Add(new ParseSyntaxForTypeMethodHandler(
-				MvcConstants.ToAspNetFullName("JsonResult"),
 				MvcConstants.ToAspNetCoreFullName("JsonResult"),
-				MvcConstants.ToAspNetFullName("ActionResult"),
 				MvcConstants.ToAspNetCoreFullName("ActionResult"),
 				MvcConstants.ToAspNetCoreFullName("ActionResult") + "`1",
-				MvcConstants.ToAspNetFullName("IActionResult"),
 				MvcConstants.ToAspNetCoreFullName("IActionResult"),
 				typeof(object).FullName
 				));

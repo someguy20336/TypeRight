@@ -31,7 +31,7 @@ namespace TypeRight.CodeModel
 		{
 			ClassFilter = new HasAttributeFilter(typeof(ScriptObjectAttribute).FullName);
 			EnumFilter = new HasAttributeFilter(typeof(ScriptEnumAttribute).FullName);
-			ControllerFilter = new IsOfAnyTypeFilter(MvcConstants.ControllerBaseFullName_AspNet, MvcConstants.ControllerBaseFullName_AspNetCore);
+			ControllerFilter = new IsOfAnyTypeFilter(MvcConstants.ControllerBaseFullName_AspNetCore);
 		}
 	}
 }

@@ -8,8 +8,6 @@ namespace TypeRight.Tests.Controllers
 	public class ControllerModelTests : ControllerTestsBase
 	{
 
-		protected override bool IsAspNetCore => true;
-
 
 		[TestMethod]
 		public void IdentifiesQueryParameter()

@@ -14,8 +14,6 @@ namespace TypeRight.Tests.Controllers.AspNetCore
 	[TestClass]
 	public class ControllerImportAndCommentsTests : ControllerTestsBase
 	{
-		protected override bool IsAspNetCore => true;
-
 
 		[TestMethod]
 		public void ImportFromServerObjects_AreWritten()

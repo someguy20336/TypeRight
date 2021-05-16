@@ -56,9 +56,9 @@ namespace TypeRight.Tests.TestBuilders
 			return this;
 		}
 
-		public TestClassBuilder WithControllerBaseClass(bool aspNetCore = true)
+		public TestClassBuilder WithControllerBaseClass()
 		{
-			_baseClass = aspNetCore ? MvcConstants.ControllerBaseFullName_AspNetCore : MvcConstants.ControllerBaseFullName_AspNet;
+			_baseClass = MvcConstants.ControllerBaseFullName_AspNetCore;
 			return this;
 		}
 

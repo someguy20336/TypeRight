@@ -8,8 +8,6 @@ namespace TypeRight.Tests.Controllers.AspNetCore
 	public class OtherConfigTests : ControllerTestsBase
 	{
 
-		protected override bool IsAspNetCore => true;
-
 		[TestMethod]
 		public void QueryParams_Configured_Multi_AddedToUrl_ScriptWritten()
 		{

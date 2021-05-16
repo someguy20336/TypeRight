@@ -79,12 +79,7 @@ namespace TypeRight.TypeProcessing
 
 		public static MvcRouteGenerator CreateGenerator(MvcController controller, string baseUrl)
 		{
-			TypeFilter aspNetCoreFilter = new IsOfTypeFilter(MvcConstants.ControllerBaseFullName_AspNetCore);
-
-			var controllerInfo = controller;
-			return aspNetCoreFilter.Matches(controllerInfo.NamedType) 
-				? new AspNetCoreRouteGenerator(controller, baseUrl) 
-				: (MvcRouteGenerator)new AspNetRouteGenerator(controller, baseUrl);
+			return new AspNetCoreRouteGenerator(controller, baseUrl);
 		}
 
 		protected virtual List<RouteParameterResolver> GetParameterResolvers()

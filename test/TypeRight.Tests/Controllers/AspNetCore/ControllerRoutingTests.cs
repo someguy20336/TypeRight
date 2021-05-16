@@ -7,8 +7,6 @@ namespace TypeRight.Tests.Controllers.AspNetCore
 	[TestClass]
 	public class ControllerRoutingTests : ControllerTestsBase
 	{
-		protected override bool IsAspNetCore => true;
-
 		/// <summary>
 		/// Sets up a parse of this solution
 		/// </summary>

@@ -9,7 +9,6 @@ namespace TypeRight.TypeProcessing.MvcRouting
 
 		public static ApiVersionRouteParameterResolver AspNetCore = new ApiVersionRouteParameterResolver(MvcConstants.ApiVersionAttributeFullName_AspNetCore);
 
-		public static ApiVersionRouteParameterResolver AspNet = new ApiVersionRouteParameterResolver(MvcConstants.ApiVersionAttributeFullName_AspNet);
 		private readonly string _attrTypeFullName;
 
 		private ApiVersionRouteParameterResolver(string attrTypeFullName)

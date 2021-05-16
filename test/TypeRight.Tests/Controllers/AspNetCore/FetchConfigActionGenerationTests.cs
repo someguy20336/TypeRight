@@ -9,7 +9,6 @@ namespace TypeRight.Tests.Controllers.AspNetCore
 	[TestClass]
 	public class FetchConfigActionGenerationTests : ControllerTestsBase
 	{
-		protected override bool IsAspNetCore => true;
 
 		[TestInitialize]
 		public override void TestInitialize()

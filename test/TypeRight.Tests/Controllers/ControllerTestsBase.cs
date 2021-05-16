@@ -29,8 +29,6 @@ namespace TypeRight.Tests.Controllers
 		protected string ControllerFullName => $"{ControllerName}Controller";
 		protected virtual string ControllerName => "Test";
 
-		protected abstract bool IsAspNetCore { get; }
-
 		[TestInitialize]
 		public override void TestInitialize()
 		{
@@ -43,7 +41,7 @@ namespace TypeRight.Tests.Controllers
 			};
 
 			WorkspaceBuilder.DefaultProject
-				.AddFakeMvc(IsAspNetCore);
+				.AddFakeMvc();
 
 			// Test class to use as return/param
 			AddClass("TestClass")
@@ -59,10 +57,10 @@ namespace TypeRight.Tests.Controllers
 				.Commit();
 
 			ControllerBuilder = AddClass(ControllerFullName)
-				.WithControllerBaseClass(IsAspNetCore)
+				.WithControllerBaseClass()
 
 				// Fake Json method
-				.AddMethod("Json", IsAspNetCore ? MvcConstants.JsonResult_AspNetCore : MvcConstants.JsonResult_AspNet)
+				.AddMethod("Json", MvcConstants.JsonResult_AspNetCore)
 					.AddParameter("data", "object")
 					.AddLineOfCode("return null;", 0)
 					.Commit();

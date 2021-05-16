@@ -9,7 +9,6 @@ namespace TypeRight.Tests.Controllers.AspNetCore
 
 		protected override string ControllerNamespace => MvcConstants.AspNetCoreNamespace;
 
-		protected override bool IsAspNetCore => true;
 
 		[TestMethod]
 		public void RoutedByConvention()

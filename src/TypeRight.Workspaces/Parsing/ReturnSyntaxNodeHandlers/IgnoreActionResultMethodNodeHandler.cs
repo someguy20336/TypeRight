@@ -16,10 +16,9 @@ namespace TypeRight.Workspaces.Parsing.ReturnSyntaxNodeHandlers
 		public IgnoreActionResultMethodNodeHandler(ReturnSyntaxNodeHandlerContext handlerContext) : base(handlerContext)
 		{
 			string aspNetCore = MvcConstants.ActionResult_AspNetCore;
-			string aspNet = MvcConstants.ToAspNetFullName(MvcConstants.ActionResultName);
 
 			Compilation compilation = handlerContext.Context.Compilation;
-			_actionResult = compilation.GetTypeByMetadataName(aspNetCore) ?? compilation.GetTypeByMetadataName(aspNet);
+			_actionResult = compilation.GetTypeByMetadataName(aspNetCore);
 
 		}
 
