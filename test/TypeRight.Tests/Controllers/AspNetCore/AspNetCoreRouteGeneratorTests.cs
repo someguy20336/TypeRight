@@ -97,7 +97,7 @@ namespace TypeRight.Tests.Controllers.AspNetCore
 
 			AssertScriptTextForFunctionIs(@"
 export function RandoMethod(): void {
-	TestAjax(`/api/ThingsManagement/Things`, null);
+	fetchWrapper(""GET"", `/api/ThingsManagement/Things`, null);
 }");
 		}
 

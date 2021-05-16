@@ -1,26 +1,21 @@
 {
-	"Enabled": true,
-	"ServerObjectsResultFilepath": "./Scripts/ServerObjects.ts",
+  "$schema": "https://raw.githubusercontent.com/someguy20336/TypeRight/tool/v1.4.0/src/TypeRight.Core/Configuration/typeRightConfig-schema.json",
+  "enabled": true,
+  "serverObjectsResultFilepath": "./Scripts/ServerObjects.ts",
 
-	"TemplateType": "module",
-	"modelBindingType": "singleParam",
-
-	"actionConfigurations": [
-		{
-			"fetchFunctionName": "callPost",
-			"fetchFilePath": "./Scripts/Communication.ts",
-			"parameters": [],
-			"returnType": "Promise<$returnType$>",
-			"imports": null,
-			"method": "default"
-		},
-		{
-			"fetchFunctionName": "callGet",
-			"fetchFilePath": "./Scripts/Communication.ts",
-			"parameters": [],
-			"returnType": "Promise<$returnType$>",
-			"imports": null,
-			"method": "get"
-		}
-	]
+  "fetchConfig": {
+    "filePath": "./Scripts/Communication.ts",
+    "name": "fetchWrapper",
+    "returnType": "Promise<$returnType$>",
+    "parameters": [
+      "requestMethod",
+      "url",
+      "body",
+      {
+    	"name": "abort",
+    	"type": "AbortSignal",
+    	"optional": true
+      }
+    ]
+  }
 }

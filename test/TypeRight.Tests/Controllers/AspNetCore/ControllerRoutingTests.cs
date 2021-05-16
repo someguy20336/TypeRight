@@ -73,7 +73,7 @@ namespace TypeRight.Tests.Controllers.AspNetCore
 			AssertControllerGeneratedText(
 			#region ScriptText	
 				@"
-import { TestAjax, callDelete } from ""../../FolderM/FolderN/AjaxFunc"";
+import { fetchWrapper } from ""../../FolderM/FolderN/FetchFile"";
 
 " + queryHelpers + @"
 /**
@@ -81,7 +81,7 @@ import { TestAjax, callDelete } from ""../../FolderM/FolderN/AjaxFunc"";
  * @param thingId 
  */
 export function DeleteThing(thingId: string): void {
-	callDelete(`/api/RoutedApi/thing/${thingId}`, null);
+	fetchWrapper(""DELETE"", `/api/RoutedApi/thing/${thingId}`, null);
 }
 
 /**
@@ -89,7 +89,7 @@ export function DeleteThing(thingId: string): void {
  * @param thingId 
  */
 export function GetThing(thingId: string): void {
-	TestAjax(`/api/RoutedApi/thing/${thingId}`, null);
+	fetchWrapper(""GET"", `/api/RoutedApi/thing/${thingId}`, null);
 }
 
 /**
@@ -101,7 +101,7 @@ export function GetThing(thingId: string): void {
 export function PutThingWithQuery(thingId: string, query: string, body: boolean): void {
 	let urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, ""query"", query);
-	TestAjax(`/api/RoutedApi/thing/${thingId}/put${getQueryString(urlParams)}`, body);
+	fetchWrapper(""PUT"", `/api/RoutedApi/thing/${thingId}/put${getQueryString(urlParams)}`, body);
 }
 
 "
@@ -131,7 +131,7 @@ export function PutThingWithQuery(thingId: string, query: string, body: boolean)
 export function GetThing(thingId: string): void {
 	let urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, ""thingId"", thingId);
-	TestAjax(`/api/RoutedApi/thing${getQueryString(urlParams)}`, null);
+	fetchWrapper(""GET"", `/api/RoutedApi/thing${getQueryString(urlParams)}`, null);
 }", ScriptExtensions.KeyValueQueryParamHelper);
 		}
 	}

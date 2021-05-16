@@ -36,7 +36,7 @@ namespace TypeRight.Tests.Controllers.AspNetCore
 export function TestAction(fromQuery: string): void {{
 	let urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, ""fromQuery"", fromQuery);
-	TestAjax(`/{ControllerName}/TestAction${{getQueryString(urlParams)}}`, null);
+	fetchWrapper(""GET"", `/{ControllerName}/TestAction${{getQueryString(urlParams)}}`, null);
 }}", ScriptExtensions.KeyValueQueryParamHelper);
 		}
 
@@ -52,7 +52,7 @@ export function TestAction(fromQuery: string): void {{
 export function TestAction(fromQuery: Partial<DefaultResult.TestClass>): void {{
 	let urlParams = new URLSearchParams();
 	tryAppendObjectValuesToUrl(urlParams, fromQuery);
-	TestAjax(`/{ControllerName}/TestAction${{getQueryString(urlParams)}}`, null);
+	fetchWrapper(""GET"", `/{ControllerName}/TestAction${{getQueryString(urlParams)}}`, null);
 }}", ScriptExtensions.KeyValueQueryParamHelper | ScriptExtensions.ObjectQueryParamHelper);
 		}
 
@@ -70,7 +70,7 @@ export function TestAction(simple: string, complex: Partial<DefaultResult.TestCl
 	let urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, ""simple"", simple);
 	tryAppendObjectValuesToUrl(urlParams, complex);
-	TestAjax(`/{ControllerName}/TestAction${{getQueryString(urlParams)}}`, null);
+	fetchWrapper(""GET"", `/{ControllerName}/TestAction${{getQueryString(urlParams)}}`, null);
 }}", ScriptExtensions.KeyValueQueryParamHelper | ScriptExtensions.ObjectQueryParamHelper);
 		}
 
@@ -88,7 +88,7 @@ export function TestAction(simple: string, complex: Partial<DefaultResult.TestCl
 
 			AssertScriptTextForFunctionIs(@$"
 export function TestingParamFilter(fromBody: string): void {{
-	TestAjax(`/{ControllerName}/TestingParamFilter`, fromBody);
+	fetchWrapper(""GET"", `/{ControllerName}/TestingParamFilter`, fromBody);
 }}");
 		}
 
@@ -106,7 +106,7 @@ export function TestingParamFilter(fromBody: string): void {{
 
 			AssertScriptTextForFunctionIs(@$"
 export function IsNotFirstParameter(fromBody: string): void {{
-	TestAjax(`/{ControllerName}/IsNotFirstParameter`, fromBody);
+	fetchWrapper(""GET"", `/{ControllerName}/IsNotFirstParameter`, fromBody);
 }}");
 		}
 
@@ -126,7 +126,7 @@ export function IsNotFirstParameter(fromBody: string): void {{
 
 			AssertScriptTextForFunctionIs(@$"
 export function NoFromBodyParams(): void {{
-	TestAjax(`/{ControllerName}/NoFromBodyParams`, null);
+	fetchWrapper(""GET"", `/{ControllerName}/NoFromBodyParams`, null);
 }}");
 		}
 
@@ -146,7 +146,7 @@ export function NoFromBodyParams(): void {{
 export function QueryParameterWithBody(fromQuery: string, fromBody: DefaultResult.TestClass): void {{
 	let urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, ""fromQuery"", fromQuery);
-	TestAjax(`/{ControllerName}/QueryParameterWithBody${{getQueryString(urlParams)}}`, fromBody);
+	fetchWrapper(""GET"", `/{ControllerName}/QueryParameterWithBody${{getQueryString(urlParams)}}`, fromBody);
 }}", ScriptExtensions.KeyValueQueryParamHelper);
 		}
 
@@ -180,7 +180,7 @@ export function QueryParameterWithBody(fromQuery: string, fromBody: DefaultResul
 export function Action(p: number): void {{
 	let urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, ""p"", p);
-	TestAjax(`/{ControllerName}/Action${{getQueryString(urlParams)}}`, null);
+	fetchWrapper(""GET"", `/{ControllerName}/Action${{getQueryString(urlParams)}}`, null);
 }}", ScriptExtensions.KeyValueQueryParamHelper);
 		}
 
@@ -215,7 +215,7 @@ export function Action(p: number): void {{
 export function MultipleTypes(multTypes: string | number): void {{
 	let urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, ""multTypes"", multTypes);
-	TestAjax(`/{ControllerName}/MultipleTypes${{getQueryString(urlParams)}}`, null);
+	fetchWrapper(""GET"", `/{ControllerName}/MultipleTypes${{getQueryString(urlParams)}}`, null);
 }}", ScriptExtensions.KeyValueQueryParamHelper);
 		}
 
@@ -247,7 +247,7 @@ export function MultipleTypes(multTypes: string | number): void {{
 
 			AssertScriptTextForFunctionIs(@$"
 export function Action(id: string | number): void {{
-	TestAjax(`/{ControllerName}/Action/${{id}}`, null);
+	fetchWrapper(""GET"", `/{ControllerName}/Action/${{id}}`, null);
 }}");
 		}
 
@@ -266,7 +266,7 @@ export function Action(id: string | number): void {{
 
 			AssertScriptTextForFunctionIs(@$"
 export function DifferentName(id: string): void {{
-	TestAjax(`/{ControllerName}/Action/${{id}}`, null);
+	fetchWrapper(""GET"", `/{ControllerName}/Action/${{id}}`, null);
 }}");
 		}
 

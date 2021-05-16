@@ -44,14 +44,14 @@ namespace TypeRight.Tests.Controllers.AspNet
 			#region ScriptText	
 				@$"
 import * as DefaultResult from ""../../DefaultResult"";
-import {{ TestAjax }} from ""../../FolderM/FolderN/AjaxFunc"";
+import {{ fetchWrapper }} from ""../../FolderM/FolderN/FetchFile"";
 
 
 /**
  * 
  */
 export function GenericPropReturn_Json(): void {{
-	TestAjax(`/{ControllerName}/GenericPropReturn_Json`, null);
+	fetchWrapper(""GET"", `/{ControllerName}/GenericPropReturn_Json`, null);
 }}
 
 /**
@@ -59,14 +59,14 @@ export function GenericPropReturn_Json(): void {{
  * @param testParam 
  */
 export function SimpleParameter_Json(testParam: DefaultResult.TestClass): void {{
-	TestAjax(`/{ControllerName}/SimpleParameter_Json`, testParam);
+	fetchWrapper(""GET"", `/{ControllerName}/SimpleParameter_Json`, testParam);
 }}
 
 /**
  * 
  */
 export function StringResult(): void {{
-	TestAjax(`/{ControllerName}/StringResult`, null);
+	fetchWrapper(""GET"", `/{ControllerName}/StringResult`, null);
 }}
 
 
@@ -97,7 +97,7 @@ export function StringResult(): void {{
 				@$"
 import * as AliasedImport from ""../../AliasedImport"";
 import * as DefaultResult from ""../../DefaultResult"";
-import {{ TestAjax }} from ""../../FolderM/FolderN/AjaxFunc"";
+import {{ fetchWrapper }} from ""../../FolderM/FolderN/FetchFile"";
 import {{ Item1, Item2 }} from ""../../ItemListImport"";
 
 
@@ -105,7 +105,7 @@ import {{ Item1, Item2 }} from ""../../ItemListImport"";
  * 
  */
 export function GenericPropReturn_Json(): void {{
-	TestAjax(`/{ControllerName}/GenericPropReturn_Json`, null);
+	fetchWrapper(""GET"", `/{ControllerName}/GenericPropReturn_Json`, null);
 }}
 
 /**
@@ -113,14 +113,14 @@ export function GenericPropReturn_Json(): void {{
  * @param testParam 
  */
 export function SimpleParameter_Json(testParam: DefaultResult.TestClass): void {{
-	TestAjax(`/{ControllerName}/SimpleParameter_Json`, testParam);
+	fetchWrapper(""GET"", `/{ControllerName}/SimpleParameter_Json`, testParam);
 }}
 
 /**
  * 
  */
 export function StringResult(): void {{
-	TestAjax(`/{ControllerName}/StringResult`, null);
+	fetchWrapper(""GET"", `/{ControllerName}/StringResult`, null);
 }}
 
 
@@ -133,21 +133,20 @@ export function StringResult(): void {{
 		[TestMethod]
 		public void PromiseWithReturnType()
 		{
-			GivenActionParameters(new List<ActionParameter>()); // remove addl params
 			GivenScriptReturnType("Promise<$returnType$>");
 
 			AssertControllerGeneratedText(
 			#region ScriptText	
 				@$"
 import * as DefaultResult from ""../../DefaultResult"";
-import {{ TestAjax }} from ""../../FolderM/FolderN/AjaxFunc"";
+import {{ fetchWrapper }} from ""../../FolderM/FolderN/FetchFile"";
 
 
 /**
  * 
  */
 export function GenericPropReturn_Json(): Promise<DefaultResult.TestClass> {{
-	return TestAjax(`/{ControllerName}/GenericPropReturn_Json`, null);
+	return fetchWrapper(""GET"", `/{ControllerName}/GenericPropReturn_Json`, null);
 }}
 
 /**
@@ -155,14 +154,14 @@ export function GenericPropReturn_Json(): Promise<DefaultResult.TestClass> {{
  * @param testParam 
  */
 export function SimpleParameter_Json(testParam: DefaultResult.TestClass): Promise<DefaultResult.TestClass> {{
-	return TestAjax(`/{ControllerName}/SimpleParameter_Json`, testParam);
+	return fetchWrapper(""GET"", `/{ControllerName}/SimpleParameter_Json`, testParam);
 }}
 
 /**
  * 
  */
 export function StringResult(): Promise<string> {{
-	return TestAjax(`/{ControllerName}/StringResult`, null);
+	return fetchWrapper(""GET"", `/{ControllerName}/StringResult`, null);
 }}
 
 
@@ -187,14 +186,14 @@ export function StringResult(): Promise<string> {{
 			#region ScriptText	
 				@$"
 import * as DefaultResult from ""../../DefaultResult"";
-import {{ TestAjax }} from ""../../FolderM/FolderN/AjaxFunc"";
+import {{ fetchWrapper }} from ""../../FolderM/FolderN/FetchFile"";
 
 
 /**
  * 
  */
 export function GenericPropReturn_Json(randomString: string, abortSignal?: AbortSignal): DefaultResult.TestClass {{
-	return TestAjax(`/{ControllerName}/GenericPropReturn_Json`, null, randomString, abortSignal);
+	return fetchWrapper(""GET"", `/{ControllerName}/GenericPropReturn_Json`, null, randomString, abortSignal);
 }}
 
 /**
@@ -202,14 +201,14 @@ export function GenericPropReturn_Json(randomString: string, abortSignal?: Abort
  * @param testParam 
  */
 export function SimpleParameter_Json(testParam: DefaultResult.TestClass, randomString: string, abortSignal?: AbortSignal): DefaultResult.TestClass {{
-	return TestAjax(`/{ControllerName}/SimpleParameter_Json`, testParam, randomString, abortSignal);
+	return fetchWrapper(""GET"", `/{ControllerName}/SimpleParameter_Json`, testParam, randomString, abortSignal);
 }}
 
 /**
  * 
  */
 export function StringResult(randomString: string, abortSignal?: AbortSignal): string {{
-	return TestAjax(`/{ControllerName}/StringResult`, null, randomString, abortSignal);
+	return fetchWrapper(""GET"", `/{ControllerName}/StringResult`, null, randomString, abortSignal);
 }}
 
 

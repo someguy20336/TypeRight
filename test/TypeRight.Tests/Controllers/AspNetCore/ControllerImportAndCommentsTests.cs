@@ -30,7 +30,7 @@ namespace TypeRight.Tests.Controllers.AspNetCore
 
 			AssertImportsAre(@$"
 import * as DefaultResult from ""../../DefaultResult"";
-import {{ TestAjax }} from ""../../FolderM/FolderN/AjaxFunc"";
+import {{ fetchWrapper }} from ""../../FolderM/FolderN/FetchFile"";
 ");
 		}
 
@@ -58,7 +58,7 @@ import {{ TestAjax }} from ""../../FolderM/FolderN/AjaxFunc"";
 				;
 
 			AssertImportsAre(@$"
-import {{ fetchWrapper }} from ""../../FolderM/FolderN/AjaxFunc"";
+import {{ fetchWrapper }} from ""../../FolderM/FolderN/FetchFile"";
 ");
 		}
 
