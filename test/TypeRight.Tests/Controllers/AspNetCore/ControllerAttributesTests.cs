@@ -9,8 +9,6 @@ namespace TypeRight.Tests.Controllers.AspNetCore
 	public class ControllerAttributesTests : ControllerTestsBase
 	{
 
-		protected override bool IsAspNetCore => true;
-
 		/// <summary>
 		/// Sets up a parse of this solution
 		/// </summary>

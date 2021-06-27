@@ -59,7 +59,7 @@ namespace TypeRight.TypeProcessing
 		{
 			Name = name;
 			HasBody = hasBody;
-			TypeFilter = new IsOfAnyTypeFilter(MvcConstants.ToAspNetFullName(mvcAttributeName), MvcConstants.ToAspNetCoreFullName(mvcAttributeName));
+			TypeFilter = new IsOfAnyTypeFilter(MvcConstants.ToAspNetCoreFullName(mvcAttributeName));
 			ActionFilter = new ActionHasAttributeFilter(TypeFilter);
 		}
 

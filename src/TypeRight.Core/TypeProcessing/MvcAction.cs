@@ -191,33 +191,28 @@ namespace TypeRight.TypeProcessing
 
 		private ActionParameterSourceType ComputeSource()
 		{
-			ActionParameterSourceType sourceType = ActionParameterSourceType.Body;
+			ActionParameterSourceType sourceType;
+			var bodyFilter = new ParameterHasAttributeFilter(new IsOfTypeFilter(MvcConstants.FromBodyAttributeFullName_AspNetCore));
+			var queryFilter = new ParameterHasAttributeFilter(new IsOfTypeFilter(MvcConstants.FromQueryAttributeFullName_AspNetCore));
 
-			// Note - this isn't great, but is how it has always worked.
-			// consider improving the asp.net stuff... or just cutting it out
-			if (Action.Controller.IsAspNetCore)
+			string routeTemplate = Action.GetRouteTemplate();
+			if (bodyFilter.Evaluate(this))
 			{
-				var bodyFilter = new ParameterHasAttributeFilter(new IsOfTypeFilter(MvcConstants.FromBodyAttributeFullName_AspNetCore));
-				var queryFilter = new ParameterHasAttributeFilter(new IsOfTypeFilter(MvcConstants.FromQueryAttributeFullName_AspNetCore));
-
-				string routeTemplate = Action.GetRouteTemplate();
-				if (bodyFilter.Evaluate(this))
-				{
-					sourceType = ActionParameterSourceType.Body;
-				}
-				else if (queryFilter.Evaluate(this))
-				{
-					sourceType = ActionParameterSourceType.Query;
-				}
-				else if (routeTemplate.Contains($"{{{this.Name}}}"))
-				{
-					sourceType = ActionParameterSourceType.Route;
-				}
-				else
-				{
-					sourceType = ActionParameterSourceType.Ignored;
-				}
+				sourceType = ActionParameterSourceType.Body;
 			}
+			else if (queryFilter.Evaluate(this))
+			{
+				sourceType = ActionParameterSourceType.Query;
+			}
+			else if (routeTemplate.Contains($"{{{this.Name}}}"))
+			{
+				sourceType = ActionParameterSourceType.Route;
+			}
+			else
+			{
+				sourceType = ActionParameterSourceType.Ignored;
+			}
+
 
 			return sourceType;
 		}

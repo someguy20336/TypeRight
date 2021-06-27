@@ -11,9 +11,6 @@ namespace TypeRight.Tests.Controllers.AspNetCore
 	public class ReturnTypeTests : ControllerTestsBase
 	{
 
-		protected override bool IsAspNetCore => true;
-
-
 		[TestInitialize]
 		public override void TestInitialize()
 		{
