@@ -20,7 +20,7 @@ namespace TypeRight.Configuration.Json
 		{
 			if (reader.TokenType == JsonToken.Null || reader.TokenType == JsonToken.Undefined)
 			{
-				return existingValue;
+				return ScriptWriting.NamingStrategy.DefaultType;
 			}
 			return base.ReadJson(reader, objectType, existingValue, serializer);
 		}

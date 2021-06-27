@@ -13,8 +13,9 @@ namespace TypeRight.ScriptWriting
 
 	public abstract class NamingStrategy
 	{
-		private static readonly NamingStrategy _default = Create(NamingStrategyType.None);
-		public static NamingStrategy Default => _default;
+		public static NamingStrategy Default { get; } = Create(DefaultType);
+
+		public static NamingStrategyType DefaultType => NamingStrategyType.Camel;
 
 		public abstract string GetPropertyName(IProperty property);
 

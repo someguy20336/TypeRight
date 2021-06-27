@@ -162,8 +162,9 @@ namespace TypeRight.Tests.Configuration
 }
 ");
 
-			Assert.AreEqual(NamingStrategyType.None, config.NameCasingConverter);
+			Assert.AreEqual(NamingStrategy.DefaultType, config.NameCasingConverter);
 		}
+
 
 		[TestMethod]
 		public void FetchConfig_NamedActionParameters_AreDeserialized()
