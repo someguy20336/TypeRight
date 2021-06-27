@@ -59,8 +59,9 @@ export interface MyType {
 		}
 
 		[TestMethod]
-		public void NewtonsoftJson_NoOverride_NameIsNotConverted()
+		public void NewtonsoftJson_NamingStratNone_NoOverride_NameIsNotConverted()
 		{
+			WorkspaceBuilder.ProcessorSettings.NamingStrategy = NamingStrategy.Create(NamingStrategyType.None);
 			TestClassBuilder builder = AddExtractedClass("MyType");
 
 			builder.AddPropertyAndBuildAttributes("PropName", "string")

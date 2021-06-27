@@ -139,13 +139,13 @@ namespace TypeRight.Tests.Types
 /**  */
 export interface MyType {
 	/**  */
-	BaseProperty: string;
+	baseProperty: string;
 }
 
 /**  */
 export interface MyType_1<T> extends MyType {
 	/**  */
-	GenericProp: T;
+	genericProp: T;
 }");
 
 		}
