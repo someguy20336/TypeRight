@@ -27,7 +27,8 @@ namespace TypeRight.ScriptWriting
 
 		public string ResolveParameter(MvcAction action)
 		{
-			var actionQueryParams = action.Parameters.Where(p => p.BindingType == ActionParameterSourceType.Query).ToList();
+			var compiledParams = action.GetCompiledParameters();
+			var actionQueryParams = compiledParams.Where(p => p.BindingType == ActionParameterSourceType.Query).ToList();
 
 			string urlParamQueryPart = actionQueryParams.Count > 0 || _constantQueryParams.Count > 0
 				? $"${{{QueryParameterHelperFunctions.GetQueryStringFuncName}({InitUrlParamsScriptExtensions.UrlParamsVarName})}}"
@@ -35,7 +36,7 @@ namespace TypeRight.ScriptWriting
 
 			// Add the route params
 			string route = action.GetRouteTemplate(_baseUrl);
-			var routeParamNames = action.Parameters.Where(p => p.BindingType == ActionParameterSourceType.Route).Select(p => p.Name);
+			var routeParamNames = compiledParams.Where(p => p.BindingType == ActionParameterSourceType.Route).Select(p => p.Name);
 			foreach (string paramName in routeParamNames)
 			{
 				route = route.Replace($"{{{paramName}}}", $"${{{paramName}}}");
@@ -59,7 +60,7 @@ namespace TypeRight.ScriptWriting
 			{
 				return "null";
 			}
-			var bodyParams = action.Parameters.Where(p => p.BindingType == ActionParameterSourceType.Body).ToList();
+			var bodyParams = action.ActionParameters.Where(p => p.BindingType == ActionParameterSourceType.Body).ToList();
 
 			if (bodyParams.Count == 0)
 			{

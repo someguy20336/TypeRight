@@ -70,7 +70,7 @@ namespace TypeRight.ScriptWriting.TypeScript
 		private static void AddActionImports(ImportManager imports, MvcAction action)
 		{
 			imports.TryAddToImports(action.ReturnType);
-			foreach (var param in action.Parameters)
+			foreach (var param in action.ActionParameters)
 			{
 				foreach (var type in param.Types)
 				{

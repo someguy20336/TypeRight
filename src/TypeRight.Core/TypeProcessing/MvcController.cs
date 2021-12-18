@@ -15,6 +15,8 @@ namespace TypeRight.TypeProcessing
 
 		private string _lazyResultPath = null;
 		private List<MvcAction> _actions = new List<MvcAction>();
+		private readonly TypeFactory _typeFactory;
+		private Dictionary<string, IProperty> _routeParameters;
 
 		/// <summary>
 		/// Gets the named type for this action
@@ -56,7 +58,8 @@ namespace TypeRight.TypeProcessing
 		internal MvcController(INamedType namedType, TypeFilter actionFilter, TypeFactory typeFactory)
 		{
 			NamedType = namedType;
-			
+			_typeFactory = typeFactory;
+
 			foreach (IMethod method in namedType.Methods)
 			{
 				if (method.Attributes.Any(attrData => actionFilter.Matches(attrData.AttributeType)))
@@ -76,6 +79,29 @@ namespace TypeRight.TypeProcessing
 				}
 				baseType = baseType.BaseType;
 			}
+		}
+
+		public IReadOnlyDictionary<string, IProperty> GetPropertyBoundParams()
+		{
+			if (_routeParameters != null)
+			{
+				return _routeParameters;
+			}
+
+			_routeParameters = new Dictionary<string, IProperty>();
+			foreach (var property in NamedType.Properties)
+			{
+
+				var fromRoute = property.Attributes
+					.FirstOrDefault(attr => attr.AttributeType.FullName == MvcConstants.FromRouteAttributeFullName_AspNetCore);
+				if (fromRoute != null)
+				{
+					string routeParamName = fromRoute.NamedArguments["Name"].ToString();
+					_routeParameters.Add(routeParamName, property);
+				}
+			}
+
+			return _routeParameters;
 		}
 
 		/// <summary>

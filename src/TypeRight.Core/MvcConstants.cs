@@ -21,6 +21,9 @@
 		public const string FromBodyAttributeName = "FromBodyAttribute";
 		public static string FromBodyAttributeFullName_AspNetCore => ToAspNetCoreFullName(FromBodyAttributeName);
 
+		public const string FromRouteAttributeName = "FromRouteAttribute";
+		public static string FromRouteAttributeFullName_AspNetCore => ToAspNetCoreFullName(FromRouteAttributeName);
+
 		public const string FromServicesAttributeName = "FromServicesAttribute";
 		public static string FromServicesAttributeFullName_AspNetCore => ToAspNetCoreFullName(FromServicesAttributeName);
 

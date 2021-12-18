@@ -97,7 +97,7 @@ export function GetThing(thingId: string): void {
  * @param body 
  */
 export function PutThingWithQuery(thingId: string, query: string, body: boolean): void {
-	let urlParams = new URLSearchParams();
+	const urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, ""query"", query);
 	fetchWrapper(""PUT"", `/api/RoutedApi/thing/${thingId}/put${getQueryString(urlParams)}`, body);
 }
@@ -127,7 +127,7 @@ export function PutThingWithQuery(thingId: string, query: string, body: boolean)
 
 			AssertScriptTextForFunctionIs(@"
 export function GetThing(thingId: string): void {
-	let urlParams = new URLSearchParams();
+	const urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, ""thingId"", thingId);
 	fetchWrapper(""GET"", `/api/RoutedApi/thing${getQueryString(urlParams)}`, null);
 }", ScriptExtensions.KeyValueQueryParamHelper);

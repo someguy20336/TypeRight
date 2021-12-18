@@ -21,7 +21,7 @@ namespace TypeRight.Tests.Testers
 
 		public MvcActionTester ParameterTypeIs(string paramName, string typescriptName)
 		{
-			MvcActionParameter parameter = _method.Parameters.Where(p => p.Name == paramName).First();
+			MvcActionParameter parameter = _method.ActionParameters.Where(p => p.Name == paramName).First();
 			Assert.AreEqual(typescriptName, parameter.Types.First().FormatType(_typeFormatter));
 			return this;
 		}
@@ -42,7 +42,7 @@ namespace TypeRight.Tests.Testers
 
 		public MvcActionTester ParameterSourceTypeIs(string paramName, ActionParameterSourceType expectedType)
 		{
-			var parameter = _method.Parameters.Where(p => p.Name == paramName).First();
+			var parameter = _method.ActionParameters.Where(p => p.Name == paramName).First();
 			Assert.AreEqual(expectedType, parameter.BindingType);
 			return this;
 		}

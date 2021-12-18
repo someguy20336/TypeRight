@@ -10,7 +10,7 @@ namespace TypeRight.ScriptWriting.TypeScript.ScriptExtensions
 		public const string UrlParamsVarName = "urlParams";
 		public void Write(IScriptWriter writer)
 		{
-			writer.WriteLine($"let {UrlParamsVarName} = new URLSearchParams();");
+			writer.WriteLine($"const {UrlParamsVarName} = new URLSearchParams();");
 		}
 	}
 
