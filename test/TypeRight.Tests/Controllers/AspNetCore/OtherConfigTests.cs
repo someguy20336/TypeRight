@@ -28,7 +28,7 @@ namespace TypeRight.Tests.Controllers.AspNetCore
 
 			AssertScriptTextForFunctionIs(@"
 export function GetThing(thingId: string): void {
-	let urlParams = new URLSearchParams();
+	const urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, ""key1"", ""val1"");
 	tryAppendKeyValueToUrl(urlParams, ""key2"", ""val2"");
 	fetchWrapper(""GET"", `/api/RoutedApi/thing/${thingId}${getQueryString(urlParams)}`, null);
@@ -54,7 +54,7 @@ export function GetThing(thingId: string): void {
 
 			AssertScriptTextForFunctionIs(@"
 export function GetThing(thingId: string): void {
-	let urlParams = new URLSearchParams();
+	const urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, ""thingId"", thingId);
 	tryAppendKeyValueToUrl(urlParams, ""key1"", ""val1"");
 	fetchWrapper(""GET"", `/api/RoutedApi/thing${getQueryString(urlParams)}`, null);
@@ -80,7 +80,7 @@ export function GetThing(thingId: string): void {
 
 			AssertScriptTextForFunctionIs(@"
 export function GetThing(thingId: string): void {
-	let urlParams = new URLSearchParams();
+	const urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, ""key1"", ""val1"");
 	fetchWrapper(""GET"", `/api/RoutedApi/thing/${thingId}${getQueryString(urlParams)}`, null);
 }", ScriptExtensions.KeyValueQueryParamHelper);

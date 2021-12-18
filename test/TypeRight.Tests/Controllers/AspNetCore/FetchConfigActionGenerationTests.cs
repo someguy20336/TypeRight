@@ -71,7 +71,7 @@ export function GetThing(thingId: string): void {
 
 			AssertScriptTextForFunctionIs(@"
 export function GetThing(thingId: string, queryP: string): void {
-	let urlParams = new URLSearchParams();
+	const urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, ""queryP"", queryP);
 	fetchWrapper(""GET"", `/api/RoutedApi/thing/${thingId}${getQueryString(urlParams)}`, null);
 }", ScriptExtensions.KeyValueQueryParamHelper);

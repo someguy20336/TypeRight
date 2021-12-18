@@ -32,7 +32,7 @@ namespace TypeRight.Tests.Controllers.AspNetCore
 
 			AssertScriptTextForFunctionIs(@$"
 export function TestAction(fromQuery: string): void {{
-	let urlParams = new URLSearchParams();
+	const urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, ""fromQuery"", fromQuery);
 	fetchWrapper(""GET"", `/{ControllerName}/TestAction${{getQueryString(urlParams)}}`, null);
 }}", ScriptExtensions.KeyValueQueryParamHelper);
@@ -48,7 +48,7 @@ export function TestAction(fromQuery: string): void {{
 
 			AssertScriptTextForFunctionIs(@$"
 export function TestAction(fromQuery: Partial<DefaultResult.TestClass>): void {{
-	let urlParams = new URLSearchParams();
+	const urlParams = new URLSearchParams();
 	tryAppendObjectValuesToUrl(urlParams, fromQuery);
 	fetchWrapper(""GET"", `/{ControllerName}/TestAction${{getQueryString(urlParams)}}`, null);
 }}", ScriptExtensions.KeyValueQueryParamHelper | ScriptExtensions.ObjectQueryParamHelper);
@@ -65,7 +65,7 @@ export function TestAction(fromQuery: Partial<DefaultResult.TestClass>): void {{
 
 			AssertScriptTextForFunctionIs(@$"
 export function TestAction(simple: string, complex: Partial<DefaultResult.TestClass>): void {{
-	let urlParams = new URLSearchParams();
+	const urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, ""simple"", simple);
 	tryAppendObjectValuesToUrl(urlParams, complex);
 	fetchWrapper(""GET"", `/{ControllerName}/TestAction${{getQueryString(urlParams)}}`, null);
@@ -142,7 +142,7 @@ export function NoFromBodyParams(): void {{
 
 			AssertScriptTextForFunctionIs(@$"
 export function QueryParameterWithBody(fromQuery: string, fromBody: DefaultResult.TestClass): void {{
-	let urlParams = new URLSearchParams();
+	const urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, ""fromQuery"", fromQuery);
 	fetchWrapper(""GET"", `/{ControllerName}/QueryParameterWithBody${{getQueryString(urlParams)}}`, fromBody);
 }}", ScriptExtensions.KeyValueQueryParamHelper);
@@ -176,7 +176,7 @@ export function QueryParameterWithBody(fromQuery: string, fromBody: DefaultResul
 
 			AssertScriptTextForFunctionIs(@$"
 export function Action(p: number): void {{
-	let urlParams = new URLSearchParams();
+	const urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, ""p"", p);
 	fetchWrapper(""GET"", `/{ControllerName}/Action${{getQueryString(urlParams)}}`, null);
 }}", ScriptExtensions.KeyValueQueryParamHelper);
@@ -211,7 +211,7 @@ export function Action(p: number): void {{
 
 			AssertScriptTextForFunctionIs(@$"
 export function MultipleTypes(multTypes: string | number): void {{
-	let urlParams = new URLSearchParams();
+	const urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, ""multTypes"", multTypes);
 	fetchWrapper(""GET"", `/{ControllerName}/MultipleTypes${{getQueryString(urlParams)}}`, null);
 }}", ScriptExtensions.KeyValueQueryParamHelper);
