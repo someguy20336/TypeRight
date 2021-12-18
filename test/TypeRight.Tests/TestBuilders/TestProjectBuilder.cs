@@ -166,6 +166,11 @@ namespace TypeRight.Tests.TestBuilders
 				.AddBaseClass("System.Attribute")
 				.Commit();
 
+			CreateClassBuilder(MvcConstants.FromRouteAttributeFullName_AspNetCore)
+				.AddBaseClass("System.Attribute")
+				.AddProperty("Name", "string")
+				.Commit();
+
 			CreateClassBuilder(MvcConstants.JsonResultName, MvcConstants.AspNetCoreNamespace).Commit();
 
 			CreateClassBuilder(MvcConstants.ApiVersionAttributeFullName_AspNetCore)

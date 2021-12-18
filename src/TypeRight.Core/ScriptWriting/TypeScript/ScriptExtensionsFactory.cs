@@ -63,7 +63,7 @@ namespace TypeRight.ScriptWriting.TypeScript
 			=> controller.Actions.Any(a => HasAnyQueryParmeter(a));
 
 		private bool HasAnyQueryParmeter(MvcAction action)
-			=> _constantQueryParams.Count > 0 ||  action.Parameters.Any(p => p.BindingType == ActionParameterSourceType.Query);
+			=> _constantQueryParams.Count > 0 ||  action.ActionParameters.Any(p => p.BindingType == ActionParameterSourceType.Query);
 
 		private bool HasAnyComplexQueryParmeter(MvcController controller)
 			=> controller.Actions.Any(a => HasAnyComplexQueryParmeter(a));
@@ -72,9 +72,9 @@ namespace TypeRight.ScriptWriting.TypeScript
 			=> GetComplexQueryParams(action).Any();
 
 		private IEnumerable<MvcActionParameter> GetComplexQueryParams(MvcAction action)
-			=> action.Parameters.Where(p => p.BindingType == ActionParameterSourceType.Query && p.Types.Any(t => t.IsComplexType()));
+			=> action.ActionParameters.Where(p => p.BindingType == ActionParameterSourceType.Query && p.Types.Any(t => t.IsComplexType()));
 
 		private IEnumerable<MvcActionParameter> GetSimpleQueryParams(MvcAction action)
-			=> action.Parameters.Where(p => p.BindingType == ActionParameterSourceType.Query && p.Types.Any(t => !t.IsComplexType()));
+			=> action.ActionParameters.Where(p => p.BindingType == ActionParameterSourceType.Query && p.Types.Any(t => !t.IsComplexType()));
 	}
 }

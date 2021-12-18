@@ -50,7 +50,7 @@ namespace TypeRight.ScriptWriting.TypeScript.PartialTextTemplates
 		{
 			List<string> actionParams = new List<string>();
 
-			var nonIgnoredParams = _action.Parameters.Where(p => p.BindingType != ActionParameterSourceType.Ignored);
+			var nonIgnoredParams = _action.GetCompiledParameters().Where(p => p.BindingType != ActionParameterSourceType.Ignored);
 
 			var methodRequiredParameters = nonIgnoredParams.Where(p => !p.IsOptional).Select(FormatMethodParameter);
 			var userRequiredParameters = _fetchFunc.AdditionalParameters.Where(p => !p.Optional).Select(FormatUserParameter);
@@ -101,7 +101,7 @@ namespace TypeRight.ScriptWriting.TypeScript.PartialTextTemplates
 	private IEnumerable<KeyValuePair<string, string>> GetParameterComments()
 	{
 		// Get the params that should actually be written
-		HashSet<string> allParams = new HashSet<string>(_action.Parameters
+		HashSet<string> allParams = new HashSet<string>(_action.ActionParameters
 			.Where(p => p.BindingType != ActionParameterSourceType.Ignored)
 			.Select(p => p.Name)
 			);

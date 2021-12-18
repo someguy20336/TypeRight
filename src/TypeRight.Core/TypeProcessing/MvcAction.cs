@@ -24,6 +24,9 @@ namespace TypeRight.TypeProcessing
 	{
 
 		private IRequestMethod _method;
+		private readonly TypeFactory _typeFactory;
+		private List<MvcActionParameter> _compiledParameters;
+
 		internal MvcController Controller { get; }
 
 		/// <summary>
@@ -64,7 +67,7 @@ namespace TypeRight.TypeProcessing
 		/// <summary>
 		/// Gets the list of MVC action parameters
 		/// </summary>
-		public IReadOnlyList<MvcActionParameter> Parameters { get; }
+		public IReadOnlyList<MvcActionParameter> ActionParameters { get; }
 
 		/// <summary>
 		/// Gets attributes for this action parameter
@@ -102,15 +105,40 @@ namespace TypeRight.TypeProcessing
 		{
 			Controller = controller;
 			Method = method;
+			_typeFactory = typeFactory;
 			ScriptName = GetScriptName(method, typeFactory.Settings.NamingStrategy);
 			ReturnType = typeFactory.LookupType(method.ReturnType);
 			ParameterComments = method.Parameters.ToDictionary(param => param.Name, param => param.Comments);
-			Parameters = method.Parameters.Select(p => new MvcActionParameter(this, p, typeFactory)).ToList().AsReadOnly();
+			ActionParameters = method.Parameters.Select(p => new MvcActionParameter(this, p, typeFactory)).ToList().AsReadOnly();
 		}
 
 		public string GetRouteTemplate(string baseUrl = "")
 		{
 			return MvcRouteGenerator.CreateGenerator(Controller, baseUrl).GenerateRouteTemplate(this);
+		}
+
+		public IEnumerable<MvcActionParameter> GetCompiledParameters()
+		{
+			if (_compiledParameters != null)
+			{
+				return _compiledParameters;
+			}
+			string routeTemplate = GetRouteTemplate("");
+
+			var controllerPropParams = Controller.GetPropertyRouteParams();
+
+			List<MvcActionParameter> parameters = new List<MvcActionParameter>();
+			foreach (var routeParamName in controllerPropParams.Keys)
+			{
+				if (routeTemplate.Contains($"{{{routeParamName}}}"))
+				{
+					IProperty property = controllerPropParams[routeParamName];
+					parameters.Add(new MvcActionParameter(this, routeParamName, property.PropertyType, property.Attributes, _typeFactory));
+				}
+			}
+
+			_compiledParameters = parameters.Concat(ActionParameters).ToList();
+			return _compiledParameters;
 		}
 
 		private string GetScriptName(IMethod method, NamingStrategy namingStrategy)
@@ -132,7 +160,7 @@ namespace TypeRight.TypeProcessing
 		/// <returns>Fancy</returns>
 		public override string ToString()
 		{
-			return $"{ReturnType} {Name}({string.Join(",", Parameters.Select(p => p.ToString()))})";
+			return $"{ReturnType} {Name}({string.Join(",", ActionParameters.Select(p => p.ToString()))})";
 		}
 	}
 

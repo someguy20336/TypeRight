@@ -80,7 +80,8 @@ namespace TypeRight.Tests.Testers
 					ActionParameter.Url,
 					ActionParameter.Body
 				},
-				ReturnType = "void"
+				//ReturnType = "$returnType$"		// Would be nice
+				ReturnType = "void"	
 			};
 		}
 

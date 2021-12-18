@@ -29,7 +29,7 @@ function getQueryString(urlParams: URLSearchParams): string {
  * @param model 
  */
 export function anonTypeWithDictionaryProperty(model: Models.CustomGroupObj3, abort?: AbortSignal): Promise<{ listObj: CustomGroup.CustomGroupObject1[] }> {
-	let urlParams = new URLSearchParams();
+	const urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, "param1", "val1");
 	tryAppendKeyValueToUrl(urlParams, "param2", "val2");
 	return fetchWrapper("GET", `/Home/AnonTypeWithDictionaryProperty${getQueryString(urlParams)}`, model, abort);
@@ -40,7 +40,7 @@ export function anonTypeWithDictionaryProperty(model: Models.CustomGroupObj3, ab
  * @param model 
  */
 export function functionWithModel(model: ServerObjects.ASimpleModel, abort?: AbortSignal): Promise<ServerObjects.ASimpleModel> {
-	let urlParams = new URLSearchParams();
+	const urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, "param1", "val1");
 	tryAppendKeyValueToUrl(urlParams, "param2", "val2");
 	return fetchWrapper("GET", `/Home/FunctionWithModel${getQueryString(urlParams)}`, model, abort);
@@ -51,7 +51,7 @@ export function functionWithModel(model: ServerObjects.ASimpleModel, abort?: Abo
  * @param model 
  */
 export function multipleFromStuff(model: ServerObjects.ASimpleModel, abort?: AbortSignal): Promise<ServerObjects.ASimpleModel> {
-	let urlParams = new URLSearchParams();
+	const urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, "param1", "val1");
 	tryAppendKeyValueToUrl(urlParams, "param2", "val2");
 	return fetchWrapper("POST", `/Home/MultipleFromStuff${getQueryString(urlParams)}`, model, abort);
@@ -61,7 +61,7 @@ export function multipleFromStuff(model: ServerObjects.ASimpleModel, abort?: Abo
  * 
  */
 export function noFromBodyParams(abort?: AbortSignal): Promise<ServerObjects.ASimpleModel> {
-	let urlParams = new URLSearchParams();
+	const urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, "param1", "val1");
 	tryAppendKeyValueToUrl(urlParams, "param2", "val2");
 	return fetchWrapper("GET", `/Home/NoFromBodyParams${getQueryString(urlParams)}`, null, abort);
@@ -72,7 +72,7 @@ export function noFromBodyParams(abort?: AbortSignal): Promise<ServerObjects.ASi
  * @param model 
  */
 export function otherFunctionWithModel(model: CustomGroup.CustomGroupObject1, abort?: AbortSignal): Promise<CustomGroup.CustomGroupObject1> {
-	let urlParams = new URLSearchParams();
+	const urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, "param1", "val1");
 	tryAppendKeyValueToUrl(urlParams, "param2", "val2");
 	return fetchWrapper("GET", `/Home/OtherFunctionWithModel${getQueryString(urlParams)}`, model, abort);
@@ -82,7 +82,7 @@ export function otherFunctionWithModel(model: CustomGroup.CustomGroupObject1, ab
  * 
  */
 export function testJson(abort?: AbortSignal): Promise<ServerObjects.NetStandardClass> {
-	let urlParams = new URLSearchParams();
+	const urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, "param1", "val1");
 	tryAppendKeyValueToUrl(urlParams, "param2", "val2");
 	return fetchWrapper("GET", `/Home/TestJson${getQueryString(urlParams)}`, null, abort);

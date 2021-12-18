@@ -26,7 +26,7 @@ function getQueryString(urlParams: URLSearchParams): string {
  * @param id 
  */
 export function deleteFirst(id: number, abort?: AbortSignal): Promise<any> {
-	let urlParams = new URLSearchParams();
+	const urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, "param1", "val1");
 	tryAppendKeyValueToUrl(urlParams, "param2", "val2");
 	return fetchWrapper("DELETE", `/api/FirstGrouped/${id}${getQueryString(urlParams)}`, null, abort);
@@ -37,7 +37,7 @@ export function deleteFirst(id: number, abort?: AbortSignal): Promise<any> {
  * @param id 
  */
 export function deleteSecond(id: number, abort?: AbortSignal): Promise<any> {
-	let urlParams = new URLSearchParams();
+	const urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, "param1", "val1");
 	tryAppendKeyValueToUrl(urlParams, "param2", "val2");
 	return fetchWrapper("DELETE", `/api/SecondGrouped/${id}${getQueryString(urlParams)}`, null, abort);
@@ -47,7 +47,7 @@ export function deleteSecond(id: number, abort?: AbortSignal): Promise<any> {
  * 
  */
 export function getFirst(abort?: AbortSignal): Promise<string[]> {
-	let urlParams = new URLSearchParams();
+	const urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, "param1", "val1");
 	tryAppendKeyValueToUrl(urlParams, "param2", "val2");
 	return fetchWrapper("GET", `/api/FirstGrouped${getQueryString(urlParams)}`, null, abort);
@@ -58,7 +58,7 @@ export function getFirst(abort?: AbortSignal): Promise<string[]> {
  * @param id 
  */
 export function getFirstById(id: number, abort?: AbortSignal): Promise<string> {
-	let urlParams = new URLSearchParams();
+	const urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, "param1", "val1");
 	tryAppendKeyValueToUrl(urlParams, "param2", "val2");
 	return fetchWrapper("GET", `/api/FirstGrouped/${id}${getQueryString(urlParams)}`, null, abort);
@@ -68,7 +68,7 @@ export function getFirstById(id: number, abort?: AbortSignal): Promise<string> {
  * 
  */
 export function getSecond(abort?: AbortSignal): Promise<string[]> {
-	let urlParams = new URLSearchParams();
+	const urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, "param1", "val1");
 	tryAppendKeyValueToUrl(urlParams, "param2", "val2");
 	return fetchWrapper("GET", `/api/SecondGrouped${getQueryString(urlParams)}`, null, abort);
@@ -79,7 +79,7 @@ export function getSecond(abort?: AbortSignal): Promise<string[]> {
  * @param id 
  */
 export function getSecondById(id: number, abort?: AbortSignal): Promise<string> {
-	let urlParams = new URLSearchParams();
+	const urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, "param1", "val1");
 	tryAppendKeyValueToUrl(urlParams, "param2", "val2");
 	return fetchWrapper("GET", `/api/SecondGrouped/${id}${getQueryString(urlParams)}`, null, abort);
@@ -90,7 +90,7 @@ export function getSecondById(id: number, abort?: AbortSignal): Promise<string> 
  * @param value 
  */
 export function postFirst(value: string, abort?: AbortSignal): Promise<any> {
-	let urlParams = new URLSearchParams();
+	const urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, "param1", "val1");
 	tryAppendKeyValueToUrl(urlParams, "param2", "val2");
 	return fetchWrapper("POST", `/api/FirstGrouped${getQueryString(urlParams)}`, value, abort);
@@ -101,7 +101,7 @@ export function postFirst(value: string, abort?: AbortSignal): Promise<any> {
  * @param value 
  */
 export function postSecond(value: string, abort?: AbortSignal): Promise<any> {
-	let urlParams = new URLSearchParams();
+	const urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, "param1", "val1");
 	tryAppendKeyValueToUrl(urlParams, "param2", "val2");
 	return fetchWrapper("POST", `/api/SecondGrouped${getQueryString(urlParams)}`, value, abort);
@@ -113,7 +113,7 @@ export function postSecond(value: string, abort?: AbortSignal): Promise<any> {
  * @param value 
  */
 export function putFirst(id: number, value: string, abort?: AbortSignal): Promise<any> {
-	let urlParams = new URLSearchParams();
+	const urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, "param1", "val1");
 	tryAppendKeyValueToUrl(urlParams, "param2", "val2");
 	return fetchWrapper("PUT", `/api/FirstGrouped/${id}${getQueryString(urlParams)}`, value, abort);
@@ -125,7 +125,7 @@ export function putFirst(id: number, value: string, abort?: AbortSignal): Promis
  * @param value 
  */
 export function putSecond(id: number, value: string, abort?: AbortSignal): Promise<any> {
-	let urlParams = new URLSearchParams();
+	const urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, "param1", "val1");
 	tryAppendKeyValueToUrl(urlParams, "param2", "val2");
 	return fetchWrapper("PUT", `/api/SecondGrouped/${id}${getQueryString(urlParams)}`, value, abort);
