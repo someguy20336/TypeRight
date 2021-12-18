@@ -125,7 +125,7 @@ namespace TypeRight.TypeProcessing
 			}
 			string routeTemplate = GetRouteTemplate("");
 
-			var controllerPropParams = Controller.GetPropertyRouteParams();
+			var controllerPropParams = Controller.GetPropertyBoundParams();
 
 			List<MvcActionParameter> parameters = new List<MvcActionParameter>();
 			foreach (var routeParamName in controllerPropParams.Keys)
@@ -214,7 +214,11 @@ namespace TypeRight.TypeProcessing
 			IsOptional = methodParameter.IsOptional;
 		}
 
-		internal MvcActionParameter(MvcAction action, string paramName, IType memberType, IEnumerable<IAttributeData> memberAttributes, TypeFactory typeFactory)
+		internal MvcActionParameter(MvcAction action, 
+			string paramName, 
+			IType memberType, 
+			IEnumerable<IAttributeData> memberAttributes, 
+			TypeFactory typeFactory)
 		{
 			Action = action;
 			Name = paramName;

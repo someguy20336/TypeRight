@@ -100,7 +100,7 @@ namespace TypeRight.TypeProcessing
 
 		}
 
-		public IReadOnlyDictionary<string, IProperty> GetPropertyRouteParams()
+		public IReadOnlyDictionary<string, IProperty> GetPropertyBoundParams()
 		{
 			if (_routeParameters != null)
 			{
@@ -111,7 +111,8 @@ namespace TypeRight.TypeProcessing
 			foreach (var property in NamedType.Properties)
 			{
 
-				var fromRoute = property.Attributes.FirstOrDefault(attr => attr.AttributeType.FullName == MvcConstants.FromRouteAttributeFullName_AspNetCore);
+				var fromRoute = property.Attributes
+					.FirstOrDefault(attr => attr.AttributeType.FullName == MvcConstants.FromRouteAttributeFullName_AspNetCore);
 				if (fromRoute != null)
 				{
 					string routeParamName = fromRoute.NamedArguments["Name"].ToString();
