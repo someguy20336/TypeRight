@@ -47,12 +47,6 @@ namespace TypeRight.Tests.Testers
 			return this;
 		}
 
-		public MvcActionTester FetchFunctionIs(string expectedFuncName)
-		{
-			FetchFunctionDescriptor desc = _context.FetchFunctionResolver.Resolve(_method.RequestMethod.Name);
-			Assert.AreEqual(expectedFuncName, desc.FunctionName);
-			return this;
-		}
 	}
 
 }
