@@ -16,6 +16,7 @@ namespace TypeRight.TypeProcessing
 		private string _lazyResultPath = null;
 		private List<MvcAction> _actions = new List<MvcAction>();
 		private readonly TypeFactory _typeFactory;
+		private Dictionary<string, IProperty> _routeParameters;
 
 		/// <summary>
 		/// Gets the named type for this action
@@ -83,7 +84,30 @@ namespace TypeRight.TypeProcessing
 		private IEnumerable<MvcActionParameter> ResolveControllerRouteParams(MvcAction forAction)
 		{
 
-			List<MvcActionParameter> controllerParams = new List<MvcActionParameter>();
+			//List<MvcActionParameter> controllerParams = new List<MvcActionParameter>();
+			//foreach (var property in NamedType.Properties)
+			//{
+
+			//	var fromRoute = property.Attributes.FirstOrDefault(attr => attr.AttributeType.FullName == MvcConstants.FromRouteAttributeFullName_AspNetCore);
+			//	if (fromRoute != null)
+			//	{
+			//		string routeParamName = fromRoute.NamedArguments["Name"].ToString();
+			//		MvcActionParameter actionParameter = new MvcActionParameter(forAction, routeParamName, property.PropertyType, property.Attributes, _typeFactory);
+			//	}
+			//}
+
+			return null;
+
+		}
+
+		public IReadOnlyDictionary<string, IProperty> GetPropertyRouteParams()
+		{
+			if (_routeParameters != null)
+			{
+				return _routeParameters;
+			}
+
+			_routeParameters = new Dictionary<string, IProperty>();
 			foreach (var property in NamedType.Properties)
 			{
 
@@ -91,12 +115,11 @@ namespace TypeRight.TypeProcessing
 				if (fromRoute != null)
 				{
 					string routeParamName = fromRoute.NamedArguments["Name"].ToString();
-					MvcActionParameter actionParameter = new MvcActionParameter(forAction, routeParamName, property.PropertyType, property.Attributes, _typeFactory);
+					_routeParameters.Add(routeParamName, property);
 				}
 			}
 
-			return controllerParams;
-
+			return _routeParameters;
 		}
 
 		/// <summary>
