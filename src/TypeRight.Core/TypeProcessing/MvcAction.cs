@@ -181,12 +181,18 @@ namespace TypeRight.TypeProcessing
 		}
 
 		internal MvcActionParameter(MvcAction action, IMethodParameter methodParameter, TypeFactory typeFactory)
+			: this(action, methodParameter.Name, methodParameter.ParameterType, methodParameter.Attributes, typeFactory)
+		{
+			IsOptional = methodParameter.IsOptional;
+		}
+
+		internal MvcActionParameter(MvcAction action, string paramName, IType memberType, IEnumerable<IAttributeData> memberAttributes, TypeFactory typeFactory)
 		{
 			Action = action;
-			Name = methodParameter.Name;
-			Types = CompileTypes(methodParameter, typeFactory);
-			Attributes = methodParameter.Attributes;
-			IsOptional = methodParameter.IsOptional;
+			Name = paramName;
+			Types = CompileTypes(memberType, memberAttributes, typeFactory);
+			Attributes = memberAttributes;
+			IsOptional = false;
 		}
 
 		private ActionParameterSourceType ComputeSource()
@@ -217,14 +223,14 @@ namespace TypeRight.TypeProcessing
 			return sourceType;
 		}
 
-		private List<TypeDescriptor> CompileTypes(IMethodParameter methodParameter, TypeFactory typeFactory)
+		private List<TypeDescriptor> CompileTypes(IType memberType, IEnumerable<IAttributeData> memberAttributes, TypeFactory typeFactory)
 		{
-			var attr = methodParameter.Attributes.FirstOrDefault(a => s_scriptParamTypes.Matches(a.AttributeType));
+			var attr = memberAttributes.FirstOrDefault(a => s_scriptParamTypes.Matches(a.AttributeType));
 			if (attr == null)
 			{
 				return new List<TypeDescriptor>()
 				{
-					typeFactory.LookupType(methodParameter.ParameterType)
+					typeFactory.LookupType(memberType)
 				};
 			}
 
