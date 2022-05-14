@@ -2,7 +2,7 @@
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
         <Identity Id="TypeRight2022.e4d0e20e-e77a-4a63-9a7d-161698110fe1" Version="1.0" Language="en-US" Publisher="Dave W" />
-        <DisplayName>TypeRight</DisplayName>
+        <DisplayName>TypeRight (2022)</DisplayName>
         <Description xml:space="preserve">.VS Extension to generate client scripts from server objects.  Use in combination with the Nuget package of the same name.</Description>
         <MoreInfo>https://github.com/someguy20336/TypeRight</MoreInfo>
         <Icon>TypeRightPackage.ico</Icon>
@@ -11,6 +11,9 @@
     </Metadata>
     <Installation>
         <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[17.0, 18.0)">
+            <ProductArchitecture>amd64</ProductArchitecture>
+        </InstallationTarget>
+        <InstallationTarget Version="[17.0,18.0)" Id="Microsoft.VisualStudio.Pro">
             <ProductArchitecture>amd64</ProductArchitecture>
         </InstallationTarget>
     </Installation>
