@@ -157,6 +157,7 @@
     <Content Include="..\VsixResources\TypeRightPackage.ico">
       <Link>TypeRightPackage.ico</Link>
       <IncludeInVSIX>true</IncludeInVSIX>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <VSCTCompile Include="..\VsixResources\TypeRightPackage.vsct">
       <Link>TypeRightPackage.vsct</Link>

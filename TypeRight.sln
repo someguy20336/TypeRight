@@ -47,11 +47,16 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "TypeRight.Shared", "src\Typ
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "TypeRightVsix.Shared", "src\TypeRightVsix.Shared\TypeRightVsix.Shared.shproj", "{59A73AF7-61AD-4982-AAEA-E31067E71383}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TypeRightVsix2022", "src\TypeRightVsix2022\TypeRightVsix2022.csproj", "{1F2C4096-A3A6-4F2F-AF7B-C3BA2617CADF}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		src\TypeRight.Shared\TypeRight.Shared.projitems*{19a3ac50-edee-4b95-808c-c9d64a8d80eb}*SharedItemsImports = 4
 		src\TypeRight.VsixContract.Messages\TypeRight.VsixContract.Messages.projitems*{19a3ac50-edee-4b95-808c-c9d64a8d80eb}*SharedItemsImports = 4
 		src\TypeRightVsix.Shared\TypeRightVsix.Shared.projitems*{19a3ac50-edee-4b95-808c-c9d64a8d80eb}*SharedItemsImports = 4
+		src\TypeRight.Shared\TypeRight.Shared.projitems*{1f2c4096-a3a6-4f2f-af7b-c3ba2617cadf}*SharedItemsImports = 4
+		src\TypeRight.VsixContract.Messages\TypeRight.VsixContract.Messages.projitems*{1f2c4096-a3a6-4f2f-af7b-c3ba2617cadf}*SharedItemsImports = 4
+		src\TypeRightVsix.Shared\TypeRightVsix.Shared.projitems*{1f2c4096-a3a6-4f2f-af7b-c3ba2617cadf}*SharedItemsImports = 4
 		src\TypeRight.VsixContract.Messages\TypeRight.VsixContract.Messages.projitems*{21bcbe4c-3509-4e42-b2a0-5b848c8a75d8}*SharedItemsImports = 13
 		src\TypeRightVsix.Shared\TypeRightVsix.Shared.projitems*{59a73af7-61ad-4982-aaea-e31067e71383}*SharedItemsImports = 13
 		src\TypeRight.VsixContract.Messages\TypeRight.VsixContract.Messages.projitems*{ac6c53f4-fb54-48ab-8e96-1aa1ae93cba8}*SharedItemsImports = 5
@@ -213,6 +218,22 @@ Global
 		{12A4926C-06E3-4CEB-AAB7-91D1DBE496A6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{12A4926C-06E3-4CEB-AAB7-91D1DBE496A6}.Release|x86.ActiveCfg = Release|Any CPU
 		{12A4926C-06E3-4CEB-AAB7-91D1DBE496A6}.Release|x86.Build.0 = Release|Any CPU
+		{1F2C4096-A3A6-4F2F-AF7B-C3BA2617CADF}.Debug Local Nuget|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F2C4096-A3A6-4F2F-AF7B-C3BA2617CADF}.Debug Local Nuget|Any CPU.Build.0 = Debug|Any CPU
+		{1F2C4096-A3A6-4F2F-AF7B-C3BA2617CADF}.Debug Local Nuget|x86.ActiveCfg = Debug|x86
+		{1F2C4096-A3A6-4F2F-AF7B-C3BA2617CADF}.Debug Local Nuget|x86.Build.0 = Debug|x86
+		{1F2C4096-A3A6-4F2F-AF7B-C3BA2617CADF}.Debug Nuget|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F2C4096-A3A6-4F2F-AF7B-C3BA2617CADF}.Debug Nuget|Any CPU.Build.0 = Debug|Any CPU
+		{1F2C4096-A3A6-4F2F-AF7B-C3BA2617CADF}.Debug Nuget|x86.ActiveCfg = Debug|x86
+		{1F2C4096-A3A6-4F2F-AF7B-C3BA2617CADF}.Debug Nuget|x86.Build.0 = Debug|x86
+		{1F2C4096-A3A6-4F2F-AF7B-C3BA2617CADF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F2C4096-A3A6-4F2F-AF7B-C3BA2617CADF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F2C4096-A3A6-4F2F-AF7B-C3BA2617CADF}.Debug|x86.ActiveCfg = Debug|x86
+		{1F2C4096-A3A6-4F2F-AF7B-C3BA2617CADF}.Debug|x86.Build.0 = Debug|x86
+		{1F2C4096-A3A6-4F2F-AF7B-C3BA2617CADF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F2C4096-A3A6-4F2F-AF7B-C3BA2617CADF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F2C4096-A3A6-4F2F-AF7B-C3BA2617CADF}.Release|x86.ActiveCfg = Release|x86
+		{1F2C4096-A3A6-4F2F-AF7B-C3BA2617CADF}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -225,6 +246,7 @@ Global
 		{21BCBE4C-3509-4E42-B2A0-5B848C8A75D8} = {50180D7A-7C03-4681-882B-D22FBB6A019A}
 		{12A4926C-06E3-4CEB-AAB7-91D1DBE496A6} = {50180D7A-7C03-4681-882B-D22FBB6A019A}
 		{59A73AF7-61AD-4982-AAEA-E31067E71383} = {50180D7A-7C03-4681-882B-D22FBB6A019A}
+		{1F2C4096-A3A6-4F2F-AF7B-C3BA2617CADF} = {50180D7A-7C03-4681-882B-D22FBB6A019A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {51F1BF5C-4F4F-4F9A-9119-DB47FB3F2DD0}
