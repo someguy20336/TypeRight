@@ -94,27 +94,7 @@
     <DeployExtension>False</DeployExtension>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Commands\UpgradeConfigCommand.cs" />
-    <Compile Include="Dialogs\ProjectInformationDialog.cs" />
-    <Compile Include="Dialogs\ProjectInformation.xaml.cs">
-      <DependentUpon>ProjectInformation.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Imports\ImportedToolV1.cs" />
-    <Compile Include="Imports\ImportedToolV2.cs" />
-    <Compile Include="Imports\LegacyGeneratorAdapters.cs" />
-    <Compile Include="Imports\NullImportedTool.cs" />
-    <Compile Include="Imports\ToolImporter.cs" />
-    <Compile Include="Shared\FileUtils.cs" />
-    <Compile Include="TypeRightPackage.cs" />
-    <Compile Include="Commands\AddConfigCommand.cs" />
-    <Compile Include="Commands\DebugInfoCommand.cs" />
-    <Compile Include="Commands\InstallNugetPackageCommand.cs" />
-    <Compile Include="Commands\GenerateScriptsCommand.cs" />
-    <Compile Include="Imports\ImportedToolBase.cs" />
-    <Compile Include="Imports\ScriptGenAssemblyCache.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Shared\ConfigProcessing.cs" />
-    <Compile Include="Shared\VsHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -122,15 +102,6 @@
     <None Include="source.extension.vsixmanifest">
       <SubType>Designer</SubType>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <VSCTCompile Include="TypeRightPackage.vsct">
-      <ResourceName>Menus.ctmenu</ResourceName>
-      <SubType>Designer</SubType>
-    </VSCTCompile>
-    <Content Include="Resources\TypeRightPackage.ico">
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
@@ -148,13 +119,6 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="WindowsBase" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="VSPackage.resx">
-      <MergeWithCTO>true</MergeWithCTO>
-      <ManifestResourceName>VSPackage</ManifestResourceName>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6">
@@ -190,13 +154,26 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Dialogs\ProjectInformation.xaml">
+    <Content Include="..\VsixResources\TypeRightPackage.ico">
+      <Link>TypeRightPackage.ico</Link>
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <VSCTCompile Include="..\VsixResources\TypeRightPackage.vsct">
+      <Link>TypeRightPackage.vsct</Link>
+    </VSCTCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\VsixResources\VSPackage.resx">
+      <Link>VSPackage.resx</Link>
+      <MergeWithCTO>true</MergeWithCTO>
+      <ManifestResourceName>VSPackage</ManifestResourceName>
       <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="..\TypeRight.VsixContract.Messages\TypeRight.VsixContract.Messages.projitems" Label="Shared" />
   <Import Project="..\TypeRight.Shared\TypeRight.Shared.projitems" Label="Shared" />
+  <Import Project="..\TypeRightVsix.Shared\TypeRightVsix.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />
   <PropertyGroup>

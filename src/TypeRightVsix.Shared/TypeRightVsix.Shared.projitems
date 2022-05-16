@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>59a73af7-61ad-4982-aaea-e31067e71383</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>TypeRightVsix.Shared</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\AddConfigCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\DebugInfoCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\GenerateScriptsCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\InstallNugetPackageCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Commands\UpgradeConfigCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Dialogs\ProjectInformation.xaml.cs">
+      <DependentUpon>ProjectInformation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Dialogs\ProjectInformationDialog.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Imports\ImportedToolBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Imports\ImportedToolV1.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Imports\ImportedToolV2.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Imports\LegacyGeneratorAdapters.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Imports\NullImportedTool.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Imports\ScriptGenAssemblyCache.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Imports\ToolImporter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Shared\ConfigProcessing.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Shared\FileUtils.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Shared\VsHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TypeRightPackage.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)Dialogs\ProjectInformation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+</Project>
