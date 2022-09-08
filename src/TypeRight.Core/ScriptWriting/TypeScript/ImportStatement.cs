@@ -55,7 +55,7 @@ namespace TypeRight.ScriptWriting.TypeScript
 			if (UseAsteriskNotation)
 			{
 				string[] parts = FromRelativePath.Split('/');
-				ImportAlias = parts[parts.Length - 1];
+				ImportAlias = parts[parts.Length - 1].Replace(".js", "");	// remove any .js for a nice name
 			}
 		}
 
