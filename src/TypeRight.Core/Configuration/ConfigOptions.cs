@@ -3,14 +3,10 @@ using Newtonsoft.Json.Serialization;
 using System.Collections.Specialized;
 using TypeRight.Configuration.Json;
 using TypeRight.ScriptWriting;
+using TypeRight.ScriptWriting.TypeScript;
 
 namespace TypeRight.Configuration
 {
-	public enum ImportModuleNameStyle
-    {
-		Extensionless,
-		ReplaceWithJs
-    }
 
 	/// <summary>
 	/// Represents a configuration file for a solution

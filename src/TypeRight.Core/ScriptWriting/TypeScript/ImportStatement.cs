@@ -1,17 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TypeRight.ScriptWriting.TypeScript
 {
-	/// <summary>
-	/// A typescript import statement
-	/// </summary>
-	public class ImportStatement
+    /// <summary>
+    /// A typescript import statement
+    /// </summary>
+    public class ImportStatement
 	{
-		private HashSet<string> _items = new HashSet<string>();
+		private readonly HashSet<string> _items = new HashSet<string>();
 
 		/// <summary>
 		/// Gets the imported items

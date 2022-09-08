@@ -4,13 +4,20 @@ using TypeRight.TypeProcessing;
 
 namespace TypeRight.ScriptWriting.TypeScript
 {
+	public enum ImportModuleNameStyle
+	{
+		Extensionless,
+		ReplaceWithJs
+	}
+
 	/// <summary>
 	/// Manages imports for a given typescript file
 	/// </summary>
 	public class ImportManager
 	{
-		private string _outputPath;
-		private Dictionary<string, ImportStatement> _imports = new Dictionary<string, ImportStatement>();
+		private readonly string _outputPath;
+		private readonly Dictionary<string, ImportStatement> _imports = new Dictionary<string, ImportStatement>();
+		private readonly ImportModuleNameStyle _namingStyle = ImportModuleNameStyle.Extensionless;
 
 		private ImportManager(string outputPath)
 		{
@@ -57,7 +64,7 @@ namespace TypeRight.ScriptWriting.TypeScript
 			string funcKey = "fetch-" + fetchDescriptor.FetchModulePath;
 			if (!imports.ContainsImportPath(funcKey))
 			{
-				imports.AddImport(funcKey, new ImportStatement(context.OutputPath, fetchDescriptor.FetchModulePath, false));
+				imports.AddImport(funcKey, context.OutputPath, fetchDescriptor.FetchModulePath, false);
 			}
 			ImportStatement ajaxImport = imports.GetImportAtPath(funcKey);
 			ajaxImport.AddItem(fetchDescriptor.FunctionName);
@@ -89,7 +96,7 @@ namespace TypeRight.ScriptWriting.TypeScript
 				string key = "custom" + importPath;
 				if (!imports.ContainsImportPath(key))
 				{
-					imports.AddImport(key, new ImportStatement(context.OutputPath, importPath, def.UseAlias));
+					imports.AddImport(key, context.OutputPath, importPath, def.UseAlias);
 				}
 
 				ImportStatement statement = imports.GetImportAtPath(key);
@@ -111,15 +118,10 @@ namespace TypeRight.ScriptWriting.TypeScript
 
 		public ImportStatement GetImportAtPath(string path) => _imports[path];
 
-
-		/// <summary>
-		/// Blindly addes the import statement without verifing the output path or anything
-		/// </summary>
-		/// <param name="path"></param>
-		/// <param name="import"></param>
-		private void AddImport(string path, ImportStatement import)
+		private void AddImport(string key, string outputPath, string fromPath, bool useAlias)
 		{
-			_imports.Add(path, import);
+			// TODO: factor in naming style
+			_imports.Add(key, new ImportStatement(outputPath, fromPath, useAlias));
 		}
 
 		/// <summary>
@@ -132,7 +134,7 @@ namespace TypeRight.ScriptWriting.TypeScript
 			{
 				if (!_imports.ContainsKey(extractedType.TargetPath))
 				{
-					_imports.Add(extractedType.TargetPath, new ImportStatement(_outputPath, extractedType.TargetPath, true));
+					AddImport(extractedType.TargetPath, _outputPath, extractedType.TargetPath, true);
 				}
 				_imports[extractedType.TargetPath].AddItem(extractedType.Name);
 
