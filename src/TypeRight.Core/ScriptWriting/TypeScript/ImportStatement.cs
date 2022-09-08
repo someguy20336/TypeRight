@@ -36,7 +36,7 @@ namespace TypeRight.ScriptWriting.TypeScript
 		/// <param name="basePath"></param>
 		/// <param name="importPath"></param>
 		/// <param name="useAsteriskNotation"></param>
-		public ImportStatement(string basePath, string importPath, bool useAsteriskNotation)
+		public ImportStatement(string basePath, string importPath, bool useAsteriskNotation, ImportModuleNameStyle nameStyle)
 		{
 			UseAsteriskNotation = useAsteriskNotation;
 			Uri fromUri = new Uri(basePath);
@@ -49,7 +49,7 @@ namespace TypeRight.ScriptWriting.TypeScript
 			{
 				FromRelativePath = "./" + FromRelativePath;
 			}
-			FromRelativePath = FromRelativePath.Substring(0, FromRelativePath.Length - 3);  // remove .ts
+			FromRelativePath = AdjustImportModuleName(nameStyle);
 
 			// Import alias
 			if (UseAsteriskNotation)
@@ -57,6 +57,37 @@ namespace TypeRight.ScriptWriting.TypeScript
 				string[] parts = FromRelativePath.Split('/');
 				ImportAlias = parts[parts.Length - 1];
 			}
+		}
+
+		private string AdjustImportModuleName(ImportModuleNameStyle nameStyle)
+        {
+            switch (nameStyle)
+            {
+                case ImportModuleNameStyle.ReplaceWithJs:
+					return HandleReplaceWithJs(FromRelativePath);
+                default:
+                    return HandleExtensionless(FromRelativePath);
+            }
+        }
+
+		private static string HandleExtensionless(string path)
+        {
+            if (path.EndsWith(".ts", StringComparison.OrdinalIgnoreCase))
+            {
+				return path.Substring(0, path.Length - 3);
+			}
+
+			return path;
+        }
+
+		private static string HandleReplaceWithJs(string path)
+		{
+			if (path.EndsWith(".ts", StringComparison.OrdinalIgnoreCase))
+			{
+				return path.Substring(0, path.Length - 3) + ".js";
+			}
+
+			return path;
 		}
 
 		/// <summary>

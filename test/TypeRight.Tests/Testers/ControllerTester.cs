@@ -23,7 +23,7 @@ namespace TypeRight.Tests.Testers
 
 		public ControllerTester HasImportForFile(string relPath)
 		{
-			var imports = ImportManager.FromControllerContext(_context).GetImports();
+			var imports = ImportManager.FromControllerContext(_context, ImportModuleNameStyle.Extensionless).GetImports();
 			Assert.IsTrue(imports.Any(imp => imp.FromRelativePath == relPath));
 			return this;
 		}

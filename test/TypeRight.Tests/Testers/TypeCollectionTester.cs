@@ -59,7 +59,7 @@ namespace TypeRight.Tests.Testers
 		{
 			FetchFunctionResolver resolver = FetchFunctionResolver.FromConfig(new Uri(@"C:\FolderA\FolderB\Project.csproj"), config);
 			return new ControllerContext(
-				_typeCollection.GetMvcControllers().Where(c => c.Name == controllerName).FirstOrDefault(),
+				_typeCollection.GetMvcControllers().Where(c => c.Name == controllerName).ToList(),
 				@"C:\FolderA\FolderB\FolderX\FolderY\SomeController.ts",
 				_typeCollection,
 				resolver

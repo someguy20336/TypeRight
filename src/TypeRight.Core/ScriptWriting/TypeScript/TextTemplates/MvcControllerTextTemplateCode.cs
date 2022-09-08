@@ -7,19 +7,19 @@ namespace TypeRight.ScriptWriting.TypeScript.TextTemplates
 {
 	internal partial class MvcControllerTextTemplate : IControllerTextTemplate, IScriptWriter
 	{
-		private ImportManager _imports;
-		private ControllerContext _context;
-		private TypeFormatter _formatter;
-		private ScriptExtensionsFactory _scriptExtensions;
+		private readonly ImportManager _imports;
+		private readonly ControllerContext _context;
+		private readonly TypeFormatter _formatter;
+		private readonly ScriptExtensionsFactory _scriptExtensions;
 
-		private IEnumerable<IScriptExtension> _postScriptExtensions;
+		private readonly IEnumerable<IScriptExtension> _postScriptExtensions;
 
-		public MvcControllerTextTemplate(ControllerContext context, ScriptExtensionsFactory extensionsFactory)
+		public MvcControllerTextTemplate(ControllerContext context, ScriptExtensionsFactory extensionsFactory, ImportModuleNameStyle nameStyle)
 		{
 			_context = context;
 			_scriptExtensions = extensionsFactory;
 
-			_imports = ImportManager.FromControllerContext(context);
+			_imports = ImportManager.FromControllerContext(context, nameStyle);
 			_formatter = new TypeScriptTypeFormatter(context.TypeCollection, new ModuleTypePrefixResolver(_imports));
 			_postScriptExtensions = _scriptExtensions.CreatePostControllerScript(context);
 		}

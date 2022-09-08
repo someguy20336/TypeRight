@@ -13,7 +13,7 @@ namespace TypeRight.Tests.TestsWithParsing
 			string from = @"C:\FolderA\FolderB\File.ts";
 			string to = @"C:\FolderA\FolderC\OtherFile.ts";
 
-			ImportStatement statement = new ImportStatement(from, to, true);
+			ImportStatement statement = new(from, to, true, ImportModuleNameStyle.Extensionless);
 			Assert.AreEqual("../FolderC/OtherFile", statement.FromRelativePath);
 		}
 
@@ -23,7 +23,27 @@ namespace TypeRight.Tests.TestsWithParsing
 			string from = @"C:\FolderA\FolderB\File.ts";
 			string to = @"C:\FolderA\FolderB\FolderC\OtherFile.ts";
 
-			ImportStatement statement = new ImportStatement(from, to, true);
+			ImportStatement statement = new(from, to, true, ImportModuleNameStyle.Extensionless);
+			Assert.AreEqual("./FolderC/OtherFile", statement.FromRelativePath);
+		}
+
+		[TestMethod]
+		public void ImportStatement_ReplaceWithJs_GetsJsExtension()
+		{
+			string from = @"C:\FolderA\FolderB\File.ts";
+			string to = @"C:\FolderA\FolderB\FolderC\OtherFile.ts";
+
+			ImportStatement statement = new(from, to, true, ImportModuleNameStyle.ReplaceWithJs);
+			Assert.AreEqual("./FolderC/OtherFile.js", statement.FromRelativePath);
+		}
+
+		[TestMethod]
+		public void ImportStatement_Extensionless_NoExtension_DoesNothing()
+		{
+			string from = @"C:\FolderA\FolderB\File.ts";
+			string to = @"C:\FolderA\FolderB\FolderC\OtherFile";
+
+			ImportStatement statement = new(from, to, true, ImportModuleNameStyle.ReplaceWithJs);
 			Assert.AreEqual("./FolderC/OtherFile", statement.FromRelativePath);
 		}
 
@@ -33,7 +53,7 @@ namespace TypeRight.Tests.TestsWithParsing
 			string from = @"C:\FolderA\FolderB\File.ts";
 			string to = @"C:\FolderA\FolderB\FolderC\OtherFile.ts";
 
-			ImportStatement statement = new ImportStatement(from, to, false);
+			ImportStatement statement = new(from, to, false, ImportModuleNameStyle.Extensionless);
 			statement.AddItem("Type1");
 			statement.AddItem("Type2");
 
@@ -46,11 +66,13 @@ namespace TypeRight.Tests.TestsWithParsing
 			string from = @"C:\FolderA\FolderB\File.ts";
 			string to = @"C:\FolderA\FolderB\FolderC\OtherFile.ts";
 
-			ImportStatement statement = new ImportStatement(from, to, true);
+			ImportStatement statement = new(from, to, true, ImportModuleNameStyle.Extensionless);
 			statement.AddItem("Type1");
 			statement.AddItem("Type2");
 
 			Assert.AreEqual($"import * as OtherFile from \"{ statement.FromRelativePath }\";", statement.ToImportStatement());
 		}
+
+
 	}
 }

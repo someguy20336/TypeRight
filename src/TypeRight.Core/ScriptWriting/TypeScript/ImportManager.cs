@@ -17,16 +17,17 @@ namespace TypeRight.ScriptWriting.TypeScript
 	{
 		private readonly string _outputPath;
 		private readonly Dictionary<string, ImportStatement> _imports = new Dictionary<string, ImportStatement>();
-		private readonly ImportModuleNameStyle _namingStyle = ImportModuleNameStyle.Extensionless;
+		private readonly ImportModuleNameStyle _namingStyle;
 
-		private ImportManager(string outputPath)
+		private ImportManager(string outputPath, ImportModuleNameStyle nameStyle)
 		{
 			_outputPath = outputPath;
+			_namingStyle = nameStyle;
 		}
 
-		public static ImportManager FromTypes(IEnumerable<ExtractedType> types, string outputPath)
+		public static ImportManager FromTypes(IEnumerable<ExtractedType> types, string outputPath, ImportModuleNameStyle nameStyle)
 		{
-			ImportManager newManager = new ImportManager(outputPath);
+			ImportManager newManager = new ImportManager(outputPath, nameStyle);
 			foreach (var type in types.GetReferenceTypes())
 			{
 				// Check the base type of the type
@@ -45,9 +46,9 @@ namespace TypeRight.ScriptWriting.TypeScript
 			return newManager;
 		}
 
-		public static ImportManager FromControllerContext(ControllerContext context)
+		public static ImportManager FromControllerContext(ControllerContext context, ImportModuleNameStyle nameStyle)
 		{
-			ImportManager result = new ImportManager(context.OutputPath);
+			ImportManager result = new ImportManager(context.OutputPath, nameStyle);
 			foreach (MvcAction actionInfo in context.Actions)
 			{
 				CompileActionImport(result, context, actionInfo);
@@ -120,8 +121,7 @@ namespace TypeRight.ScriptWriting.TypeScript
 
 		private void AddImport(string key, string outputPath, string fromPath, bool useAlias)
 		{
-			// TODO: factor in naming style
-			_imports.Add(key, new ImportStatement(outputPath, fromPath, useAlias));
+			_imports.Add(key, new ImportStatement(outputPath, fromPath, useAlias, _namingStyle));
 		}
 
 		/// <summary>
