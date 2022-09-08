@@ -27,6 +27,12 @@
 			"enum": [ "none", "camel" ],
 			"description": "Defines the casing strategy to use by default for properties and actions.  In all cases, a specified property (i.e. JsonPropertyNameAttribute) name will always take precidence."
 		},
+		"importModuleNameStyle": {
+			"type": [ "string", "null" ],
+			"enum": [ "extensionless", "replaceWithJs" ],
+			"default": "extensionless",
+			"description": "Defines how to handle the import module name.  Extensionless will remove the .ts while replaceWithJs will replace it with .js."
+		},
 		"fetchConfig": {
 			"type": "object",
 			"description": "The configuration for your generalized fetch function",

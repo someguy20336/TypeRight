@@ -6,6 +6,12 @@ using TypeRight.ScriptWriting;
 
 namespace TypeRight.Configuration
 {
+	public enum ImportModuleNameStyle
+    {
+		Extensionless,
+		ReplaceWithJs
+    }
+
 	/// <summary>
 	/// Represents a configuration file for a solution
 	/// </summary>
@@ -26,6 +32,9 @@ namespace TypeRight.Configuration
 		[JsonConverter(typeof(CamelCaseStringEnumConverter))]
 		public NamingStrategyType NameCasingConverter { get; set; }
 
+		[JsonConverter(typeof(CamelCaseStringEnumConverter))]
+		public ImportModuleNameStyle ImportModuleNameStyle { get; set; }
+
 		[JsonConverter(typeof(QueryParamJsonConverter))]
 		public NameValueCollection QueryParams { get; set; }
 
@@ -44,6 +53,7 @@ namespace TypeRight.Configuration
 		{
 			Enabled = true;
 			ServerObjectsResultFilepath = "./Scripts/ServerObjects.ts";
+			ImportModuleNameStyle = ImportModuleNameStyle.Extensionless;
 
 			BaseUrl = "";
 		}
