@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TypeRight.Configuration;
 using TypeRight.ScriptWriting;
+using TypeRight.ScriptWriting.TypeScript;
 
 namespace TypeRight.Tests.Configuration
 {
@@ -204,6 +205,50 @@ namespace TypeRight.Tests.Configuration
 			Assert.AreEqual(ParameterKind.Custom, oneParam.Kind);
 			Assert.AreEqual("test", oneParam.Name);
 			Assert.AreEqual("string", oneParam.Type);
+		}
+
+		[TestMethod]
+		public void ImportModuleNameType_NotSpecified_IsExtensionless()
+		{
+			var config = ConfigParser.ParseFromJson(@"
+{
+	""nameCasingConverter"": null
+}
+");
+			Assert.AreEqual(ImportModuleNameStyle.Extensionless, config.ImportModuleNameStyle);
+		}
+
+		[TestMethod]
+        public void ImportModuleNameType_NullValue_IsExtensionless()
+        {
+			var config = ConfigParser.ParseFromJson(@"
+{
+	""importModuleNameStyle"": null
+}
+");
+			Assert.AreEqual(ImportModuleNameStyle.Extensionless, config.ImportModuleNameStyle);
+		}
+
+		[TestMethod]
+		public void ImportModuleNameType_Extensionless_IsExtensionless()
+		{
+			var config = ConfigParser.ParseFromJson(@"
+{
+	""importModuleNameStyle"": ""extensionless""
+}
+");
+			Assert.AreEqual(ImportModuleNameStyle.Extensionless, config.ImportModuleNameStyle);
+		}
+
+		[TestMethod]
+		public void ImportModuleNameType_ReplaceWithJs_IsExtensionless()
+		{
+			var config = ConfigParser.ParseFromJson(@"
+{
+	""importModuleNameStyle"": ""replaceWithJs""
+}
+");
+			Assert.AreEqual(ImportModuleNameStyle.ReplaceWithJs, config.ImportModuleNameStyle);
 		}
 	}
 }

@@ -10,17 +10,21 @@ namespace TypeRight.Configuration.Json
 	/// </summary>
 	internal class CamelCaseStringEnumConverter : StringEnumConverter
 	{
+        private readonly object _defaultValue;
 
-		public CamelCaseStringEnumConverter()
+		public CamelCaseStringEnumConverter() { }
+
+        public CamelCaseStringEnumConverter(object defaultValue)
 		{
 			NamingStrategy = new CamelCaseNamingStrategy();
-		}
+            _defaultValue = defaultValue;
+        }
 
 		public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
 		{
 			if (reader.TokenType == JsonToken.Null || reader.TokenType == JsonToken.Undefined)
 			{
-				return ScriptWriting.NamingStrategy.DefaultType;
+				return _defaultValue;
 			}
 			return base.ReadJson(reader, objectType, existingValue, serializer);
 		}
