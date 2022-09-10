@@ -8,7 +8,6 @@ let fromQueryComplexArrayTest = document.getElementById("fromQueryComplexArrayTe
 fromQuerySimpleTest.addEventListener("click", async () => {
     let res = await api.withFromQuery("1234", {
         stringProp: "abc 123",
-        genericArg: null,
         obj1: null
     });
 
