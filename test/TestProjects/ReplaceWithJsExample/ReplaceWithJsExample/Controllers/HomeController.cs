@@ -32,7 +32,7 @@ namespace TestAspNetCoreApp.Controllers
 		}
 
 		[ScriptAction]
-		public JsonResult AnonTypeWithDictionaryProperty([FromBody] CustomGroupObj3 model, [FromServices] string service)
+		public JsonResult AnonTypeWithDictionaryProperty([FromBody] CustomGroupObj3 model, [FromQuery] ASimpleEnum thing, [FromServices] string service)
 		{
 			return Json(new
 			{

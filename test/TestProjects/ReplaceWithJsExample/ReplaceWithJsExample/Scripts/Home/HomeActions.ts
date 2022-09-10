@@ -16,6 +16,12 @@ function tryAppendKeyValueToUrl(urlParams: URLSearchParams, key: string, value: 
     }
 }
 
+function tryAppendObjectValuesToUrl(urlParams: URLSearchParams, obj: any): void {
+    for (let [key, val] of Object.entries(obj)) {
+        tryAppendKeyValueToUrl(urlParams, key, val);
+    }
+}
+
 function getQueryString(urlParams: URLSearchParams): string {
     let queryString = urlParams.toString();
     if (queryString !== "") {
@@ -27,11 +33,13 @@ function getQueryString(urlParams: URLSearchParams): string {
 /**
  * 
  * @param model 
+ * @param thing 
  */
-export function anonTypeWithDictionaryProperty(model: Models.CustomGroupObj3, abort?: AbortSignal): Promise<{ listObj: CustomGroup.CustomGroupObject1[] }> {
+export function anonTypeWithDictionaryProperty(model: Models.CustomGroupObj3, thing: CustomGroup.ASimpleEnum, abort?: AbortSignal): Promise<{ listObj: CustomGroup.CustomGroupObject1[] }> {
 	const urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, "param1", "val1");
 	tryAppendKeyValueToUrl(urlParams, "param2", "val2");
+	tryAppendObjectValuesToUrl(urlParams, thing);
 	return fetchWrapper("GET", `/Home/AnonTypeWithDictionaryProperty${getQueryString(urlParams)}`, model, abort);
 }
 
