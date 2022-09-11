@@ -1,17 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TypeRight.ScriptWriting.TypeScript
 {
-	/// <summary>
-	/// A typescript import statement
-	/// </summary>
-	public class ImportStatement
+    /// <summary>
+    /// A typescript import statement
+    /// </summary>
+    public class ImportStatement
 	{
-		private HashSet<string> _items = new HashSet<string>();
+		private readonly HashSet<string> _items = new HashSet<string>();
 
 		/// <summary>
 		/// Gets the imported items
@@ -39,7 +36,7 @@ namespace TypeRight.ScriptWriting.TypeScript
 		/// <param name="basePath"></param>
 		/// <param name="importPath"></param>
 		/// <param name="useAsteriskNotation"></param>
-		public ImportStatement(string basePath, string importPath, bool useAsteriskNotation)
+		public ImportStatement(string basePath, string importPath, bool useAsteriskNotation, ImportModuleNameStyle nameStyle)
 		{
 			UseAsteriskNotation = useAsteriskNotation;
 			Uri fromUri = new Uri(basePath);
@@ -52,14 +49,45 @@ namespace TypeRight.ScriptWriting.TypeScript
 			{
 				FromRelativePath = "./" + FromRelativePath;
 			}
-			FromRelativePath = FromRelativePath.Substring(0, FromRelativePath.Length - 3);  // remove .ts
+			FromRelativePath = AdjustImportModuleName(nameStyle);
 
 			// Import alias
 			if (UseAsteriskNotation)
 			{
 				string[] parts = FromRelativePath.Split('/');
-				ImportAlias = parts[parts.Length - 1];
+				ImportAlias = parts[parts.Length - 1].Replace(".js", "");	// remove any .js for a nice name
 			}
+		}
+
+		private string AdjustImportModuleName(ImportModuleNameStyle nameStyle)
+        {
+            switch (nameStyle)
+            {
+                case ImportModuleNameStyle.ReplaceWithJs:
+					return HandleReplaceWithJs(FromRelativePath);
+                default:
+                    return HandleExtensionless(FromRelativePath);
+            }
+        }
+
+		private static string HandleExtensionless(string path)
+        {
+            if (path.EndsWith(".ts", StringComparison.OrdinalIgnoreCase))
+            {
+				return path.Substring(0, path.Length - 3);
+			}
+
+			return path;
+        }
+
+		private static string HandleReplaceWithJs(string path)
+		{
+			if (path.EndsWith(".ts", StringComparison.OrdinalIgnoreCase))
+			{
+				return path.Substring(0, path.Length - 3) + ".js";
+			}
+
+			return path;
 		}
 
 		/// <summary>

@@ -16,17 +16,6 @@ namespace TypeRight.ScriptWriting
 
 		public IEnumerable<MvcAction> Actions => Controllers.SelectMany(c => c.Actions);
 
-
-		public ControllerContext(
-			MvcController controller,
-			string outputPath,
-			ExtractedTypeCollection types,
-			FetchFunctionResolver fetchResolver
-			)
-			: this(new [] { controller }, outputPath, types, fetchResolver)
-		{
-		}
-
 		public ControllerContext(
 			IEnumerable<MvcController> controllers,
 			string outputPath,

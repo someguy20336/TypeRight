@@ -3,9 +3,11 @@ using Newtonsoft.Json.Serialization;
 using System.Collections.Specialized;
 using TypeRight.Configuration.Json;
 using TypeRight.ScriptWriting;
+using TypeRight.ScriptWriting.TypeScript;
 
 namespace TypeRight.Configuration
 {
+
 	/// <summary>
 	/// Represents a configuration file for a solution
 	/// </summary>
@@ -14,7 +16,7 @@ namespace TypeRight.Configuration
 	{
 		[JsonProperty("$schema")]
 		public string Schema { get; set; }
-			= "https://raw.githubusercontent.com/someguy20336/TypeRight/tool/v1.4.0/src/TypeRight.Core/Configuration/typeRightConfig-schema.json";
+			= "https://raw.githubusercontent.com/someguy20336/TypeRight/tool/v2.0.0/src/TypeRight.Core/Configuration/typeRightConfig-schema.json";
 
 		/// <summary>
 		/// Gets or sets whether script generation is enabled
@@ -23,8 +25,11 @@ namespace TypeRight.Configuration
 
 		public string BaseUrl { get; set; }
 
-		[JsonConverter(typeof(CamelCaseStringEnumConverter))]
+		[JsonConverter(typeof(CamelCaseStringEnumConverter), NamingStrategyType.Camel)]
 		public NamingStrategyType NameCasingConverter { get; set; }
+
+		[JsonConverter(typeof(CamelCaseStringEnumConverter))]
+		public ImportModuleNameStyle ImportModuleNameStyle { get; set; }
 
 		[JsonConverter(typeof(QueryParamJsonConverter))]
 		public NameValueCollection QueryParams { get; set; }
@@ -44,6 +49,7 @@ namespace TypeRight.Configuration
 		{
 			Enabled = true;
 			ServerObjectsResultFilepath = "./Scripts/ServerObjects.ts";
+			ImportModuleNameStyle = ImportModuleNameStyle.Extensionless;
 
 			BaseUrl = "";
 		}

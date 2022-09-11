@@ -6,15 +6,18 @@ namespace TypeRight.ScriptWriting
 {
 	public class ScriptTemplateFactory
 	{
-		private ScriptExtensionsFactory _scriptExtensions;
-		public ScriptTemplateFactory(ConfigOptions options)
+		private readonly ScriptExtensionsFactory _scriptExtensions;
+        private readonly ConfigOptions _options;
+
+        public ScriptTemplateFactory(ConfigOptions options)
 		{
 			_scriptExtensions = new ScriptExtensionsFactory(options.QueryParams);
-		}
+            _options = options;
+        }
 
-		public ITypeTextTemplate CreateTypeTextTemplate() => new ModuleTypeTextTemplate();
+		public ITypeTextTemplate CreateTypeTextTemplate() => new ModuleTypeTextTemplate(_options.ImportModuleNameStyle);
 
 		public IControllerTextTemplate CreateControllerTextTemplate(ControllerContext context) 
-			=> new MvcControllerTextTemplate(context, _scriptExtensions);
+			=> new MvcControllerTextTemplate(context, _scriptExtensions, _options.ImportModuleNameStyle);
 	}
 }

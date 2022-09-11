@@ -33,6 +33,6 @@ namespace TypeRight.TypeProcessing
 		public static ExtractedReferenceType GetTypeByName(this IEnumerable<ExtractedType> collection, string name)
 			=> collection.FirstOrDefault(type => type.Name == name) as ExtractedReferenceType;
 
-		public static bool IsComplexType(this TypeDescriptor typeDescriptor) => typeDescriptor is ExtractedTypeDescriptor;
+		public static bool IsComplexType(this TypeDescriptor typeDescriptor) => typeDescriptor is ExtractedTypeDescriptor type && !type.NamedType.Flags.IsEnum;
 	}
 }

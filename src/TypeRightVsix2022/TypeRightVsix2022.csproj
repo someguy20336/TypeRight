@@ -20,7 +20,7 @@
     <UseCodebase>true</UseCodebase>
     <IncludeAssemblyInVSIXContainer>true</IncludeAssemblyInVSIXContainer>
     <IncludeDebugSymbolsInVSIXContainer>false</IncludeDebugSymbolsInVSIXContainer>
-    <IncludeDebugSymbolsInLocalVSIXDeployment>false</IncludeDebugSymbolsInLocalVSIXDeployment>
+    <IncludeDebugSymbolsInLocalVSIXDeployment>true</IncludeDebugSymbolsInLocalVSIXDeployment>
     <CopyBuildOutputToOutputDirectory>true</CopyBuildOutputToOutputDirectory>
     <CopyOutputSymbolsToOutputDirectory>true</CopyOutputSymbolsToOutputDirectory>
     <StartAction>Program</StartAction>

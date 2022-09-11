@@ -39,6 +39,8 @@ namespace TypeRightVsix.Imports
 				return NotApplicable();
 			}
 
+			BeforeImport();
+
 			string directory = GetImportFromDirectory();
 			if (!Directory.Exists(directory))
 			{

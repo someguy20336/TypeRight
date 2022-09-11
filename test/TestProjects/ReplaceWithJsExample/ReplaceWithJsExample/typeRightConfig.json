@@ -1,0 +1,27 @@
+{
+  "$schema": "https://raw.githubusercontent.com/someguy20336/TypeRight/tool/v2.0.0/src/TypeRight.Core/Configuration/typeRightConfig-schema.json",
+  "enabled": true,
+  "baseUrl": "",
+  "nameCasingConverter": "camel",
+  "queryParams": {
+    "param1": "val1",
+    "param2": "val2"
+  },
+  "importModuleNameStyle": "replaceWithJs",
+  "serverObjectsResultFilepath": "./Scripts/ServerObjects.ts",
+  "fetchConfig": {
+    "filePath": "./Scripts/CallServiceStuff.ts",
+    "name": "fetchWrapper",
+    "returnType": "Promise<$returnType$>",
+    "parameters": [
+      "requestMethod",
+      "url",
+      "body",
+      {
+        "name": "abort",
+        "type": "AbortSignal",
+        "optional": true
+      }
+    ]
+  }
+}
