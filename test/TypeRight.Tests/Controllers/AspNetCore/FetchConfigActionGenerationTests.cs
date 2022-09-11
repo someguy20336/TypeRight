@@ -133,5 +133,29 @@ export function GetThing(): void {
 	fetchWrapper(""GET"", `/api/RoutedApi`, null);
 }");
 		}
+
+		[TestMethod]
+		public void StandardParams_EnumQueryParameter_ParameterIsEnumType()
+		{
+			AddEnum("TestEnum")
+				.AddScriptEnumAttribute()
+				.AddMember("One", "1").Commit()
+				.Commit();
+
+			ControllerBuilder
+				.AddMethod("GetThing", "string")
+					.AddScriptActionAttribute()
+					.AddParameter("test", "TestEnum","", attribute: MvcConstants.FromQueryAttributeFullName_AspNetCore)
+					.AddLineOfCode("return null", 0)
+					.Commit()
+					;
+
+			AssertScriptTextForFunctionIs(@"
+export function GetThing(test: DefaultResult.TestEnum): void {
+	const urlParams = new URLSearchParams();
+	tryAppendKeyValueToUrl(urlParams, ""test"", test);
+	fetchWrapper(""GET"", `/api/RoutedApi${getQueryString(urlParams)}`, null);
+}", ScriptExtensions.KeyValueQueryParamHelper);
+		}
 	}
 }
