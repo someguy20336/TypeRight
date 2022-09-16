@@ -107,6 +107,51 @@ export function PutThingWithQuery(thingId: string, query: string, body: boolean)
 				);
 		}
 
+		[TestMethod]
+		public void NonRoutedController_HttpVerbIsRooted_UsesHttpVerbPath()
+		{
+			ControllerBuilder
+				.AddMethod("GetThing", "string")
+					.AddScriptActionAttribute()
+					.AddAttribute(MvcConstants.HttpGetAttributeFullName_AspNetCore)
+						.AddStringConstructorArg("/different/path/thing").Commit()
+					.AddParameter("thingId", "string", attribute: MvcConstants.FromQueryAttributeFullName_AspNetCore)
+					.AddLineOfCode("return null", 0)
+					.Commit()
+					;
+
+			AssertScriptTextForFunctionIs(@"
+export function GetThing(thingId: string): void {
+	const urlParams = new URLSearchParams();
+	tryAppendKeyValueToUrl(urlParams, ""thingId"", thingId);
+	fetchWrapper(""GET"", `/different/path/thing${getQueryString(urlParams)}`, null);
+}", ScriptExtensions.KeyValueQueryParamHelper);
+		}
+
+		[TestMethod]
+		public void RoutedController_HttpVerbIsRooted_UsesHttpVerbPath()
+		{
+			ControllerBuilder
+				.AddAttribute(MvcConstants.RouteAttributeFullName_AspNetCore)
+					.AddStringConstructorArg("RoutedApi")
+					.Commit()
+				.AddMethod("GetThing", "string")
+					.AddScriptActionAttribute()
+					.AddAttribute(MvcConstants.HttpGetAttributeFullName_AspNetCore)
+						.AddStringConstructorArg("/different/path/thing").Commit()
+					.AddParameter("thingId", "string", attribute: MvcConstants.FromQueryAttributeFullName_AspNetCore)
+					.AddLineOfCode("return null", 0)
+					.Commit()
+					;
+
+			AssertScriptTextForFunctionIs(@"
+export function GetThing(thingId: string): void {
+	const urlParams = new URLSearchParams();
+	tryAppendKeyValueToUrl(urlParams, ""thingId"", thingId);
+	fetchWrapper(""GET"", `/different/path/thing${getQueryString(urlParams)}`, null);
+}", ScriptExtensions.KeyValueQueryParamHelper);
+		}
+
 
 		[TestMethod]
 		public void BaseUrl_AppendedToBeginning()
@@ -130,6 +175,53 @@ export function GetThing(thingId: string): void {
 	const urlParams = new URLSearchParams();
 	tryAppendKeyValueToUrl(urlParams, ""thingId"", thingId);
 	fetchWrapper(""GET"", `/api/RoutedApi/thing${getQueryString(urlParams)}`, null);
+}", ScriptExtensions.KeyValueQueryParamHelper);
+		}
+
+		[TestMethod]
+		public void BaseUrl_NoRoute_HttpVerbIsRooted_UsesHttpVerbPath()
+		{
+			GivenBaseUrl("api");
+			ControllerBuilder
+				.AddMethod("GetThing", "string")
+					.AddScriptActionAttribute()
+					.AddAttribute(MvcConstants.HttpGetAttributeFullName_AspNetCore)
+						.AddStringConstructorArg("/different/path/thing").Commit()
+					.AddParameter("thingId", "string", attribute: MvcConstants.FromQueryAttributeFullName_AspNetCore)
+					.AddLineOfCode("return null", 0)
+					.Commit()
+					;
+
+			AssertScriptTextForFunctionIs(@"
+export function GetThing(thingId: string): void {
+	const urlParams = new URLSearchParams();
+	tryAppendKeyValueToUrl(urlParams, ""thingId"", thingId);
+	fetchWrapper(""GET"", `/api/different/path/thing${getQueryString(urlParams)}`, null);
+}", ScriptExtensions.KeyValueQueryParamHelper);
+		}
+
+		[TestMethod]
+		public void BaseUrl_WithRoute_HttpVerbIsRooted_UsesHttpVerbPath()
+		{
+			GivenBaseUrl("api");
+			ControllerBuilder
+				.AddAttribute(MvcConstants.RouteAttributeFullName_AspNetCore)
+					.AddStringConstructorArg("RoutedApi")
+					.Commit()
+				.AddMethod("GetThing", "string")
+					.AddScriptActionAttribute()
+					.AddAttribute(MvcConstants.HttpGetAttributeFullName_AspNetCore)
+						.AddStringConstructorArg("/different/path/thing").Commit()
+					.AddParameter("thingId", "string", attribute: MvcConstants.FromQueryAttributeFullName_AspNetCore)
+					.AddLineOfCode("return null", 0)
+					.Commit()
+					;
+
+			AssertScriptTextForFunctionIs(@"
+export function GetThing(thingId: string): void {
+	const urlParams = new URLSearchParams();
+	tryAppendKeyValueToUrl(urlParams, ""thingId"", thingId);
+	fetchWrapper(""GET"", `/api/different/path/thing${getQueryString(urlParams)}`, null);
 }", ScriptExtensions.KeyValueQueryParamHelper);
 		}
 	}

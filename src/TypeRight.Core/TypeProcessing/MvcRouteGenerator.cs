@@ -20,20 +20,25 @@ namespace TypeRight.TypeProcessing
 
 		public string GenerateRouteTemplate(MvcAction actionInfo)
 		{
-			string area = GetArea();
 			string routeTemplate = GetBaseRouteTemplate();
 
-			if (string.IsNullOrEmpty(routeTemplate))
-			{
-				routeTemplate = string.IsNullOrEmpty(area) ? ConventionalBaseRouteTemplate : ConventionalBaseRouteTemplateWithArea;
-			}
-
-			// Append HttpGet, Post, etc route name
+			// Start with HttpGet, Post, etc route name
 			string actionTemplate = GetActionTemplate(actionInfo);
-			if (!string.IsNullOrEmpty(actionTemplate))
+            if (actionTemplate.StartsWith("/"))		// If rooted, then don't use Route
+            {
+				routeTemplate = actionTemplate;
+            }
+			else if (!string.IsNullOrEmpty(actionTemplate))
 			{
 				routeTemplate = AppendSlashIfNecessary(routeTemplate);
 				routeTemplate += actionTemplate;
+			}
+
+			// If we still have nothing, then assume conventional routing
+			string area = GetArea();
+			if (string.IsNullOrEmpty(routeTemplate))
+			{
+				routeTemplate = string.IsNullOrEmpty(area) ? ConventionalBaseRouteTemplate : ConventionalBaseRouteTemplateWithArea;
 			}
 
 			routeTemplate = PrependBasePath(routeTemplate);

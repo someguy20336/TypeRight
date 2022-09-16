@@ -234,6 +234,7 @@ export function MultipleTypes(multTypes: string | number): void {{
 			};
 
 			ControllerBuilder
+				.AddAttribute(MvcConstants.RouteAttributeFullName_AspNetCore).AddStringConstructorArg($"/{ControllerName}/[action]").Commit()
 				.AddMethod("Action", MvcConstants.JsonResult_AspNetCore)
 					.AddScriptActionAttribute()
 					.AddAttribute(MvcConstants.HttpGetAttributeFullName_AspNetCore)
@@ -253,6 +254,7 @@ export function Action(id: string | number): void {{
 		public void ScriptActionName_ActionScriptNameIsOverridden()
 		{
 			ControllerBuilder
+				.AddAttribute(MvcConstants.RouteAttributeFullName_AspNetCore).AddStringConstructorArg($"/{ControllerName}/[action]").Commit()
 				.AddMethod("Action", MvcConstants.JsonResult_AspNetCore)
 					.AddScriptActionAttribute("DifferentName")
 					.AddAttribute(MvcConstants.HttpGetAttributeFullName_AspNetCore)

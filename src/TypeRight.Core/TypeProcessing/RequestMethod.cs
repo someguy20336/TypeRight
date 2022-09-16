@@ -68,7 +68,7 @@ namespace TypeRight.TypeProcessing
 			var mvcAttr = actionInfo.Attributes.FirstOrDefault(attr => TypeFilter.Matches(attr.AttributeType));
 			if (mvcAttr.ConstructorArguments.Count > 0)
 			{
-				return mvcAttr.ConstructorArguments[0] as string;
+				return mvcAttr.ConstructorArguments[0] as string ?? "";
 			}
 			return "";
 		}
