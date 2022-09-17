@@ -31,7 +31,7 @@
 		
 		<!-- Build tool -->
 		<file src=".\src\TypeRight\TypeRight.targets" target="build" />
-		<file src=".\src\TypeRight\bin\Release\net5.0\publish\*.*" target="tools" />
+		<file src=".\src\TypeRight\bin\Release\net6.0\publish\*.*" target="tools" />
 		
 		<!-- Adapter -->
 		<file src=".\src\TypeRight.Workspaces.VsixAdapter\bin\Release\net472\*.dll" target="tools\adapter" />
