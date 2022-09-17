@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using TypeRight.Attributes;
 
 namespace ReplaceWithJsExample.Controllers
 {
@@ -8,15 +9,17 @@ namespace ReplaceWithJsExample.Controllers
     public class RouteTestController : ControllerBase
     {
         // GET /api/test/{id}
-        [HttpGet("/api/test/{id}")]
-        public string GetThing(int id)
+        [HttpGet("/rooted/test/{id}")]
+        [ScriptAction]
+        public string RootedPath(int id)
         {
             return $"Got {id}";
         }
 
         // GET /base/api/test/{id}
-        [HttpGet("api/test/{id}")]
-        public string GetOtherThing(int id)
+        [HttpGet("not-rooted/test/{id}")]
+        [ScriptAction]
+        public string NotRootedPath(int id)
         {
             return $"Got routeless {id}";
         }
