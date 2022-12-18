@@ -24,17 +24,26 @@
 		<PropertyGroup>
 			<TypeRightExe />
 			<ExecOutput />
+			<ProjectExeDir>$(MSBuildThisFileDirectory)..\tools\$(TargetFramework)</ProjectExeDir>
+			<DefaultExeDir>$(MSBuildThisFileDirectory)..\tools\net6.0</DefaultExeDir>
 		</PropertyGroup>
 
 		<PropertyGroup Condition="$(TypeRightTesting) == true">
 			<ExeRelativePath>.\bin\Debug\net5.0\publish\TypeRight.exe</ExeRelativePath>
 		</PropertyGroup>
 
+		<Message Text="Using TFM: $(TargetFramework)">
+		</Message>
+
 		<PropertyGroup Condition="$(TypeRightTesting) != true">
-			<ExeRelativePath>..\tools\TypeRight.exe</ExeRelativePath>
+			<ExeRelativePath Condition="Exists('$(ProjectExeDir)')">$(ProjectExeDir)</ExeRelativePath>
+			<ExeRelativePath Condition="!Exists('$(ProjectExeDir)')">$(DefaultExeDir)</ExeRelativePath>
 		</PropertyGroup>
 
-		<CombinePath BasePath="$(MSBuildThisFileDirectory)" Paths="$(ExeRelativePath)">
+		<Message Text="Using tool at relative path: $(ExeRelativePath)">
+		</Message>
+
+		<CombinePath BasePath="$(ExeRelativePath)" Paths="TypeRight.exe">
 			<Output TaskParameter="CombinedPaths" PropertyName="TypeRightExe"/>
 		</CombinePath>
 
