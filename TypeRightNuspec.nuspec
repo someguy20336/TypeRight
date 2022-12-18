@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
 	<metadata>
-		<id>TypeRight</id>
-		<version>2.0.1</version>
+		<!--Production: TypeRight, Debug: TypeRightDebug-->
+		<id>$id$</id>
+		<version>$vers$</version>
 		<title>TypeRight</title>
 		<authors>Dave W</authors>
 		<owners>Dave W</owners>
@@ -21,16 +22,20 @@
 		<readme>docs\PackageReadme.md</readme>
 
 		<dependencies>
-			<group targetFramework=".NETStandard2.0" />
+			<group targetFramework="net5.0" />
+			<group targetFramework="net6.0" />
 		</dependencies>
 	</metadata>
 	<files>
 		<!-- Attributes reference -->
-		<file src=".\src\TypeRight.Attributes\bin\Release\netstandard2.0\TypeRight.Attributes.dll" target="lib\netstandard2.0" />
-		<file src=".\src\TypeRight.Attributes\bin\Release\netstandard2.0\TypeRight.Attributes.xml" target="lib\netstandard2.0" />
+		<file src=".\src\TypeRight.Attributes\bin\Release\netstandard2.0\TypeRight.Attributes.dll" target="lib\net5.0" />
+		<file src=".\src\TypeRight.Attributes\bin\Release\netstandard2.0\TypeRight.Attributes.xml" target="lib\net5.0" />
+		<file src=".\src\TypeRight.Attributes\bin\Release\netstandard2.0\TypeRight.Attributes.dll" target="lib\net6.0" />
+		<file src=".\src\TypeRight.Attributes\bin\Release\netstandard2.0\TypeRight.Attributes.xml" target="lib\net6.0" />
 		
 		<!-- Build tool -->
-		<file src=".\src\TypeRight\TypeRight.targets" target="build" />
+		<file src=".\src\TypeRight\TypeRight.targets" target="build\net5.0\$id$.targets" />
+		<file src=".\src\TypeRight\TypeRight.targets" target="build\net6.0\$id$.targets" />
 		<file src=".\src\TypeRight\bin\Release\net5.0\win-x86\publish\*.*" target="tools\net5.0" />
 		<file src=".\src\TypeRight\bin\Release\net6.0\win-x86\publish\*.*" target="tools\net6.0" />
 		
