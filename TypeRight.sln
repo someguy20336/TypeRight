@@ -31,12 +31,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Vsix", "Vsix", "{50180D7A-7C03-4681-882B-D22FBB6A019A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{36E3404F-F368-42EE-9219-3A982563009C}"
-	ProjectSection(SolutionItems) = preProject
-		test\MsBuildTests\AspNet.bat = test\MsBuildTests\AspNet.bat
-		test\MsBuildTests\AspNetCore.bat = test\MsBuildTests\AspNetCore.bat
-		test\MsBuildTests\Nuget_AspNetCore.bat = test\MsBuildTests\Nuget_AspNetCore.bat
-		test\MsBuildTests\Nuget_AspNetCore_Target_Net_Framework.bat = test\MsBuildTests\Nuget_AspNetCore_Target_Net_Framework.bat
-	EndProjectSection
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "TypeRight.VsixContract.Messages", "src\TypeRight.VsixContract.Messages\TypeRight.VsixContract.Messages.shproj", "{21BCBE4C-3509-4E42-B2A0-5B848C8A75D8}"
 EndProject
