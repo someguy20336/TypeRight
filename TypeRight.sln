@@ -3,11 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32407.343
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TypeRightVsix", "src\TypeRightVsix\TypeRightVsix.csproj", "{19A3AC50-EDEE-4B95-808C-C9D64A8D80EB}"
-	ProjectSection(ProjectDependencies) = postProject
-		{AC6C53F4-FB54-48AB-8E96-1AA1AE93CBA8} = {AC6C53F4-FB54-48AB-8E96-1AA1AE93CBA8}
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TypeRight.Attributes", "src\TypeRight.Attributes\TypeRight.Attributes.csproj", "{F87074AD-ED17-4792-9981-22CF0F093098}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TypeRight.Core", "src\TypeRight.Core\TypeRight.Core.csproj", "{7574657D-76BD-4B4F-B566-A4D830AA9FCB}"
@@ -54,22 +49,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{19A3AC50-EDEE-4B95-808C-C9D64A8D80EB}.Debug Local Nuget|Any CPU.ActiveCfg = Debug Local Nuget|Any CPU
-		{19A3AC50-EDEE-4B95-808C-C9D64A8D80EB}.Debug Local Nuget|Any CPU.Build.0 = Debug Local Nuget|Any CPU
-		{19A3AC50-EDEE-4B95-808C-C9D64A8D80EB}.Debug Local Nuget|x86.ActiveCfg = Debug Local Nuget|Any CPU
-		{19A3AC50-EDEE-4B95-808C-C9D64A8D80EB}.Debug Local Nuget|x86.Build.0 = Debug Local Nuget|Any CPU
-		{19A3AC50-EDEE-4B95-808C-C9D64A8D80EB}.Debug Nuget|Any CPU.ActiveCfg = Debug Nuget|Any CPU
-		{19A3AC50-EDEE-4B95-808C-C9D64A8D80EB}.Debug Nuget|Any CPU.Build.0 = Debug Nuget|Any CPU
-		{19A3AC50-EDEE-4B95-808C-C9D64A8D80EB}.Debug Nuget|x86.ActiveCfg = Debug Nuget|Any CPU
-		{19A3AC50-EDEE-4B95-808C-C9D64A8D80EB}.Debug Nuget|x86.Build.0 = Debug Nuget|Any CPU
-		{19A3AC50-EDEE-4B95-808C-C9D64A8D80EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{19A3AC50-EDEE-4B95-808C-C9D64A8D80EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{19A3AC50-EDEE-4B95-808C-C9D64A8D80EB}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{19A3AC50-EDEE-4B95-808C-C9D64A8D80EB}.Debug|x86.Build.0 = Debug|Any CPU
-		{19A3AC50-EDEE-4B95-808C-C9D64A8D80EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{19A3AC50-EDEE-4B95-808C-C9D64A8D80EB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{19A3AC50-EDEE-4B95-808C-C9D64A8D80EB}.Release|x86.ActiveCfg = Release|Any CPU
-		{19A3AC50-EDEE-4B95-808C-C9D64A8D80EB}.Release|x86.Build.0 = Release|Any CPU
 		{F87074AD-ED17-4792-9981-22CF0F093098}.Debug Local Nuget|Any CPU.ActiveCfg = Debug|Any CPU
 		{F87074AD-ED17-4792-9981-22CF0F093098}.Debug Local Nuget|Any CPU.Build.0 = Debug|Any CPU
 		{F87074AD-ED17-4792-9981-22CF0F093098}.Debug Local Nuget|x86.ActiveCfg = Debug|Any CPU
@@ -219,7 +198,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{19A3AC50-EDEE-4B95-808C-C9D64A8D80EB} = {50180D7A-7C03-4681-882B-D22FBB6A019A}
 		{86FA2628-AE16-4BED-99AB-BECB91FDE318} = {36E3404F-F368-42EE-9219-3A982563009C}
 		{AC6C53F4-FB54-48AB-8E96-1AA1AE93CBA8} = {50180D7A-7C03-4681-882B-D22FBB6A019A}
 		{B878F149-9BD3-437D-802C-D26481F5B055} = {50180D7A-7C03-4681-882B-D22FBB6A019A}
@@ -232,9 +210,6 @@ Global
 		SolutionGuid = {51F1BF5C-4F4F-4F9A-9119-DB47FB3F2DD0}
 	EndGlobalSection
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		src\TypeRight.Shared\TypeRight.Shared.projitems*{19a3ac50-edee-4b95-808c-c9d64a8d80eb}*SharedItemsImports = 4
-		src\TypeRight.VsixContract.Messages\TypeRight.VsixContract.Messages.projitems*{19a3ac50-edee-4b95-808c-c9d64a8d80eb}*SharedItemsImports = 4
-		src\TypeRightVsix.Shared\TypeRightVsix.Shared.projitems*{19a3ac50-edee-4b95-808c-c9d64a8d80eb}*SharedItemsImports = 4
 		src\TypeRight.Shared\TypeRight.Shared.projitems*{1f2c4096-a3a6-4f2f-af7b-c3ba2617cadf}*SharedItemsImports = 4
 		src\TypeRight.VsixContract.Messages\TypeRight.VsixContract.Messages.projitems*{1f2c4096-a3a6-4f2f-af7b-c3ba2617cadf}*SharedItemsImports = 4
 		src\TypeRightVsix.Shared\TypeRightVsix.Shared.projitems*{1f2c4096-a3a6-4f2f-af7b-c3ba2617cadf}*SharedItemsImports = 4
