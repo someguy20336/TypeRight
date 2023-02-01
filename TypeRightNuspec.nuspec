@@ -40,8 +40,8 @@
 		<file src=".\src\TypeRight\bin\Release\net7.0\win-x86\publish\*.*" target="tools\net7.0" />
 		
 		<!-- Adapter -->
-		<file src=".\src\TypeRight.Workspaces.VsixAdapter\bin\Release\net472\*.dll" target="tools\adapter" />
-		<file src=".\src\TypeRight.Workspaces.VsixAdapter\bin\Release\net472\*.pdb" target="tools\adapter" />
+		<file src=".\src\TypeRight.Workspaces.VsixAdapter\bin\Release\netstandard2.0\*.dll" target="tools\adapter" />
+		<file src=".\src\TypeRight.Workspaces.VsixAdapter\bin\Release\netstandard2.0\*.pdb" target="tools\adapter" />
 		
 		<!-- Content -->
 		<file src=".\Icons\TypeRight64x64.png" target="images\"></file>

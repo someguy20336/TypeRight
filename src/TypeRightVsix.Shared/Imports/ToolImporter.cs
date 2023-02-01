@@ -190,7 +190,7 @@ namespace TypeRightVsix.Imports
 			ThreadHelper.ThrowIfNotOnUIThread();
 			// Use the test build
 			string solnDir = new FileInfo(VsHelper.Current.Dte.Solution.FullName).Directory.FullName;
-			string relativeBuildDir = @"..\..\..\src\TypeRight.Workspaces.VsixAdapter\bin\Debug\net472";
+			string relativeBuildDir = @"..\..\..\src\TypeRight.Workspaces.VsixAdapter\bin\Debug\netstandard2.0";
 			return Path.GetFullPath(Path.Combine(solnDir, relativeBuildDir));
 		}
 	}
