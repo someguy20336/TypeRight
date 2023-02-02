@@ -22,21 +22,12 @@
 
 	<Target Name="ExecuteTypeRightScriptGeneration">
 		<PropertyGroup>
-			<TypeRightExe />
 			<ExecOutput />
+			<TypeRightExe>$(MSBuildThisFileDirectory)..\..\tools\$(TargetFramework)\TypeRight.exe</TypeRightExe>
 		</PropertyGroup>
 
-		<PropertyGroup Condition="$(TypeRightTesting) == true">
-			<ExeRelativePath>.\bin\Debug\net5.0\publish\TypeRight.exe</ExeRelativePath>
-		</PropertyGroup>
-
-		<PropertyGroup Condition="$(TypeRightTesting) != true">
-			<ExeRelativePath>..\tools\TypeRight.exe</ExeRelativePath>
-		</PropertyGroup>
-
-		<CombinePath BasePath="$(MSBuildThisFileDirectory)" Paths="$(ExeRelativePath)">
-			<Output TaskParameter="CombinedPaths" PropertyName="TypeRightExe"/>
-		</CombinePath>
+		<Message Text="Using tool at path: $(TypeRightExe)">
+		</Message>
 
 		<Exec Condition="$(BuildingProject) == true" Command="&quot;$(TypeRightExe)&quot; &quot;$(ProjectPath)&quot;" ConsoleToMSBuild="true">
 			<Output TaskParameter="ConsoleOutput" PropertyName="ExecOutput"/>

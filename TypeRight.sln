@@ -3,11 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32407.343
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TypeRightVsix", "src\TypeRightVsix\TypeRightVsix.csproj", "{19A3AC50-EDEE-4B95-808C-C9D64A8D80EB}"
-	ProjectSection(ProjectDependencies) = postProject
-		{AC6C53F4-FB54-48AB-8E96-1AA1AE93CBA8} = {AC6C53F4-FB54-48AB-8E96-1AA1AE93CBA8}
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TypeRight.Attributes", "src\TypeRight.Attributes\TypeRight.Attributes.csproj", "{F87074AD-ED17-4792-9981-22CF0F093098}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TypeRight.Core", "src\TypeRight.Core\TypeRight.Core.csproj", "{7574657D-76BD-4B4F-B566-A4D830AA9FCB}"
@@ -22,7 +17,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TypeRight.Workspaces.VsixAd
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{389EA361-B44E-4CCF-88F7-3C193FF06EF8}"
 	ProjectSection(SolutionItems) = preProject
-		DebugTypeRightNuspec.nuspec = DebugTypeRightNuspec.nuspec
 		TypeRightNuspec.nuspec = TypeRightNuspec.nuspec
 		TypeRightVersion.targets = TypeRightVersion.targets
 	EndProjectSection
@@ -32,12 +26,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Vsix", "Vsix", "{50180D7A-7C03-4681-882B-D22FBB6A019A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{36E3404F-F368-42EE-9219-3A982563009C}"
-	ProjectSection(SolutionItems) = preProject
-		test\MsBuildTests\AspNet.bat = test\MsBuildTests\AspNet.bat
-		test\MsBuildTests\AspNetCore.bat = test\MsBuildTests\AspNetCore.bat
-		test\MsBuildTests\Nuget_AspNetCore.bat = test\MsBuildTests\Nuget_AspNetCore.bat
-		test\MsBuildTests\Nuget_AspNetCore_Target_Net_Framework.bat = test\MsBuildTests\Nuget_AspNetCore_Target_Net_Framework.bat
-	EndProjectSection
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "TypeRight.VsixContract.Messages", "src\TypeRight.VsixContract.Messages\TypeRight.VsixContract.Messages.shproj", "{21BCBE4C-3509-4E42-B2A0-5B848C8A75D8}"
 EndProject
@@ -50,19 +38,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TypeRightVsix2022", "src\TypeRightVsix2022\TypeRightVsix2022.csproj", "{1F2C4096-A3A6-4F2F-AF7B-C3BA2617CADF}"
 EndProject
 Global
-	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		src\TypeRight.Shared\TypeRight.Shared.projitems*{19a3ac50-edee-4b95-808c-c9d64a8d80eb}*SharedItemsImports = 4
-		src\TypeRight.VsixContract.Messages\TypeRight.VsixContract.Messages.projitems*{19a3ac50-edee-4b95-808c-c9d64a8d80eb}*SharedItemsImports = 4
-		src\TypeRightVsix.Shared\TypeRightVsix.Shared.projitems*{19a3ac50-edee-4b95-808c-c9d64a8d80eb}*SharedItemsImports = 4
-		src\TypeRight.Shared\TypeRight.Shared.projitems*{1f2c4096-a3a6-4f2f-af7b-c3ba2617cadf}*SharedItemsImports = 4
-		src\TypeRight.VsixContract.Messages\TypeRight.VsixContract.Messages.projitems*{1f2c4096-a3a6-4f2f-af7b-c3ba2617cadf}*SharedItemsImports = 4
-		src\TypeRightVsix.Shared\TypeRightVsix.Shared.projitems*{1f2c4096-a3a6-4f2f-af7b-c3ba2617cadf}*SharedItemsImports = 4
-		src\TypeRight.VsixContract.Messages\TypeRight.VsixContract.Messages.projitems*{21bcbe4c-3509-4e42-b2a0-5b848c8a75d8}*SharedItemsImports = 13
-		src\TypeRightVsix.Shared\TypeRightVsix.Shared.projitems*{59a73af7-61ad-4982-aaea-e31067e71383}*SharedItemsImports = 13
-		src\TypeRight.VsixContract.Messages\TypeRight.VsixContract.Messages.projitems*{ac6c53f4-fb54-48ab-8e96-1aa1ae93cba8}*SharedItemsImports = 5
-		src\TypeRight.Shared\TypeRight.Shared.projitems*{ad8168e6-3ed3-41ea-978a-ac7dae564b18}*SharedItemsImports = 13
-		src\TypeRight.Shared\TypeRight.Shared.projitems*{dae83799-c1eb-4d01-878e-75a9ff4889a0}*SharedItemsImports = 5
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug Local Nuget|Any CPU = Debug Local Nuget|Any CPU
 		Debug Local Nuget|x86 = Debug Local Nuget|x86
@@ -74,22 +49,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{19A3AC50-EDEE-4B95-808C-C9D64A8D80EB}.Debug Local Nuget|Any CPU.ActiveCfg = Debug Local Nuget|Any CPU
-		{19A3AC50-EDEE-4B95-808C-C9D64A8D80EB}.Debug Local Nuget|Any CPU.Build.0 = Debug Local Nuget|Any CPU
-		{19A3AC50-EDEE-4B95-808C-C9D64A8D80EB}.Debug Local Nuget|x86.ActiveCfg = Debug Local Nuget|Any CPU
-		{19A3AC50-EDEE-4B95-808C-C9D64A8D80EB}.Debug Local Nuget|x86.Build.0 = Debug Local Nuget|Any CPU
-		{19A3AC50-EDEE-4B95-808C-C9D64A8D80EB}.Debug Nuget|Any CPU.ActiveCfg = Debug Nuget|Any CPU
-		{19A3AC50-EDEE-4B95-808C-C9D64A8D80EB}.Debug Nuget|Any CPU.Build.0 = Debug Nuget|Any CPU
-		{19A3AC50-EDEE-4B95-808C-C9D64A8D80EB}.Debug Nuget|x86.ActiveCfg = Debug Nuget|Any CPU
-		{19A3AC50-EDEE-4B95-808C-C9D64A8D80EB}.Debug Nuget|x86.Build.0 = Debug Nuget|Any CPU
-		{19A3AC50-EDEE-4B95-808C-C9D64A8D80EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{19A3AC50-EDEE-4B95-808C-C9D64A8D80EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{19A3AC50-EDEE-4B95-808C-C9D64A8D80EB}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{19A3AC50-EDEE-4B95-808C-C9D64A8D80EB}.Debug|x86.Build.0 = Debug|Any CPU
-		{19A3AC50-EDEE-4B95-808C-C9D64A8D80EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{19A3AC50-EDEE-4B95-808C-C9D64A8D80EB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{19A3AC50-EDEE-4B95-808C-C9D64A8D80EB}.Release|x86.ActiveCfg = Release|Any CPU
-		{19A3AC50-EDEE-4B95-808C-C9D64A8D80EB}.Release|x86.Build.0 = Release|Any CPU
 		{F87074AD-ED17-4792-9981-22CF0F093098}.Debug Local Nuget|Any CPU.ActiveCfg = Debug|Any CPU
 		{F87074AD-ED17-4792-9981-22CF0F093098}.Debug Local Nuget|Any CPU.Build.0 = Debug|Any CPU
 		{F87074AD-ED17-4792-9981-22CF0F093098}.Debug Local Nuget|x86.ActiveCfg = Debug|Any CPU
@@ -239,7 +198,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{19A3AC50-EDEE-4B95-808C-C9D64A8D80EB} = {50180D7A-7C03-4681-882B-D22FBB6A019A}
 		{86FA2628-AE16-4BED-99AB-BECB91FDE318} = {36E3404F-F368-42EE-9219-3A982563009C}
 		{AC6C53F4-FB54-48AB-8E96-1AA1AE93CBA8} = {50180D7A-7C03-4681-882B-D22FBB6A019A}
 		{B878F149-9BD3-437D-802C-D26481F5B055} = {50180D7A-7C03-4681-882B-D22FBB6A019A}
@@ -250,5 +208,15 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {51F1BF5C-4F4F-4F9A-9119-DB47FB3F2DD0}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		src\TypeRight.Shared\TypeRight.Shared.projitems*{1f2c4096-a3a6-4f2f-af7b-c3ba2617cadf}*SharedItemsImports = 4
+		src\TypeRight.VsixContract.Messages\TypeRight.VsixContract.Messages.projitems*{1f2c4096-a3a6-4f2f-af7b-c3ba2617cadf}*SharedItemsImports = 4
+		src\TypeRightVsix.Shared\TypeRightVsix.Shared.projitems*{1f2c4096-a3a6-4f2f-af7b-c3ba2617cadf}*SharedItemsImports = 4
+		src\TypeRight.VsixContract.Messages\TypeRight.VsixContract.Messages.projitems*{21bcbe4c-3509-4e42-b2a0-5b848c8a75d8}*SharedItemsImports = 13
+		src\TypeRightVsix.Shared\TypeRightVsix.Shared.projitems*{59a73af7-61ad-4982-aaea-e31067e71383}*SharedItemsImports = 13
+		src\TypeRight.VsixContract.Messages\TypeRight.VsixContract.Messages.projitems*{ac6c53f4-fb54-48ab-8e96-1aa1ae93cba8}*SharedItemsImports = 5
+		src\TypeRight.Shared\TypeRight.Shared.projitems*{ad8168e6-3ed3-41ea-978a-ac7dae564b18}*SharedItemsImports = 13
+		src\TypeRight.Shared\TypeRight.Shared.projitems*{dae83799-c1eb-4d01-878e-75a9ff4889a0}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal
