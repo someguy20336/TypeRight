@@ -14,7 +14,7 @@
 			with the same name.
 		</description>
 		<releaseNotes>See the github page for most recent release notes</releaseNotes>
-		<copyright>Copyright 2019-2021</copyright>
+		<copyright>Copyright 2019-2023</copyright>
 		<projectUrl>https://github.com/someguy20336/TypeRight</projectUrl>
 		<icon>images\TypeRight64x64.png	</icon>
 		<tags>TypeScript Generator MVC C# classes</tags>

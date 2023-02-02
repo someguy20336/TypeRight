@@ -10,6 +10,8 @@
   <ItemGroup>
     <PackageReference Include="Buildalyzer.Workspaces" Version="5.0.0" />
     <PackageReference Include="Microsoft.CodeAnalysis" Version="4.4.0" />
+    <PackageReference Include="System.Diagnostics.Debug" Version="4.3.0" />
+    <PackageReference Include="System.IO.FileSystem.Primitives" Version="4.3.0" />
   </ItemGroup>
 
   <ItemGroup>
