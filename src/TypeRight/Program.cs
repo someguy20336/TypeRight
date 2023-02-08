@@ -1,4 +1,5 @@
 ﻿using Buildalyzer;
+using Buildalyzer.Environment;
 using Buildalyzer.Workspaces;
 using Microsoft.CodeAnalysis;
 using System;
@@ -71,29 +72,55 @@ namespace TypeRight
 
 		private static void RunGeneration(string[] args, string projectPath)
 		{
-			AnalyzerManager mgr = new AnalyzerManager();
-			IProjectAnalyzer projAnalyzer = mgr.GetProject(projectPath);
 
-			using (Workspace workspace = projAnalyzer.GetWorkspace(true))
+            using AdhocWorkspace workspace = new();
+            AnalyzerManager mgr = new();
+						
+			TryAddProject(mgr, workspace, projectPath);
+			
+            ProjectId mainProjId = workspace.CurrentSolution.Projects
+                .Where(pr => pr.FilePath == projectPath).FirstOrDefault()?.Id;
+            ProjectParser parser = new(workspace, mainProjId);
+            ScriptGenEngine engine = new();
+            var result = engine.GenerateScripts(new ScriptGenerationParameters()
+            {
+                ProjectPath = projectPath,
+                TypeIterator = parser,
+                Force = args.HasSwitch(ForceSwitch)
+            });
+
+            if (!result.Success)
+            {
+                Console.WriteLine(result.ErrorMessage);
+            }
+        }
+
+		private static void TryAddProject(AnalyzerManager mgr, AdhocWorkspace workspace, string projectPath)
+		{
+			if (mgr.Projects.ContainsKey(projectPath))
 			{
-				ProjectId mainProjId = workspace.CurrentSolution.Projects
-					.Where(pr => pr.FilePath == projectPath).FirstOrDefault()?.Id;
-				ProjectParser parser = new ProjectParser(workspace, mainProjId);
-				ScriptGenEngine engine = new ScriptGenEngine();
-				var result = engine.GenerateScripts(new ScriptGenerationParameters()
-				{
-					ProjectPath = projectPath,
-					TypeIterator = parser,
-					Force = args.HasSwitch(ForceSwitch)
-				});
-
-				if (!result.Success)
-				{
-					Console.WriteLine(result.ErrorMessage);
-				}
-
+				return;
 			}
-		}
 
+            IProjectAnalyzer projAnalyzer = mgr.GetProject(projectPath);
+
+            // Workaround for https://github.com/daveaglick/Buildalyzer/issues/105
+            var projDir = Path.GetDirectoryName(projectPath);
+			var tempBasePath = Path.Combine(projDir, "obj", "tempbuildalyzer");
+            EnvironmentOptions options = new();
+			options.TargetsToBuild.Remove("Clean");
+            options.EnvironmentVariables["IntermediateOutputPath"] = Path.Combine(tempBasePath, "obj");
+			options.EnvironmentVariables["OutputPath"] = Path.Combine(tempBasePath, "bin");
+            var results = projAnalyzer.Build(options).First();
+
+			Directory.Delete(tempBasePath, true);
+
+            results.AddToWorkspace(workspace);
+
+            foreach (var proj in results.ProjectReferences)
+            {
+				TryAddProject(mgr, workspace, proj);
+            }
+        }
 	}
 }
