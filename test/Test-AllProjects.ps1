@@ -11,11 +11,16 @@ Read-Host "Press Any Key To continue"
 Write-Host "Running standard build in net6.0"
 .\Test-AspNetCore net6.0
 .\Test-ReplaceWithJs net6.0
+Write-Host "Printing contents of netstandard lib - there should be things here (https://github.com/daveaglick/Buildalyzer/issues/105)"
+Get-ChildItem ..\TestProjects\AspNetCore\NetStandardLib\bin\Debug\netstandard2.0
 Read-Host "Press Any Key To continue"
 
 Write-Host "Running standard build in net7.0"
 .\Test-AspNetCore net7.0
 .\Test-ReplaceWithJs net7.0
+
+Write-Host "Printing contents of netstandard lib - there should be things here (https://github.com/daveaglick/Buildalyzer/issues/105)"
+Get-ChildItem ..\TestProjects\AspNetCore\NetStandardLib\bin\Debug\netstandard2.0
 Read-Host "Press Any Key To continue"
 
 
