@@ -24,6 +24,7 @@
 		<dependencies>
 			<group targetFramework="net6.0" />
 			<group targetFramework="net7.0" />
+			<group targetFramework="net8.0" />
 		</dependencies>
 	</metadata>
 	<files>
@@ -32,12 +33,16 @@
 		<file src=".\src\TypeRight.Attributes\bin\Release\netstandard2.0\TypeRight.Attributes.xml" target="lib\net6.0" />
 		<file src=".\src\TypeRight.Attributes\bin\Release\netstandard2.0\TypeRight.Attributes.dll" target="lib\net7.0" />
 		<file src=".\src\TypeRight.Attributes\bin\Release\netstandard2.0\TypeRight.Attributes.xml" target="lib\net7.0" />
+		<file src=".\src\TypeRight.Attributes\bin\Release\netstandard2.0\TypeRight.Attributes.dll" target="lib\net8.0" />
+		<file src=".\src\TypeRight.Attributes\bin\Release\netstandard2.0\TypeRight.Attributes.xml" target="lib\net8.0" />
 		
 		<!-- Build tool -->
 		<file src=".\src\TypeRight\TypeRight.targets" target="build\net6.0\$id$.targets" />
 		<file src=".\src\TypeRight\TypeRight.targets" target="build\net7.0\$id$.targets" />
+		<file src=".\src\TypeRight\TypeRight.targets" target="build\net8.0\$id$.targets" />
 		<file src=".\src\TypeRight\bin\Release\net6.0\win-x86\publish\*.*" target="tools\net6.0" />
 		<file src=".\src\TypeRight\bin\Release\net7.0\win-x86\publish\*.*" target="tools\net7.0" />
+		<file src=".\src\TypeRight\bin\Release\net8.0\win-x86\publish\*.*" target="tools\net8.0" />
 		
 		<!-- Adapter -->
 		<file src=".\src\TypeRight.Workspaces.VsixAdapter\bin\Release\netstandard2.0\*.dll" target="tools\adapter" />
