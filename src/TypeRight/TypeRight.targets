@@ -23,7 +23,7 @@
 	<Target Name="ExecuteTypeRightScriptGeneration">
 		<PropertyGroup>
 			<ExecOutput />
-			<TypeRightExe>$(MSBuildThisFileDirectory)..\..\tools\$(TargetFramework)\TypeRight.exe</TypeRightExe>
+			<TypeRightExe>$(MSBuildThisFileDirectory)..\..\tools\cli\TypeRight.exe</TypeRightExe>
 		</PropertyGroup>
 
 		<Message Text="Using tool at path: $(TypeRightExe)">
