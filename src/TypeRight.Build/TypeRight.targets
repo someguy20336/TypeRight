@@ -9,7 +9,7 @@
 	-->
 	<UsingTask AssemblyFile=".\TypeRight.Build.dll"
 							 Condition="Exists('.\TypeRight.Build.dll')"
-							 TaskName="TypeRight.Build.TestTask"/>
+							 TaskName="TypeRight.Build.ScriptGenerationTask"/>
 	
 	<Target
 		Name="ScriptGeneration"
@@ -51,7 +51,7 @@
 			BuildingInVS="$(BuildingInsideVisualStudio)"
 			BuildingProject="$(BuildingProject)"
 		</Exec>-->
-		<TypeRight.Build.TestTask
+		<TypeRight.Build.ScriptGenerationTask
 			Compile="@(Compile)"
 			ReferencePath="@(ReferencePath)"
 			BaseDirectory="$(MSBuildProjectDirectory)"

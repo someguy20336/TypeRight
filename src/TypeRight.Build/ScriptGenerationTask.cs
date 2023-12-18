@@ -10,7 +10,7 @@ using TypeRight.Workspaces.Parsing;
 
 namespace TypeRight.Build;
 
-public class TestTask : ITask
+public class ScriptGenerationTask : ITask
 {
     public IBuildEngine BuildEngine { get; set; }
     public ITaskHost HostObject { get; set; }
@@ -26,6 +26,7 @@ public class TestTask : ITask
 
     public bool Execute()
     {
+        // TODO: logging
         //Log.LogMessage(MessageImportance.High, "RoslynTask.Execute called...\n");
 
         // Format the command line with the minimal info needed for Roslyn to create a workspace.
@@ -34,8 +35,9 @@ public class TestTask : ITask
             Compile.Select(i => i.ItemSpec).ToSingleString(" ", "\"", "\""));
 
         // Create the Roslyn workspace.
-        AdhocWorkspace workspace = new AdhocWorkspace();
-        var proj = CommandLineProject.CreateProjectInfo("MyProject", "C#", commandLineForProject, BaseDirectory.ItemSpec);
+        AdhocWorkspace workspace = new();
+        var proj = CommandLineProject.CreateProjectInfo("MyProject", LanguageNames.CSharp, commandLineForProject, BaseDirectory.ItemSpec);
+        proj = proj.WithParseOptions(proj.ParseOptions.WithDocumentationMode(DocumentationMode.Parse));
         workspace.AddProject(proj);
 
         ProjectId mainProjId = workspace.CurrentSolution.Projects.First().Id;
@@ -45,7 +47,7 @@ public class TestTask : ITask
         {
             ProjectPath = Path.Combine(BaseDirectory.ItemSpec, "TestAspNetCoreApp.csproj"),
             TypeIterator = parser,
-            Force = false  // args.HasSwitch(ForceSwitch)
+            Force = false  // args.HasSwitch(ForceSwitch)   // TODO: force?
         });
 
         // Make sure that Roslyn actually parsed the project: dump the source from a syntax tree to the build log.
