@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<!-- 
+		BuildingProject is a VisualStudio Variable executed only during the build command.  thus, if we are in VS, we should only execute this
+		when we build.  VS otherwise would execute this target on load
+	
+		https://blogs.msdn.microsoft.com/msbuild/2005/11/19/msbuild-in-visual-studio-part-12-compiling-inside-visual-studio/
+	-->
+	<UsingTask AssemblyFile=".\TypeRight.Build.dll"
+							 Condition="Exists('.\TypeRight.Build.dll')"
+							 TaskName="TypeRight.Build.TestTask"/>
+	
+	<Target
+		Name="ScriptGeneration"
+		BeforeTargets="CompileTypeScript;CoreCompile;PreComputeCompileTypeScriptWithTSConfig">
+
+		<Message Condition="$(BuildingProject) != true" Text="BuildProject not set - skipping generation" Importance="normal"></Message>
+		<Message Condition="$(SkipTypeRight) == true" Text="SkipTypeRight flag set - skipping generation" Importance="normal"></Message>
+
+		<CallTarget Condition="$(BuildingProject) == true And $(SkipTypeRight) != true" Targets="ExecuteTypeRightScriptGeneration"></CallTarget>
+		
+	</Target>
+
+	<Target Name="ExecuteTypeRightScriptGeneration">
+		<PropertyGroup>
+			<ExecOutput />
+			<TypeRightExe>$(MSBuildThisFileDirectory)..\..\tools\cli\TypeRight.exe</TypeRightExe>
+		</PropertyGroup>
+
+		<Message Text="Using tool at path: $(TypeRightExe)">
+		</Message>
+
+		<!--<Exec Condition="$(BuildingProject) == true" Command="&quot;$(TypeRightExe)&quot; &quot;$(ProjectPath)&quot;" ConsoleToMSBuild="true">
+			<Output TaskParameter="ConsoleOutput" PropertyName="ExecOutput"/>
+			
+			
+			ProjectPath="$(ProjectPath)"
+			TargetFrameworkDirectories="@(_ReferenceInstalledAssemblyDirectory)"
+			SearchPaths="$(AssemblySearchPaths)"
+			AllowedAssemblyExtensions="$(AllowedReferenceAssemblyFileExtensions)"
+			AllowedRelatedFileExtensions="$(AllowedReferenceRelatedFileExtensions)"
+			TargetProcessorArchitecture="$(ProcessorArchitecture)"
+			TargetFrameworkVersion="$(TargetFrameworkVersion)"
+			TargetFrameworkMoniker="$(TargetFrameworkMoniker)"
+			TargetedRuntimeVersion="$(TargetedRuntimeVersion)"
+			FullTargetFrameworkSubsetNames="$(FullReferenceAssemblyNames)"
+			FullFrameworkFolders="$(_FullFrameworkReferenceAssemblyPaths)"
+			
+			LegacyDoneByExtension="$(ScriptGenerationCompletedViaVsix)"
+			BuildingInVS="$(BuildingInsideVisualStudio)"
+			BuildingProject="$(BuildingProject)"
+		</Exec>-->
+		<TypeRight.Build.TestTask
+			Compile="@(Compile)"
+			ReferencePath="@(ReferencePath)"
+			BaseDirectory="$(MSBuildProjectDirectory)"
+			/>
+
+		<Message Condition="$(ExecOutput) != ''"
+				 Text="Message while generating scripts: $(ExecOutput)"
+				 Importance="high">
+		</Message>
+
+		<Message Condition="$(ExecOutput) == '' And $(BuildingInsideVisualStudio) == true"
+				 Text="Warning! You are generating scripts using the MSBuild task inside Visual Studio. Consider installing the extension for a faster build."
+				 Importance="high">
+		</Message>
+	</Target>
+
+</Project>

@@ -37,6 +37,8 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "TypeRightVsix.Shared", "src
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TypeRightVsix2022", "src\TypeRightVsix2022\TypeRightVsix2022.csproj", "{1F2C4096-A3A6-4F2F-AF7B-C3BA2617CADF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TypeRight.Build", "src\TypeRight.Build\TypeRight.Build.csproj", "{B4766D8B-232D-4214-A7DF-069303F2C0C7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug Local Nuget|Any CPU = Debug Local Nuget|Any CPU
@@ -193,6 +195,22 @@ Global
 		{1F2C4096-A3A6-4F2F-AF7B-C3BA2617CADF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1F2C4096-A3A6-4F2F-AF7B-C3BA2617CADF}.Release|x86.ActiveCfg = Release|x86
 		{1F2C4096-A3A6-4F2F-AF7B-C3BA2617CADF}.Release|x86.Build.0 = Release|x86
+		{B4766D8B-232D-4214-A7DF-069303F2C0C7}.Debug Local Nuget|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4766D8B-232D-4214-A7DF-069303F2C0C7}.Debug Local Nuget|Any CPU.Build.0 = Debug|Any CPU
+		{B4766D8B-232D-4214-A7DF-069303F2C0C7}.Debug Local Nuget|x86.ActiveCfg = Debug|Any CPU
+		{B4766D8B-232D-4214-A7DF-069303F2C0C7}.Debug Local Nuget|x86.Build.0 = Debug|Any CPU
+		{B4766D8B-232D-4214-A7DF-069303F2C0C7}.Debug Nuget|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4766D8B-232D-4214-A7DF-069303F2C0C7}.Debug Nuget|Any CPU.Build.0 = Debug|Any CPU
+		{B4766D8B-232D-4214-A7DF-069303F2C0C7}.Debug Nuget|x86.ActiveCfg = Debug|Any CPU
+		{B4766D8B-232D-4214-A7DF-069303F2C0C7}.Debug Nuget|x86.Build.0 = Debug|Any CPU
+		{B4766D8B-232D-4214-A7DF-069303F2C0C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4766D8B-232D-4214-A7DF-069303F2C0C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4766D8B-232D-4214-A7DF-069303F2C0C7}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B4766D8B-232D-4214-A7DF-069303F2C0C7}.Debug|x86.Build.0 = Debug|Any CPU
+		{B4766D8B-232D-4214-A7DF-069303F2C0C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4766D8B-232D-4214-A7DF-069303F2C0C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4766D8B-232D-4214-A7DF-069303F2C0C7}.Release|x86.ActiveCfg = Release|Any CPU
+		{B4766D8B-232D-4214-A7DF-069303F2C0C7}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
