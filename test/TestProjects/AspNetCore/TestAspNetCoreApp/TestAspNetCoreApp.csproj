@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>net6.0;net7.0;net8.0</TargetFrameworks>
     <TypeScriptToolsVersion>4.1</TypeScriptToolsVersion>
-    <TestingFromPackageRef>true</TestingFromPackageRef>
+    <TestingFromPackageRef Condition="$(TestingFromPackageRef) == ''">true</TestingFromPackageRef>
   </PropertyGroup>
 
   <ItemGroup>
