@@ -36,7 +36,7 @@ namespace TypeRight.Workspaces.CodeModel
 			ITypeSymbol functionalType = symb;
 			foreach (AttributeData attr in symb.GetAttributes())
 			{
-				if (attr.AttributeClass.Equals(funcTypeAttr))
+				if (attr.AttributeClass.Equals(funcTypeAttr, SymbolEqualityComparer.Default))
 				{
 					functionalType = attr.ConstructorArguments[0].Value as INamedTypeSymbol;
 					break;
