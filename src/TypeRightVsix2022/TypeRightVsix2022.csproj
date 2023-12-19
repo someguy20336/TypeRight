@@ -99,7 +99,6 @@
       <ResourceName>Menus.ctmenu</ResourceName>
     </VSCTCompile>
   </ItemGroup>
-  <Import Project="..\TypeRight.Shared\TypeRight.Shared.projitems" Label="Shared" />
   <Import Project="..\TypeRight.VsixContract.Messages\TypeRight.VsixContract.Messages.projitems" Label="Shared" />
   <Import Project="..\TypeRightVsix.Shared\TypeRightVsix.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TypeRight.Core", "src\TypeR
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TypeRight.Workspaces", "src\TypeRight.Workspaces\TypeRight.Workspaces.csproj", "{1240CF38-D6A6-48D1-B392-CD94266D27BD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TypeRight", "src\TypeRight\TypeRight.csproj", "{DAE83799-C1EB-4D01-878E-75A9FF4889A0}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TypeRight.Tests", "test\TypeRight.Tests\TypeRight.Tests.csproj", "{86FA2628-AE16-4BED-99AB-BECB91FDE318}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TypeRight.Workspaces.VsixAdapter", "src\TypeRight.Workspaces.VsixAdapter\TypeRight.Workspaces.VsixAdapter.csproj", "{AC6C53F4-FB54-48AB-8E96-1AA1AE93CBA8}"
@@ -31,13 +29,11 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "TypeRight.VsixContract.Mess
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TypeRight.VsixContractV2", "src\TypeRight.VsixContractV2\TypeRight.VsixContractV2.csproj", "{12A4926C-06E3-4CEB-AAB7-91D1DBE496A6}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "TypeRight.Shared", "src\TypeRight.Shared\TypeRight.Shared.shproj", "{AD8168E6-3ED3-41EA-978A-AC7DAE564B18}"
-EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "TypeRightVsix.Shared", "src\TypeRightVsix.Shared\TypeRightVsix.Shared.shproj", "{59A73AF7-61AD-4982-AAEA-E31067E71383}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TypeRightVsix2022", "src\TypeRightVsix2022\TypeRightVsix2022.csproj", "{1F2C4096-A3A6-4F2F-AF7B-C3BA2617CADF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TypeRight.Build", "src\TypeRight.Build\TypeRight.Build.csproj", "{B4766D8B-232D-4214-A7DF-069303F2C0C7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TypeRight.Build", "src\TypeRight.Build\TypeRight.Build.csproj", "{B4766D8B-232D-4214-A7DF-069303F2C0C7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -99,22 +95,6 @@ Global
 		{1240CF38-D6A6-48D1-B392-CD94266D27BD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1240CF38-D6A6-48D1-B392-CD94266D27BD}.Release|x86.ActiveCfg = Release|Any CPU
 		{1240CF38-D6A6-48D1-B392-CD94266D27BD}.Release|x86.Build.0 = Release|Any CPU
-		{DAE83799-C1EB-4D01-878E-75A9FF4889A0}.Debug Local Nuget|Any CPU.ActiveCfg = Debug|Any CPU
-		{DAE83799-C1EB-4D01-878E-75A9FF4889A0}.Debug Local Nuget|Any CPU.Build.0 = Debug|Any CPU
-		{DAE83799-C1EB-4D01-878E-75A9FF4889A0}.Debug Local Nuget|x86.ActiveCfg = Debug|Any CPU
-		{DAE83799-C1EB-4D01-878E-75A9FF4889A0}.Debug Local Nuget|x86.Build.0 = Debug|Any CPU
-		{DAE83799-C1EB-4D01-878E-75A9FF4889A0}.Debug Nuget|Any CPU.ActiveCfg = Debug|Any CPU
-		{DAE83799-C1EB-4D01-878E-75A9FF4889A0}.Debug Nuget|Any CPU.Build.0 = Debug|Any CPU
-		{DAE83799-C1EB-4D01-878E-75A9FF4889A0}.Debug Nuget|x86.ActiveCfg = Debug|Any CPU
-		{DAE83799-C1EB-4D01-878E-75A9FF4889A0}.Debug Nuget|x86.Build.0 = Debug|Any CPU
-		{DAE83799-C1EB-4D01-878E-75A9FF4889A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DAE83799-C1EB-4D01-878E-75A9FF4889A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DAE83799-C1EB-4D01-878E-75A9FF4889A0}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{DAE83799-C1EB-4D01-878E-75A9FF4889A0}.Debug|x86.Build.0 = Debug|Any CPU
-		{DAE83799-C1EB-4D01-878E-75A9FF4889A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DAE83799-C1EB-4D01-878E-75A9FF4889A0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DAE83799-C1EB-4D01-878E-75A9FF4889A0}.Release|x86.ActiveCfg = Release|Any CPU
-		{DAE83799-C1EB-4D01-878E-75A9FF4889A0}.Release|x86.Build.0 = Release|Any CPU
 		{86FA2628-AE16-4BED-99AB-BECB91FDE318}.Debug Local Nuget|Any CPU.ActiveCfg = Debug|Any CPU
 		{86FA2628-AE16-4BED-99AB-BECB91FDE318}.Debug Local Nuget|Any CPU.Build.0 = Debug|Any CPU
 		{86FA2628-AE16-4BED-99AB-BECB91FDE318}.Debug Local Nuget|x86.ActiveCfg = Debug|Any CPU
@@ -228,13 +208,10 @@ Global
 		SolutionGuid = {51F1BF5C-4F4F-4F9A-9119-DB47FB3F2DD0}
 	EndGlobalSection
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		src\TypeRight.Shared\TypeRight.Shared.projitems*{1f2c4096-a3a6-4f2f-af7b-c3ba2617cadf}*SharedItemsImports = 4
 		src\TypeRight.VsixContract.Messages\TypeRight.VsixContract.Messages.projitems*{1f2c4096-a3a6-4f2f-af7b-c3ba2617cadf}*SharedItemsImports = 4
 		src\TypeRightVsix.Shared\TypeRightVsix.Shared.projitems*{1f2c4096-a3a6-4f2f-af7b-c3ba2617cadf}*SharedItemsImports = 4
 		src\TypeRight.VsixContract.Messages\TypeRight.VsixContract.Messages.projitems*{21bcbe4c-3509-4e42-b2a0-5b848c8a75d8}*SharedItemsImports = 13
 		src\TypeRightVsix.Shared\TypeRightVsix.Shared.projitems*{59a73af7-61ad-4982-aaea-e31067e71383}*SharedItemsImports = 13
 		src\TypeRight.VsixContract.Messages\TypeRight.VsixContract.Messages.projitems*{ac6c53f4-fb54-48ab-8e96-1aa1ae93cba8}*SharedItemsImports = 5
-		src\TypeRight.Shared\TypeRight.Shared.projitems*{ad8168e6-3ed3-41ea-978a-ac7dae564b18}*SharedItemsImports = 13
-		src\TypeRight.Shared\TypeRight.Shared.projitems*{dae83799-c1eb-4d01-878e-75a9ff4889a0}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal
