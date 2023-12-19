@@ -47,7 +47,15 @@ public class ScriptGenerationTask : Task
             Force = false
         });
 
-        Log.LogMessage(MessageImportance.Normal, "Completed script generation");
+        if (!result.Success)
+        {
+            Log.LogWarning("Script generation failed: {0}", result.ErrorMessage);
+        }
+        else
+        {
+            Log.LogMessage(MessageImportance.Normal, "Successfully completed script generation");
+        }
+
         return true;
     }
 }

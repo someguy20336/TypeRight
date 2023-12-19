@@ -2,7 +2,7 @@ ECHO OFF
 
 dotnet build "..\src\TypeRight.Attributes\TypeRight.Attributes.csproj" -c Release
 dotnet build "..\src\TypeRight.Workspaces.VsixAdapter\TypeRight.Workspaces.VsixAdapter.csproj" -c Release
-dotnet publish "..\src\TypeRight\TypeRight.csproj" /p:PublishProfile=Release -c Release
+dotnet publish "..\src\TypeRight.Build\TypeRight.Build.csproj" -c Release
 
 rmdir /S /Q %UserProfile%\.nuget\packages\typerightdebug
 rmdir /S /Q .\TestProjects\LocalNugetRepo
