@@ -1,8 +1,7 @@
 ﻿using Microsoft.Build.Framework;
+using Microsoft.Build.Utilities;
 using Microsoft.CodeAnalysis;
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -10,11 +9,8 @@ using TypeRight.Workspaces.Parsing;
 
 namespace TypeRight.Build;
 
-public class ScriptGenerationTask : ITask
+public class ScriptGenerationTask : Task
 {
-    public IBuildEngine BuildEngine { get; set; }
-    public ITaskHost HostObject { get; set; }
-
     [Required]
     public ITaskItem[] ReferencePath { get; set; }
 
@@ -22,12 +18,11 @@ public class ScriptGenerationTask : ITask
     public ITaskItem[] Compile { get; set; }
 
     [Required]
-    public ITaskItem BaseDirectory { get; set; }
+    public string ProjectPath { get; set; }
 
-    public bool Execute()
+    public override bool Execute()
     {
-        // TODO: logging
-        //Log.LogMessage(MessageImportance.High, "RoslynTask.Execute called...\n");
+        Log.LogMessage(MessageImportance.Normal, "Generating Scripts for {0}", ProjectPath);
 
         // Format the command line with the minimal info needed for Roslyn to create a workspace.
         var commandLineForProject = string.Format("/reference:{0} {1}",
@@ -35,8 +30,10 @@ public class ScriptGenerationTask : ITask
             Compile.Select(i => i.ItemSpec).ToSingleString(" ", "\"", "\""));
 
         // Create the Roslyn workspace.
-        AdhocWorkspace workspace = new();
-        var proj = CommandLineProject.CreateProjectInfo("MyProject", LanguageNames.CSharp, commandLineForProject, BaseDirectory.ItemSpec);
+        string dir = Path.GetDirectoryName(ProjectPath);
+        string name = Path.GetFileNameWithoutExtension(ProjectPath);
+        using AdhocWorkspace workspace = new();
+        var proj = CommandLineProject.CreateProjectInfo(name, LanguageNames.CSharp, commandLineForProject, dir);
         proj = proj.WithParseOptions(proj.ParseOptions.WithDocumentationMode(DocumentationMode.Parse));
         workspace.AddProject(proj);
 
@@ -45,15 +42,12 @@ public class ScriptGenerationTask : ITask
         ScriptGenEngine engine = new();
         var result = engine.GenerateScripts(new ScriptGenerationParameters()
         {
-            ProjectPath = Path.Combine(BaseDirectory.ItemSpec, "TestAspNetCoreApp.csproj"),
+            ProjectPath = ProjectPath,
             TypeIterator = parser,
-            Force = false  // args.HasSwitch(ForceSwitch)   // TODO: force?
+            Force = false
         });
 
-        // Make sure that Roslyn actually parsed the project: dump the source from a syntax tree to the build log.
-        //Log.LogMessage(MessageImportance.High, workspace.CurrentSolution.Projects.First()
-        //    .Documents.First(i => i.FilePath.EndsWith(".cs")).GetSyntaxRoot().GetText().ToString());
-
+        Log.LogMessage(MessageImportance.Normal, "Completed script generation");
         return true;
     }
 }
