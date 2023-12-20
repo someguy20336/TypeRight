@@ -9,6 +9,6 @@ Remove-Item ..\TestProjects\AspNetCore\TestAspNetCoreApp\Scripts\Home\HomeAction
 Remove-Item $ENV:userprofile\.nuget\packages\typerightdebug -Recurse
 ..\nuget install TypeRightDebug -DependencyVersion Highest -SolutionDirectory ..\TestProjects\AspNetCore
 
-dotnet build ..\TestProjects\AspNetCore\TestAspNetCoreApp\TestAspNetCoreApp.csproj --force -v n -f $tfm $addlArgs
+dotnet build ..\TestProjects\AspNetCore\TestAspNetCoreApp\TestAspNetCoreApp.csproj --disable-build-servers --force -v n -f $tfm $addlArgs
 
 Write-Host "Build Complete!"
