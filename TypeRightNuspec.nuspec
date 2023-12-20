@@ -31,8 +31,8 @@
 		<file src=".\src\TypeRight.Attributes\bin\Release\netstandard2.0\TypeRight.Attributes.xml" target="lib\netstandard2.0" />
 		
 		<!-- Build tool -->
-		<file src=".\src\TypeRight\TypeRight.targets" target="build\netstandard2.0\$id$.targets" />
-		<file src=".\src\TypeRight\bin\Release\net8.0\win-x86\publish\*.*" target="tools\cli" />
+		<file src=".\src\TypeRight.Build\TypeRight.targets" target="build\netstandard2.0\$id$.targets" />
+		<file src=".\src\TypeRight.Build\bin\Release\netstandard2.0\publish\*.*" target="build\netstandard2.0" />
 		
 		<!-- Adapter -->
 		<file src=".\src\TypeRight.Workspaces.VsixAdapter\bin\Release\netstandard2.0\*.dll" target="tools\adapter" />

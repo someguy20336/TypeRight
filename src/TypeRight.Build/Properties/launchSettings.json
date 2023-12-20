@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "Debug": {
+        "commandName": "Executable",
+        "executablePath": "dotnet",
+        "commandLineArgs": "build \"..\\..\\..\\..\\..\\test\\TestProjects\\AspNetCore\\TestAspNetCoreApp\\TestAspNetCoreApp.csproj\" -p:TestingFromPackageRef=false --disable-build-servers"
+    }
+  }
+}

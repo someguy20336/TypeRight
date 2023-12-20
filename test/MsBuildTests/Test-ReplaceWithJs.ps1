@@ -8,6 +8,6 @@ Remove-Item ..\TestProjects\ReplaceWithJsExample\ReplaceWithJsExample\Scripts\Ho
 Remove-Item $ENV:userprofile\.nuget\packages\typerightdebug -Recurse
 ..\nuget install TypeRightDebug -DependencyVersion Highest -SolutionDirectory ..\TestProjects\ReplaceWithJsExample
 
-dotnet build ..\TestProjects\ReplaceWithJsExample\ReplaceWithJsExample\ReplaceWithJsExample.csproj --force -v n -f $tfm
+dotnet build ..\TestProjects\ReplaceWithJsExample\ReplaceWithJsExample\ReplaceWithJsExample.csproj --disable-build-servers --force -v n -f $tfm
 
 Write-Host Build Complete!

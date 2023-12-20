@@ -7,38 +7,33 @@
 	
 		https://blogs.msdn.microsoft.com/msbuild/2005/11/19/msbuild-in-visual-studio-part-12-compiling-inside-visual-studio/
 	-->
-
+	<UsingTask AssemblyFile=".\TypeRight.Build.dll"
+							 Condition="Exists('.\TypeRight.Build.dll')"
+							 TaskName="TypeRight.Build.ScriptGenerationTask"/>
 	
 	<Target
 		Name="ScriptGeneration"
 		BeforeTargets="CompileTypeScript;CoreCompile;PreComputeCompileTypeScriptWithTSConfig">
+		<PropertyGroup>
+			<SkipTypeRightReason Condition="$(SkipTypeRightReason) == ''">MsBuild property manually set</SkipTypeRightReason>
+		</PropertyGroup>
 
 		<Message Condition="$(BuildingProject) != true" Text="BuildProject not set - skipping generation" Importance="normal"></Message>
-		<Message Condition="$(SkipTypeRight) == true" Text="SkipTypeRight flag set - skipping generation" Importance="normal"></Message>
+		<Message Condition="$(SkipTypeRight) == true" Text="Skipping generation due to SkipTypeRight flag. Reason: $(SkipTypeRightReason)" Importance="normal"></Message>
 
 		<CallTarget Condition="$(BuildingProject) == true And $(SkipTypeRight) != true" Targets="ExecuteTypeRightScriptGeneration"></CallTarget>
 		
 	</Target>
 
 	<Target Name="ExecuteTypeRightScriptGeneration">
-		<PropertyGroup>
-			<ExecOutput />
-			<TypeRightExe>$(MSBuildThisFileDirectory)..\..\tools\cli\TypeRight.exe</TypeRightExe>
-		</PropertyGroup>
 
-		<Message Text="Using tool at path: $(TypeRightExe)">
-		</Message>
+		<TypeRight.Build.ScriptGenerationTask
+			Compile="@(Compile)"
+			ReferencePath="@(ReferencePath)"
+			ProjectPath="$(MSBuildProjectFullPath)"
+			/>
 
-		<Exec Condition="$(BuildingProject) == true" Command="&quot;$(TypeRightExe)&quot; &quot;$(ProjectPath)&quot;" ConsoleToMSBuild="true">
-			<Output TaskParameter="ConsoleOutput" PropertyName="ExecOutput"/>
-		</Exec>
-
-		<Message Condition="$(ExecOutput) != ''"
-				 Text="Message while generating scripts: $(ExecOutput)"
-				 Importance="high">
-		</Message>
-
-		<Message Condition="$(ExecOutput) == '' And $(BuildingInsideVisualStudio) == true"
+		<Message Condition="$(BuildingInsideVisualStudio) == true"
 				 Text="Warning! You are generating scripts using the MSBuild task inside Visual Studio. Consider installing the extension for a faster build."
 				 Importance="high">
 		</Message>

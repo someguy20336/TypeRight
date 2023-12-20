@@ -20,7 +20,7 @@ namespace TypeRight.Workspaces.Parsing
 				return false;
 			}
 
-			if (returnType.ConstructedFrom != _targetType)
+			if (!returnType.ConstructedFrom.Equals(_targetType, SymbolEqualityComparer.Default))
 			{
 				return false;
 			}

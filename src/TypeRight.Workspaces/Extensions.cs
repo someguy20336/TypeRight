@@ -18,7 +18,7 @@ namespace TypeRight.Workspaces
 			var baseType = typeSymbol.BaseType;
 			while (baseType != null)
 			{
-				if (type.Equals(baseType))
+				if (type.Equals(baseType, SymbolEqualityComparer.Default))
 				{
 					return true;
 				}

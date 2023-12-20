@@ -52,7 +52,7 @@ namespace TypeRight.Workspaces.Parsing
 			INamedTypeSymbol exterTypeExtrAttr = Compilation.GetTypeByMetadataName(typeof(ScriptObjectsAttribute).FullName);
 			foreach (AttributeData attrData in Compilation.Assembly.GetAttributes())
 			{
-				if (attrData.AttributeClass.Equals(exterTypeExtrAttr))
+				if (attrData.AttributeClass.Equals(exterTypeExtrAttr, SymbolEqualityComparer.Default))
 				{
 					string targetPath = "";
 					for (int i = 0; i < attrData.ConstructorArguments.Length; i++)

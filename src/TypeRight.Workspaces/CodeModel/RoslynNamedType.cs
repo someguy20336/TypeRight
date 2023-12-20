@@ -195,7 +195,7 @@ namespace TypeRight.Workspaces.CodeModel
 		private bool IsNullableType()
 		{
 			INamedTypeSymbol nullableSymb = InCompilation.GetTypeByMetadataName(typeof(Nullable<>).FullName);
-			return nullableSymb.Equals(TypeSymbol.OriginalDefinition);
+			return nullableSymb.Equals(TypeSymbol.OriginalDefinition, SymbolEqualityComparer.Default);
 		}
 
 
