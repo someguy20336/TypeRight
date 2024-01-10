@@ -22,5 +22,5 @@ jobs:
         dotnet build ./test/TypeRight.BuildTests/TypeRight.BuildTests.csproj --no-restore
     - name: Run Unit Tests
       run: dotnet test ./test/TypeRight.Tests/TypeRight.Tests.csproj --no-build --verbosity normal
-    - name: Run Integration Tests
-      run: dotnet test ./test/TypeRight.BuildTests/TypeRight.BuildTests.csproj --no-build --verbosity normal
+#    - name: Run Integration Tests
+#      run: dotnet test ./test/TypeRight.BuildTests/TypeRight.BuildTests.csproj --no-build --verbosity normal

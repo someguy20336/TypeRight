@@ -80,6 +80,8 @@ internal class MsBuildTestRunner
 		// dotnet.exe appears to be at the root of the install.  Hopefully it works..
 		// Default install may be "C:\\Program Files\\dotnet\\dotnet.exe", but not in a github action
 		// https://github.com/actions/setup-dotnet/blob/main/externals/install-dotnet.ps1#L763
+		// Though it seems to be that location... but I couldn't get it to work
+		// https://github.com/actions/setup-dotnet?tab=readme-ov-file
 		VisualStudioInstance firstSdkInstance = MSBuildLocator.QueryVisualStudioInstances().First();
 
 		DirectoryInfo dir = new(firstSdkInstance.MSBuildPath);
