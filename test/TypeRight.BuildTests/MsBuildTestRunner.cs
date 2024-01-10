@@ -39,6 +39,7 @@ internal class MsBuildTestRunner
 			_output.Add(buildProcess.StandardOutput.ReadLine() ?? string.Empty);
 		}
 		buildProcess.WaitForExit();
+		Assert.IsTrue(buildProcess.ExitCode == 0);
 		buildProcess.Close();
 	}
 
