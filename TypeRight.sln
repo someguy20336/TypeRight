@@ -35,6 +35,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TypeRightVsix2022", "src\Ty
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TypeRight.Build", "src\TypeRight.Build\TypeRight.Build.csproj", "{B4766D8B-232D-4214-A7DF-069303F2C0C7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TypeRight.BuildTests", "test\TypeRight.BuildTests\TypeRight.BuildTests.csproj", "{EA168255-2C0C-4539-B10B-2F4B9BC074ED}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug Local Nuget|Any CPU = Debug Local Nuget|Any CPU
@@ -191,6 +193,22 @@ Global
 		{B4766D8B-232D-4214-A7DF-069303F2C0C7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B4766D8B-232D-4214-A7DF-069303F2C0C7}.Release|x86.ActiveCfg = Release|Any CPU
 		{B4766D8B-232D-4214-A7DF-069303F2C0C7}.Release|x86.Build.0 = Release|Any CPU
+		{EA168255-2C0C-4539-B10B-2F4B9BC074ED}.Debug Local Nuget|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA168255-2C0C-4539-B10B-2F4B9BC074ED}.Debug Local Nuget|Any CPU.Build.0 = Debug|Any CPU
+		{EA168255-2C0C-4539-B10B-2F4B9BC074ED}.Debug Local Nuget|x86.ActiveCfg = Debug|Any CPU
+		{EA168255-2C0C-4539-B10B-2F4B9BC074ED}.Debug Local Nuget|x86.Build.0 = Debug|Any CPU
+		{EA168255-2C0C-4539-B10B-2F4B9BC074ED}.Debug Nuget|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA168255-2C0C-4539-B10B-2F4B9BC074ED}.Debug Nuget|Any CPU.Build.0 = Debug|Any CPU
+		{EA168255-2C0C-4539-B10B-2F4B9BC074ED}.Debug Nuget|x86.ActiveCfg = Debug|Any CPU
+		{EA168255-2C0C-4539-B10B-2F4B9BC074ED}.Debug Nuget|x86.Build.0 = Debug|Any CPU
+		{EA168255-2C0C-4539-B10B-2F4B9BC074ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA168255-2C0C-4539-B10B-2F4B9BC074ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA168255-2C0C-4539-B10B-2F4B9BC074ED}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{EA168255-2C0C-4539-B10B-2F4B9BC074ED}.Debug|x86.Build.0 = Debug|Any CPU
+		{EA168255-2C0C-4539-B10B-2F4B9BC074ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA168255-2C0C-4539-B10B-2F4B9BC074ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA168255-2C0C-4539-B10B-2F4B9BC074ED}.Release|x86.ActiveCfg = Release|Any CPU
+		{EA168255-2C0C-4539-B10B-2F4B9BC074ED}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -203,6 +221,7 @@ Global
 		{12A4926C-06E3-4CEB-AAB7-91D1DBE496A6} = {50180D7A-7C03-4681-882B-D22FBB6A019A}
 		{59A73AF7-61AD-4982-AAEA-E31067E71383} = {50180D7A-7C03-4681-882B-D22FBB6A019A}
 		{1F2C4096-A3A6-4F2F-AF7B-C3BA2617CADF} = {50180D7A-7C03-4681-882B-D22FBB6A019A}
+		{EA168255-2C0C-4539-B10B-2F4B9BC074ED} = {36E3404F-F368-42EE-9219-3A982563009C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {51F1BF5C-4F4F-4F9A-9119-DB47FB3F2DD0}

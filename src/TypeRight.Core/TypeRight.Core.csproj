@@ -6,6 +6,7 @@
 		<AssemblyOriginatorKeyFile>TypeRight.snk</AssemblyOriginatorKeyFile>
 		<FileVersion>1.0.0.0</FileVersion>
 		<RootNamespace>TypeRight</RootNamespace>
+		<LangVersion>12.0</LangVersion>
 	</PropertyGroup>
 
 	<ItemGroup>
