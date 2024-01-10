@@ -32,7 +32,7 @@ internal class MsBuildTestRunner
 		buildProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
 		buildProcess.StartInfo.CreateNoWindow = true;
 		buildProcess.StartInfo.RedirectStandardOutput = true;
-		buildProcess.StartInfo.Arguments = $"build \"{aspNetCorePath}\" --disable-build-servers --force {addlArgs}";
+		buildProcess.StartInfo.Arguments = $"build \"{aspNetCorePath}\" --disable-build-servers --force -p:TestingFromPackageRef=false {addlArgs}";
 		buildProcess.Start();
 		while (!buildProcess.StandardOutput.EndOfStream)
 		{
