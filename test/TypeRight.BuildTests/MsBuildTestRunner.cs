@@ -1,10 +1,11 @@
-﻿using System.Diagnostics;
+﻿using Microsoft.Build.Locator;
+using System.Diagnostics;
 
 namespace TypeRight.BuildTests;
 
 internal class MsBuildTestRunner
 {
-	public const string MsBuild = "C:\\Program Files\\dotnet\\dotnet.exe";
+	private static string s_msBuild = null!;
 	private static string _testFolderRoot = null!;
 
 	private readonly List<string> _output = [];
@@ -13,12 +14,17 @@ internal class MsBuildTestRunner
 	private readonly string _projRelPath;
 	private readonly IEnumerable<string> _testFiles;
 
+	static MsBuildTestRunner()
+	{
+		SetTestRootFolder();
+		SetMsBuildLocation();
+	}
+
 	public MsBuildTestRunner(string projRelPath, IEnumerable<string> testFiles)
 	{
 		_projRelPath = projRelPath;
 		_testFiles = testFiles;
 
-		SetTestRootFolder();
 		CacheExpected();
 	}
 
@@ -28,7 +34,7 @@ internal class MsBuildTestRunner
 		string aspNetCorePath = Path.Combine(_testFolderRoot, _projRelPath);
 
 		Process buildProcess = new();
-		buildProcess.StartInfo.FileName = MsBuild;
+		buildProcess.StartInfo.FileName = s_msBuild;
 		buildProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
 		buildProcess.StartInfo.CreateNoWindow = true;
 		buildProcess.StartInfo.RedirectStandardOutput = true;
@@ -61,6 +67,34 @@ internal class MsBuildTestRunner
 		{
 			Assert.IsFalse(File.Exists(fullPath));
 		}
+	}
+
+	private static void SetMsBuildLocation()
+	{
+		if (!string.IsNullOrEmpty(s_msBuild))
+		{
+			return;
+		}
+
+		// This appears to go several directories in with SDKs and the actual
+		// dotnet.exe appears to be at the root of the install.  Hopefully it works..
+		// Default install may be "C:\\Program Files\\dotnet\\dotnet.exe", but not in a github action
+		// https://github.com/actions/setup-dotnet/blob/main/externals/install-dotnet.ps1#L763
+		VisualStudioInstance firstSdkInstance = MSBuildLocator.QueryVisualStudioInstances().First();
+
+		DirectoryInfo dir = new(firstSdkInstance.MSBuildPath);
+		while (dir.Parent != null)
+		{
+			string testPath = Path.Combine(dir.FullName, "dotnet.exe");
+			if (File.Exists(testPath))
+			{
+				s_msBuild = testPath;
+				break;
+			}
+			dir = dir.Parent;
+		}
+
+		Assert.IsNotNull(s_msBuild);
 	}
 
 
