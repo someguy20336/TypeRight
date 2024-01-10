@@ -17,9 +17,9 @@ jobs:
     - name: Build Core TypeRight
       run: dotnet build ./src/TypeRight.Build/TypeRight.Build.csproj --no-restore
     - name: Build Tests Project
-      run: 
-        - dotnet build ./test/TypeRight.Tests/TypeRight.Tests.csproj --no-restore
-        - dotnet build ./test/TypeRight.BuildTests/TypeRight.BuildTests.csproj --no-restore
+      run: |
+        dotnet build ./test/TypeRight.Tests/TypeRight.Tests.csproj --no-restore
+        dotnet build ./test/TypeRight.BuildTests/TypeRight.BuildTests.csproj --no-restore
     - name: Run Unit Tests
       run: dotnet test ./test/TypeRight.Tests/TypeRight.Tests.csproj --no-build --verbosity normal
     - name: Run Integration Tests
