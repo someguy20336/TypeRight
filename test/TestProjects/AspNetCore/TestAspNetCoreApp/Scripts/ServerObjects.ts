@@ -37,6 +37,16 @@ export interface CommandResult_1<T> extends CommandResult {
 	result: T;
 }
 
+/**  */
+export interface DatesAndTimes {
+	/**  */
+	dateTimeProp: string;
+	/**  */
+	dateOnlyProp: string;
+	/**  */
+	timeOnlyProp: string;
+}
+
 /** Test summ */
 export interface ErrorViewModel {
 	/**  */
