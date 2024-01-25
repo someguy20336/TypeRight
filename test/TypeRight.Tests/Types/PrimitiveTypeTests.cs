@@ -1,6 +1,7 @@
 ﻿using TypeRight.ScriptWriting.TypeScript;
 using TypeRight.Tests.TestBuilders;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace TypeRight.Tests.Types
 {
@@ -81,6 +82,44 @@ namespace TypeRight.Tests.Types
 			AssertThatTheDefaultReferenceType()
 				.TestPropertyWithName("TestProp")
 				.TypescriptNameIs(TypeScriptHelper.NumericTypeName + "[]");
+		}
+
+		[TestMethod]
+		public void PrimitiveTypes_DateTime()
+		{
+			AddDefaultExtractedClass()
+				.AddProperty("TestProp", typeof(DateTime).FullName)
+				.Commit();
+
+			AssertThatTheDefaultReferenceType()
+				.TestPropertyWithName("TestProp")
+				.TypescriptNameIs(TypeScriptHelper.StringTypeName);
+		}
+
+
+		[TestMethod]
+		public void PrimitiveTypes_DateOnly()
+		{
+			AddDefaultExtractedClass()
+				.AddProperty("TestProp", typeof(DateOnly).FullName)
+				.Commit();
+
+			AssertThatTheDefaultReferenceType()
+				.TestPropertyWithName("TestProp")
+				.TypescriptNameIs(TypeScriptHelper.StringTypeName);
+		}
+
+
+		[TestMethod]
+		public void PrimitiveTypes_TimeOnly()
+		{
+			AddDefaultExtractedClass()
+				.AddProperty("TestProp", typeof(TimeOnly).FullName)
+				.Commit();
+
+			AssertThatTheDefaultReferenceType()
+				.TestPropertyWithName("TestProp")
+				.TypescriptNameIs(TypeScriptHelper.StringTypeName);
 		}
 	}
 }

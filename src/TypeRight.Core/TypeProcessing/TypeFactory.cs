@@ -10,20 +10,20 @@ namespace TypeRight.TypeProcessing
 	{
 		public ProcessorSettings Settings { get; }
 
-		private static TypeFilter s_enumDisplayNameFilter = new HasInterfaceOfTypeFilter(typeof(IEnumDisplayNameProvider).FullName);
+		private static readonly TypeFilter s_enumDisplayNameFilter = new HasInterfaceOfTypeFilter(typeof(IEnumDisplayNameProvider).FullName);
 
 		/// <summary>
 		/// Index of types that are string types in Typescript
 		/// </summary>
-		private static HashSet<string> s_stringTypes = new HashSet<string>()  // TODO: make immutable
-        {
+		private static readonly HashSet<string> s_stringTypes = new()
+		{
 			typeof(string).FullName
 		};
 
 		/// <summary>
 		/// Index of types that are numeric types in Typescript
 		/// </summary>
-		private static HashSet<string> s_numericTypes = new HashSet<string>()
+		private static readonly HashSet<string> s_numericTypes = new()
 		{
 			typeof(short).FullName,
 			typeof(int).FullName,
@@ -36,7 +36,7 @@ namespace TypeRight.TypeProcessing
 		/// <summary>
 		/// Index of types that are boolean types in Typescript
 		/// </summary>
-		private static HashSet<string> s_booleanTypes = new HashSet<string>()
+		private static readonly HashSet<string> s_booleanTypes = new()
 		{
 			typeof(bool).FullName
 		};
@@ -44,12 +44,14 @@ namespace TypeRight.TypeProcessing
 		/// <summary>
 		/// Index of types that are boolean types in Typescript
 		/// </summary>
-		private static HashSet<string> s_datetimeTypes = new HashSet<string>()
+		private static readonly HashSet<string> s_datetimeTypes = new()
 		{
-			typeof(DateTime).FullName
+			typeof(DateTime).FullName,
+			"System.DateOnly",
+			"System.TimeOnly"
 		};
 
-		private Dictionary<string, ExtractedType> _extractedTypes = new Dictionary<string, ExtractedType>();
+		private readonly Dictionary<string, ExtractedType> _extractedTypes = new();
 		private TypeDescriptor _stringType;
 		private TypeDescriptor _numericType;
 		private TypeDescriptor _booleanType;

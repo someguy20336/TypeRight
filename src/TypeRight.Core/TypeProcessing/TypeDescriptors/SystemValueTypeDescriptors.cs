@@ -64,7 +64,7 @@ namespace TypeRight.TypeProcessing
 	}
 
 	/// <summary>
-	/// A date time type descriptor
+	/// A date and/or time type descriptor
 	/// </summary>
 	public class DateTimeTypeDescriptor : TypeDescriptor
 	{

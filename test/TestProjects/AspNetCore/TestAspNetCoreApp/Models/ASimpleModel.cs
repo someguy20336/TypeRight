@@ -36,6 +36,14 @@ namespace TestAspNetCoreApp.Models
 	}
 
 	[ScriptObject]
+	public class DatesAndTimes
+	{
+        public DateTime DateTimeProp { get; set; }
+        public DateOnly DateOnlyProp { get; set; }
+        public TimeOnly TimeOnlyProp { get; set; }
+    }
+
+	[ScriptObject]
 	public class ModelWithArray
     {
         public string SimpleType { get; set; }
