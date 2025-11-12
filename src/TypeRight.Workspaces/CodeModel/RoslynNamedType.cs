@@ -119,18 +119,12 @@ namespace TypeRight.Workspaces.CodeModel
 			// Properties
 			_properties = new Lazy<IReadOnlyList<IProperty>>(() =>
 			{
-				List<IProperty> props = new List<IProperty>();
-				IEnumerable<IPropertySymbol> properties = NamedTypeSymbol.GetMembers().OfType<IPropertySymbol>();
-
-				foreach (IPropertySymbol propSymb in properties)
-				{
-					if (propSymb.GetMethod.DeclaredAccessibility == Accessibility.Public)
-					{
-						RoslynProperty clientProp = new RoslynProperty(propSymb, context);
-						props.Add(clientProp);
-					}
-				}
-				return props;
+				return NamedTypeSymbol.GetMembers()
+					.OfType<IPropertySymbol>()
+					.Where(p => p.GetMethod.DeclaredAccessibility == Accessibility.Public)
+					.Where(p => !p.IsStatic)
+					.Select(p => new RoslynProperty(p, context))
+					.ToList();
 			});
 
 			// fields

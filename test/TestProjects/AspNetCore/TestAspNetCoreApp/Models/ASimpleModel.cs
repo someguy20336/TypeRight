@@ -2,9 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 using TypeRight.Attributes;
 
 namespace TestAspNetCoreApp.Models
@@ -15,6 +13,7 @@ namespace TestAspNetCoreApp.Models
 	[ScriptObject]
     public class ASimpleModel
     {
+		public static string ShouldNotGetPickedUp => "Hey";
 		/// <summary>
 		/// Doc for prop 1
 		/// </summary>
