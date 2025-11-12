@@ -47,6 +47,7 @@ namespace TypeRight.TypeProcessing
 		private static readonly HashSet<string> s_datetimeTypes = new()
 		{
 			typeof(DateTime).FullName,
+			typeof(DateTimeOffset).FullName,
 			"System.DateOnly",
 			"System.TimeOnly"
 		};

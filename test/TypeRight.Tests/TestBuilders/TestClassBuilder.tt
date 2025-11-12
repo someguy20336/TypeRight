@@ -16,6 +16,18 @@ namespace <#= _namespace #>
 	public class <#= _className #><#= GetGenericParams() #> <#= GetBaseClass() #>
 	{	
 <# 
+foreach (var property in StaticProperties) { 
+#>
+		///<summary>
+		///<#= property.Comments #>
+		///</summary>
+		<#= property.GetAttributeText() #>
+		public static <#= property.Type #> <#= property.Name #> { get; set; }
+<#
+}
+#>
+
+<# 
 foreach (var property in Properties) { 
 #>
 		///<summary>

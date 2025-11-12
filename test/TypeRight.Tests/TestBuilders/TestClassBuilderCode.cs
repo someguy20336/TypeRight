@@ -20,6 +20,7 @@ namespace TypeRight.Tests.TestBuilders
 		private List<string> _genericParameters = new List<string>();
 
 		public List<SymbolInfo> Properties { get; } = new List<SymbolInfo>();
+		public List<SymbolInfo> StaticProperties { get; } = new List<SymbolInfo>();
 
 		public List<MethodInfo> Methods { get; set; } = new List<MethodInfo>();
 

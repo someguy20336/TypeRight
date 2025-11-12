@@ -121,5 +121,35 @@ namespace TypeRight.Tests.Types
 				.TestPropertyWithName("TestProp")
 				.TypescriptNameIs(TypeScriptHelper.StringTypeName);
 		}
+
+		[TestMethod]
+		public void PrimitiveTypes_DateTimeOffset()
+		{
+			AddDefaultExtractedClass()
+				.AddProperty("TestProp", typeof(DateTimeOffset).FullName)
+				.Commit();
+
+			AssertThatTheDefaultReferenceType()
+				.TestPropertyWithName("TestProp")
+				.TypescriptNameIs(TypeScriptHelper.StringTypeName);
+		}
+
+		[TestMethod]
+		public void PrimitiveTypes_StaticMethod_IsNotFound()
+		{
+			TestClassBuilder builder = AddDefaultExtractedClass();
+			builder.StaticProperties.Add(new SymbolInfo()
+			{
+				Name = "TestProp",
+				Type = typeof(string).FullName,
+				Comments = ""
+			});
+			builder.AddProperty("RealProp", typeof(string).FullName);
+			builder.Commit();
+
+			AssertThatTheDefaultReferenceType()
+				.WillNotWritePropertyWithName("TestProp")
+				.WillWritePropertyWithName("RealProp");
+		}
 	}
 }
