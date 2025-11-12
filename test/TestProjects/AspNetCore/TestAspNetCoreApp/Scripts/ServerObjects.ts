@@ -45,6 +45,8 @@ export interface DatesAndTimes {
 	dateOnlyProp: string;
 	/**  */
 	timeOnlyProp: string;
+	/**  */
+	dateTimeOffsetProp: string;
 }
 
 /** Test summ */

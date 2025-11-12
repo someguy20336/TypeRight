@@ -121,5 +121,17 @@ namespace TypeRight.Tests.Types
 				.TestPropertyWithName("TestProp")
 				.TypescriptNameIs(TypeScriptHelper.StringTypeName);
 		}
+
+		[TestMethod]
+		public void PrimitiveTypes_DateTimeOffset()
+		{
+			AddDefaultExtractedClass()
+				.AddProperty("TestProp", typeof(DateTimeOffset).FullName)
+				.Commit();
+
+			AssertThatTheDefaultReferenceType()
+				.TestPropertyWithName("TestProp")
+				.TypescriptNameIs(TypeScriptHelper.StringTypeName);
+		}
 	}
 }

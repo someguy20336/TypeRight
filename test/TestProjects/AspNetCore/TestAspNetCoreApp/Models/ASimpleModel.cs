@@ -41,6 +41,7 @@ namespace TestAspNetCoreApp.Models
         public DateTime DateTimeProp { get; set; }
         public DateOnly DateOnlyProp { get; set; }
         public TimeOnly TimeOnlyProp { get; set; }
+        public DateTimeOffset DateTimeOffsetProp { get; set; }
     }
 
 	[ScriptObject]
