@@ -1,188 +1,188 @@
 ﻿using Microsoft.CodeAnalysis;
 using TypeRight.Attributes;
 
-namespace TypeRight.Tests.TestBuilders
+namespace TypeRight.Tests.TestBuilders;
+
+public class TestProjectBuilder
 {
-	public class TestProjectBuilder
+	public const string DefaultNamespace = "Test";
+
+	public AdhocWorkspace Workspace { get; set; }
+
+	public ProjectId ProjectID { get; private set; }
+
+	public TestProjectBuilder(AdhocWorkspace adhocWorkspace, ProjectId projId)
 	{
-		public const string DefaultNamespace = "Test";
+		Workspace = adhocWorkspace;
+		ProjectID = projId;
+	}
 
-		public AdhocWorkspace Workspace { get; set; }
+	public TestClassBuilder CreateClassBuilder(string name, string @namespace = DefaultNamespace)
+	{
+		return new TestClassBuilder(this, name, @namespace);
+	}
 
-		public ProjectId ProjectID { get; private set; }
+	public TestClassBuilder CreateClassBuilder(string fullName)
+	{
+		Utils.SplitFullName(fullName, out string @namespace, out string name);
+		return new TestClassBuilder(this, name, @namespace);
+	}
 
-		public TestProjectBuilder(AdhocWorkspace adhocWorkspace, ProjectId projId)
-		{
-			Workspace = adhocWorkspace;
-			ProjectID = projId;
-		}
+	public InterfaceBuilder CreateInterfaceBuilder(string name, string @namespace = DefaultNamespace)
+	{
+		return new InterfaceBuilder(this, name, DefaultNamespace);
+	}
 
-		public TestClassBuilder CreateClassBuilder(string name, string @namespace = DefaultNamespace)
-		{
-			return new TestClassBuilder(this, name, @namespace);
-		}
+	public TestEnumBuilder CreateEnumBuilder(string name)
+	{
+		return new TestEnumBuilder(this, name);
+	}
 
-		public TestClassBuilder CreateClassBuilder(string fullName)
-		{
-			Utils.SplitFullName(fullName, out string @namespace, out string name);
-			return new TestClassBuilder(this, name, @namespace);
-		}
+	public AssemblyAttributeBuilder CreateAssemblyAttributeBuilder(string name)
+	{
+		return new AssemblyAttributeBuilder(this, name);
+	}
 
-		public InterfaceBuilder CreateInterfaceBuilder(string name, string @namespace = DefaultNamespace)
-		{
-			return new InterfaceBuilder(this, name, DefaultNamespace);
-		}
+	public TestProjectBuilder AddFakeTypeRight()
+	{
+		string typeRightNamespace = "TypeRight.Attributes";
+		CreateClassBuilder(typeof(ScriptActionAttribute).Name, typeRightNamespace)
+			.AddBaseClass("System.Attribute")
+			.AddProperty(nameof(ScriptActionAttribute.Name), "string")
+			.Commit();
 
-		public TestEnumBuilder CreateEnumBuilder(string name)
-		{
-			return new TestEnumBuilder(this, name);
-		}
+		CreateClassBuilder(typeof(ScriptObjectAttribute).Name, typeRightNamespace)
+			.AddBaseClass("System.Attribute")
+			.Commit();
 
-		public AssemblyAttributeBuilder CreateAssemblyAttributeBuilder(string name)
-		{
-			return new AssemblyAttributeBuilder(this, name);
-		}
+		CreateClassBuilder(typeof(ScriptEnumAttribute).Name, typeRightNamespace)
+			.AddBaseClass("System.Attribute")
+			.Commit();
 
-		public TestProjectBuilder AddFakeTypeRight()
-		{
-			string typeRightNamespace = "TypeRight.Attributes";
-			CreateClassBuilder(typeof(ScriptActionAttribute).Name, typeRightNamespace)
-				.AddBaseClass("System.Attribute")
-				.AddProperty(nameof(ScriptActionAttribute.Name), "string")
-				.Commit();
+		CreateClassBuilder(KnownTypes.ScriptParamTypesAttributeName)
+			.AddBaseClass("System.Attribute")
+			.AddConstructor()
+				.AddParameter("types", "params Type[]")
+				.Commit()
+			.Commit();
 
-			CreateClassBuilder(typeof(ScriptObjectAttribute).Name, typeRightNamespace)
-				.AddBaseClass("System.Attribute")
-				.Commit();
+		CreateInterfaceBuilder(typeof(IEnumDisplayNameProvider).Name, typeRightNamespace)
+			.AddProperty(nameof(IEnumDisplayNameProvider.DisplayName), "string")
+			.AddProperty(nameof(IEnumDisplayNameProvider.Abbreviation), "string")
+			.Commit();
 
-			CreateClassBuilder(typeof(ScriptEnumAttribute).Name, typeRightNamespace)
-				.AddBaseClass("System.Attribute")
-				.Commit();
+		return this;
+	}
 
-			CreateClassBuilder(KnownTypes.ScriptParamTypesAttributeName)
-				.AddBaseClass("System.Attribute")
-				.AddConstructor()
-					.AddParameter("types", "params Type[]")
-					.Commit()
-				.Commit();
+	public TestProjectBuilder AddFakeJson()
+	{
+		CreateClassBuilder(KnownTypes.SystemTextJsonPropertyName)
+			.AddBaseClass("System.Attribute")
+			.AddConstructor()
+				.AddParameter("name", "string")
+				.Commit()
+			.Commit();
 
-			CreateInterfaceBuilder(typeof(IEnumDisplayNameProvider).Name, typeRightNamespace)
-				.AddProperty(nameof(IEnumDisplayNameProvider.DisplayName), "string")
-				.AddProperty(nameof(IEnumDisplayNameProvider.Abbreviation), "string")
-				.Commit();
-
-			return this;
-		}
-
-		public TestProjectBuilder AddFakeJson()
-		{
-			CreateClassBuilder(KnownTypes.SystemTextJsonPropertyName)
-				.AddBaseClass("System.Attribute")
-				.AddConstructor()
-					.AddParameter("name", "string")
-					.Commit()
-				.Commit();
-
-			CreateClassBuilder(KnownTypes.NewtonsoftJsonPropertyName_v12)
-				.AddBaseClass("System.Attribute")
-				.AddProperty(nameof(Newtonsoft.Json.Serialization.JsonProperty.PropertyName), "string")
-				.Commit();
+		CreateClassBuilder(KnownTypes.NewtonsoftJsonPropertyName_v12)
+			.AddBaseClass("System.Attribute")
+			.AddProperty(nameof(Newtonsoft.Json.Serialization.JsonProperty.PropertyName), "string")
+			.Commit();
 
 
-			return this;
-		}
+		return this;
+	}
 
-		public TestProjectBuilder AddFakeMvc()
-		{
+	public TestProjectBuilder AddFakeMvc()
+	{
 
-			CreateClassBuilder(MvcConstants.AreaAttributeFullName_AspNetCore)
-				.AddBaseClass("System.Attribute")
-				.AddConstructor().AddParameter("value", "string").Commit()
-				.Commit();
+		CreateClassBuilder(MvcConstants.AreaAttributeFullName_AspNetCore)
+			.AddBaseClass("System.Attribute")
+			.AddConstructor().AddParameter("value", "string").Commit()
+			.Commit();
 
-			CreateClassBuilder(MvcConstants.RouteAttributeName, MvcConstants.AspNetCoreNamespace)
-				.AddBaseClass("System.Attribute")
-				.AddConstructor()
+		CreateClassBuilder(MvcConstants.RouteAttributeName, MvcConstants.AspNetCoreNamespace)
+			.AddBaseClass("System.Attribute")
+			.AddConstructor()
+				.AddParameter("template", "string")
+				.Commit()
+			.Commit();
+
+		CreateClassBuilder(MvcConstants.HttpGetAttributeName, MvcConstants.AspNetCoreNamespace)
+			.AddBaseClass("System.Attribute")
+			.AddConstructor()
+				.AddParameter("template", "string")
+				.Commit()
+			.Commit();
+
+		CreateClassBuilder(MvcConstants.HttpPostAttributeName, MvcConstants.AspNetCoreNamespace)
+			.AddBaseClass("System.Attribute")
+			.AddConstructor()
 					.AddParameter("template", "string")
 					.Commit()
-				.Commit();
+			.Commit();
 
-			CreateClassBuilder(MvcConstants.HttpGetAttributeName, MvcConstants.AspNetCoreNamespace)
-				.AddBaseClass("System.Attribute")
-				.AddConstructor()
+		CreateClassBuilder(MvcConstants.HttpPutAttributeName, MvcConstants.AspNetCoreNamespace)
+			.AddBaseClass("System.Attribute")
+			.AddConstructor()
 					.AddParameter("template", "string")
 					.Commit()
-				.Commit();
+			.Commit();
 
-			CreateClassBuilder(MvcConstants.HttpPostAttributeName, MvcConstants.AspNetCoreNamespace)
-				.AddBaseClass("System.Attribute")
-				.AddConstructor()
-						.AddParameter("template", "string")
-						.Commit()
-				.Commit();
-
-			CreateClassBuilder(MvcConstants.HttpPutAttributeName, MvcConstants.AspNetCoreNamespace)
-				.AddBaseClass("System.Attribute")
-				.AddConstructor()
-						.AddParameter("template", "string")
-						.Commit()
-				.Commit();
-
-			CreateClassBuilder(MvcConstants.HttpPatchAttributeName, MvcConstants.AspNetCoreNamespace)
-				.AddBaseClass("System.Attribute")
-				.AddConstructor()
-						.AddParameter("template", "string")
-						.Commit()
-				.Commit();
-
-			CreateClassBuilder(MvcConstants.HttpDeleteAttributeName, MvcConstants.AspNetCoreNamespace)
-				.AddBaseClass("System.Attribute")
-				.AddConstructor()
-						.AddParameter("template", "string")
-						.Commit()
-				.Commit();
-
-			CreateClassBuilder(MvcConstants.ActionResultName, MvcConstants.AspNetCoreNamespace)
-				.AddGenericParameter("TValue")
-				.AddConstructor()
-					.AddParameter("value", "TValue")
+		CreateClassBuilder(MvcConstants.HttpPatchAttributeName, MvcConstants.AspNetCoreNamespace)
+			.AddBaseClass("System.Attribute")
+			.AddConstructor()
+					.AddParameter("template", "string")
 					.Commit()
-				// TODO Other ctor
-				.Commit();
+			.Commit();
+
+		CreateClassBuilder(MvcConstants.HttpDeleteAttributeName, MvcConstants.AspNetCoreNamespace)
+			.AddBaseClass("System.Attribute")
+			.AddConstructor()
+					.AddParameter("template", "string")
+					.Commit()
+			.Commit();
+
+		CreateClassBuilder(MvcConstants.ActionResultName, MvcConstants.AspNetCoreNamespace)
+			.AddGenericParameter("TValue")
+			.AddConstructor()
+				.AddParameter("value", "TValue")
+				.Commit()
+			// TODO Other ctor
+			.Commit();
 
 
-			// From body
-			CreateClassBuilder(MvcConstants.FromBodyAttributeName, MvcConstants.AspNetCoreNamespace)
-				.AddBaseClass("System.Attribute")
-				.Commit();
+		// From body
+		CreateClassBuilder(MvcConstants.FromBodyAttributeName, MvcConstants.AspNetCoreNamespace)
+			.AddBaseClass("System.Attribute")
+			.Commit();
 
-			// From services
-			CreateClassBuilder(MvcConstants.FromServicesAttributeName, MvcConstants.AspNetCoreNamespace)
-				.AddBaseClass("System.Attribute")
-				.Commit();
+		// From services
+		CreateClassBuilder(MvcConstants.FromServicesAttributeName, MvcConstants.AspNetCoreNamespace)
+			.AddBaseClass("System.Attribute")
+			.Commit();
 
-			// From query
-			CreateClassBuilder(MvcConstants.FromQueryAttributeName, MvcConstants.AspNetCoreNamespace)
-				.AddBaseClass("System.Attribute")
-				.Commit();
+		// From query
+		CreateClassBuilder(MvcConstants.FromQueryAttributeName, MvcConstants.AspNetCoreNamespace)
+			.AddBaseClass("System.Attribute")
+			.Commit();
 
-			CreateClassBuilder(MvcConstants.FromRouteAttributeFullName_AspNetCore)
-				.AddBaseClass("System.Attribute")
-				.AddProperty("Name", "string")
-				.Commit();
+		CreateClassBuilder(MvcConstants.FromRouteAttributeFullName_AspNetCore)
+			.AddBaseClass("System.Attribute")
+			.AddProperty("Name", "string")
+			.Commit();
 
-			CreateClassBuilder(MvcConstants.JsonResultName, MvcConstants.AspNetCoreNamespace).Commit();
+		CreateClassBuilder(MvcConstants.JsonResultName, MvcConstants.AspNetCoreNamespace).Commit();
 
-			CreateClassBuilder(MvcConstants.ApiVersionAttributeFullName_AspNetCore)
-				.AddBaseClass("System.Attribute")
-				.AddConstructor().AddParameter("value", "string").Commit()
-				.Commit();
+		CreateClassBuilder(MvcConstants.ApiVersionAttributeFullName_AspNetCore)
+			.AddBaseClass("System.Attribute")
+			.AddConstructor().AddParameter("value", "string").Commit()
+			.Commit();
 
+		CreateClassBuilder(MvcConstants.ApiVersionAttributeFullName_ApiVersioning)
+			.AddBaseClass("System.Attribute")
+			.AddConstructor().AddParameter("value", "string").Commit()
+			.Commit();
 
-
-
-
-			return this;
-		}
+		return this;
 	}
 }

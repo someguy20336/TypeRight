@@ -36,6 +36,7 @@ namespace TypeRight.TypeProcessing.MvcRouting
 		{
 			var list = base.GetParameterResolvers();
 			list.Add(ApiVersionRouteParameterResolver.AspNetCore);
+			list.Add(ApiVersionRouteParameterResolver.ApiVersioningPackage);
 
 			return list;
 		}

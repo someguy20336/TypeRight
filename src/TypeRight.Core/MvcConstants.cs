@@ -3,9 +3,11 @@
 	public static class MvcConstants
 	{
 		public const string AspNetCoreNamespace = "Microsoft.AspNetCore.Mvc";
+		public const string ApiVersioningNamespace = "Asp.Versioning";
 
 		public const string ApiVersionAttributeName = "ApiVersionAttribute";
 		public static string ApiVersionAttributeFullName_AspNetCore = ToAspNetCoreFullName(ApiVersionAttributeName);
+		public static string ApiVersionAttributeFullName_ApiVersioning = $"{ApiVersioningNamespace}.{ApiVersionAttributeName}";
 
 		public const string RouteAttributeName = "RouteAttribute";
 		public static string RouteAttributeFullName_AspNetCore => ToAspNetCoreFullName(RouteAttributeName);

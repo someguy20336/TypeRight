@@ -1,33 +1,33 @@
 ﻿using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace TypeRight.TypeProcessing.MvcRouting
+namespace TypeRight.TypeProcessing.MvcRouting;
+
+internal class ApiVersionRouteParameterResolver : RouteParameterResolver
 {
-	internal class ApiVersionRouteParameterResolver : RouteParameterResolver
+	private static Regex s_apiVersionToken = new("{([a-zA-Z]+)(:apiVersion)}");
+
+	public static ApiVersionRouteParameterResolver AspNetCore = new ApiVersionRouteParameterResolver(MvcConstants.ApiVersionAttributeFullName_AspNetCore);
+	public static ApiVersionRouteParameterResolver ApiVersioningPackage = new(MvcConstants.ApiVersionAttributeFullName_ApiVersioning);
+
+	private readonly string _attrTypeFullName;
+
+	private ApiVersionRouteParameterResolver(string attrTypeFullName)
 	{
-		private static Regex s_apiVersionToken = new Regex("{([a-zA-Z]+)(:apiVersion)}");
+		_attrTypeFullName = attrTypeFullName;
+	}
 
-		public static ApiVersionRouteParameterResolver AspNetCore = new ApiVersionRouteParameterResolver(MvcConstants.ApiVersionAttributeFullName_AspNetCore);
-
-		private readonly string _attrTypeFullName;
-
-		private ApiVersionRouteParameterResolver(string attrTypeFullName)
+	public override string TryResolve(string currentRoute, MvcController controller, MvcAction action)
+	{
+		var apiVersionAttr = controller.NamedType.Attributes.LastOrDefault(attr => attr.AttributeType.FullName == _attrTypeFullName);
+		if (apiVersionAttr == null)
 		{
-			_attrTypeFullName = attrTypeFullName;
+			return currentRoute;
 		}
 
-		public override string TryResolve(string currentRoute, MvcController controller, MvcAction action)
-		{
-			var apiVersionAttr = controller.NamedType.Attributes.LastOrDefault(attr => attr.AttributeType.FullName == _attrTypeFullName);
-			if (apiVersionAttr == null)
-			{
-				return currentRoute;
-			}
+		// TODO: can override on action... but eh for now
 
-			// TODO: can override on action... but eh for now
-
-			string version = apiVersionAttr.ConstructorArguments[0].ToString();
-			return s_apiVersionToken.Replace(currentRoute, version);
-		}
+		string version = apiVersionAttr.ConstructorArguments[0].ToString();
+		return s_apiVersionToken.Replace(currentRoute, version);
 	}
 }

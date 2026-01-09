@@ -110,5 +110,16 @@ export function RandoMethod(): void {
 
 			AssertRouteEquals("/api/v1.0/Things");
 		}
+
+		[TestMethod]
+		public void ApiVersion_AspApiVersioning_IsResolved()
+		{
+			ControllerBuilder.AddAttribute(MvcConstants.RouteAttributeFullName_AspNetCore)
+					.AddStringConstructorArg("api/v{v:apiVersion}/[controller]").Commit()
+				.AddAttribute(MvcConstants.ApiVersionAttributeFullName_ApiVersioning)
+					.AddStringConstructorArg("1.0").Commit();
+
+			AssertRouteEquals("/api/v1.0/Things");
+		}
 	}
 }
