@@ -52,4 +52,21 @@ public class ANullableModel
 	/// Dictionary[int, ASimpleModel?]
 	/// </summary>
 	public Dictionary<int, ASimpleModel?> DictionaryNullValue { get; set; } = null!;
+
+	/// <summary>
+	/// AGenericTypeHere[int]
+	/// </summary>
+	public AGenericTypeHere<int> GenericNotNull { get; set; } = null!;
+
+	/// <summary>
+	/// AGenericTypeHere[int?]
+	/// </summary>
+	public AGenericTypeHere<int?> GenericNullable { get; set; } = null!;
+}
+
+[ScriptObject]
+public class AGenericTypeHere<T>
+{
+	public T NotNull { get; set; } = default!;
+	public T? Nullable { get; set; }
 }

@@ -5,6 +5,14 @@ import * as CustomGroup from "./CustomGroup";
 // Classes
 // ===============================
 /**  */
+export interface AGenericTypeHere<T> {
+	/**  */
+	notNull: T;
+	/**  */
+	nullable: T;
+}
+
+/**  */
 export interface ANullableModel {
 	/** int? */
 	propOne: number | null;
@@ -26,6 +34,10 @@ export interface ANullableModel {
 	nullableArrayRefTypeElement: ASimpleModel[] | null;
 	/** Dictionary[int, ASimpleModel?] */
 	dictionaryNullValue: { [key: number]: ASimpleModel | null };
+	/** AGenericTypeHere[int] */
+	genericNotNull: AGenericTypeHere<number>;
+	/** AGenericTypeHere[int?] */
+	genericNullable: AGenericTypeHere<number | null>;
 }
 
 /** Tst model */
