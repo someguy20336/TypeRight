@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TypeRight.CodeModel.Default
+﻿namespace TypeRight.CodeModel.Default
 {
 	public class ArrayType : IArrayType
 	{
 		public IType ElementType { get; }
 
 		public string Name { get; }
+
+		public bool IsNullable => false;
 
 		public ArrayType(IType elementType, string name)
 		{

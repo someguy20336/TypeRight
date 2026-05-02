@@ -68,5 +68,17 @@
 			IsAnonymousType = isAnonymous;
 			IsInterface = isInterface;
 		}
+
+		public TypeFlags WithNullable(bool nullable)
+		{
+			return new TypeFlags(
+				IsEnum,
+				nullable,
+				IsArray,
+				IsList,
+				IsDictionary,
+				IsAnonymousType,
+				IsInterface);
+		}
 	}
 }

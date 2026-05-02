@@ -1,4 +1,6 @@
-﻿using TypeRight.CodeModel;
+﻿using System;
+using System.Collections.Generic;
+using TypeRight.CodeModel;
 using TypeRight.ScriptWriting;
 
 namespace TypeRight.TypeProcessing
@@ -21,7 +23,7 @@ namespace TypeRight.TypeProcessing
 		/// <summary>
 		/// The named type
 		/// </summary>
-		private readonly INamedType _namedType;
+		private readonly IType _type;
 
 		/// <summary>
 		/// Gets the type argument descriptor
@@ -31,11 +33,11 @@ namespace TypeRight.TypeProcessing
 		/// <summary>
 		/// Creates a nullable type descriptor
 		/// </summary>
-		/// <param name="namedType"></param>
+		/// <param name="type"></param>
 		/// <param name="typeFactory"></param>
-		internal NullableTypeDescriptor(INamedType namedType, TypeFactory typeFactory) : base(namedType)
+		internal NullableTypeDescriptor(IType type, TypeFactory typeFactory) : base(type)
 		{
-			_namedType = namedType;
+			_type = type;
 			_typeFactory = typeFactory;
 		}
 
@@ -47,10 +49,18 @@ namespace TypeRight.TypeProcessing
 		{
 			if (_typeArg == null)
 			{
-				// TODO... should probably just look for "Nullable<>"
-				IType useType = _namedType.TypeArguments.Count > 0
-					? _namedType.TypeArguments[0] 
-					: _namedType;
+				IType useType = _type;
+				if (_type is INamedType namedType)
+				{
+					useType = namedType.ConstructedFromType.FullName == typeof(Nullable<>).FullName
+					   ? namedType.TypeArguments[0]
+					   : new NonNullNamedType(namedType);
+				}
+				else if (_type is IArrayType arrayType)
+				{
+					useType = new NonNullArrayType(arrayType);
+				}
+
 				_typeArg = _typeFactory.LookupType(useType);
 			}
 			return _typeArg;
@@ -64,6 +74,60 @@ namespace TypeRight.TypeProcessing
 		public override string FormatType(TypeFormatter formatter)
 		{
 			return formatter.FormatNullableType(this);
+		}
+
+		private class NonNullArrayType : IArrayType
+		{
+			private readonly IArrayType _array;
+
+			public NonNullArrayType(IArrayType array)
+			{
+				_array = array;
+			}
+
+			public IType ElementType => _array.ElementType;
+
+			public bool IsNullable => false;
+
+			public string Name => _array.Name;
+		}
+
+		private class NonNullNamedType : INamedType
+		{
+			private readonly INamedType _namedType;
+			public INamedType ConstructedFromType => _namedType.ConstructedFromType;
+
+			public INamedType BaseType => _namedType.BaseType;
+
+			public IReadOnlyList<INamedType> Interfaces => _namedType.Interfaces;
+
+			public IReadOnlyList<IType> TypeArguments => _namedType.TypeArguments;
+
+			public string Comments => _namedType.Comments;
+
+			public IReadOnlyList<IProperty> Properties => _namedType.Properties;
+
+			public IReadOnlyList<IField> Fields => _namedType.Fields;
+
+			public IReadOnlyList<IMethod> Methods => _namedType.Methods;
+
+			public IReadOnlyList<IAttributeData> Attributes => _namedType.Attributes;
+
+			public TypeFlags Flags { get; }
+
+			public string FilePath => _namedType.FilePath;
+
+			public string Name => _namedType.Name;
+
+			public string FullName => _namedType.FullName;
+
+			public NonNullNamedType(INamedType namedType)
+			{
+				_namedType = namedType;
+
+				Flags = namedType.Flags.WithNullable(false);
+			}
+
 		}
 	}
 }

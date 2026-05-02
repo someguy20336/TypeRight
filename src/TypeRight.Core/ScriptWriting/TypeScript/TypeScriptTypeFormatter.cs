@@ -10,7 +10,7 @@ namespace TypeRight.ScriptWriting.TypeScript
 	/// </summary>
 	public class TypeScriptTypeFormatter : TypeFormatter
 	{
-		private ITypePrefixResolver _resolver;
+		private readonly ITypePrefixResolver _resolver;
 
 		/// <summary>
 		/// Index of names for the collection an how many times they show up
@@ -51,7 +51,7 @@ namespace TypeRight.ScriptWriting.TypeScript
 		/// <param name="arrayType"></param>
 		/// <returns></returns>
 		public override string FormatArrayType(ArrayTypeDescriptor arrayType) 
-			=> $"{arrayType.ElementType.FormatType(this)}[]";
+			=> FormatArrayLike(arrayType.ElementType);
 
 		/// <summary>
 		/// Formats a boolean type
@@ -97,7 +97,8 @@ namespace TypeRight.ScriptWriting.TypeScript
 		/// </summary>
 		/// <param name="listType"></param>
 		/// <returns></returns>
-		public override string FormatListType(ListTypeDescriptor listType) => $"{listType.TypeArg.FormatType(this)}[]";
+		public override string FormatListType(ListTypeDescriptor listType) 
+			=> FormatArrayLike(listType.TypeArg);
 
 		/// <summary>
 		/// formats a named reference type 
@@ -122,6 +123,11 @@ namespace TypeRight.ScriptWriting.TypeScript
 			{
 				IEnumerable<string> typeArgs = namedReferenceType.TypeArguments.Select(csType => csType.FormatType(this));
 				typeName += $"<{string.Join(", ", typeArgs)}>";
+			}
+
+			if (namedReferenceType.NamedType.Flags.IsNullable)
+			{
+				typeName = TypeScriptHelper.TypeNameOrNull(typeName);
 			}
 
 			return $"{GetNamespaceWithDot(namedReferenceType)}{typeName}";
@@ -222,5 +228,15 @@ namespace TypeRight.ScriptWriting.TypeScript
 		private string GetIndexName(ExtractedReferenceType refType) => $"{_resolver.GetPrefix(refType)}.{refType.Name}";
 
 		private string GetIndexName(NamedReferenceTypeDescriptor refType) => $"{_resolver.GetPrefix(refType)}.{refType.Name}";
+
+		private string FormatArrayLike(TypeDescriptor type)
+		{
+			string formattedType = type.FormatType(this);
+			if (formattedType.Contains(" "))
+			{
+				formattedType = $"({formattedType})";
+			}
+			return $"{formattedType}[]";
+		}
 	}
 }

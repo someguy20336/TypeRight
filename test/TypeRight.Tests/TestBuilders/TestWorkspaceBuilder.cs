@@ -4,6 +4,7 @@ using Microsoft.CodeAnalysis;
 using System.Collections.Generic;
 using TypeRight.TypeProcessing;
 using TypeRight.CodeModel;
+using Microsoft.CodeAnalysis.CSharp;
 
 namespace TypeRight.Tests.TestBuilders
 {
@@ -28,14 +29,15 @@ namespace TypeRight.Tests.TestBuilders
 		public TestWorkspaceBuilder()
 		{
 			Workspace = new AdhocWorkspace();
-			DefaultProject = AddNewProject("DefaultProject");			
+			DefaultProject = AddNewProject("DefaultProject");
 		}
 
 		public TestProjectBuilder AddNewProject(string name)
 		{
 			ProjectId projectId = ProjectId.CreateNewId();
 			VersionStamp vers = VersionStamp.Create();
-			ProjectInfo projectInfo = ProjectInfo.Create(projectId, vers, name, name, LanguageNames.CSharp);
+			CSharpCompilationOptions compOptions = new(OutputKind.DynamicallyLinkedLibrary, nullableContextOptions: NullableContextOptions.Enable);
+			ProjectInfo projectInfo = ProjectInfo.Create(projectId, vers, name, name, LanguageNames.CSharp, compilationOptions: compOptions);
 			MetadataReference reference = MetadataReference.CreateFromFile(typeof(int).Assembly.Location);
 			projectInfo = projectInfo.WithMetadataReferences(new List<MetadataReference>() { reference });
 			return new TestProjectBuilder(Workspace, Workspace.AddProject(projectInfo).Id);

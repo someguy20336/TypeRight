@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TypeRight.CodeModel
+﻿namespace TypeRight.CodeModel
 {
 	/// <summary>
 	/// An array type
@@ -15,5 +9,7 @@ namespace TypeRight.CodeModel
 		/// The element type of the array
 		/// </summary>
 		IType ElementType { get; }
+
+		bool IsNullable { get; }
 	}
 }
