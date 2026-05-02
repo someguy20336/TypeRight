@@ -164,6 +164,7 @@ public class TestProjectBuilder
 		// From query
 		CreateClassBuilder(MvcConstants.FromQueryAttributeName, MvcConstants.AspNetCoreNamespace)
 			.AddBaseClass("System.Attribute")
+			.AddProperty("Name", "string")
 			.Commit();
 
 		CreateClassBuilder(MvcConstants.FromRouteAttributeFullName_AspNetCore)

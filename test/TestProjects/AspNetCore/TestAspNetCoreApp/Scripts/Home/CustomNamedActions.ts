@@ -58,6 +58,17 @@ export function complexWithListFromQuery(fromQueryModel: Partial<ServerObjects.M
 
 /**
  * 
+ */
+export function fromQueryNewName(q: string, abort?: AbortSignal): Promise<string[]> {
+	const urlParams = new URLSearchParams();
+	tryAppendKeyValueToUrl(urlParams, "q", q);
+	tryAppendKeyValueToUrl(urlParams, "param1", "val1");
+	tryAppendKeyValueToUrl(urlParams, "param2", "val2");
+	return fetchWrapper("GET", `/api/TestWebApi${getQueryString(urlParams)}`, null, abort);
+}
+
+/**
+ * 
  * @param id 
  */
 export function fromRoute_TestOverrideMultParamTypesMethod(id: number | boolean | string, abort?: AbortSignal): Promise<string> {

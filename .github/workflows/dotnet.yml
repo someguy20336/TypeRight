@@ -1,13 +1,13 @@
-name: .NET
+name: Build and Test
 
 on: [ push ]
 
 jobs:
-  build:
+  build-and-test:
 
     runs-on: windows-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
@@ -22,5 +22,6 @@ jobs:
         dotnet build ./test/TypeRight.BuildTests/TypeRight.BuildTests.csproj --no-restore
     - name: Run Unit Tests
       run: dotnet test ./test/TypeRight.Tests/TypeRight.Tests.csproj --no-build --verbosity normal
-#    - name: Run Integration Tests
-#      run: dotnet test ./test/TypeRight.BuildTests/TypeRight.BuildTests.csproj --no-build --verbosity normal
+    # I don't think the msbuild runner works, so maybe try using dotnet later?
+    #- name: Run Integration Tests
+    #  run: dotnet test ./test/TypeRight.BuildTests/TypeRight.BuildTests.csproj --no-build --verbosity normal

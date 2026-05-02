@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFrameworks>net6.0;net8.0</TargetFrameworks>
+    <TargetFrameworks>net8.0</TargetFrameworks>
     <TypeScriptToolsVersion>4.1</TypeScriptToolsVersion>
     <TestingFromPackageRef Condition="$(TestingFromPackageRef) == ''">false</TestingFromPackageRef>
   </PropertyGroup>
