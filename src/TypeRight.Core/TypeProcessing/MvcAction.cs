@@ -250,7 +250,7 @@ namespace TypeRight.TypeProcessing
 		{
 			IAttributeData fromQueryAttr = s_queryParamFilter.GetAttribute(this);
 			if (fromQueryAttr is null 
-				|| fromQueryAttr.NamedArguments.TryGetValue("Name", out object nameVal)
+				|| !fromQueryAttr.NamedArguments.TryGetValue("Name", out object nameVal)
 				|| nameVal is not string name)
 			{
 				return _origName;
