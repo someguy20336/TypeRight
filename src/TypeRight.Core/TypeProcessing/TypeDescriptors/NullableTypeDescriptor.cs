@@ -16,12 +16,12 @@ namespace TypeRight.TypeProcessing
 		/// <summary>
 		/// The type table
 		/// </summary>
-		private TypeFactory _typeFactory;
+		private readonly TypeFactory _typeFactory;
 
 		/// <summary>
 		/// The named type
 		/// </summary>
-		private INamedType _namedType;
+		private readonly INamedType _namedType;
 
 		/// <summary>
 		/// Gets the type argument descriptor
@@ -47,7 +47,11 @@ namespace TypeRight.TypeProcessing
 		{
 			if (_typeArg == null)
 			{
-				_typeArg = _typeFactory.LookupType(_namedType.TypeArguments[0]);
+				// TODO... should probably just look for "Nullable<>"
+				IType useType = _namedType.TypeArguments.Count > 0
+					? _namedType.TypeArguments[0] 
+					: _namedType;
+				_typeArg = _typeFactory.LookupType(useType);
 			}
 			return _typeArg;
 		}

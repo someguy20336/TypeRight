@@ -188,6 +188,10 @@ namespace TypeRight.Workspaces.CodeModel
 
 		private bool IsNullableType()
 		{
+			if (TypeSymbol.NullableAnnotation == NullableAnnotation.Annotated)
+			{
+				return true;
+			}
 			INamedTypeSymbol nullableSymb = InCompilation.GetTypeByMetadataName(typeof(Nullable<>).FullName);
 			return nullableSymb.Equals(TypeSymbol.OriginalDefinition, SymbolEqualityComparer.Default);
 		}
