@@ -39,6 +39,30 @@ export function TestAction(fromQuery: string): void {{
 		}
 
 		[TestMethod]
+		public void FromQuery_WithNameArgument_Generated()
+		{
+			AttributeInfo fromQuery = new()
+			{
+				AttributeTypeName = MvcConstants.FromQueryAttributeFullName_AspNetCore,
+				NamedArguments = 
+				{ 
+					{ "Name", "\"q\"" } 
+				}
+			};
+			AddControllerAction("TestAction", MvcConstants.JsonResult_AspNetCore)
+					.AddParameter("fromQuery", "string", "", [fromQuery])
+					.Commit()
+			;
+
+			AssertScriptTextForFunctionIs(@$"
+export function TestAction(q: string): void {{
+	const urlParams = new URLSearchParams();
+	tryAppendKeyValueToUrl(urlParams, ""q"", q);
+	fetchWrapper(""GET"", `/{ControllerName}/TestAction${{getQueryString(urlParams)}}`, null);
+}}", ScriptExtensions.KeyValueQueryParamHelper);
+		}
+
+		[TestMethod]
 		public void FromQuery_SingleObject_BothQueryHelperFuncsAdded_Generated()
 		{
 			AddControllerAction("TestAction", MvcConstants.JsonResult_AspNetCore)

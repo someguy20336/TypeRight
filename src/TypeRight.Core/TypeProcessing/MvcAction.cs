@@ -4,6 +4,7 @@ using System.Linq;
 using TypeRight.TypeFilters;
 using TypeRight.Attributes;
 using TypeRight.ScriptWriting;
+using System;
 
 namespace TypeRight.TypeProcessing
 {
@@ -169,17 +170,35 @@ namespace TypeRight.TypeProcessing
 	/// </summary>
 	public class MvcActionParameter
 	{
-		private static TypeFilter s_scriptParamTypes
+		private static readonly TypeFilter s_scriptParamTypes
 			= new IsOfTypeFilter(KnownTypes.ScriptParamTypesAttributeName);
 
+		private static readonly ParameterHasAttributeFilter s_queryParamFilter
+			= new ParameterHasAttributeFilter(new IsOfTypeFilter(MvcConstants.FromQueryAttributeFullName_AspNetCore));
+
+		private static readonly ParameterFilter s_bodyFilter
+			= new ParameterHasAttributeFilter(new IsOfTypeFilter(MvcConstants.FromBodyAttributeFullName_AspNetCore));
+
 		private ActionParameterSourceType? _bindingType;
+		private readonly string _origName;
+		private string _name;
 
 		internal MvcAction Action { get; }
 
-		/// <summary>
-		/// Gets the name of the parameter
-		/// </summary>
-		public string Name { get; }
+        /// <summary>
+        /// Gets the name of the parameter
+        /// </summary>
+        public string Name
+		{
+			get
+			{
+				if (string.IsNullOrEmpty(_name))
+				{
+					_name = ComputeName();
+				}
+				return _name;
+			}
+		}
 
 		/// <summary>
 		/// Gets the type descriptor for the parameter
@@ -221,28 +240,38 @@ namespace TypeRight.TypeProcessing
 			TypeFactory typeFactory)
 		{
 			Action = action;
-			Name = paramName;
+			_origName = paramName;
 			Types = CompileTypes(memberType, memberAttributes, typeFactory);
 			Attributes = memberAttributes;
 			IsOptional = false;
 		}
 
+		private string ComputeName()
+		{
+			IAttributeData fromQueryAttr = s_queryParamFilter.GetAttribute(this);
+			if (fromQueryAttr is null 
+				|| fromQueryAttr.NamedArguments.TryGetValue("Name", out object nameVal)
+				|| nameVal is not string name)
+			{
+				return _origName;
+			}
+			return name;
+		}
+
 		private ActionParameterSourceType ComputeSource()
 		{
 			ActionParameterSourceType sourceType;
-			var bodyFilter = new ParameterHasAttributeFilter(new IsOfTypeFilter(MvcConstants.FromBodyAttributeFullName_AspNetCore));
-			var queryFilter = new ParameterHasAttributeFilter(new IsOfTypeFilter(MvcConstants.FromQueryAttributeFullName_AspNetCore));
 
 			string routeTemplate = Action.GetRouteTemplate();
-			if (bodyFilter.Evaluate(this))
+			if (s_bodyFilter.Evaluate(this))
 			{
 				sourceType = ActionParameterSourceType.Body;
 			}
-			else if (queryFilter.Evaluate(this))
+			else if (s_queryParamFilter.Evaluate(this))
 			{
 				sourceType = ActionParameterSourceType.Query;
 			}
-			else if (routeTemplate.Contains($"{{{this.Name}}}"))
+			else if (routeTemplate.Contains($"{{{_origName}}}"))
 			{
 				sourceType = ActionParameterSourceType.Route;
 			}

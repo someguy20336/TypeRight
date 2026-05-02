@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using TypeRight.CodeModel;
 using TypeRight.TypeProcessing;
 
 namespace TypeRight.TypeFilters
@@ -32,9 +33,9 @@ namespace TypeRight.TypeFilters
 		/// </summary>
 		/// <param name="actionParameter">The parameter</param>
 		/// <returns>True if it should be inclued</returns>
-		public override bool Evaluate(MvcActionParameter actionParameter)
-		{
-			return actionParameter.Attributes.Any(attr => _attributeFilter.Matches(attr.AttributeType));
-		}
+		public override bool Evaluate(MvcActionParameter actionParameter) => GetAttribute(actionParameter) is not null;
+
+		public IAttributeData GetAttribute(MvcActionParameter actionParameter) 
+			=> actionParameter.Attributes.FirstOrDefault(attr => _attributeFilter.Matches(attr.AttributeType));
 	}
 }
