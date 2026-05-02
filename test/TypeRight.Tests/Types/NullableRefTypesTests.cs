@@ -148,4 +148,23 @@ public class NullableRefTypesTests : TypesTestBase
 			.TestPropertyWithName("Property")
 			.TypescriptNameIs(expected);
 	}
+
+	[TestMethod]
+	public void GenericType_NullableSimpleTypeParameter()
+	{
+		AddExtractedClass("Extracted")
+			.AddGenericParameter("T")
+			.AddProperty("GenericProp", "T")
+			.Commit();
+
+		AddDefaultExtractedClass()
+			.AddProperty("Property", "Extracted<int?>")
+			.Commit();
+
+		string expected = TypeScriptHelper.TypeNameOrNull("number");
+		expected = $"{FakeTypePrefixer.Prefix}.Extracted<{expected}>";
+		AssertThatTheDefaultReferenceType()
+			.TestPropertyWithName("Property")
+			.TypescriptNameIs(expected);
+	}
 }

@@ -1,6 +1,4 @@
-﻿using System;
-using TypeRight.ScriptWriting.TypeScript;
-using TypeRight.Tests.HelperClasses;
+﻿using TypeRight.ScriptWriting.TypeScript;
 using TypeRight.Tests.TestBuilders;
 using TypeRight.Tests.Testers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
