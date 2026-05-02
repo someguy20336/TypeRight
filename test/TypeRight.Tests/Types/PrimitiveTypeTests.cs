@@ -66,7 +66,7 @@ namespace TypeRight.Tests.Types
 
 			AssertThatTheDefaultReferenceType()
 				.TestPropertyWithName("TestProp")
-				.TypescriptNameIs(TypeScriptHelper.NumericTypeName);
+				.TypescriptNameIs(TypeScriptHelper.TypeNameOrNull(TypeScriptHelper.NumericTypeName));
 		}
 
 		/// <summary>

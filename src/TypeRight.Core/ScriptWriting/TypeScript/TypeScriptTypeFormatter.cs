@@ -50,40 +50,30 @@ namespace TypeRight.ScriptWriting.TypeScript
 		/// </summary>
 		/// <param name="arrayType"></param>
 		/// <returns></returns>
-		public override string FormatArrayType(ArrayTypeDescriptor arrayType)
-		{
-			return $"{arrayType.ElementType.FormatType(this)}[]";
-		}
+		public override string FormatArrayType(ArrayTypeDescriptor arrayType) 
+			=> $"{arrayType.ElementType.FormatType(this)}[]";
 
 		/// <summary>
 		/// Formats a boolean type
 		/// </summary>
 		/// <param name="booleanType"></param>
 		/// <returns></returns>
-		public override string FormatBooleanType(BooleanTypeDescriptor booleanType)
-		{
-			return TypeScriptHelper.BooleanTypeName;
-		}
+		public override string FormatBooleanType(BooleanTypeDescriptor booleanType) => TypeScriptHelper.BooleanTypeName;
 
 		/// <summary>
 		/// Formats a date time type
 		/// </summary>
 		/// <param name="dateTimeType"></param>
 		/// <returns></returns>
-		public override string FormatDateTimeType(DateTimeTypeDescriptor dateTimeType)
-		{
-			return TypeScriptHelper.StringTypeName;
-		}
+		public override string FormatDateTimeType(DateTimeTypeDescriptor dateTimeType) => TypeScriptHelper.StringTypeName;
 
 		/// <summary>
 		/// formats a dictionary type
 		/// </summary>
 		/// <param name="dictionaryType"></param>
 		/// <returns></returns>
-		public override string FormatDictionaryType(DictionaryTypeDescriptor dictionaryType)
-		{
-			return TypeScriptHelper.FormatDictionaryType(dictionaryType.Key.FormatType(this), dictionaryType.Value.FormatType(this));
-		}
+		public override string FormatDictionaryType(DictionaryTypeDescriptor dictionaryType) 
+			=> TypeScriptHelper.FormatDictionaryType(dictionaryType.Key.FormatType(this), dictionaryType.Value.FormatType(this));
 
 		/// <summary>
 		/// formats a extracted enum type
@@ -107,10 +97,7 @@ namespace TypeRight.ScriptWriting.TypeScript
 		/// </summary>
 		/// <param name="listType"></param>
 		/// <returns></returns>
-		public override string FormatListType(ListTypeDescriptor listType)
-		{
-			return $"{listType.TypeArg.FormatType(this)}[]";
-		}
+		public override string FormatListType(ListTypeDescriptor listType) => $"{listType.TypeArg.FormatType(this)}[]";
 
 		/// <summary>
 		/// formats a named reference type 
@@ -160,70 +147,50 @@ namespace TypeRight.ScriptWriting.TypeScript
 		/// </summary>
 		/// <param name="typeDescriptor">The type descriptor</param>
 		/// <returns>The namespace or prefix, or null if not applicable</returns>
-		protected virtual string GetTypeNamespace(ExtractedTypeDescriptor typeDescriptor)
-		{
-			return _resolver.GetPrefix(typeDescriptor);
-		}
+		protected virtual string GetTypeNamespace(ExtractedTypeDescriptor typeDescriptor) => _resolver.GetPrefix(typeDescriptor);
 
 		/// <summary>
 		/// Formats an enum that isn't extracted
 		/// </summary>
 		/// <param name="enumTypeDescriptor"></param>
 		/// <returns></returns>
-		public override string FormatNonExtractedEnum(NonExtractedEnumTypeDescriptor enumTypeDescriptor)
-		{
-			return TypeScriptHelper.NumericTypeName;
-		}
+		public override string FormatNonExtractedEnum(NonExtractedEnumTypeDescriptor enumTypeDescriptor) => TypeScriptHelper.NumericTypeName;
 
 		/// <summary>
 		/// Formats nullable type
 		/// </summary>
 		/// <param name="nullableType"></param>
 		/// <returns></returns>
-		public override string FormatNullableType(NullableTypeDescriptor nullableType)
-		{
-			return nullableType.TypeArgument.FormatType(this);
-		}
+		public override string FormatNullableType(NullableTypeDescriptor nullableType) 
+			=> TypeScriptHelper.TypeNameOrNull(nullableType.TypeArgument.FormatType(this));
 
 		/// <summary>
 		/// Formats numeric type
 		/// </summary>
 		/// <param name="numericType"></param>
 		/// <returns></returns>
-		public override string FormatNumericType(NumericTypeDescriptor numericType)
-		{
-			return TypeScriptHelper.NumericTypeName;
-		}
+		public override string FormatNumericType(NumericTypeDescriptor numericType) => TypeScriptHelper.NumericTypeName;
 
 		/// <summary>
 		/// Formats string type
 		/// </summary>
 		/// <param name="stringType"></param>
 		/// <returns></returns>
-		public override string FormatStringType(StringTypeDescriptor stringType)
-		{
-			return TypeScriptHelper.StringTypeName;
-		}
+		public override string FormatStringType(StringTypeDescriptor stringType) => TypeScriptHelper.StringTypeName;
 
 		/// <summary>
 		/// Formats a type param
 		/// </summary>
 		/// <param name="typeParameter"></param>
 		/// <returns></returns>
-		public override string FormatTypeParameter(TypeParameterDescriptor typeParameter)
-		{
-			return typeParameter.Type.Name;
-		}
+		public override string FormatTypeParameter(TypeParameterDescriptor typeParameter) => typeParameter.Type.Name;
 
 		/// <summary>
 		/// Formats an unknown type
 		/// </summary>
 		/// <param name="unknownType"></param>
 		/// <returns></returns>
-		public override string FormatUnknownType(UnknownTypeDescriptor unknownType)
-		{
-			return TypeScriptHelper.AnyTypeName;
-		}
+		public override string FormatUnknownType(UnknownTypeDescriptor unknownType) => TypeScriptHelper.AnyTypeName;
 
 		/// <summary>
 		/// Formats a name declaration
@@ -252,14 +219,8 @@ namespace TypeRight.ScriptWriting.TypeScript
 			return name;
 		}
 
-		private string GetIndexName(ExtractedReferenceType refType)
-		{
-			return $"{_resolver.GetPrefix(refType)}.{refType.Name}";
-		}
+		private string GetIndexName(ExtractedReferenceType refType) => $"{_resolver.GetPrefix(refType)}.{refType.Name}";
 
-		private string GetIndexName(NamedReferenceTypeDescriptor refType)
-		{
-			return $"{_resolver.GetPrefix(refType)}.{refType.Name}";
-		}
+		private string GetIndexName(NamedReferenceTypeDescriptor refType) => $"{_resolver.GetPrefix(refType)}.{refType.Name}";
 	}
 }
