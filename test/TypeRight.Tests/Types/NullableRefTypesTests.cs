@@ -132,4 +132,20 @@ public class NullableRefTypesTests : TypesTestBase
 			.TestPropertyWithName("Property")
 			.TypescriptNameIs(expected);
 	}
+
+	[TestMethod]
+	public void NullableDictionary_SimpleTypeKey_NullableRefValue()
+	{
+		AddExtractedClass("Extracted").Commit();
+
+		AddDefaultExtractedClass()
+			.AddProperty("Property", "Dictionary<int, Extracted?>")
+			.Commit();
+
+		string expected = TypeScriptHelper.TypeNameOrNull($"{FakeTypePrefixer.Prefix}.Extracted");
+		expected = TypeScriptHelper.FormatDictionaryType("number", expected);
+		AssertThatTheDefaultReferenceType()
+			.TestPropertyWithName("Property")
+			.TypescriptNameIs(expected);
+	}
 }
