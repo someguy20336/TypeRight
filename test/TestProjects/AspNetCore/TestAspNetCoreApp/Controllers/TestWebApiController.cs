@@ -17,6 +17,12 @@ namespace TestAspNetCoreApp.Controllers
 		}
 
 		[ScriptAction]
+		public List<string> FromQueryNewName([FromQuery(Name = "q")] string searchText)
+		{
+			return [searchText];
+		}
+
+		[ScriptAction]
 		public CustomGroupObject1 GetRandoGroupObject([FromBody] string id)
 		{
 			return new CustomGroupObject1();
