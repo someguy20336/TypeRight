@@ -5,6 +5,6 @@
 	/// </summary>
 	public interface ITypeParameter : IType
 	{
-		
+		public bool IsNullable { get; }
 	}
 }

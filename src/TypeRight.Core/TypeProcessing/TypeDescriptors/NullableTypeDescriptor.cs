@@ -60,6 +60,10 @@ namespace TypeRight.TypeProcessing
 				{
 					useType = new NonNullArrayType(arrayType);
 				}
+				else if (_type is ITypeParameter typeParam)
+				{
+					useType = new NonNullTypeParameter(typeParam);
+				}
 
 				_typeArg = _typeFactory.LookupType(useType);
 			}
@@ -74,6 +78,20 @@ namespace TypeRight.TypeProcessing
 		public override string FormatType(TypeFormatter formatter)
 		{
 			return formatter.FormatNullableType(this);
+		}
+
+		private class NonNullTypeParameter : ITypeParameter
+		{
+			private readonly ITypeParameter _typeParam;
+			public bool IsNullable => false;
+
+			public string Name => _typeParam.Name;
+
+			public NonNullTypeParameter(ITypeParameter typeParam)
+			{
+				_typeParam = typeParam;
+			}
+
 		}
 
 		private class NonNullArrayType : IArrayType

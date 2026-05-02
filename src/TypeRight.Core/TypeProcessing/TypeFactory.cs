@@ -154,9 +154,11 @@ namespace TypeRight.TypeProcessing
 					return _dateTimeType;
 				}
 			}
-			else if (type is ITypeParameter)
+			else if (type is ITypeParameter typeParam)
 			{
-				return new TypeParameterDescriptor(type);
+				return typeParam.IsNullable 
+					? new NullableTypeDescriptor(typeParam, this) 
+					: new TypeParameterDescriptor(type);
 			}
 			else if (type is IArrayType array)
 			{

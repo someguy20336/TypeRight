@@ -9,7 +9,7 @@ export interface AGenericTypeHere<T> {
 	/**  */
 	notNull: T;
 	/**  */
-	nullable: T;
+	nullable: T | null;
 }
 
 /**  */
