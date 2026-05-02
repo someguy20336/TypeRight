@@ -9,6 +9,22 @@ namespace TypeRight.Tests.Types;
 public class NullableRefTypesTests : TypesTestBase
 {
 
+	[TestMethod]
+	[DataRow("string", "string")]
+	[DataRow("int", "number")]
+	[DataRow("DateOnly", "string")]
+	[DataRow("DateTime", "string")]
+	public void SimpleNullableBuiltInTypes(string type, string expectedType)
+	{
+		AddDefaultExtractedClass()
+			.AddProperty("Property", type + "?")
+			.Commit();
+
+		AssertThatTheDefaultReferenceType()
+			.TestPropertyWithName("Property")
+			.TypescriptNameIs(TypeScriptHelper.TypeNameOrNull(expectedType));
+
+	}
 
 	[TestMethod]
 	public void SimpleNullableRefTypeProperty()
@@ -86,6 +102,34 @@ public class NullableRefTypesTests : TypesTestBase
 		AssertThatTheDefaultReferenceType()
 			.TestPropertyWithName("Property")
 			.TypescriptNameIs(expected);
+	}
 
+	[TestMethod]
+	public void NullableDictionary_SimpleTypes()
+	{
+
+		AddDefaultExtractedClass()
+			.AddProperty("Property", "Dictionary<int, string>?")
+			.Commit();
+
+		string expected = TypeScriptHelper.FormatDictionaryType("number", "string");
+		expected = TypeScriptHelper.TypeNameOrNull(expected);
+		AssertThatTheDefaultReferenceType()
+			.TestPropertyWithName("Property")
+			.TypescriptNameIs(expected);
+	}
+
+	[TestMethod]
+	public void NullableDictionary_SimpleTypes_NullableValue()
+	{
+		AddDefaultExtractedClass()
+			.AddProperty("Property", "Dictionary<int, string?>?")
+			.Commit();
+
+		string expected = TypeScriptHelper.FormatDictionaryType("number", TypeScriptHelper.TypeNameOrNull("string"));
+		expected = TypeScriptHelper.TypeNameOrNull(expected);
+		AssertThatTheDefaultReferenceType()
+			.TestPropertyWithName("Property")
+			.TypescriptNameIs(expected);
 	}
 }
