@@ -38,11 +38,5 @@ namespace TypeRight.Tests.Types
 
 		}
 
-		// TODO: probably have a writing test...
-		//[TestMethod]
-		//public void Complex_ScriptWrites()
-		//{
-		//	_packageTester.TestScriptText();
-		//}
 	}
 }

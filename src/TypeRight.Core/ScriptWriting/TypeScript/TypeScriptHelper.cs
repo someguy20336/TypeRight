@@ -50,7 +50,14 @@ namespace TypeRight.ScriptWriting.TypeScript
 		{
 			// format is { [key: keyType]: valueType }
 			return $"{{ [key: {keyTypeName}]: {valTypeName} }}";
-		}	
+		}
 
+		/// <summary>
+		/// Generates a [type] | null entry
+		/// </summary>
+		/// <param name="typeName"></param>
+		/// <returns></returns>
+		public static string TypeNameOrNull(string typeName)
+			=> $"{typeName} | null";
 	}
 }

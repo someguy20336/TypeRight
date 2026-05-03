@@ -73,6 +73,11 @@ namespace TypeRight.TypeProcessing
 
 		public TypeDescriptor LookupType(IType type)
 		{
+			if (type is IMaybeNullable maybeNullable && maybeNullable.IsNullable)
+			{
+				return new NullableTypeDescriptor(maybeNullable, this);
+			}
+
 			if (type is INamedType namedType)
 			{
 				// "User defined" types
@@ -91,74 +96,58 @@ namespace TypeRight.TypeProcessing
 				}
 
 				// Anonymous type
-				else if (namedType.Flags.IsAnonymousType)
+				if (namedType.Flags.IsAnonymousType)
 				{
 					return new AnonymousTypeDescriptor(namedType, this);
 				}
 
 				// Non extracted type
-				else if (namedType.Flags.IsEnum)
+				if (namedType.Flags.IsEnum)
 				{
 					return new NonExtractedEnumTypeDescriptor(namedType);
 				}
 
-				// Nullable types
-				else if (namedType.Flags.IsNullable)
-				{
-					return new NullableTypeDescriptor(namedType, this);
-				}
-
 				// List types
-				else if (namedType.Flags.IsList)
+				if (namedType.Flags.IsList)
 				{
 					return new ListTypeDescriptor(namedType, this);
 				}
 
 				// Dictionary type
-				else if (namedType.Flags.IsDictionary)
+				if (namedType.Flags.IsDictionary)
 				{
 					return new DictionaryTypeDescriptor(namedType, this);
 				}
 
 				// System types- TODO: cache these - flyweight
-				else if (s_stringTypes.Contains(metadataName))
+				if (s_stringTypes.Contains(metadataName))
 				{
-					if (_stringType == null)
-					{
-						_stringType = new StringTypeDescriptor(namedType);
-					}
+					_stringType ??= new StringTypeDescriptor(namedType);
 					return _stringType;
 				}
-				else if (s_numericTypes.Contains(metadataName))
+				if (s_numericTypes.Contains(metadataName))
 				{
-					if (_numericType == null)
-					{
-						_numericType = new NumericTypeDescriptor(namedType);
-					}
+					_numericType ??= new NumericTypeDescriptor(namedType);
 					return _numericType;
 				}
-				else if (s_booleanTypes.Contains(metadataName))
+				if (s_booleanTypes.Contains(metadataName))
 				{
-					if (_booleanType == null)
-					{
-						_booleanType = new BooleanTypeDescriptor(namedType);
-					}
+					_booleanType ??= new BooleanTypeDescriptor(namedType);
 					return _booleanType;
 				}
-				else if (s_datetimeTypes.Contains(metadataName))
+				if (s_datetimeTypes.Contains(metadataName))
 				{
-					if (_dateTimeType == null)
-					{
-						_dateTimeType = new DateTimeTypeDescriptor(namedType);
-					}
+					_dateTimeType ??= new DateTimeTypeDescriptor(namedType);
 					return _dateTimeType;
 				}
 			}
-			else if (type is ITypeParameter)
+			
+			if (type is ITypeParameter)
 			{
 				return new TypeParameterDescriptor(type);
 			}
-			else if (type is IArrayType array)
+			
+			if (type is IArrayType array)
 			{
 				return new ArrayTypeDescriptor(array, this);
 			}

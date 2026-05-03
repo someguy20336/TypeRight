@@ -11,11 +11,6 @@
 		public bool IsEnum { get; }
 
 		/// <summary>
-		/// Gets whether this type is nullable
-		/// </summary>
-		public bool IsNullable { get; }
-
-		/// <summary>
 		/// Gets whether this type is an array
 		/// </summary>
 		public bool IsArray { get; }
@@ -44,7 +39,6 @@
 		/// Creates a new type flags object
 		/// </summary>
 		/// <param name="isEnum"></param>
-		/// <param name="isNullable"></param>
 		/// <param name="isArray"></param>
 		/// <param name="isList"></param>
 		/// <param name="isDictionary"></param>
@@ -52,7 +46,6 @@
 		/// <param name="isInterface">Flag for whethe this type is an interface</param>
 		public TypeFlags(
 			bool isEnum = false,
-			bool isNullable = false,
 			bool isArray = false,
 			bool isList = false,
 			bool isDictionary = false,
@@ -61,7 +54,6 @@
 			)
 		{
 			IsEnum = isEnum;
-			IsNullable = isNullable;
 			IsArray = isArray;
 			IsList = isList;
 			IsDictionary = isDictionary;

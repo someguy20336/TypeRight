@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace TypeRight.CodeModel
 {
 	/// <summary>
 	/// Represents a type that will be extracted to a script
 	/// </summary>
-	public interface INamedType : IType, ITypeWithFullName
+	public interface INamedType : IType, ITypeWithFullName, IMaybeNullable
 	{
 
 		/// <summary>
@@ -61,7 +57,6 @@ namespace TypeRight.CodeModel
 		/// Gets the flags for this type
 		/// </summary>
 		TypeFlags Flags { get; }
-
 
 		/// <summary>
 		/// TODO: I DONT WANT THIS

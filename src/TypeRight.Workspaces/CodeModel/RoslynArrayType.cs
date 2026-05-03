@@ -13,15 +13,20 @@ namespace TypeRight.Workspaces.CodeModel
 
 		public IType ElementType => _elementInitializer.Value;
 
+		public bool IsNullable { get; }
+
 		public RoslynArrayType(IArrayTypeSymbol arrayTypeSymbol, ParseContext context)
 			:base(arrayTypeSymbol, context)
 		{
 			_elementInitializer = new Lazy<RoslynType>(() => RoslynType.CreateType(ArrayTypeSymbol.ElementType, context));
+			IsNullable = arrayTypeSymbol.NullableAnnotation == NullableAnnotation.Annotated;
 		}
 
 		public override string ToString()
 		{
 			return $"{ElementType.ToString()}[]";
 		}
+
+		public IType AsNonNullable() => new NonNullArrayType(this);
 	}
 }

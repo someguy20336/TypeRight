@@ -17,7 +17,7 @@ export interface ASimpleModel<T1, T2> {
 	/**  */
 	enumDict: { [key: number]: ServerObjects.NetStandardEnum };
 	/**  */
-	nullableEnum: ServerObjects.NetStandardEnum;
+	nullableEnum: ServerObjects.NetStandardEnum | null;
 }
 
 /**  */
