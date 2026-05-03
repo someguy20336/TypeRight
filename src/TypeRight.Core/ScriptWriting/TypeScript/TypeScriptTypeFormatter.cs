@@ -125,7 +125,7 @@ namespace TypeRight.ScriptWriting.TypeScript
 				typeName += $"<{string.Join(", ", typeArgs)}>";
 			}
 
-			if (namedReferenceType.NamedType.Flags.IsNullable)
+			if (namedReferenceType.NamedType.IsNullable)
 			{
 				typeName = TypeScriptHelper.TypeNameOrNull(typeName);
 			}

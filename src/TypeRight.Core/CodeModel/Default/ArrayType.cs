@@ -13,5 +13,7 @@
 			ElementType = elementType;
 			Name = name;
 		}
+
+		public IType AsNonNullable() => this;
 	}
 }

@@ -73,14 +73,13 @@ namespace TypeRight.TypeProcessing
 
 		public TypeDescriptor LookupType(IType type)
 		{
+			if (type is IMaybeNullable maybeNullable && maybeNullable.IsNullable)
+			{
+				return new NullableTypeDescriptor(maybeNullable, this);
+			}
+
 			if (type is INamedType namedType)
 			{
-				// Nullable types
-				if (namedType.Flags.IsNullable)
-				{
-					return new NullableTypeDescriptor(namedType, this);
-				}
-
 				// "User defined" types
 				string metadataName = namedType.ConstructedFromType.FullName;
 				if (_extractedTypes.ContainsKey(metadataName))
@@ -123,48 +122,34 @@ namespace TypeRight.TypeProcessing
 				// System types- TODO: cache these - flyweight
 				if (s_stringTypes.Contains(metadataName))
 				{
-					if (_stringType == null)
-					{
-						_stringType = new StringTypeDescriptor(namedType);
-					}
+					_stringType ??= new StringTypeDescriptor(namedType);
 					return _stringType;
 				}
 				if (s_numericTypes.Contains(metadataName))
 				{
-					if (_numericType == null)
-					{
-						_numericType = new NumericTypeDescriptor(namedType);
-					}
+					_numericType ??= new NumericTypeDescriptor(namedType);
 					return _numericType;
 				}
 				if (s_booleanTypes.Contains(metadataName))
 				{
-					if (_booleanType == null)
-					{
-						_booleanType = new BooleanTypeDescriptor(namedType);
-					}
+					_booleanType ??= new BooleanTypeDescriptor(namedType);
 					return _booleanType;
 				}
 				if (s_datetimeTypes.Contains(metadataName))
 				{
-					if (_dateTimeType == null)
-					{
-						_dateTimeType = new DateTimeTypeDescriptor(namedType);
-					}
+					_dateTimeType ??= new DateTimeTypeDescriptor(namedType);
 					return _dateTimeType;
 				}
 			}
-			else if (type is ITypeParameter typeParam)
+			
+			if (type is ITypeParameter)
 			{
-				return typeParam.IsNullable 
-					? new NullableTypeDescriptor(typeParam, this) 
-					: new TypeParameterDescriptor(type);
+				return new TypeParameterDescriptor(type);
 			}
-			else if (type is IArrayType array)
+			
+			if (type is IArrayType array)
 			{
-				return array.IsNullable 
-					? new NullableTypeDescriptor(array, this) 
-					: new ArrayTypeDescriptor(array, this);
+				return new ArrayTypeDescriptor(array, this);
 			}
 
 			return new UnknownTypeDescriptor();

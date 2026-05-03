@@ -31,6 +31,9 @@ namespace TypeRight.CodeModel.Default
 		public string Name { get; }
 
 		public string FullName { get; }
+
+		public bool IsNullable => false;
+
 		// TODO: factory for specifc types
 		public NamedType(string name, 
 			string fullName,
@@ -60,5 +63,7 @@ namespace TypeRight.CodeModel.Default
 			Flags = flags ?? new TypeFlags();
 			Comments = comments;
 		}
+
+		public IType AsNonNullable() => this;
 	}
 }

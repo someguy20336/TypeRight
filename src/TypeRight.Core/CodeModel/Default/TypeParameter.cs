@@ -11,5 +11,6 @@
 			Name = name;
 		}
 
+		public IType AsNonNullable() => this;
 	}
 }

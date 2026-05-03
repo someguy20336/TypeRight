@@ -90,6 +90,7 @@ namespace TypeRight.Workspaces.CodeModel
 		/// </summary>
 		public TypeFlags Flags { get; }
 
+		public bool IsNullable { get; }
 
 		public RoslynNamedType(INamedTypeSymbol namedTypeSymbol, ParseContext context)
 			: base(
@@ -174,9 +175,10 @@ namespace TypeRight.Workspaces.CodeModel
 				return interfaces;
 			});
 
+			IsNullable = IsNullableType();
+
 			Flags = new TypeFlags(
 				isEnum: namedTypeSymbol.TypeKind == TypeKind.Enum,
-				isNullable: IsNullableType(),
 				isArray: namedTypeSymbol.TypeKind == TypeKind.Array,
 				isList: IsListType(),
 				isDictionary: IsDictionaryType(),
@@ -255,5 +257,7 @@ namespace TypeRight.Workspaces.CodeModel
 		{
 			return FullName;
 		}
+
+		public IType AsNonNullable() => new NonNullNamedType(this);
 	}
 }

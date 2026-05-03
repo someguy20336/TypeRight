@@ -3,8 +3,7 @@
 	/// <summary>
 	/// Represents a type that is a type parameter 
 	/// </summary>
-	public interface ITypeParameter : IType
+	public interface ITypeParameter : IType, IMaybeNullable
 	{
-		public bool IsNullable { get; }
 	}
 }

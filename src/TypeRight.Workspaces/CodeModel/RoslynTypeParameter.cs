@@ -12,5 +12,7 @@ namespace TypeRight.Workspaces.CodeModel
 		{
 			IsNullable = sym.NullableAnnotation == NullableAnnotation.Annotated;
 		}
+
+		public IType AsNonNullable() => new NonNullTypeParameter(this);
 	}
 }

@@ -26,5 +26,7 @@ namespace TypeRight.Workspaces.CodeModel
 		{
 			return $"{ElementType.ToString()}[]";
 		}
+
+		public IType AsNonNullable() => new NonNullArrayType(this);
 	}
 }
