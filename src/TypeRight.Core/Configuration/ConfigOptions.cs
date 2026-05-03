@@ -28,7 +28,7 @@ namespace TypeRight.Configuration
 		[JsonConverter(typeof(CamelCaseStringEnumConverter), NamingStrategyType.Camel)]
 		public NamingStrategyType NameCasingConverter { get; set; }
 
-		[JsonConverter(typeof(CamelCaseStringEnumConverter))]
+		[JsonConverter(typeof(CamelCaseStringEnumConverter), ImportModuleNameStyle.Extensionless)]
 		public ImportModuleNameStyle ImportModuleNameStyle { get; set; }
 
 		[JsonConverter(typeof(QueryParamJsonConverter))]
