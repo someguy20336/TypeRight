@@ -38,7 +38,7 @@ namespace TypeRight.ScriptWriting.TypeScript
 
 				foreach (var queryP in GetSimpleQueryParams(action))
 				{
-					exts.Add(new AddSimpleParameterToQueryStringScriptExtension(queryP.Name));
+					exts.Add(new AddSimpleParameterToQueryStringScriptExtension(queryP));
 				}
 
 				foreach (string key in _constantQueryParams.Keys)
@@ -51,7 +51,7 @@ namespace TypeRight.ScriptWriting.TypeScript
 
 				foreach (var queryP in GetComplexQueryParams(action))
 				{
-					exts.Add(new AddComplexParameterToQueryStringScriptExtension(queryP.Name));
+					exts.Add(new AddComplexParameterToQueryStringScriptExtension(queryP));
 				}
 
 			}

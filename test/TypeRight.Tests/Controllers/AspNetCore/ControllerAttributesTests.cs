@@ -55,9 +55,9 @@ export function TestAction(fromQuery: string): void {{
 			;
 
 			AssertScriptTextForFunctionIs(@$"
-export function TestAction(q: string): void {{
+export function TestAction(fromQuery: string): void {{
 	const urlParams = new URLSearchParams();
-	tryAppendKeyValueToUrl(urlParams, ""q"", q);
+	tryAppendKeyValueToUrl(urlParams, ""q"", fromQuery);
 	fetchWrapper(""GET"", `/{ControllerName}/TestAction${{getQueryString(urlParams)}}`, null);
 }}", ScriptExtensions.KeyValueQueryParamHelper);
 		}
