@@ -1,4 +1,5 @@
 ﻿using TypeRight.ScriptWriting.TypeScript.PartialTextTemplates;
+using TypeRight.TypeProcessing;
 
 namespace TypeRight.ScriptWriting.TypeScript.ScriptExtensions
 {
@@ -19,16 +20,16 @@ namespace TypeRight.ScriptWriting.TypeScript.ScriptExtensions
 	/// </summary>
 	internal class AddSimpleParameterToQueryStringScriptExtension : IScriptExtension
 	{
-		private string _paramName;
+		private readonly MvcActionParameter _param;
 
-		public AddSimpleParameterToQueryStringScriptExtension(string paramName)
+		public AddSimpleParameterToQueryStringScriptExtension(MvcActionParameter param)
 		{
-			_paramName = paramName;
+			_param = param;
 		}
 
 		public void Write(IScriptWriter writer)
 		{
-			writer.WriteLine($"{QueryParameterHelperFunctions.TryAppendKeyValueFuncName}({InitUrlParamsScriptExtensions.UrlParamsVarName}, \"{_paramName}\", {_paramName});");
+			writer.WriteLine($"{QueryParameterHelperFunctions.TryAppendKeyValueFuncName}({InitUrlParamsScriptExtensions.UrlParamsVarName}, \"{_param.ApiName}\", {_param.Name});");
 		}
 	}
 
@@ -51,16 +52,16 @@ namespace TypeRight.ScriptWriting.TypeScript.ScriptExtensions
 
 	internal class AddComplexParameterToQueryStringScriptExtension : IScriptExtension
 	{
-		private string _paramName;
+		private readonly MvcActionParameter _param;
 
-		public AddComplexParameterToQueryStringScriptExtension(string paramName)
+		public AddComplexParameterToQueryStringScriptExtension(MvcActionParameter param)
 		{
-			_paramName = paramName;
+			_param = param;
 		}
 
 		public void Write(IScriptWriter writer)
 		{
-			writer.WriteLine($"{QueryParameterHelperFunctions.TryAppendObjectFuncName}({InitUrlParamsScriptExtensions.UrlParamsVarName}, {_paramName});");
+			writer.WriteLine($"{QueryParameterHelperFunctions.TryAppendObjectFuncName}({InitUrlParamsScriptExtensions.UrlParamsVarName}, {_param.Name});");
 		}
 	}
 }

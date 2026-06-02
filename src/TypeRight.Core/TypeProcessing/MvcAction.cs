@@ -181,22 +181,29 @@ namespace TypeRight.TypeProcessing
 
 		private ActionParameterSourceType? _bindingType;
 		private readonly string _origName;
-		private string _name;
+		private string _apiName;
 
 		internal MvcAction Action { get; }
 
-        /// <summary>
-        /// Gets the name of the parameter
-        /// </summary>
-        public string Name
+		/// <summary>
+		/// Gets the name of the parameter, as defined in C#
+		/// </summary>
+		public string Name => _origName;
+
+		/// <summary>
+		/// Gets the name of the parameter, as expected by the API.
+		/// For example, as a query parameter if changed via FromQuery
+		/// </summary>
+		public string ApiName
 		{
+
 			get
 			{
-				if (string.IsNullOrEmpty(_name))
+				if (string.IsNullOrEmpty(_apiName))
 				{
-					_name = ComputeName();
+					_apiName = ComputeApiName();
 				}
-				return _name;
+				return _apiName;
 			}
 		}
 
@@ -246,7 +253,7 @@ namespace TypeRight.TypeProcessing
 			IsOptional = false;
 		}
 
-		private string ComputeName()
+		private string ComputeApiName()
 		{
 			IAttributeData fromQueryAttr = s_queryParamFilter.GetAttribute(this);
 			if (fromQueryAttr is null 

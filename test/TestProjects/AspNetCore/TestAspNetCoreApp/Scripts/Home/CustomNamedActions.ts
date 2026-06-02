@@ -58,10 +58,11 @@ export function complexWithListFromQuery(fromQueryModel: Partial<ServerObjects.M
 
 /**
  * 
+ * @param searchText 
  */
-export function fromQueryNewName(q: string, abort?: AbortSignal): Promise<string[]> {
+export function fromQueryNewName(searchText: string, abort?: AbortSignal): Promise<string[]> {
 	const urlParams = new URLSearchParams();
-	tryAppendKeyValueToUrl(urlParams, "q", q);
+	tryAppendKeyValueToUrl(urlParams, "q", searchText);
 	tryAppendKeyValueToUrl(urlParams, "param1", "val1");
 	tryAppendKeyValueToUrl(urlParams, "param2", "val2");
 	return fetchWrapper("GET", `/api/TestWebApi${getQueryString(urlParams)}`, null, abort);
