@@ -5,29 +5,29 @@ import * as ServerObjects from "../ServerObjects.js";
 import * as Models from "./Models.js";
 
 function tryAppendKeyValueToUrl(urlParams: URLSearchParams, key: string, value: any): void {
-    if (value !== null && typeof value !== "undefined") {
-        if (Array.isArray(value)) {
-            for (let aryVal of value) {
-                urlParams.append(key, aryVal.toString());
-            }
-        } else {
-            urlParams.append(key, value);
-        }
-    }
+	if (value !== null && typeof value !== "undefined") {
+		if (Array.isArray(value)) {
+			for (let aryVal of value) {
+				urlParams.append(key, aryVal.toString());
+			}
+		} else {
+			urlParams.append(key, value);
+		}
+	}
 }
 
 function tryAppendObjectValuesToUrl(urlParams: URLSearchParams, obj: any): void {
-    for (let [key, val] of Object.entries(obj)) {
-        tryAppendKeyValueToUrl(urlParams, key, val);
-    }
+	for (let [key, val] of Object.entries(obj)) {
+		tryAppendKeyValueToUrl(urlParams, key, val);
+	}
 }
 
 function getQueryString(urlParams: URLSearchParams): string {
-    let queryString = urlParams.toString();
-    if (queryString !== "") {
-        queryString = "?" + queryString;
-    }
-    return queryString;
+	let queryString = urlParams.toString();
+	if (queryString !== "") {
+		queryString = "?" + queryString;
+	}
+	return queryString;
 }
 
 /**
