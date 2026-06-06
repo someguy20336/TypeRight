@@ -2,23 +2,23 @@
 import { fetchWrapper } from "./CallServiceStuff.js";
 
 function tryAppendKeyValueToUrl(urlParams: URLSearchParams, key: string, value: any): void {
-    if (value !== null && typeof value !== "undefined") {
-        if (Array.isArray(value)) {
-            for (let aryVal of value) {
-                urlParams.append(key, aryVal.toString());
-            }
-        } else {
-            urlParams.append(key, value);
-        }
-    }
+	if (value !== null && typeof value !== "undefined") {
+		if (Array.isArray(value)) {
+			for (let aryVal of value) {
+				urlParams.append(key, aryVal.toString());
+			}
+		} else {
+			urlParams.append(key, value);
+		}
+	}
 }
 
 function getQueryString(urlParams: URLSearchParams): string {
-    let queryString = urlParams.toString();
-    if (queryString !== "") {
-        queryString = "?" + queryString;
-    }
-    return queryString;
+	let queryString = urlParams.toString();
+	if (queryString !== "") {
+		queryString = "?" + queryString;
+	}
+	return queryString;
 }
 
 /**

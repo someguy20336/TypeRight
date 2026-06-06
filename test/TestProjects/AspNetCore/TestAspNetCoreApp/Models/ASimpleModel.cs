@@ -9,6 +9,7 @@ namespace TestAspNetCoreApp.Models
 {
 	/// <summary>
 	/// Tst model
+	/// with two line comment
 	/// </summary>
 	[ScriptObject]
     public class ASimpleModel
@@ -21,6 +22,7 @@ namespace TestAspNetCoreApp.Models
 
 		/// <summary>
 		/// Doc for prop 2
+		/// With another line!
 		/// </summary>
 		public string PropTwo { get; set; }
 

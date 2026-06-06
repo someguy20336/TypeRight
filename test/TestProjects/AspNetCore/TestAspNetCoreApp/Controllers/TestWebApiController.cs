@@ -10,6 +10,11 @@ namespace TestAspNetCoreApp.Controllers
 	[ScriptOutput("../Scripts/Home/CustomNamedActions.ts")]
     public class TestWebApiController : ControllerBase
     {
+		/// <summary>
+		/// This API has
+		/// multiple lines
+		/// </summary>
+		/// <returns></returns>
 		[ScriptAction]
 		public List<string> GetStringList()
 		{

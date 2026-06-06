@@ -41,6 +41,15 @@ namespace TypeRight.ScriptWriting.TypeScript.PartialTextTemplates
 			}
 		}
 
+		private string FormatSummaryComments()
+		{
+			// Join multi-line comments back up so there is an * on each line
+			IEnumerable<string> splitOnNewLine = _action.SummaryComments
+				.Split('\n')
+				.Select(s => s.TrimStart());
+			return string.Join("\n * ", splitOnNewLine);
+		}
+
 		/// <summary>
 		/// Builds the action signature
 		/// </summary>
