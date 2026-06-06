@@ -4,12 +4,12 @@
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
 <# if (_enumType.UseExtendedSyntax) { #>
-/** <#= _enumType.Comments #> */
+<#= FormatDocs(_enumType.Comments, "") #>
 export var <#= _enumType.Name #> = {
 <# 
 	foreach (var eMember in _enumType.Members) { 
 #>
-	/** <#= eMember.Comments #> */
+	<#= FormatDocs(eMember.Comments, "\t") #>
 	<#= eMember.Name #>: {
 		id: <#= eMember.Value #>,
 		name: "<#= eMember.DisplayName #>",
@@ -18,12 +18,12 @@ export var <#= _enumType.Name #> = {
 <# 	}  #>
 };
 <# } else { #>
-/** <#= _enumType.Comments #> */
+<#= FormatDocs(_enumType.Comments, "") #>
 export enum <#= _enumType.Name #> {
 <# 
 	foreach (var eMember in _enumType.Members) { 
 #>
-	/** <#= eMember.Comments #> */
+	<#= FormatDocs(eMember.Comments, "\t") #>
 	<#= eMember.Name #> = <#= eMember.Value #>,
 <# 	} #>
 }<# } #>

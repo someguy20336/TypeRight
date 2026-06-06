@@ -25,5 +25,8 @@ namespace TypeRight.ScriptWriting.TypeScript.PartialTextTemplates
 			_enumType = null;
 			return text;
 		}
+
+		private string FormatDocs(string text, string indent)
+			=> TypeScriptHelper.FormatDocs(text, indent);
 	}
 }

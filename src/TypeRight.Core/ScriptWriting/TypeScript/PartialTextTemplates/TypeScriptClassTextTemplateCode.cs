@@ -42,5 +42,8 @@ namespace TypeRight.ScriptWriting.TypeScript.PartialTextTemplates
 			_type = null;
 			return text;
 		}
+
+		private string FormatDocs(string text, string indent) 
+			=> TypeScriptHelper.FormatDocs(text, indent);
 	}
 }

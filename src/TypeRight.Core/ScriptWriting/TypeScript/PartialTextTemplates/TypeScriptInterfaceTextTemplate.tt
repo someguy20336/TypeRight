@@ -3,12 +3,12 @@
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
-/** <#= _type.Comments #> */
+<#= FormatDocs(_type.Comments, "") #>
 export interface <#= GetClassDeclaration() #><#= GetExtendsType() #> {
 <# 
 foreach (var prop in _type.Properties) { 
 #>
-	/** <#= prop.Comments #> */
+	<#= FormatDocs(prop.Comments, "\t") #>
 	<#= prop.OutputName #>: <#= GetPropertyType(prop) #>;
 <#
 }
