@@ -40,11 +40,17 @@ export interface ANullableModel {
 	genericNullable: AGenericTypeHere<number | null>;
 }
 
-/** Tst model */
+/**
+ * Tst model
+ * with two line comment
+ */
 export interface ASimpleModel {
 	/** Doc for prop 1 */
 	propOne: number;
-	/** Doc for prop 2 */
+	/**
+	 * Doc for prop 2
+	 * With another line!
+	 */
 	propTwo: string;
 	/**  */
 	overrideSysText: number;

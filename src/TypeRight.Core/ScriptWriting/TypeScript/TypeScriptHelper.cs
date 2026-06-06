@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using TypeRight.TypeProcessing;
 
@@ -59,5 +60,26 @@ namespace TypeRight.ScriptWriting.TypeScript
 		/// <returns></returns>
 		public static string TypeNameOrNull(string typeName)
 			=> $"{typeName} | null";
+
+		public static string FormatDocs(string docText, string indentation)
+		{
+			if (docText == null)
+			{
+				return "/**  */";
+			}
+			string[] split = docText.Split('\n')
+				.Select(s => s.TrimStart())
+				.ToArray();
+
+			if (split.Length == 1)
+			{
+				return $"/** {split[0]} */";
+			}
+			string prefix = $"{indentation} * ";
+			string docLines = string.Join("\n" + prefix, split);  // Restore the \n that was split above
+
+			return $"/**{Environment.NewLine}{prefix}{docLines}{Environment.NewLine}"
+				+ $"{prefix.TrimEnd()}/";
+		}
 	}
 }
